@@ -9,18 +9,26 @@ Il vous faut:
 Marche a suivre pour chaque machine:
 Sur Github.com
 * Connectez-vous a votre compte
+* Creez un repositoire 42 (il peut etre prive)
 * Parametres > Cles SSH et GPG
 * Ajoutez votre cle SSH (rappel: cd ~/.ssh, cat <votre_cle.pub>) pour l'authentification
 
 Sur votre machine
 * git clone <git@github.com:<nom_d'utilisateur_github>/<nom du repositoire>.git <nom_de_votre_dossier_cible> // n.b.: vous pouvez les retrouver a partir de l'URL classique de votre repo: github.com/<nom_d'utilisateur_github>/<nom du repositoire>
-* 
+* submodules: si le dossier que vous copiez contient deja des repositoires git, risque d'erreur type error: 'c00/' does not have a commit checked out 
+=> git rm <path-to-submodule> && git commit -- https://linuxpip.org/git-does-not-have-a-commit-checked-out/
++> =====> du coup probleme de workflow => solution: dossier rendus sur machine ?
+https://git-scm.com/book/fr/v2/Utilitaires-Git-Sous-modules
 
 
-N.b.: en ajoutant votre cle publique de 42 a votre Github, vous donnez le droit a quiconque a acces a votre login 42 d'acceder a votre compte Github, sauf mesures de securite supplementaires.
 
+N.b.: en ajoutant votre cle publique de 42 a votre Github, vous donnez le droit a quiconque a acces a votre login 42 d'acceder a votre compte Github, sauf mesures de securite supplementaires (passphrase sur votre SSH par exemple)
 
+Voila, vous avez desormais un repositoire Github ou vous pouvez push vos fichiers depuis 42 pour continuer a la maison sans doublons, cles USB, google drive, etc.
 
+P.S.: pour acceder au manuel de github depuis le terminal, man git-<nom de la commande git> ;)
+
+See https://git-scm.com/book/fr/v2/Utilitaires-Git-Sous-modules
 
 
 
