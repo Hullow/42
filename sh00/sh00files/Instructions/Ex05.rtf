@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Monaco;\f2\fnil\fcharset0 HelveticaNeue;
+}
+{\colortbl;\red255\green255\blue255;\red42\green49\blue64;\red245\green245\blue246;}
+{\*\expandedcolortbl;;\cssrgb\c21569\c25490\c31765;\cssrgb\c96863\c96863\c97255;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}.}{\leveltext\leveltemplateid1\'01.;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww19140\viewh6960\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 git log --format='%H' -5\
+\
+Man git-log:\
+Placeholders that expand to information extracted from the\
+               commit:\
+\
+               %H         commit hash\
+\
+\
+ChatGPT:\
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\f1\fs28 \cf2 \cb3 {\listtext	.	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 --format='%H'
+\f2\fs32 : This option changes the way the commit information is displayed. The 
+\f1\fs28 format
+\f2\fs32  option followed by a string in single quotes (
+\f1\fs28 '%H'
+\f2\fs32  in this case) tells Git exactly what information to display for each commit.\cb1 \uc0\u8232 \cb3 The 
+\f1\fs28 %H
+\f2\fs32  inside the string is a placeholder that Git replaces with the commit hash. So 
+\f1\fs28 --format='%H'
+\f2\fs32  tells Git to only display the commit hash and nothing else. There are many other placeholders you can use to display other information (like 
+\f1\fs28 %an
+\f2\fs32  for author name, 
+\f1\fs28 %ad
+\f2\fs32  for author date, etc.). You can check the 
+\f1\fs28 git log
+\f2\fs32  documentation for a full list.\cb1 \uc0\u8232 \
+\ls1\ilvl0
+\f1\fs28 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	.	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 -5
+\f2\fs32 : This is a shorthand for 
+\f1\fs28 head -n 5
+\f2\fs32 , which limits the output to the last 5 commits. The 
+\f1\fs28 -n
+\f2\fs32  option followed by a number tells Git how many commits to display, starting from the most recent one. If you omit this option, 
+\f1\fs28 git log
+\f2\fs32  will display all commits.\cb1 \uc0\u8232 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 \
+\
+\
+See https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History\
+\
+\
+Cat -e :\
+  -e      Display non-printing characters (see the -v option), and display a dollar sign (\'91$\'92) at the end of each line.\
+\
+\
+Solution:\
+git log --pretty=format:'%H' -n 5\
+=> need to explain pretty format!!!\
+=> using chatgpt\
+\
+	=> simplified by reading the {\field{\*\fldinst{HYPERLINK "https://git-scm.com/docs/git-log"}}{\fldrslt manual}} to git log --format='%H' -5\
+\
++ #!/bin/sh at the beginning}

@@ -1,0 +1,111 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fnil\fcharset0 HelveticaNeue;
+}
+{\colortbl;\red255\green255\blue255;\red14\green14\blue14;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c6667\c6667\c6667;\cssrgb\c100000\c100000\c100000;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww13520\viewh7340\viewkind0
+\deftab720
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Solution:\ulnone \
+
+\f1\b 41 string 42 42 file
+\f0\b0 \
+nb: Need 41 because it works if we create a file 42-file where 42 starts at 1,42. 0-based indexing => if \'9342" starts at position 42 (1-indexed), we need an offset of 41 (0-indexed)\
+\
+To use it: 
+\f1\b file 42-file -m magic
+\f0\b0 \
+
+\f1\b 42-file: \'93                                         42\'94
+\f0\b0 \
+\
+\
+Following {\field{\*\fldinst{HYPERLINK "https://0xpius.hashnode.dev/a-quick-guide-to-magic-files"}}{\fldrslt https://0xpius.hashnode.dev/a-quick-guide-to-magic-files}} and chatGPT\
+\
+\ul Hashnode:\ulnone \
+\pard\pardeftab720\sa480\partightenfactor0
+\cf0 offset: This field specifies where in the file to start looking for the pattern. It can be an absolute value, for example, 0 (meaning from the beginning of the file), 10 (meaning skip 10 bytes from the beginning of the file and start looking at the 11th byte in the file), It can also be a symbolic reference to another offset in the file.\
+type: This field specifies how the data at the offset should be interpreted. Commonly used types include string, long, byte, short, and search.\
+test:\'a0This field describes the precise pattern or tests that should be run on the data at the offset. This can be a literal string, a regular expression, or a more complex test.\
+description:\'a0An explanation of the file type in human-readable form is provided in this field. It is usually a short phrase describing.
+\f2\fs40 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\
+\ul ChatGPT\ulnone \
+\
+
+\f1\b Prompt
+\f0\b0 \
+"Cr\'e9er un fichier magique nomm\'e9 ft_magic qui devra \'eatre correctement format\'e9\
+pour d\'e9tecter les fichiers de type 42 file et constitu\'e9s de la cha\'eene "42" \'e0u 42\'e8me\
+octet."\
+\pard\pardeftab720\sl360\qc\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sl240\partightenfactor0
+
+\f1\b \cf0 Answer
+\f0\b0 \
+\pard\pardeftab720\sl420\sa300\partightenfactor0
+\cf0 Cet \'e9nonc\'e9 vous demande de cr\'e9er un fichier dit "magique" qui sera utilis\'e9 pour identifier un type de fichier sp\'e9cifique, en l'occurrence des fichiers appel\'e9s "42 file". Ce type de fichier est d\'e9fini par le fait qu'il contient la cha\'eene de caract\'e8res "42" \'e0 l'emplacement du 42\'e8me octet.\
+Le terme "fichier magique" fait r\'e9f\'e9rence \'e0 un fichier utilis\'e9 par la commande file sur les syst\'e8mes Unix et Unix-like pour identifier le type de donn\'e9es contenues dans un fichier.\
+La commande file utilise un fichier de donn\'e9es, souvent appel\'e9 magic, qui contient les descriptions de divers formats de fichiers binaires et de texte. Chaque description, ou entr\'e9e, dans le fichier de donn\'e9es magic est appel\'e9e une "r\'e8gle magique". Chaque r\'e8gle magique peut sp\'e9cifier un "nombre magique" (une s\'e9quence de bytes sp\'e9cifique \'e0 un emplacement sp\'e9cifique dans un fichier) ou d'autres caract\'e9ristiques d'un format de fichier.\
+Dans le contexte de cet \'e9nonc\'e9, vous devrez \'e9crire une r\'e8gle magique pour identifier un fichier de type "42 file". Cette r\'e8gle devra sp\'e9cifier que le 42\'e8me octet (un octet \'e9quivaut \'e0 un caract\'e8re) doit \'eatre la cha\'eene de caract\'e8res "42". Cela signifie que la commande file identifiera un fichier comme \'e9tant de type "42 file" si et seulement si la cha\'eene "42" appara\'eet au 42\'e8me octet.\
+En terme de syntaxe, une r\'e8gle magique dans un fichier magic pourrait ressembler \'e0 ceci :\
+\pard\pardeftab720\sl300\partightenfactor0
+\cf0 					42 string 42 42 file\
+\
+\pard\pardeftab720\sa400\partightenfactor0
+\cf0 Cette r\'e8gle est interpr\'e9t\'e9e de la mani\'e8re suivante :\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf0 {\listtext	\uc0\u8226 	}42 : C'est l'offset, l'emplacement dans le fichier que nous voulons examiner. Ici, nous voulons examiner le 42\'e8me octet.\
+{\listtext	\uc0\u8226 	}string : C'est le type de donn\'e9es que nous recherchons. Ici, nous recherchons une cha\'eene de caract\'e8res.\
+{\listtext	\uc0\u8226 	}42 : C'est la valeur que nous recherchons. Ici, nous recherchons la cha\'eene "42".\
+{\listtext	\uc0\u8226 	}42 file : C'est le message qui sera affich\'e9 par la commande file si cette r\'e8gle est respect\'e9e.\
+\pard\pardeftab720\sa400\partightenfactor0
+\cf0 Ainsi, votre fichier ft_magic devrait contenir cette ligne pour respecter l'\'e9nonc\'e9.\
+\pard\pardeftab720\partightenfactor0
+\cf0 Cependant, avant de l'utiliser, assurez-vous de bien comprendre comment fonctionne le fichier magic et sa syntaxe, car une mauvaise utilisation pourrait conduire \'e0 des r\'e9sultats incorrects lors de l'identification des types de fichiers.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\
+\
+\
+Man magic\
+ The database of these ``magic patterns'' is\
+     usually located in a binary file in /usr/share/file/magic.mgc or a direc-\
+     tory of source text magic pattern fragment files in\
+     /usr/share/file/magic.  The database specifies what patterns are to be\
+     tested for, what message or MIME type to print if a particular pattern is\
+     found, and additional information to extract from the file.\
+\
+     The format of the source fragment files that are used to build this data-\
+     base is as follows: Each line of a fragment file specifies a test to be\
+     performed.  A test compares the data starting at a particular offset in\
+     the file with a byte value, a string or a numeric value.  If the test\
+     succeeds, a message is printed.  The line consists of the following\
+     fields:\
+\
+\
+Man file\
+     -c, --checking-printout\
+             Cause a checking printout of the parsed form of the magic file.\
+             This is usually used in conjunction with the -m flag to debug a\
+             new magic file before installing it.\
+\
+     -C, --compile\
+             Write a magic.mgc output file that contains a pre-parsed version\
+             of the magic file or directory.\
+\
+     -m, --magic-file list\
+             Specify an alternate list of files and directories containing\
+             magic.  This can be a single item, or a colon-separated list.\
+             If a compiled magic file is found alongside a file or directory,\
+             it will be used instead.}

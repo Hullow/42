@@ -1,0 +1,61 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Ex02\ulnone \
+\
+mkdir ex02\
+cd ex02\
+\
+mkdir test0 test2\
+\
+echo 111 > test1\
+echo | tee test3 test5\
+echo "1" > test4\
+\
+ln -s test0 test6\
+\
+chmod u+rx,g=x,o=rx test0\
+chmod u+x,g-r,g+x test1\
+chmod u=rx,g=,o=r test2\
+chmod u=r,g=,o=r test3\
+chmod o=x test4\
+chmod u=r,g=,o=r test5\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 chmod -h a+w test6\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b \cf0 See file \'91script\'92 in ex02 folder
+\f0\b0 \
+touch -t "202306012047" test0\
+touch -t "2023060121:46:00" test1\
+touch -t "2023-06-01T22:45:00" test2\
+touch -t "2023-06-01T23:44:00" test3 test5\
+touch -t "2023-06-01T23:43:00" test4\
+touch -ht "202306012220" test6\
+\
+cd ..\
+mkdir ex02links\
+cd ex02links\
+ln ../ex02/test3 ex02link3\
+ln ../ex02/test5 ex02link5\
+\
+cd ..\
+tar -cf ex02.tar ex02 ex02links\
+sudo rm -r ex02 ex02links\
+\
+\
+Links:\
+\'93By default, ln makes hard links.  A hard link to a file is indistinguishable from the original directory entry; any changes to a file are effectively independent of the name used to reference the file.  
+\f1\b Directories may not be hardlinked
+\f0\b0 , and hard links may not span file systems.\'94\
+=> ln -s\
+\
+\
+Chmod on link:\
+\'93    -h      If the file is a symbolic link, change the mode of the link itself rather than the file that the link points to.\'94\
+}
