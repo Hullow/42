@@ -24,21 +24,19 @@
 \f0\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 - Get the URL of the remote repository : git remote get-url origin\
 - Info about all remotes : git remote -v\
 - Change commit message of last commit. If only local: git commit --amend\
-- \ul \
-\ulnone \
-- Stop Github from asking for your passphrase all the time: \
+-\
+\
+- Stop Github from asking for your passphrase all the time ({\field{\*\fldinst{HYPERLINK "https://superuser.com/questions/1010542/how-to-make-git-not-prompt-for-passphrase-for-ssh-key"}}{\fldrslt Stack Overflow}}): \
 \pard\pardeftab720\partightenfactor0
 
 \f2 \cf0 \expnd0\expndtw0\kerning0
 eval `ssh-agent -s`\
-ssh-add ~/.ssh/*_rsa\
+ssh-add ~/.ssh/*_rsa
+\f0 \kerning1\expnd0\expndtw0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-
-\f0 \cf0 \kerning1\expnd0\expndtw0 See {\field{\*\fldinst{HYPERLINK "https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent"}}{\fldrslt Github docs}} and {\field{\*\fldinst{HYPERLINK "https://superuser.com/questions/1010542/how-to-make-git-not-prompt-for-passphrase-for-ssh-key"}}{\fldrslt Stack Overflow}}\
+\cf0 \
 \
-\
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-\cf0 \ul R\'e8gles pour les rendus:\ulnone \
+\ul R\'e8gles pour les rendus:\ulnone \
 Quand on travaille a plusieurs: git pull (SEE DOC)\
 \
 NB: ne pas d\'e9passer 100MB sur le serveur +> abus de ressources, sanctionne !!\
