@@ -10,8 +10,9 @@ int	ft_strlen(char *str)
 	str++;
 	i++;
 	}
-	
-	write(1, (&i)+48, 1);
+	i += 48;
+	write(1, &i, 1);
+	i -= 48;
 	return (i);
 }
 
