@@ -3,12 +3,9 @@
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
     unsigned int    j;
-    unsigned int    i;
     char    *temp;
 
     temp = dest;
-    i = 0;
-  
     /*  while (src[i] != '\0')
     {
         i++;
