@@ -14,7 +14,7 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
         i++;
     } 
     if(i > n) */
-    if (sizeof(src) < n)
+    if (sizeof(src) > n)
     {
         j = 0;
         while (j < n)
@@ -34,10 +34,10 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
         dest++;
         j++;
         }
-        while (i <= (n - sizeof(src)))
+        while (j <= (n - sizeof(src)))
         {
             *dest = '\0';
-            i++;
+            j++;
         }
     }
     dest = temp;
