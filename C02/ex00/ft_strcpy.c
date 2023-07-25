@@ -5,13 +5,16 @@
  
 char	*ft_strcpy(char *dest, char *src)
 {
+    char *temp;
+
+    temp = dest;
     while (*src != '\0')
     {
         *dest = *src;
         src++;
         dest++;
     }
-*dest = '\0';
+    *dest = '\0';
 /*
     src = a => dst
     src++ => b
@@ -32,8 +35,31 @@ char	*ft_strcpy(char *dest, char *src)
     src == \0 => no loop
 */
 //   *dest = *src;
-    return (dest);
+
+    return (temp);
 }
+/* 
+int main(void)
+{
+    char    chararray[10];
+
+    ft_strcpy(chararray, "abcd");
+
+    printf("%s", chararray);
+    return (0);
+} */
+/*    char *chararray;
+    chararray = (char*)malloc(5 * sizeof(char));
+    strcpy(chararray, "abc");
+    char    *src;
+    
+
+    src = "abcde";
+*/
+
+//    printf("The string copied is: %s. \n", chararray);
+ 
+
 /* Fonctions Autorisées : Aucune
 Reproduire à l’identique le fonctionnement de la fonction strcpy (man strcpy)
      char *
@@ -41,33 +67,3 @@ Reproduire à l’identique le fonctionnement de la fonction strcpy (man strcpy)
 The stpcpy() and strcpy() functions copy the string src to dst (including the terminating ‘\0’ character.)
 The strcpy() and strncpy() functions return dst.
 */
-
-/*
-int main(void)
-{
-    char chararray[5];
-    
-//    char *chararray;
-//    chararray = (char*)malloc(5 * sizeof(char));
-//    strcpy(chararray, "abc");
-    char    *src;
-    int i;
-
-    src = "abcde";
-    ft_strcpy(chararray, src);
-//    printf("The string copied is: %s. \n", chararray);
-    i = 0;
-    while (i < 6)
-    {
-        write(1, chararray+i, 1);
-        i++;
-    }
-    return (0);
-}
-*/
-
-
-
-
-
-

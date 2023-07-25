@@ -1,19 +1,20 @@
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
- 
+// started replacing i with sizeof(src) +> but src varies
+
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-    unsigned int    i;
     unsigned int    j;
+    unsigned int    i;
+    char    *temp;
 
+    temp = dest;
     i = 0;
-    while (*(src+i) != '\0')
+  
+    /*  while (src[i] != '\0')
     {
         i++;
-    }
-    if(i > n)
+    } 
+    if(i > n) */
+    if (sizeof(src) < n)
     {
         j = 0;
         while (j < n)
@@ -24,24 +25,34 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
         j++;
         }
     }
-    else
-    {
+    else {
         j = 0;
-        while (j < i)
+        while (j < sizeof(src))
         {
         *dest = *src;
-        src ++;
+        src++;
         dest++;
         j++;
         }
-        while (i <= n)
+        while (i <= (n - sizeof(src)))
         {
             *dest = '\0';
             i++;
         }
     }
+    dest = temp;
     return (dest);
 }
+
+#include<stdio.h>
+int main(void)
+{
+    char dest[10] = "Worldd1";
+    ft_strncpy(dest, "Hello", 5);
+    printf("%s", dest);
+    return (0);
+}
+
 /* Fonctions Autorisées : Aucune
 Reproduire à l’identique le fonctionnement de la fonction strcpy (man strcpy)
      char *
@@ -52,20 +63,3 @@ The stpncpy() and strncpy() functions copy at most len characters from src into 
 The strcpy() and strncpy() functions return dst.
 The source and destination strings should not overlap, as the behavior is undefined.
 */
-
-
-int main(void)
-{
-    char chararray[6];
-    int i;
-
-    ft_strncpy(chararray, "abc", 6);
-//    printf("The string copied is: %s. \n", chararray);
-    i = 0;
-    while (i < 9)
-    {
-        write(1, chararray+i, 1);
-        i++;
-    }
-    return (0);
-}

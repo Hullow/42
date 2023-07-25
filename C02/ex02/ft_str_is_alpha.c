@@ -1,20 +1,27 @@
+#include <unistd.h>
 
 int ft_str_is_alpha(char *str)
 {
-while (*str != '\0')
-{
-    if (*str > 64 && *str < 123) // alphabetical characters: 65 ('A') to 122 ('z')
+    while (*str != '\0')
+    {
+    if (!((*str >= 'A' && *str <= 'Z') || (*str >= 'a' && *str <= 'z'))) // alphabetical characters: 65 ('A') to 122 ('z')
 //    i = 0;
-    continue;
+        return (0);
     else
-    return (0);
-str++;
-}
-return (1);
+        str++;
+    }
+    return (1);
 }
 
+/*
 int main(void)
 {
-    ft_str_is_alpha("abc");
+    if (ft_str_is_alpha("") == 1)
+    {
+        write(1, "The string contains only alphabetical characters", 48);
+    }
+    else
+        write(1, "The string contains non-alphabetical characters", 47);
     return(0);
 }
+*/
