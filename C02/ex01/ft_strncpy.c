@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:58:10 by fallan            #+#    #+#             */
-/*   Updated: 2023/07/26 22:21:39 by fallan           ###   ########.fr       */
+/*   Updated: 2023/07/26 22:32:26 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
         while (i < n)
         {
             *dest = '\0';
-            j++;
+            i++;
         }
     }
     dest = temp;
