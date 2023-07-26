@@ -1,8 +1,15 @@
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
- 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 15:57:54 by fallan            #+#    #+#             */
+/*   Updated: 2023/07/26 19:07:42 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 char	*ft_strcpy(char *dest, char *src)
 {
     char *temp;
@@ -15,51 +22,22 @@ char	*ft_strcpy(char *dest, char *src)
         dest++;
     }
     *dest = '\0';
-/*
-    src = a => dst
-    src++ => b
-
-    src = b => dest
-    src++ => c 
-
-    src == c => dest
-    src++ => d
-
-    src == d => dest
-    src++ => e
-
-    src == e => dest
-    src ++ => \0
-    (dest++)
-
-    src == \0 => no loop
-*/
-//   *dest = *src;
-
     return (temp);
 }
-/* 
+
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 int main(void)
 {
     char    chararray[10];
 
     ft_strcpy(chararray, "abcd");
-
+    strcpy(chararray, "abcd");
     printf("%s", chararray);
     return (0);
-} */
-/*    char *chararray;
-    chararray = (char*)malloc(5 * sizeof(char));
-    strcpy(chararray, "abc");
-    char    *src;
-    
-
-    src = "abcde";
-*/
-
-//    printf("The string copied is: %s. \n", chararray);
- 
-
+}
 /* Fonctions Autorisées : Aucune
 Reproduire à l’identique le fonctionnement de la fonction strcpy (man strcpy)
      char *

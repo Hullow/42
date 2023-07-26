@@ -1,0 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strupcase.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 18:02:54 by fallan            #+#    #+#             */
+/*   Updated: 2023/07/26 18:59:35 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+char    *ft_strupcase(char *str)
+{
+    char    *temp;
+
+    temp = str;
+    while (*str != 0)
+        {
+            if (*str > 96 && *str < 123)
+            *str -= 32;
+            str++;
+        }
+        return(temp);
+}
+/* #include <stdio.h>
+int main(int argc, char **argv)
+{
+    argc = 2;
+    ft_strupcase(argv[1]);
+    printf("The updated character sequence is: %s.\n", argv[1]);
+    return (0);
+} */

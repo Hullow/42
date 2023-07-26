@@ -1,40 +1,45 @@
-// started replacing i with sizeof(src) +> but src varies
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 15:58:10 by fallan            #+#    #+#             */
+/*   Updated: 2023/07/26 15:58:11 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+// started replacing i with sizeof(src) => but src varies
 
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-    unsigned int    j;
     unsigned int    i;
     char    *temp;
 
     temp = dest;
-    i = 0;
-  
-    /*  while (src[i] != '\0')
+    if (sizeof(src) > n)
     {
-        i++;
-    } 
-    if(i > n) */
-    if (sizeof(src) < n)
-    {
-        j = 0;
-        while (j < n)
+        i = 0;
+        while (i < n)
         {
         *dest = *src;
         src++;
         dest++;
-        j++;
+        i++;
         }
     }
-    else {
-        j = 0;
-        while (j < sizeof(src))
+    else 
+    {
+        i = 0;
+        while (i < sizeof(src))
         {
         *dest = *src;
         src++;
         dest++;
-        j++;
+        i++;
         }
-        while (i <= (n - sizeof(src)))
+        while (i < n)
         {
             *dest = '\0';
             i++;
@@ -44,14 +49,16 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
     return (dest);
 }
 
-#include<stdio.h>
+/* #include<stdio.h>
 int main(void)
 {
     char dest[10] = "Worldd1";
-    ft_strncpy(dest, "Hello", 5);
-    printf("%s", dest);
+
+    ft_strncpy(dest, "Hello", 8);
+    printf("%s\n", dest);
+    printf("length of destination array is : %lu", sizeof(dest));
     return (0);
-}
+} */
 
 /* Fonctions Autorisées : Aucune
 Reproduire à l’identique le fonctionnement de la fonction strcpy (man strcpy)
