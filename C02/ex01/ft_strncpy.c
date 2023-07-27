@@ -6,58 +6,60 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:58:10 by fallan            #+#    #+#             */
-/*   Updated: 2023/07/26 22:32:26 by fallan           ###   ########.fr       */
+/*   Updated: 2023/07/27 21:05:55 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// started replacing i with sizeof(src) => but src varies
-
 char	*ft_strncpy(char *dest, char *src, unsigned int n)
 {
-    unsigned int    i;
-    char    *temp;
+	unsigned int	i;
 
-    temp = dest;
-    if (sizeof(src) > n)
-    {
-        i = 0;
-        while (i < n)
-        {
-        *dest = *src;
-        src++;
-        dest++;
-        i++;
-        }
-    }
-    else 
-    {
-        i = 0;
-        while (i < sizeof(src))
-        {
-        *dest = *src;
-        src++;
-        dest++;
-        i++;
-        }
-        while (i < n)
-        {
-            *dest = '\0';
-            i++;
-        }
-    }
-    dest = temp;
-    return (dest);
+	i = 0;
+	while (src[i] != 0 && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = 0;
+		i++;
+	}
+	return (dest);
 }
-
-/* #include<stdio.h>
-int main(void)
+/*
+	if (sizeof(src) > n)
+	{
+	i = 0;
+	else
+	{
+		i = 0;
+		while (i < sizeof(src))
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		while (i < n)
+		{
+			*dest = '\0';
+			i++;
+		}
+	}
+	return (temp);
+}
+*/
+/*
+#include<stdio.h>
+int	main(void)
 {
-    char dest[10] = "Worldd1";
+	char	dest[10] = "Worldd1";
+// int argc, char **argv)
 
-    ft_strncpy(dest, "Hello", 8);
-    printf("%s\n", dest);
-    printf("length of destination array is : %lu", sizeof(dest));
-    return (0);
+	ft_strncpy(dest, "Hello", 3);
+	printf("The return value is : %s.\n", ft_strncpy(dest, "Hello", 3));
+//	argc = 4;
+//	printf("The return value is: %s.\n", ft_strncpy(argv[1], argv[2], *argv[3]));
+	return (0);
 } */
 
 /* Fonctions Autorisées : Aucune

@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../rendus"
+		},
+		{
+			"path": "../tmontani"
+		},
+		{
+			"path": "../../../goinfre/fallan"
+		},
+		{
+			"path": "../../../System/Volumes/Data/mnt/sgoinfre/fallan"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"ostream": "c",
+			"unistd.h": "c",
+			"sstream": "c",
+			"stdio.h": "c"
+		}
+	}
+}
