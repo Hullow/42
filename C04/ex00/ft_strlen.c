@@ -13,6 +13,6 @@ int	ft_strlen(char *str)
 /* int	main(int argc, char **argv)
 {
 	if (argc > 0)
-		printf("Your string has %d characters\n", ft_strlen(argv[1]));
+		printf("Your string has %s characters\n", ft_strlen(argv[1]));
 	return (0);
 } */
