@@ -1,27 +1,36 @@
 {
 	"folders": [
 		{
+			"name": "42git",
 			"path": "."
 		},
 		{
+			"name": "rendus",
 			"path": "../rendus"
 		},
 		{
-			"path": "../tmontani"
+			"name": "sgoinfre",
+			"path": "../../../System/Volumes/Data/mnt/sgoinfre"
 		},
 		{
+			"name": "fallan",
 			"path": "../../../goinfre/fallan"
-		},
-		{
-			"path": "../../../System/Volumes/Data/mnt/sgoinfre/fallan"
 		}
 	],
 	"settings": {
 		"files.associations": {
 			"ostream": "c",
 			"unistd.h": "c",
-			"sstream": "c",
-			"stdio.h": "c"
+			"__node_handle": "c",
+			"__split_buffer": "c",
+			"array": "c",
+			"iterator": "c",
+			"string": "c",
+			"string_view": "c",
+			"unordered_map": "c",
+			"vector": "c",
+			"string.h": "c",
+			"__locale": "c"
 		}
 	}
 }
