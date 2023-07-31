@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/31 21:22:21 by fallan            #+#    #+#             */
+/*   Updated: 2023/07/31 21:23:09 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
+
 void	ft_putstr(char *str)
 {
 	int	i;
@@ -7,10 +20,9 @@ void	ft_putstr(char *str)
 	i = 0;
 	while (str[i] != 0)
 	{
-		write(1, (str+i), 1);
+		write(1, (str + i), 1);
 		i++;
 	}
-//	write(1, "\n", 1);
 }
 /*
 int	main(int argc, char **argv)
