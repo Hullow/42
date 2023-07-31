@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   putnbr.c                                           :+:      :+:    :+:   */
+/*   ft_output_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cmegret <marvin@42lausanne.ch>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 17:28:46 by fallan            #+#    #+#             */
-/*   Updated: 2023/07/31 17:30:02 by fallan           ###   ########.fr       */
+/*   Created: 2023/07/29 12:29:45 by cmegret           #+#    #+#             */
+/*   Updated: 2023/07/30 09:01:33 by cmegret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdio.h>
 
-void	putnbr(int nb)
+void	sleep_ms(unsigned int milliseconds)
 {
-	if (nb <= 9 && nb >= 0)
-		nb += 48;
-write(1, &nb, 1);
-if (nb > 9)
-		putnbr(nb / 10);
-putnbr(nb % 10);
+	usleep(milliseconds * 1000);
 }
 
-int main(int argc, char **argv)
+void	ft_putchar(char *str)
 {
-	if (argc > 0)
-		putnbr(argv[1]);
-	return (0);
+	size_t	i;
+
+	if (str == NULL)
+		return ;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		sleep_ms(50);
+		i++;
+	}
 }
