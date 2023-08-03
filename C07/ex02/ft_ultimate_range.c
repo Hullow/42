@@ -1,25 +1,26 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	*ft_range(int min, int max)
+int	ft_ultimate_range(int **range, int min, int max)
 {
-	int *tab;
 	int	i;
-
 	if (min >= max)
-		return (NULL);
+	{
+		*range = NULL;
+		return (0);
+	}
 	else
 	{
-		tab = (int*) malloc((max - min) * sizeof(int));
-		if (tab == NULL)
-			return (0);
+		*range = (int*) malloc((max - min) * sizeof(int));
+		if (*range == NULL)
+			return (-1);
 		i = 0;
-		while (min + i < max)
+		while (i < max - min)
 		{
-			tab[i] = min + i;
+			range[0][i] = min + i;
 			i++;
 		}
-		return (tab);
+		return (max - min);
 	}
 }
 
@@ -27,7 +28,7 @@ int	*ft_range(int min, int max)
 {
 	int	i = 0;
 	int	*tab;
-	tab = ft_range(10, 20);
+	tab = ft_ultimate_range(10, 20);
 	printf("%d\n", tab[0]);
 		while (tab[i] >= 10 && tab[i] <= 19)
 		{
@@ -45,7 +46,7 @@ int	*ft_range(int min, int max)
 	int	*tab;
 	if (argc == 3)
 	{
-		tab = ft_range(atoi(argv[1]), atoi(argv[2]));
+		tab = ft_ultimate_range(atoi(argv[1]), atoi(argv[2]));
 		while (tab[i] >= (atoi(argv[1])) && tab[i] <= ((atoi(argv[2]) - 1)))
 		{
 			printf("%d ", tab[i]);
@@ -60,3 +61,4 @@ int	*ft_range(int min, int max)
 	}
 	free(tab);
 } */
+
