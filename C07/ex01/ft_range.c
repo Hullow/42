@@ -1,16 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/03 23:42:25 by fallan            #+#    #+#             */
+/*   Updated: 2023/08/03 23:55:40 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <stdio.h>
 
 int	*ft_range(int min, int max)
 {
-	int *tab;
+	int	*tab;
 	int	i;
 
 	if (min >= max)
 		return (NULL);
 	else
 	{
-		tab = (int*) malloc((max - min) * sizeof(int));
+		tab = malloc((max - min) * sizeof(int));
 		if (tab == NULL)
 			return (0);
 		i = 0;
@@ -37,26 +49,4 @@ int	*ft_range(int min, int max)
 		printf("\n");
 		free(tab);
 	return (0);
-} */
-
-/* int	main(int argc, char **argv)
-{
-	int	i = 0;
-	int	*tab;
-	if (argc == 3)
-	{
-		tab = ft_range(atoi(argv[1]), atoi(argv[2]));
-		while (tab[i] >= (atoi(argv[1])) && tab[i] <= ((atoi(argv[2]) - 1)))
-		{
-			printf("%d ", tab[i]);
-			i++;
-		}
-		printf("\n");
-	}
-	else
-	{	
-		printf("wrong input");
-		return (0);
-	}
-	free(tab);
 } */

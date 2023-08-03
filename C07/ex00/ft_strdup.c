@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/03 23:42:20 by fallan            #+#    #+#             */
+/*   Updated: 2023/08/03 23:56:22 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,33 +17,30 @@
 char	*ft_strdup(char *src)
 {
 	int		i;
-	char*	copy;
+	char	*copy;
 
 	i = 0;
 	while (src[i])
 		i++;
-	copy = (char*) malloc(i * sizeof(char));
+	copy = malloc(i * sizeof(char));
 	if (copy == NULL)
-		{
-			printf("Memory not allocated.\n");
-			exit(0);
-		}
+	{
+		printf("Memory not allocated.\n");
+		exit(0);
+	}
 	else
 	{
 	i = 0;
-	while (src[i])
+		while (src[i])
 		{
 			copy[i] = src[i];
 			i++;
 		}
-		copy[i] = '\0';
-// do I _need_ to null terminate ?
-	return (copy);
+	copy[i] = '\0';
+		return (copy);
 	}
 }
-
-
-int main()
+/* int main()
 {
 	char *result = ft_strdup("just a string:");
 	printf("My function: %s\n", result);
@@ -44,11 +53,4 @@ int main()
 	free(result);
 	free(benchmark);
 	return (0);
-}
-
-/*      The strdup() function allocates sufficient memory a copy of the string s1, does the copy, and returns a pointer to it.  The pointer may subsequently be
-     used as an argument to the function free(3).
-
-     If insufficient memory is available, NULL is returned and errno is set to ENOMEM.
-
-     The strndup() function copies at most n characters from the string s1 always NUL terminating the copied string. */
+} */

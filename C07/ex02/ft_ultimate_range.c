@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/03 23:42:31 by fallan            #+#    #+#             */
+/*   Updated: 2023/08/03 23:55:37 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <stdio.h>
 
 int	ft_ultimate_range(int **range, int min, int max)
 {
 	int	i;
+
 	if (min >= max)
 	{
 		*range = NULL;
@@ -11,7 +24,7 @@ int	ft_ultimate_range(int **range, int min, int max)
 	}
 	else
 	{
-		*range = (int*) malloc((max - min) * sizeof(int));
+		*range = malloc((max - min) * sizeof(int));
 		if (*range == NULL)
 			return (-1);
 		i = 0;
@@ -61,4 +74,3 @@ int	ft_ultimate_range(int **range, int min, int max)
 	}
 	free(tab);
 } */
-
