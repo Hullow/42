@@ -1,8 +1,8 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2513
+{\rtf1\ansi\ansicpg1252\cocoartf2708
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww50700\viewh25480\viewkind0
+\paperw12240\paperh15840\margl1440\margr1440\vieww30040\viewh10920\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\fs36 \cf0 \ul \ulc0 OS X\ulnone \
@@ -11,19 +11,43 @@ cmd+ctrl+F : enter/exit fullscreen\
 \
 \
 \ul Bash commands\ulnone \
-find . -name \'93<filename>\'94 -delete : delete all files of a certain name\
+go to beginning of command line: CTRL+A\ul \
+\
+\ulnone find . -name \'93<filename>\'94 	-delete : delete all files of a certain name\
+						2 > /dev/null : don\'92t print out error messages (e.g. \'93folder not permitted\'94)\
+\
+file <filename> : gives filetype\
+\
 mv -v <origin folder>/* <destination folder> : move all files and folders from a folder to another\
+whereis <command> : shows path to an executable\
 \
 \
 Duplicate tab in iterm2 : create shortcut for CMD+Shift+T\
 \
 \
+\ul Users/groups\ulnone \
+whoami: gives current user\
+id: information about specified user and its groups\
+groups: lists all groups one is a member of\
+\
+\
+\
 \
 \ul Vim\ulnone \
+.vimrc file\
 gg to go to top of file\
 G to end of file\
 O or o to insert a line above/below and go to insert mode\
 M to go to middle of file\
 search: / then n or N to go to the next or previous occurrence\
 :syntax enable / syntax off\
-:set number to see line numbers}
+:set :\
+	- number (to see line numbers)\
+	- cursorline\
+to unset: set no[command], e.g. set noline\
+:[line]co [destination line]. Or just :co [destination line] to \
+d$/d0 to delete rest/beginning of line up to cursor\
+\
+\
+\ul Macports\ulnone \
+port installed | grep 'mariadb' => to see what\'92s installed}

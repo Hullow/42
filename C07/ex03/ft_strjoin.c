@@ -16,11 +16,9 @@
 int	calculate_size(int size, char **strs, char *sep)
 {
 	int	total_size;
-	int	str_num;
-	int	sep_len;
-	int	i;
+	int	str_num; // number of strings
+	int	sep_len; // length of separator
 
-	i = 0;
 	sep_len = 0;
 	str_num = 0;
 	while (sep[sep_len])
@@ -52,10 +50,18 @@ char	*fill_str(char *result, int total_size, char **strs, char *sep)
 			j = 0;
 			while (strs[i][j])
 				result[r++] = strs[i][j++];
-			k = 0;
-			while (sep[k])
-				result[r++] = sep[k++];
 			i++;
+			if (strs[i] != 0)
+			{
+				k = 0;
+				while (sep[k])
+					result[r++] = sep[k++];
+			}
+			else
+			{
+				result[r] = '\0';
+				return (result);
+			}
 		}
 	}
 	result[r] = '\0';
@@ -79,16 +85,17 @@ char	*ft_strjoin(int size, char **strs, char *sep)
 	return (result);
 }
 
-/* int	main()
+
+int	main()
 {
-	char *sep = " aaa! ";
+	char *sep = "<separator>";
 	char *strs[] = {"blob", "sqrt", "horny", "ben", NULL};
 	char *result = ft_strjoin(21, strs, sep);
 
 	printf("%s\n", result);
 	free(result);
 	return (0);
-} */
+} 
 
 /* 		while (tab[i] >= 10 && tab[i] <= 19)
 		{

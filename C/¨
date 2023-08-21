@@ -1,0 +1,61 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+int	count_digits(int nbr)
+{
+	int	digits;
+	digits = 0;
+
+	while (nbr > 0)
+	{
+	nbr /= 10;
+	digits++;
+	}
+// eg if nbr == 12345, /10 => 1234, 1, /10 => 123, 2, /10 => 12, 3, /10 => 1, 4, /10 => 0, 5
+	
+	return (digits);
+}
+
+char	*itoa(int nbr)
+{
+	int	digits;
+
+	digits = (count_digits(nbr));
+	char *array = malloc((digits + 1)* sizeof(char));
+		if (array == NULL)
+			return (0);
+// Take number, divide until 0, counting digits
+// Allocate memory space for the counted digits + 1 for \0
+// Then find last digit by doing modulo 10; eg 12345 modulo 10 == 5
+	int	temp = digits;
+	digits--;
+
+	while (digits > 0)
+	{
+		printf("digits is %d\n", digits);
+		printf("nbr is %d\n", nbr);
+
+
+		array[digits--] = (nbr % 10) +48;
+		printf("array[digits] is now worth %c\n", array[digits]);
+		printf("nbr mod 10 is %d\n", (nbr % 10));
+		nbr -= (nbr % 10);
+		printf("the new nbr is %d\n", nbr);
+		nbr /= 10;
+		printf("the divided nbr is %d\n", nbr);
+	}
+	array[temp] = '\0';
+
+	return (array);
+}
+
+
+int	main(int ac, char **av)
+{
+	if (ac == 2)
+	{
+		printf("we have %d\n", atoi(av[1]));
+		printf("The integer entered is %s\n", itoa(atoi(av[1])));
+	}
+return (0);
+}
