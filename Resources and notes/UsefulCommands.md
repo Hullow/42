@@ -1,16 +1,24 @@
-# Useful commands - Bash, Vim, Git
+# Useful commands - Bash, Vim, iTerm, OS X
+
+## OS X
+- `Cmd+alt opt+<number>` to select a given window
+- `cmd+ctrl+F` : enter/exit fullscreen
+
+## iTerm2
+- Duplicate tab in iterm2 : create shortcut for `CMD+Shift+T`
+- scrolling down with mouse/trackpad: `settings > advanced` > chercher “`scroll`” > Mouse > Scroll wheel sends arrow keys when in alternate screen mode : `Yes` (restart app)
 
 ## Bash
 - `CMD+up/down` : next/previous command
-- see commands of current terminal session: `vim ~/.zsh_history`
+- `vim ~/.zsh_history` : see commands of current terminal session
 - `reset`: fixes messed up characters for instance.
-- go to beginning of command line: `CTRL+A`
+- `CTRL+A` : go to beginning of command line
 
 **Navigation**
 - go to previous directory: `cd -`
 - `find . -name “<filename>” -delete` : delete all files of a certain name
 						`2 > /dev/null` : don’t print out error messages (e.g. “folder not permitted”)
-- download a file: `curl -o [filename] [URL]` (nb: `-o` for output)
+- `curl -o [filename] [URL]` (nb: `-o` for output): download a file
 
 **Information**
 - `file <filename>` : gives filetype
@@ -35,5 +43,31 @@
 - make prompt shorter: `PROMPT=“%~ “`
 
 ## Vim
+- `let @*=@"` copy contents from unnamed register (from yank) to clipboard
 
-## Git
+**navigation and edit mode**
+gg to go to top of file
+G to end of file
+M to go to middle of file
+O or o to insert a line above/below and go to insert mode
+search: / then n or N to go to the next or previous occurrence
+
+**modifying text**
+- substitute: `:%s/old/new` => % for all lines
+- delete:
+	- range of lines: `:[start],[end]d`
+	- beginning/rest of line up to cursor: `d0/d$`
+
+`:[line]co [destination line]`. Or just `:co [destination line]` to  ????
+
+
+**settings**
+
+to disable a setting: `set no[command]`, e.g. `set noline`
+- `:syntax enable / syntax off`
+- `:set` :
+	- `number` (to see line numbers)
+	- `cursorline`
+
+**File handling**
+- `:saveas [newname]` : rename
