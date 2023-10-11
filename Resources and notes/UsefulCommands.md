@@ -8,6 +8,10 @@
 - Duplicate tab in iterm2 : create shortcut for `CMD+Shift+T`
 - scrolling down with mouse/trackpad: `settings > advanced` > chercher “`scroll`” > Mouse > Scroll wheel sends arrow keys when in alternate screen mode : `Yes` (restart app)
 
+## VS Code
+- `Shift + Alt + A` to comment and decomment a block
+- 
+
 ## Bash
 - `CMD+up/down` : next/previous command
 - `vim ~/.zsh_history` : see commands of current terminal session
