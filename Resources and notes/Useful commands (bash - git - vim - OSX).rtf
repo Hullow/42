@@ -3,13 +3,19 @@
 }
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\paperw12240\paperh15840\margl1440\margr1440\vieww12760\viewh16740\viewkind0
+\paperw12240\paperh15840\margl1440\margr1440\vieww12760\viewh16760\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\fs36 \cf0 \ul \ulc0 OS X\ulnone \
 Cmd+alt opt+<number> to select a given window\
 cmd+ctrl+F : enter/exit fullscreen\
 \
+\
+\ul Chrome\ulnone \
+CMD + \'91-\'91 : Back in history\
+\
+\ul Iterm2\ulnone \
+Open split pane (new tab in split view): CMD+D\
 \
 \ul Bash/Zsh\ulnone \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardirnatural\partightenfactor0
@@ -18,11 +24,11 @@ see commands of current terminal session: vim ~/.zsh_history\
 reset: fixes messed up characters for instance.\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 go to beginning of command line: CTRL+A\ul \
+\ulnone \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \ulnone \
 
-\f1\b navigation
-\f0\b0 \ul \ulc0 \
+\f1\b \cf0 navigation
+\f0\b0 \ul \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardeftab720\pardirnatural\partightenfactor0
 \cf0 \ulnone go to previous directory: 
 \f2\i cd -
@@ -37,15 +43,44 @@ reset: fixes messed up characters for instance.\
 download a file: curl -o [filename] [URL] (nb: -o for output)\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f1\b information
+\f1\b \cf0 globbing
+\f0\b0 \
+list all files ending in .txt: ls *.txt\
+all files with exactly four characters ls ???\
+all files starting with b and an arbitrary number\
+all files with a number in their name: *[0-9]*\
+all files with lowercase letters: [a-z]\
+all files irrespective of case: [a-zA-Z]\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b \cf0 information
 \f0\b0 \
 file <filename> : gives filetype\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 whereis <command> : shows path to an executable\
+whereis <command> : shows path to an executable\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardeftab720\pardirnatural\partightenfactor0
 \cf0 which [command] => path to executable\
 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardeftab720\pardirnatural\partightenfactor0
+
+\f1\b \cf0 command parameters
+\f0\b0 \
+make stderr (errors) silent: exec 2>/dev/null\
+make stdout (output) silent: exec >/dev/null\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b \cf0 networking
+\f0\b0 \
+curl ifconfig.me : gets my IP address\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f1\b \cf0 Users/groups
@@ -54,9 +89,8 @@ whoami: gives current user\
 id: information about specified user and its groups\
 groups: lists all groups one is a member of\
 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f1\b \cf0 file manipulation
+\f1\b file manipulation
 \f0\b0 \
 \pard\pardeftab720\partightenfactor0
 \cf0 - mv -v <origin folder>/* <destination folder> : move all files and folders from a folder to another\
@@ -72,10 +106,9 @@ groups: lists all groups one is a member of\
 \
 make directories ex00->ex08: mkdir ex0\{0..8\}\
 \
-\
-\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardeftab720\pardirnatural\partightenfactor0
 
-\f1\b settings
+\f1\b \cf0 settings
 \f0\b0 \ul \
 
 \f1\b \ulnone - 
@@ -84,37 +117,39 @@ make directories ex00->ex08: mkdir ex0\{0..8\}\
 \cf0 \
 \
 \
-\
-\
-\
-\
 \ul Vim\ulnone \
 \pard\pardeftab720\partightenfactor0
 \cf0 copy contents from unnamed register (from yank) to clipboard :let @*=@"\
 \
 navigation and edit mode\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 gg to go to top of file\
+\cf0 \
+motions:\
+gg to go to top of file\
 G to end of file\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 M to go to middle of file\
+M to go to middle of file\
+b beginning of current word\
+w beginning of next word\
+e end of current word\
+\
 O or o to insert a line above/below and go to insert mode\
 search: / then n or N to go to the next or previous occurrence\
 \
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx22386\pardirnatural\partightenfactor0
-\cf0 substitute: :%s/old/new => % for all lines\
+\cf0 substitute: :%s/old/new/g => % for all lines. g for all occurrences in each line\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 delete:\
+insert tab at beginning of certain lines: :1,$s/^/\\t\\1/\
+\
+delete:\
 	- range of lines: :[start],[end]d\
 	- beginning/rest of line up to cursor: d0/d$\
+	- to a given pattern: d/.jpg (from cursor to first occurrence of \'93.jpg\'94)\
 \
 :[line]co [destination line]. Or just :co [destination line] to  ????\
 \
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
+\
 \
 settings\
 to disable a setting: set no[command], e.g. set noline\
@@ -131,7 +166,10 @@ file manipulation\
 \
 \ul Macports\ulnone \
 port installed | grep 'mariadb' => to see what\'92s installed\
-\
+\pard\pardeftab720\partightenfactor0
+\cf0 port dependents <portname>\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 \cf0 \ul Git\ulnone \
 See files \'93Notes - git.rtf\'94\
