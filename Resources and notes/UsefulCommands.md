@@ -10,7 +10,7 @@
 
 ## VS Code
 - `Shift + Alt + A` to comment and decomment a block
-- `CTRL + ` `
+- ``CTRL + ` ``
 
 ## Bash
 - `CMD+up/down` : next/previous command
