@@ -5,6 +5,9 @@
 - When the result of an executing program is unpredictable, i.e. failing to compile, executing incorrectly, crashing or generating incorrect results, or do fortuitously exactly what the programmer intended, it is said to have undefined behavior
 
 ## Pointers
+### [Constant Pointers](https://www.javatpoint.com/const-pointer-in-c)
+- A pointer that cannot change the address of the variable to which it is pointing, i.e. the address will remain constant. The pointer is thus a read-only variable
+ 
 ### Void Pointers
 **Benefits and Applications**
 - Memory allocation: used to allocate memory dynamically in conjunction with malloc and calloc without specifying the data type beforehand
