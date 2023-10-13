@@ -15,6 +15,9 @@
 - Callback functions: have a use in implementing callback mechanisms effectively, to transfer both function pointers and related data.
 - Interfacing with external libraries: allow to communicate with external libraries or functions of the system by allowing data to be passed without having to define its precise type.
 
+### Type-casting a pointer
+- Reason: for pointer arithmetic
+
 ### [Restrict keyword](https://www.geeksforgeeks.org/restrict-keyword-c/)
 - Mainly used in pointer declarations as a type qualifier
 - Tells the compiler a pointer is the only way to access the object pointed by it, i.e. that there is no other pointer pointing to the same object
