@@ -21,6 +21,7 @@
 
 #### Type-casting a pointer
 - Reason: for pointer arithmetic
+- Syntax: `(data type *) pointer_name`. Me: reason is because the whole type needs to be precised inside the parenthesis 
 
 #### [Restrict keyword](https://www.geeksforgeeks.org/restrict-keyword-c/)
 - Mainly used in pointer declarations as a type qualifier
