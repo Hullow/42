@@ -10,7 +10,10 @@
 
 ## VS Code
 - `Shift + Alt + A` to comment and decomment a block
-- ``CTRL + ` ``
+- `alt opt + arrow` to move a line up or down
+- `shift + alt opt + arrow` to duplicate a line
+- ``CTRL + ` `` to toggle between editor and terminal
+- `ALT + CMD + H` to add 42 header
 
 ## Bash
 - `CMD+up/down` : next/previous command

@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 17:12:01 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/13 17:38:01 by fallan           ###   ########.fr       */
+/*   Created: 2023/10/13 17:32:45 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/13 19:45:41 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
 
-size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize)
+size_t	ft_strlcat(char *restrict dst, const char *restrict src, size_t dstsize)
 {
-	unsigned long				i;
+	unsigned long	i;
+	unsigned long	dstlen;
+	unsigned long	srclen;
 
 	i = 0;
+	dstlen = 0;
+	srclen = 0;
+	while (dst[dstlen] != '\0')
+		dstlen++;
+	while (src[srclen] != '\0')
+		srclen++;
 	if (dstsize > 0)
 	{
 		while (src[i] && i < dstsize - 1)
 		{
-		dst[i] = src[i];
-		i++;
+			dst[dstlen+i] = src[i];
+			i++;
 		}
 		dst[i] = '\0';
 	}
-	return (sizeof(src));
+	return (dstlen + srclen);
 }
 
 int	main(void)
@@ -36,17 +44,27 @@ int	main(void)
 	char	dst[50];
 
 	strcpy(src, "Hiyaaaaaaaaaaa !!!!....b");
-	strcpy(dst, "Booyakasha ----*****c");
+	strcpy(dst, "Booyakasha");
 
-	printf("src : '%s'\n", src);
-	printf("dst : '%s'\n", dst);
-/* 	strlcpy(dst, src, sizeof(dst));
-	printf("dst after strlcpy:\n'%s'\n", dst); */
- 	ft_strlcpy(dst, src, sizeof(dst));
-	printf("dst after ft_ strlcpy:\n'%s'\n", dst);
+	printf("size of dst is: %lu\n", sizeof(dst));
+	printf("size of src is: %lu\n\n", sizeof(src));
+	printf("strlen(dst) is: %lu\n", strlen(dst));
+	printf("strlen(src) is: %lu\n\n", strlen(src));
+
+
+/* 	strlcat(dst, src, sizeof(dst));
+	printf("dst after strlcat:\n'%s'\n", dst); */
+ 	ft_strlcat(dst, src, sizeof(dst));
+
+ 	printf("src : '%s'\n", src);
+	printf("dst : '%s'\n\n", dst);
+
+	printf("dst after ft_ strlcat:\n'%s'\n", dst);
 
 	return (0);
 }
+
+
 
 /* Return values
 Like snprintf(3), the strlcpy() and strlcat() functions return the total length of the string
