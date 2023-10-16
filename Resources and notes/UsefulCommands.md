@@ -14,6 +14,7 @@
 - `shift + alt opt + arrow` to duplicate a line
 - ``CTRL + ` `` to toggle between editor and terminal
 - `ALT + CMD + H` to add 42 header
+- Watch a pointer value in debug mode: add the three expressions `ptr[i]`, `i`, and `*char(*)[15])ptr` to follow the `while` loop `while (ptr[i] \= '\0')` to the *Watch* pane so you can see what is being read from memory exactly at a given step
 
 ## Bash
 - `CMD+up/down` : next/previous command
