@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/13 19:45:41 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/16 17:19:37 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ size_t	ft_strlcat(char *restrict dst, const char *restrict src, size_t dstsize)
 		srclen++;
 	if (dstsize > 0)
 	{
-		while (src[i] && i < dstsize - 1)
+		while (src[i] && i < dstsize - dstlen - 1)
 		{
 			dst[dstlen+i] = src[i];
 			i++;
 		}
-		dst[i] = '\0';
+		dst[dstlen+i] = '\0';
 	}
 	return (dstlen + srclen);
 }
@@ -43,7 +43,7 @@ int	main(void)
 	char	src[50];
 	char	dst[50];
 
-	strcpy(src, "Hiyaaaaaaaaaaa !!!!....b");
+	strcpy(src, "Hiyaaa !!!!....b");
 	strcpy(dst, "Booyakasha");
 
 	printf("size of dst is: %lu\n", sizeof(dst));
@@ -51,20 +51,18 @@ int	main(void)
 	printf("strlen(dst) is: %lu\n", strlen(dst));
 	printf("strlen(src) is: %lu\n\n", strlen(src));
 
-
 /* 	strlcat(dst, src, sizeof(dst));
 	printf("dst after strlcat:\n'%s'\n", dst); */
- 	ft_strlcat(dst, src, sizeof(dst));
 
  	printf("src : '%s'\n", src);
 	printf("dst : '%s'\n\n", dst);
 
+ 	ft_strlcat(dst, src, sizeof(dst) + 1);
+	 
 	printf("dst after ft_ strlcat:\n'%s'\n", dst);
 
 	return (0);
 }
-
-
 
 /* Return values
 Like snprintf(3), the strlcpy() and strlcat() functions return the total length of the string
