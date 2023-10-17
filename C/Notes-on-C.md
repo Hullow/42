@@ -9,6 +9,9 @@
 - A typecast explicitly causes an expression to be of a specific data type 
 
 ### Pointers
+#### [Null Pointers](https://www.geeksforgeeks.org/null-pointer-in-c/)
+- A null pointer, initialized e.g. as `type pointer_name = 0` or `type pointer_name = NULL`, points only towards `NULL`, or `O` in the memory. It is different from a pointer pointing to an empty memory address, e.g. an empty string `type pointer_name = ""`
+
 #### [Constant Pointers](https://www.javatpoint.com/const-pointer-in-c)
 - A pointer that cannot change the address of the variable to which it is pointing, i.e. the address will remain constant. The pointer is thus a read-only variable
  
