@@ -4,6 +4,10 @@
 ### [Undefined behavior](https://www.geeksforgeeks.org/undefined-behavior-c-cpp/)
 - When the result of an executing program is unpredictable, i.e. failing to compile, executing incorrectly, crashing or generating incorrect results, or do fortuitously exactly what the programmer intended, it is said to have undefined behavior
 
+## Memory management
+### [Dynamic memory allocation}(https://www.geeksforgeeks.org/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/)
+- A procedure in which the size of a data structure (like an array) is changed during runtime.
+
 ## Data types
 ### Type-casting
 - A typecast explicitly causes an expression to be of a specific data type 
