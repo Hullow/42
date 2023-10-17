@@ -11,12 +11,16 @@ char	*ft_strdup(const char *s1)
 	while (s1[len])
 		len++;
 	str = malloc(len * sizeof(char));
-	while (len > 0)
+	
+	if (str)
 	{
-		str[len - 1] = s1[len - 1];
-		len--;
+		while (len > 0)
+		{
+			str[len - 1] = s1[len - 1];
+			len--;
+		}
 	}
-	return (str);
+		return (str);
 }
 
 int	main()
