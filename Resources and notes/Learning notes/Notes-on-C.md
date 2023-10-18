@@ -30,7 +30,10 @@
 - Reason: for pointer arithmetic
 - Syntax: `(data type *) pointer_name`. Me: reason is because the whole type needs to be precised inside the parenthesis 
 
-#### [Restrict keyword](https://www.geeksforgeeks.org/restrict-keyword-c/)
+#### [Restrict keyword](https://www.geeksforgeeks.org/restrict-keyword-c/) *n.b.: check C standard (C99, C11, ...) because application may vary*
 - Mainly used in pointer declarations as a type qualifier
 - Tells the compiler a pointer is the only way to access the object pointed by it, i.e. that there is no other pointer pointing to the same object
 - Doesn't add functionality, only there to optimize compilation
+
+## Header file
+- **Include Syntax** : `#include <file>` for system header files, `#include "file"` for header files of the program

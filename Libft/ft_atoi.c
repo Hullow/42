@@ -6,24 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 21:15:23 by fallan            #+#    #+#             */
-/*   Updated: 2023/07/31 21:16:33 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/18 15:21:18 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-
-int	ft_atoi(char *str);
-
-/* int	main(void)
-{
-	int	nb;
-
-	nb = ft_atoi("  ++-000456abcde");
-	printf("The number is : %d\n", nb);
-	return (0);
-} */
+#include "Libft.h"
 
 int	ft_atoi(char *str)
 {
@@ -51,3 +38,15 @@ int	ft_atoi(char *str)
 	}
 	return (sign * nb);
 }
+
+/* #include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+int	main(void)
+{
+	int	nb;
+
+	nb = ft_atoi("  ++-000456abcde");
+	printf("The number is : %d\n", nb);
+	return (0);
+} */

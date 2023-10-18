@@ -1,5 +1,16 @@
-#include <string.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:21:55 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:26:55 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Libft.h"
 
 void	*ft_memmove(void *dst, const void *src, unsigned int len)
 {
@@ -27,6 +38,8 @@ void	*ft_memmove(void *dst, const void *src, unsigned int len)
 	return (dst);
 }
 
+/* #include <string.h>
+#include <stdio.h>
 int	main()
 {
 	char *src = "Blablabla";
@@ -47,4 +60,4 @@ int	main()
 	printf("dest after ft_memmove is: '%s'\n", dest);
 
 	return (0);
-}
+} */

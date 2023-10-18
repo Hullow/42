@@ -1,4 +1,16 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:21:44 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:26:58 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Libft.h"
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
@@ -22,7 +34,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	return (*string1 - *string2);
 }
 
-#include <string.h>
+/* #include <string.h>
 int	main()
 {
 	char string1[10];
@@ -48,4 +60,4 @@ int	main()
 	printf("memcmp's return value is %d.\n", memcmp(s1, s2, 3));
 
 	return (0);
-}
+} */

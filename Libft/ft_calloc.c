@@ -1,5 +1,17 @@
-#include <stdlib.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:20:12 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:20:15 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Libft.h"
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	void			*ptr;
@@ -17,6 +29,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
+/* #include <stdlib.h>
 #include <stdio.h>
 int	main()
 {
@@ -26,4 +39,4 @@ int	main()
 	printf("calloc generates a pointer with value(s): '%s' at address '%p'\n", calloc(count, size), calloc(count, size));
 	printf("ft_calloc generates a pointer with value(s): '%s' at address '%p'\n", ft_calloc(count, size), ft_calloc(count, size));
 	return (0);
-}
+} */

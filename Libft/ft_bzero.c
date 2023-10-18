@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:20:31 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:20:31 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Libft.h"
 
 void	ft_bzero (void *s, unsigned int n)
 {
@@ -11,9 +24,8 @@ void	ft_bzero (void *s, unsigned int n)
 	}
 }
 
-#include <strings.h>
+/* #include <strings.h>
 #include <stdio.h>
-
 int main ()
 {
 	char str[6] = "Blabla";
@@ -27,4 +39,4 @@ int main ()
 	puts(str+3);
 
 	return (0);
-}
+} */

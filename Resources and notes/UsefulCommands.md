@@ -1,5 +1,8 @@
 # Useful commands/shortcuts - Bash, Vim, iTerm, OS X
 
+## 42-Intra
+- `francinette -c` ou `paco` (a checker) pour nettoyer le cache (cclean)
+
 ## OS X
 - `Cmd+alt opt+<number>` to select a given window
 - `cmd+ctrl+F` : enter/exit fullscreen

@@ -1,5 +1,18 @@
-// To do: test edge cases like null string, null characters etc
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:22:03 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:22:34 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "Libft.h"
+
+// To do: test edge cases like null string, null characters etc
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -15,7 +28,7 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-#include <string.h>
+/* #include <string.h>
 #include <stdio.h>
 int	main()
 {
@@ -26,4 +39,4 @@ int	main()
 	printf("For string \"%s\" and character \"%c\", strchr produces the string: \"%s\"\n", string, character, strchr(string, character));
 	printf("For string \"%s\" and character \"%c\", ft_strchr produces the string: \"%s\"\n", string, character, ft_strchr(string, character));
 	return (0);
-}
+} */

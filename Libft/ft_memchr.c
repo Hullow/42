@@ -1,4 +1,17 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:21:39 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:27:01 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Libft.h"
+
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	const char		*string;
@@ -19,7 +32,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	return (NULL);
 }
 
-#include <string.h>
+/* #include <string.h>
 int	main()
 {
 	char string[15];
@@ -31,4 +44,4 @@ int	main()
 	// printf("Memchr points to string %s\n", memchr(s, c, 5));
 	printf("ft_memchr points to string %s\n", ft_memchr(s, c, 2));
 		return (0);
-}
+} */
