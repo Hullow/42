@@ -1,4 +1,5 @@
 # Makefile know-how
+[Reference(s)](https://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/)
 
 
 ## Syntax

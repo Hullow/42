@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:20:31 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/18 15:20:31 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/19 16:44:56 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int main ()
 {
 	char str[6] = "Blabla";
 
-/* 	bzero(str, 3);
-	puts(str);
-	puts(str+3); */
+	// bzero(str, 3);
+	// puts(str);
+	// puts(str+3);
 
 	ft_bzero(str, 3);
 	puts(str);

@@ -24,6 +24,11 @@
 - `reset`: fixes messed up characters for instance.
 - `CTRL+A` : go to beginning of command line
 
+**Wildcards**
+- `*` for any number of characters
+- `?` for a single character (e.g. `???.c`)
+- `[]` for a range or a set of characters, e.g. `[a-p0-5].c` for items containing any of the characters between a and p and 0 and 5. Or `[agkj]*.*` 
+
 **Navigation**
 - go to previous directory: `cd -`
 - `find . -name “<filename>” -delete` : delete all files of a certain name
