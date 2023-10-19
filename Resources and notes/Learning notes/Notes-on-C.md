@@ -53,7 +53,7 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 To store input in a variable using scanf() , you need to pass the memory address of the variable as an argument to the function using the & (address of) operator. This is because scanf() expects pointers as arguments to store input values directly in memory locations.
 
 ## Functions
-**need a return type** (`void`, `double`, `int`, `bool`, …)
+***need a return type*** (`void`, `double`, `int`, `bool`, …)
 
 ### Ordering functions
 The order of functions inside a file is arbitrary. It does not matter if you put function one at the top of the file and function two at the bottom, or vice versa. Caveat: In order for one function to "see" (use) another function, the "prototype" of the function must be seen in the file before the usage.
