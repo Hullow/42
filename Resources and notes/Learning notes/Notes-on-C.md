@@ -79,6 +79,41 @@ int main() {
 Advantages of using prototypes: helps navigate program with main at the top
 
 ## Header files
+
+A header file is a file containing C declarations and macro definitions to be shared between several source files. It is requested by *including* it with the C prepocessing directive `#include`
 - **Include Syntax** : `#include <file>` for system header files, `#include "file"` for header files of the program
+- **Include guards** (**`#ifndef` wrapper**):
+  - [an `#ifndef` directive](https://www.educative.io/answers/what-is-the--sharpifndef-directive-in-c) allows conditional compilation, by asking the preprocessor to determine if any provided macros exist before any subsequent code is included. Example:
+```
+#include <stdio.h>
+
+// we define a variable 
+#define xyz 32
+
+int main()
+{
+   // now we use #ifndef to see if xyz is defined or not in this example, it is defined, we'll move to the #else part of the code.
+   #ifndef xyz
+   printf("Error printing lottery number");
+   #else
+   printf("Your lottery number is %d", xyz);
+   #endif
+
+   return 0;
+}
+``` 
+   - [Header files often use](https://gcc.gnu.org/onlinedocs/cpp/Once-Only-Headers.html) an #ifndef wrapper to prevent them being processed twice by the compiler, which is very likely to cause an error, e.g. when the compiler sees the same structure definition twice. Example:
+```
+#ifndef FILE_FOO_SEEN
+#define FILE_FOO_SEEN
+
+[the entire file]
+
+#endif
+```
+`FILE_FOO_SEEN` is called the *controlliong macro* or *guard macro*
 - **Headers file location on OS X**:
 /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h
+
+## [Macros](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
+A fragment of code which has been given a name. Using the name replaces it with the code. Two kinds: ***object-like***: resemble data objects and ***function-like***: resemble function calls
