@@ -68,7 +68,7 @@ O or o to insert a line above/below and go to insert mode
 search: / then n or N to go to the next or previous occurrence
 
 **modifying text**
-- substitute: `:%s/old/new` => % for all lines
+- substitute: `:%s/old/new` => % for all lines/current file *
 - delete:
 	- range of lines: `:[start],[end]d`
 	- beginning/rest of line up to cursor: `d0/d$`

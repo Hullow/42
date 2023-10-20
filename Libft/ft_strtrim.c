@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:24:12 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/18 15:24:13 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/20 16:52:34 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 // while s1 from start to stop
 
 
-/* ft_strtrim(char const *s1, char const *set)
+/* char *ft_strtrim(char const *s1, char const *set)
 {
 	char const	*s2;
 	ft_strlen
