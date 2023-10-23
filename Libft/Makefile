@@ -1,4 +1,4 @@
-NAME = Libft.a
+NAME = libft.a
 
 CC=gcc
 
@@ -18,9 +18,10 @@ $(NAME) : $(OBJ)
 	ar -rcs $@ $^
 
 %.o: %.c # to generate the object files
-	$(CC) $(CFLAGS) $(CPPFLAGS) -c $^ -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
-# $(CC) $(CFLAGS) $(CPPFLAGS) -c # to generate the object files
+# -c: to generate the object files
+# $(CC) $(CFLAGS) $(CPPFLAGS)  # -c: to generate the object files
 
 # ar -rcs $(OBJ) -o $(NAME) # to create an archive of the object files
 
