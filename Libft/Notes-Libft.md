@@ -9,7 +9,7 @@ leak ne sera toléré" => free les malloc ?
 ## Journal
 - 14?/10/23: wasted time on `man toupper` looking at the notion of locales, which only applied to `toupper_l`
 - 18/10/23: used `sed` (from chatGPT) to insert `#include <Libft.h>` at the beginning of each file, then tried to replace it with `#include "Libft.h"` => didn't work, ended up using VS Code find and replace manually in each file. Wasted ~45min.
-
+- 24/10/23: a whole day of work almost on memmove, until I decided to write the solution to all scenarios on paper, then code it. It was almost correct except for some increment I missed. Looked at the solution to finally crack it; I was very close but not there (esp syntax of array was an issue, even though we are handling char arrays so [] notation is useable). Next time work out scenarios faster, look at solution faster.
 
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->
