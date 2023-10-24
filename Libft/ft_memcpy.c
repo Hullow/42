@@ -6,13 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:21:47 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/18 15:26:56 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:55:24 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, unsigned int n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	unsigned int	i;
 	unsigned char	*s1;

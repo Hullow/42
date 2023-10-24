@@ -21,7 +21,7 @@ RULE: DEPENDENCY LINE
 - `tab` is required at the beginning of any command, e.g. "`gcc`"
 - `%` matches any nonempty string (see [Pattern rules](https://www.gnu.org/software/make/manual/make.html#Pattern-Intro)). N.b.: 42 Norm doesn't authorize wildcards for `SRC`
 - **Compiler flags** :
-	- `-I` : specifies to look in the current directory (.) for header files.
+	- `-I` : specifies to look in the current directory (.) for header files. Alternative: `INC_DIR = .`
 	- `-c`: generate the object file, i.e. compile and assemble, but do not link
 	- `-o` : write output to file
 - **Automatic variables** :

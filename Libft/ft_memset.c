@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 09:55:51 by francis           #+#    #+#             */
-/*   Updated: 2023/10/18 15:17:36 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:56:22 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	unsigned char	*str = (unsigned char*) b;
+	unsigned char	*str;
 
+	str = (unsigned char *) b;
 	while (len > 0)
 	{
 		*str = c;

@@ -21,7 +21,8 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 - Constant variables: in CAPITALS by convention
 ### Data types
 #### Type-casting
-- A typecast explicitly causes an expression to be of a specific data type 
+- A typecast explicitly causes an expression to be of a specific data type
+- "A value of type `char` is automatically promoted into a value of type `int` when used as a parameter" (*GNU Libc Manual*, p. 98)
 
 ### Pointers
 #### [Null Pointers](https://www.geeksforgeeks.org/null-pointer-in-c/)
@@ -40,6 +41,9 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 #### Type-casting a pointer
 - Reason: for pointer arithmetic
 - Syntax: `(data type *) pointer_name`. Me: reason is because the whole type needs to be precised inside the parenthesis
+
+### Incrementation/Decrementation
+- Pre-increment (`++variable`) and post-increment (`variable++`) have an effect on the *expression*, and this includes `while` loops, e.g. `while (variable++ > 0)` increments the variable after running the loop.
 
 #### [Restrict keyword](https://www.geeksforgeeks.org/restrict-keyword-c/)
 (*n.b.: check C standard (C99, C11, ...) because application may vary*)

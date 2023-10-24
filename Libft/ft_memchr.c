@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:21:39 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/18 15:27:01 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:54:33 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	const char		*string;
 	unsigned char	character;
 
-	string = (const char*) s;
+	string = (const char *) s;
 	character = c;
 	while (n > 0 && string)
 	{
 		if (*string == character)
-			return (void *)string;
+			return ((void *)string);
 		else
-			{
-				string++;
-				n--;
-			}
+		{
+			string++;
+			n--;
+		}
 	}
 	return (NULL);
 }

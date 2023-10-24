@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:22:03 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/18 15:22:34 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:58:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 char	*ft_strchr(const char *s, int c)
 {
 	char	*ptr;
+
 	ptr = (char *)s;
 	while (*ptr)
 	{
@@ -28,15 +29,23 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-/* #include <string.h>
+/*
+
+#include <string.h>
 #include <stdio.h>
+
 int	main()
 {
 	char	string[4];
 	int		character = 0;
 
 	strcpy(string, "abc");
-	printf("For string \"%s\" and character \"%c\", strchr produces the string: \"%s\"\n", string, character, strchr(string, character));
-	printf("For string \"%s\" and character \"%c\", ft_strchr produces the string: \"%s\"\n", string, character, ft_strchr(string, character));
+	
+	printf("For str. \"%s\" and char. \"%c\", \
+	strchr produces: \"%s\"\n", string, character, strchr(string, character));
+	
+	printf("For str. \"%s\" and char. \"%c\", \
+	ft_strchr produces: \"%s\"\n", string, character, ft_strchr(string, character));
 	return (0);
-} */
+}
+*/

@@ -6,16 +6,17 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:20:31 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/20 16:46:39 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:28:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-void	ft_bzero (void *s, unsigned int n)
+void	ft_bzero(void *s, unsigned int n)
 {
-	unsigned char *str = (unsigned char*) s;
+	unsigned char	*str;
 
+	str = (unsigned char *) s;
 	while (n > 0)
 	{
 		*str = '\0';

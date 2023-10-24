@@ -6,18 +6,18 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:19:54 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/23 13:21:05 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:52:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-int ft_isalpha(int c)
+int	ft_isalpha(int c)
 {
-    if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-        return (c);
-    else
-        return (0);
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (c);
+	else
+		return (0);
 }
 
 /* int main(void)

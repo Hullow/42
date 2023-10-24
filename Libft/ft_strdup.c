@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:22:38 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/18 15:22:39 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:59:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_strdup(const char *s1)
 	while (s1[len])
 		len++;
 	str = malloc(len * sizeof(char));
-	
+	if (!str)
+		return (0);
 	if (str)
 	{
 		while (len > 0)
@@ -30,17 +31,22 @@ char	*ft_strdup(const char *s1)
 			len--;
 		}
 	}
-		return (str);
+	return (str);
 }
 
-/* #include <string.h>
+/*
+#include <string.h>
 #include <stdio.h>
+
 int	main()
 {
 	char	s1[] = "blablabla";
 
-	printf("strdup copies the string s1: '%s' at address '%p' to the string str '%s' at address '%p'\n", s1, s1, strdup(s1), strdup(s1));
-	//printf("ft_strdup copies the string s1: '%s' at address '%p' to the string str '%s' at address '%p'\n", s1, s1, ft_strdup(s1), ft_strdup(s1));
+	printf("strdup copies s1: '%s' at address '%p' \
+	to str '%s' at address '%p'\n", s1, s1, strdup(s1), strdup(s1));
+	
+	//printf("ft_strdup copies s1: '%s' at address '%p' \
+	to str '%s' at address '%p'\n", s1, s1, ft_strdup(s1), ft_strdup(s1));
 	
 	return (0);
 } */

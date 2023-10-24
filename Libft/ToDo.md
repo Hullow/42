@@ -1,5 +1,6 @@
 42 to do
 
+- size_t in many prototypes (e.g. bzero)
 - Note to add to cahier
 type specifier for size_t : %zu and not %d 
 - Use bzero in ft_calloc

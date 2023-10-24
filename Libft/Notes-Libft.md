@@ -23,3 +23,10 @@ int	main(int argc, char **argv)
 	return(0);
 }
 ```
+
+
+## On Libc
+(Du *GNU Libc Manual*)
+- Les fonctions qui operent sur des blocs de memoire arbitraire qui n'ont pas forcement de null-terminator ont des noms qui commencent par `mem`. Leurs elements sont appeles *bytes* pour des raisons de style, mais ont peut leur donner comme input des pointeurs de n'importe quel type
+- Les fonctions qui operent sur des strings, dont avec null-terminator, commencent par `str`
+- Souvent il existe une version `mem` et une version `str` d'une fonction. L'usage depend de la situation.

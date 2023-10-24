@@ -6,50 +6,44 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:21:55 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/23 16:36:28 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:23:28 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-void	*ft_memmove(void *dst, const void *src, unsigned int len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned int	i;
-	unsigned char *s1 = (unsigned char *) src;
-	unsigned char *s2 = (unsigned char *) dst;
+	size_t	i;
+	char	*s1;
+	char	*s2;
 
-	i = 1;
-		while (i <= len)
-		{
-			s2[len - i] = s1[len - i];e
-			i++;
-		}
+	s1 = (char *) src;
+	s2 = (char *) dst;
+	i = 0;
+	if (src == NULL && dst == NULL)
+		return (NULL);
+	if (s1 > s2)
+		while (i++ < len)
+			s2[i] = s1[i];
+	else
+		while (len-- > 0)
+			s2[len - 1] = s1[len - 1];
 	return (dst);
 }
 
 /* #include <string.h>
-#include <stdio.h>
-int	main()
+int main()
 {
-	char *src = "Blablabla Hello";
-	char *dest = src + 3;
-	// char dest2[50];
-	unsigned int len = 1;
+	char test1[] = "abcdef";
+	printf("before memmove: '%s'\n", test1);
+	memmove(test1, test1 + 2, 4);
+	printf("after memmove: src: '%s' and dst: '%s'\n\n", test1, test1 + 2);
 
-	// strcpy(dest, "Hello");
-
-	printf("src is: '%s'\n", src);
-	printf("dest is: '%s'\n\n", dest);
-
-	memmove(dest, src, len);
-	printf("dest after memmove is: '%s'\n\n", dest);
-
- 	char *dest = src + 3;
-	printf("dest is re-initialized to:'%s'\n\n", dest);
-	
-
-	ft_memmove(dest, src, len);
-	printf("dest after ft_memmove is: '%s'\n", dest);
+	char test2[] = "abcdef";
+	printf("before ft_memmove: '%s'\n", test2);
+	ft_memmove(test2, test2 + 2, 4);
+	printf("after ft_memmove: src: '%s' and dst: '%s'\n", test2, test2 + 2);
 
 	return (0);
 } */
