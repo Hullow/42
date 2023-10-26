@@ -78,3 +78,7 @@ to disable a setting: `set no[command]`, e.g. `set noline`
 
 **File handling**
 - `:saveas [newname]` : rename
+
+
+## SSH
+- `ssh-keygen -p` to change passphrase of a private key
