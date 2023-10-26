@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/26 17:05:24 by francis           #+#    #+#             */
+/*   Updated: 2023/10/26 17:05:28 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Libft.h"
 
 int	ft_tolower(int c)
@@ -21,18 +33,3 @@ int	main(void)
 	printf("The variable character is now equal to: %c\n", character);
 		return (0);
 } */
-
-
-// NAME
-//      xlocale -- Extended locale support.
-
-// LIBRARY
-//      Standard C Library (libc, -lc)
-
-// DESCRIPTION
-//      Include <xlocale.h> for extended locale support.  It can be used alone or with the POSIX locale
-//      API in <locale.h>.
-
-//      The extended locale, or "xlocale" API consists of five basic routines, which are documented sepa-
-//      rately: duplocale(3), freelocale(3), newlocale(3), querylocale(3), and uselocale(3).  For each of
-//      these routines, if a NULL locale_t is given, the current locale is used.

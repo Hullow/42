@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:12:01 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/20 16:53:47 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/26 16:27:37 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	{
 		while (src[i] && i < dstsize - 1)
 		{
-		dst[i] = src[i];
-		i++;
+			dst[i] = src[i];
+			i++;
 		}
 		dst[i] = '\0';
 	}
@@ -50,7 +50,8 @@ int	main(void)
 } */
 
 /* Return values
-Like snprintf(3), the strlcpy() and strlcat() functions return the total length of the string
+Like snprintf(3), the strlcpy() and strlcat() \
+functions return the total length of the string
 they tried to create.  For strlcpy() that means the length of src.
 
 If the return value is >= dstsize, the output string has been truncated. 

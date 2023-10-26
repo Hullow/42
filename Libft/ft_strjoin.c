@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:22:41 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/19 17:12:00 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/26 16:26:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main()
 	char	s1[] = "Hello";
 	char	s2[] = " moto";
 
-	printf("ft_strjoin of '%s' and '%s' yields '%s'\n", s1, s2, ft_strjoin(s1, s2));
+	printf("ft_strjoin of '%s' and '%s' \
+	yields '%s'\n", s1, s2, ft_strjoin(s1, s2));
 	return (0);
 } */
