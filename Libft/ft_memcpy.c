@@ -5,12 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 12:11:30 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/13 12:11:30 by fallan           ###   ########.fr       */
+/*   Created: 2023/10/18 15:21:47 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/24 16:55:24 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*ft_memcpy(void *dst, const void *src, unsigned int n)
+#include "Libft.h"
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	unsigned int	i;
 	unsigned char	*s1;

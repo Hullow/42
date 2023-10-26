@@ -6,14 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:12:01 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/13 17:38:01 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/20 16:53:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
+#include "Libft.h"
 
-size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	unsigned long				i;
 
@@ -30,6 +29,8 @@ size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize)
 	return (sizeof(src));
 }
 
+/* #include <stdio.h>
+#include <string.h>
 int	main(void)
 {
 	char	src[50];
@@ -40,13 +41,13 @@ int	main(void)
 
 	printf("src : '%s'\n", src);
 	printf("dst : '%s'\n", dst);
-/* 	strlcpy(dst, src, sizeof(dst));
-	printf("dst after strlcpy:\n'%s'\n", dst); */
+	// strlcpy(dst, src, sizeof(dst));
+	// printf("dst after strlcpy:\n'%s'\n", dst);
  	ft_strlcpy(dst, src, sizeof(dst));
 	printf("dst after ft_ strlcpy:\n'%s'\n", dst);
 
 	return (0);
-}
+} */
 
 /* Return values
 Like snprintf(3), the strlcpy() and strlcat() functions return the total length of the string

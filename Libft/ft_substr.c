@@ -1,4 +1,16 @@
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:24:19 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:24:21 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Libft.h"
 
 char *ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -20,7 +32,7 @@ char *ft_substr(char const *s, unsigned int start, size_t len)
 			return (str);
 }
 
-#include <stdio.h>
+/* #include <stdio.h>
 int	main()
 {
 	char s[] = "blabloble";
@@ -29,4 +41,4 @@ int	main()
 
 	printf("ft_substr, operating on '%s' at address '%p' with parameters start = %d and len = %zu, yields string '%s' at address '%p'\n", s, s, start, len, ft_substr(s, start, len), ft_substr(s, start, len));
 	return (0);
-}
+} */

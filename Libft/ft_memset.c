@@ -6,17 +6,17 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 09:55:51 by francis           #+#    #+#             */
-/*   Updated: 2023/10/11 13:06:41 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/24 16:56:22 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
+#include "Libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	unsigned char	*str = (unsigned char*) b;
+	unsigned char	*str;
 
+	str = (unsigned char *) b;
 	while (len > 0)
 	{
 		*str = c;
@@ -26,6 +26,8 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
+/* #include <string.h>
+#include <stdio.h>
 int	main()
 {
 	char	str[50];
@@ -44,4 +46,4 @@ int	main()
 	puts(str);
 
 	return (0);
-}
+} */

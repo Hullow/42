@@ -1,3 +1,5 @@
+#include "Libft.h"
+
 int	ft_tolower(int c)
 {
 	if (c >= 65 && c <= 90)
@@ -6,7 +8,7 @@ int	ft_tolower(int c)
 		return (1);
 }
 
-#include <stdio.h>
+/* #include <stdio.h>
 #include <ctype.h>
 int	main(void)
 {
@@ -18,7 +20,7 @@ int	main(void)
 	printf("The return value of ft_tolower is %c\n", ft_tolower(character));
 	printf("The variable character is now equal to: %c\n", character);
 		return (0);
-}
+} */
 
 
 // NAME

@@ -1,4 +1,17 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:23:56 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/18 15:23:59 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Libft.h"
+
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	char			*anchor;
@@ -29,8 +42,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		return (NULL);
 }
 
-#include <string.h>
-
+/* #include <string.h>
+#include <stdio.h>
 int	main()
 {
 	char	haystack[] = {'a', 'c', 'd', 'a', 'b', 'a', 'c', 'd', 'e', 'c', 'd', 'e', 'f', '\0'};
@@ -53,4 +66,4 @@ int	main()
 	printf("strnstr, looking for '%s' in '%s', produces '%s' which is at address '%p'\n", needle3, haystack, strnstr(haystack, needle3, len), strnstr(haystack, needle3, len));
 	printf("ft_strnstr, looking for '%s' in '%s', produces '%s' which is at address '%p'\n", needle3, haystack, ft_strnstr(haystack, needle3, len), ft_strnstr(haystack, needle3, len));
 	return (0);
-}
+} */

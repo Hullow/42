@@ -5,12 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 16:56:42 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/09 16:57:08 by fallan           ###   ########.fr       */
+/*   Created: 2023/10/18 15:23:46 by fallan            #+#    #+#             */
+/*   Updated: 2023/10/19 16:52:01 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
+#include "Libft.h"
+
+size_t	ft_strlen(const char *str)
 {
 	int	length;
 

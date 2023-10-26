@@ -1,5 +1,8 @@
 # Useful commands/shortcuts - Bash, Vim, iTerm, OS X
 
+## 42-Intra
+- `francinette -c` ou `paco` (a checker) pour nettoyer le cache (cclean)
+
 ## OS X
 - `Cmd+alt opt+<number>` to select a given window
 - `cmd+ctrl+F` : enter/exit fullscreen
@@ -20,6 +23,11 @@
 - `vim ~/.zsh_history` : see commands of current terminal session
 - `reset`: fixes messed up characters for instance.
 - `CTRL+A` : go to beginning of command line
+
+**Wildcards**
+- `*` for any number of characters
+- `?` for a single character (e.g. `???.c`)
+- `[]` for a range or a set of characters, e.g. `[a-p0-5].c` for items containing any of the characters between a and p and 0 and 5. Or `[agkj]*.*` 
 
 **Navigation**
 - go to previous directory: `cd -`
@@ -60,7 +68,7 @@ O or o to insert a line above/below and go to insert mode
 search: / then n or N to go to the next or previous occurrence
 
 **modifying text**
-- substitute: `:%s/old/new` => % for all lines
+- substitute: `:%s/old/new` => % for all lines/current file *
 - delete:
 	- range of lines: `:[start],[end]d`
 	- beginning/rest of line up to cursor: `d0/d$`

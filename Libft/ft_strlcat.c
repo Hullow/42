@@ -6,14 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/16 17:19:37 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/20 16:53:22 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
+#include "Libft.h"
 
-size_t	ft_strlcat(char *restrict dst, const char *restrict src, size_t dstsize)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	unsigned long	i;
 	unsigned long	dstlen;
@@ -38,6 +37,8 @@ size_t	ft_strlcat(char *restrict dst, const char *restrict src, size_t dstsize)
 	return (dstlen + srclen);
 }
 
+/* #include <stdio.h>
+#include <string.h>
 int	main(void)
 {
 	char	src[50];
@@ -51,8 +52,8 @@ int	main(void)
 	printf("strlen(dst) is: %lu\n", strlen(dst));
 	printf("strlen(src) is: %lu\n\n", strlen(src));
 
-/* 	strlcat(dst, src, sizeof(dst));
-	printf("dst after strlcat:\n'%s'\n", dst); */
+	// strlcat(dst, src, sizeof(dst));
+	// printf("dst after strlcat:\n'%s'\n", dst);
 
  	printf("src : '%s'\n", src);
 	printf("dst : '%s'\n\n", dst);
@@ -62,7 +63,7 @@ int	main(void)
 	printf("dst after ft_ strlcat:\n'%s'\n", dst);
 
 	return (0);
-}
+} */
 
 /* Return values
 Like snprintf(3), the strlcpy() and strlcat() functions return the total length of the string
