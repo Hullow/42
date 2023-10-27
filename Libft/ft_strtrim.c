@@ -6,34 +6,42 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:24:12 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/26 19:59:02 by francis          ###   ########.fr       */
+/*   Updated: 2023/10/27 15:29:23 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-// To do :
-// 1) Starting from the beginning of the string, evaluate each char of s1 for each char of set.
-// 1.1) If member of set, increment _start_. If not member, (next step)
-// Then do the same from the end: evaluate each char of s1 for each of set.
-// 1.2) If member of set, decrement _stop_, which was initialized to strlen(s1) (-1?)
-// If not member of set, (next step)
-// We now have start and stop. (stop - start) is the length of our desired string.
-// 2) Calloc a string of length (stop - start) (this fills it with zeroes)
-// 3) Start filling our empty string with the characters from the trimmed string: 
-// while s1 from start to stop
-
+unsigned int	ft_findstart(char const *s1, char const *set);
+unsigned int	ft_findstop(char const *s1, char const *set);
 
 char *ft_strtrim(char const *s1, char const *set)
 {
-	unsigned int	j;
+	char			*ts1;
 	unsigned int	start;
 	unsigned int	stop;
 
+	start = ft_findstart(s1, set);
+		// printf("start is %d\n", start);
+	stop = ft_findstop(s1, set);
+		// printf("stop is %d\n", stop);
+		// printf("stop - start + 1 is %d\n", stop - start + 1);
+	ts1 = (char *)malloc((stop - start + 1) * sizeof(char)); // stop - start is 4
+	if (ts1 == NULL)
+		return (NULL);
+	// printf("s1[start] is %c\n", s1[start]);
+	// printf("s1[stop + 1] is %c\n", s1[stop + 1]);
+	ft_strlcpy(ts1, &s1[start], stop - start + 1); // stop - start + 1 is 5, ie desired string length + \0
+	return (ts1);
+}
+
+unsigned int	ft_findstart(char const *s1, char const *set)
+{
+	unsigned int	j;
+	unsigned int	start;
+
 	j = 0;
 	start = 0;
-	stop = ft_strlen(s1); // (== '\0' by definition, because strlen doesnteg 100 characters long, not including null terminator. So str[strlen]=='\0' by definition
-	printf("stop is '%d', meaning s1['%d'] is '%c', and s1['%d'] is '%c'\n", stop, stop, s1[stop], stop - 1, s1[stop-1]);
 	while (s1[start] && set[j])
 	{
 		if (s1[start] == set[j])
@@ -44,8 +52,16 @@ char *ft_strtrim(char const *s1, char const *set)
 		else
 			j++;
 	}
-	printf("start is '%d', meaning s1['%d'] is '%c'\n", start, start, s1[start]);
+	return (start);
+}
+
+unsigned int	ft_findstop(char const *s1, char const *set)
+{
+	unsigned int	j;
+	unsigned int	stop;
+
 	j = 0;
+	stop = ft_strlen(s1);
 	while (stop > 0 && set[j])
 	{
 		if (s1[stop - 1] == set[j])
@@ -56,18 +72,13 @@ char *ft_strtrim(char const *s1, char const *set)
 		else
 			j++;
 	}
-	printf("after manipulation stop is now '%d', meaning s1['%d'] is '%c', and s1['%d'] is '%c'\n", stop, stop, s1[stop], stop - 1, s1[stop-1]);
-	char	*ts1;
-	ts1 = calloc(stop - start, sizeof(char));
-	if (ts1 == NULL)
-		return (NULL);
-	ft_strlcpy(ts1, &s1[start], stop + 1);
-	return(ts1);
-	}
+	return (stop);
+}
 
 #include <stdlib.h>
 int	main()
 {
-	printf("ft_strtrim yields '%s'\n", ft_strtrim("aaaSimonaaa", "a"));
+	printf("ft_strtrim yields '%s'\n", \
+	ft_strtrim("bcbcghghcabc", "aaaacebacccccddd"));
 	return (0);
 }
