@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:21:55 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/30 11:12:38 by fallan           ###   ########.fr       */
+/*   Updated: 2023/10/30 11:07:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	if (src == NULL && dst == NULL)
 		return (NULL);
 	if (s1 < s2)
-		while (len-- > 0)
+		while (len-- > 0) // evaluates len, then decrements, then runs the loop
+		{
+			// printf("len is %lu\n", len);
+			// printf("s2[len]: '%c', is set to s1[len]: '%c'\n", s2[len], s1[len]);
 			s2[len] = s1[len];
-	else
-		while (i++ < len)
+		}
+	else // when s2 < s1
+		while (i++ < len) // evaluates i, then increments, then runs the loop
 			s2[i - 1] = s1[i - 1];
 	return (dst);
 }

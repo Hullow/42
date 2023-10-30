@@ -1,18 +1,29 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-
-	{
-		"name": "(lldb) Launch",
+		{
+			"name": "(lldb) Launch ${workspaceFolder}/a.out",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/a.out",
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${fileDirname}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb"
+		},
+		{
+		"name": "(lldb) Launch ${workspaceFolder}/Libft/a.out",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "${workspaceFolder}/42/Libft/a.out",
+		"program": "${workspaceFolder}/Libft/a.out",
 		"args": [],
 		"stopAtEntry": true,
 		"cwd": "${fileDirname}",
 		"environment": [],
 		"externalConsole": false,
 		"MIMode": "lldb"
-	},
+		},
 	]
 }

@@ -1,74 +1,93 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/26 16:27:15 by francis          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Libft.h"
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+#include <string.h>
+int main()
+{
+	char src[] =  "abcd"; // srclen == 4
+	char src2[] = "abcd";
+
+	char dst[] =  "pqrstuvwxyz"; // dstlen == 11
+	char dst2[] = "pqrstuvwxyz";
+
+	size_t dstsize = 20;
+	printf("for src '%s' and dst '%s', with dstsize = %lu,\n", src, dst, dstsize);
+	printf("strlcat yields    '%s' with return value '%lu'\n", dst, strlcat(dst, src, dstsize));
+	printf("strlen(dst) is %lu\n\n", strlen(dst));
+
+	printf("for src '%s' and dst '%s', with dstsize = %lu,\n", src2, dst2, dstsize);
+	printf("ft_strlcat yields '%s' with return value '%lu'\n", dst2, ft_strlcat(dst2, src2, dstsize));
+	printf("strlen(dst) is %lu\n", strlen(dst2));
+
+	return (0);
+}
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	unsigned long	i;
-	unsigned long	dstlen;
-	unsigned long	srclen;
+	size_t	i;
+	size_t	dstlen;
 
 	i = 0;
-	dstlen = 0;
-	srclen = 0;
-	while (dst[dstlen] != '\0')
-		dstlen++;
-	while (src[srclen] != '\0')
-		srclen++;
-	if (dstsize > 0)
+	dstlen = ft_strlen(dst);
+	// printf("ft_strlen(dst) is %lu\n", dstlen);
+	// printf("ft_strlen(src) is %lu\n", ft_strlen(src));
+	if (dstsize > 0 && dstlen < dstsize)
 	{
-		while (src[i] && i < dstsize - dstlen - 1)
+		while (i < dstsize - dstlen - 1)
 		{
 			dst[dstlen + i] = src[i];
 			i++;
 		}
 		dst[dstlen + i] = '\0';
 	}
-	return (dstlen + srclen);
+	// else if (dstsize == 0)
+	//  && dstlen >= dstsize)
+	// {
+
+	// }
+
+	return (dstlen + ft_strlen(src));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* #include <stdio.h>
 #include <string.h>
-int	main(void)
+int main()
 {
-	char	src[50];
-	char	dst[50];
+	char src[50] = "djdjdjd glou glou glou";
+	char dst1[50];
+	char dst2[50];
 
-	strcpy(src, "Hiyaaa !!!!....b");
-	strcpy(dst, "Booyakasha");
+	size_t	result;
+	size_t	dstsize = 0;
 
-	printf("size of dst is: %lu\n", sizeof(dst));
-	printf("size of src is: %lu\n\n", sizeof(src));
-	printf("strlen(dst) is: %lu\n", strlen(dst));
-	printf("strlen(src) is: %lu\n\n", strlen(src));
+	result = strlcat(dst1, src, dstsize);
+	printf("strlcat: dst is now %s\n, return value is %lu\n", dst1, result);
 
-	// strlcat(dst, src, sizeof(dst));
-	// printf("dst after strlcat:\n'%s'\n", dst);
-
- 	printf("src : '%s'\n", src);
-	printf("dst : '%s'\n\n", dst);
-
- 	ft_strlcat(dst, src, sizeof(dst) + 1);
-	 
-	printf("dst after ft_ strlcat:\n'%s'\n", dst);
-
+	result = ft_strlcat(dst2, src, dstsize);
+	printf("ft_strlcat: dst is now %s, return value is %lu\n", dst2, result);
+	strlcat();
 	return (0);
 } */
-
-/* Return values
-Like snprintf(3), the strlcpy() and strlcat() \
-functions return the total length of the string
-they tried to create.  For strlcpy() that means the length of src.
-
-If the return value is >= dstsize, the output string has been truncated. 
-It is the caller's responsibility to handle this. */
