@@ -1,6 +1,6 @@
 #include "Libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+/* size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 #include <string.h>
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 	printf("strlen(dst) is %lu\n", strlen(dst2));
 
 	return (0);
-}
+} */
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
