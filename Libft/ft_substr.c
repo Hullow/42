@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:24:19 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/26 17:07:39 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/06 16:43:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,42 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char			*str;
 	unsigned int	i;
 
-	str = malloc(len * sizeof(char));
-	if (str)
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	str = (char *)ft_calloc((len + 1), sizeof(char)); // 
+	if (str == NULL)
+		return (NULL);
+	// ft_bzero(str, ft_strlen(str));
+	i = 0;
+	if (start <= ft_strlen(s))
 	{
-		i = 0;
-		while (s[start] && len > 0)
+		while (s[start + i] && i < len)
 		{
-			str[i] = s[start];
-			start++;
+			str[i] = s[start + i];
 			i++;
-			len--;
 		}
+		str[i] = '\0';
 	}
 	return (str);
 }
 
-/* #include <stdio.h>
+/* void ft_print_result(char const *s, unsigned int start, size_t len)
+{
+	printf("ft_substr on '%s' at \
+address '%p' with start = %d and len = %zu, \
+yields '%s' at address '%p'\n\n", s, s, start, len, \
+	ft_substr(s, start, len), ft_substr(s, start, len));
+}
+
+#include <stdio.h>
 int	main()
 {
-	char s[] = "blabloble";
-	unsigned int start = 3;
-	size_t len = 3;
+	char s[] = "hola"; // Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
+	unsigned int start = 0;
+	size_t len = 1844674407370955161;
 
-	printf("ft_substr, operating on '%s' at \
-	address '%p' with parameters start = %d and len = %zu, \
-	yields string '%s' at address '%p'\n", s, s, start, len, \
-	ft_substr(s, start, len), ft_substr(s, start, len));
+	ft_print_result(s, start, len);
+	// ft_print_result(s, start + 2, len - 3);
+	
 	return (0);
 } */

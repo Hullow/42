@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/06 15:07:37 by fallan            #+#    #+#             */
+/*   Updated: 2023/11/06 15:18:55 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Libft.h"
 
 /* size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -43,34 +55,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	// else if (dstsize == 0)
 	//  && dstlen >= dstsize)
 	// {
-
 	// }
-
 	return (dstlen + ft_strlen(src));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* #include <stdio.h>
 #include <string.h>

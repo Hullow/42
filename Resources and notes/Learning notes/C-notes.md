@@ -47,6 +47,8 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 - An unsigned integer type used to represent the size of objects in bytes. 
 - Never negative. Depends on the compiler, guaranteed to be the maximum permissible size which the system can handle. If compiler is 32 bit, is a `typedef` (alias) for **unsigned long** (32 bit); if 64 bit, for **unsigned long long**
 
+#### `SIZE_MAX`: the maximum size of size_t (2^(#bits - 1))
+
 ### Data operations
 #### Incrementation/Decrementation
 - Pre-increment (`++variable`) and post-increment (`variable++`) have an effect on the *expression*, and this includes `while` loops, e.g. 
