@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:57:45 by francis           #+#    #+#             */
-/*   Updated: 2023/10/27 16:11:08 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/07 19:59:13 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memset(void *b, int c, size_t len);
+char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -44,9 +45,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 
-//Total nb fonctions: 34 Obligatoires. 23 - Partie 1, 11 - Partie 2. 
-
+//Total nb fonctions: 34 Obligatoires. 23 - Partie 1, 11 - Partie 2.
 // remove restrict !
-size_t	ft_strlen(const char *str);
 
 #endif

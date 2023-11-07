@@ -15,6 +15,10 @@ leak ne sera toléré" => free les malloc ?
 - 6/11/23: 
 	- ft_split (suite): bus error dans ft_count_words corrige en rajoutant un `&& *search` dans un `while` lui-meme contenu dans un grand `while (*search)`. Verification: seulement quand il finit la boucle
 	- ft_substr (termine parce que necessaire pour ft_split): passe 1h30-2h sur un memory problem. Les tests de francinette avec len == SIZE_MAX posaient probleme, d'ou solution `if (len > strlen(s)) len = strlen(s);`. Plus de problemes de memoire
+- 7/11/23:
+	- ft_split (suite - 2h): tourne, printf dans main marche, mais une fois sur 2 pour "CBonjourChelloCgoodbyeC" il print "Bonjour", "ello", "goodby" au lieu de "hello" et "goodbye". Il print aussi une ligne "dealloc" à la fin bizarrement.
+	- paco/francinette ne compile pas contrairement à moi. bizarre. 
+	- C/C++ VSCode Microsoft debugger: add compile instructions, e.g. `-L. -lft`, to `tasks.json`
 
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->
