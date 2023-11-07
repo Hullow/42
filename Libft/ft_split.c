@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:21:41 by francis           #+#    #+#             */
-/*   Updated: 2023/11/07 19:58:15 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/07 20:29:45 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,72 +71,3 @@ char	**ft_split(char const *s, char c)
 	}
 	return (split);
 }
-
-/* #include <stdio.h>
-int main()
-{
-	char c = 'C';
-	
-	// char *s1 = "";
-	// char *s2 = "CCCCCC";
-	// char *s3 = "CBonjour";
-	// char *s4 = "BonjourC";
-	// char *s5 = "CCCBonjour";
-	// char *s6 = "CCCCBonjourC";
-	// char *s7 = "BonjourCCCChello";
-	// char *s8 = "BonjourChelloC";
-	char *s9 = "CBonjourChelloCgoodbyeC";
-
-	
-	printf("input: %s\n\n", s9);
-
-	char **split = ft_split(s9, c);
-	printf("main:Hello, this is the main from ft_split\n");
-	printf("\noutput:\n");
-	int i = 0;
-	int j = 0;
-	while (split[i])
-	{
-		j = 0;
-		while (split[i][j])
-		{
-			printf("%c", split[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("\n");
-
-	// ft_split(s2, c);
-	// ft_split(s3, c);
-	// ft_split(s4, c);
-	// ft_split(s5, c);
-	// ft_split(s6, c);
-	// ft_split(s7, c);
-	// ft_split(s8, c);
-	// ft_split(s9, c);
-
-
-	// int words = ft_count_words(s1, c);
-	// int words2 = ft_count_words(s2, c);
-	// int words3 = ft_count_words(s3, c);
-	// int words4 = ft_count_words(s4, c);
-	// int words5 = ft_count_words(s5, c);
-	// int words6 = ft_count_words(s6, c);
-	// int words7 = ft_count_words(s7, c);
-	// int words8 = ft_count_words(s8, c);
-	// int words9 = ft_count_words(s9, c);
-
-	// printf("words to split 1: %d\n", words);
-	// printf("words to split 2: %d\n", words2);
-	// printf("words to split 3: %d\n", words3);
-	// printf("words to split 4: %d\n", words4);
-	// printf("words to split 5: %d\n", words5);
-	// printf("words to split 6: %d\n", words6);
-	// printf("words to split 7: %d\n", words7);
-	// printf("words to split 8: %d\n", words8);
-	// printf("words to split 9: %d\n\n", words9);
-
-	return (0);
-} */
