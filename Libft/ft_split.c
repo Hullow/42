@@ -3,32 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 19:21:41 by francis           #+#    #+#             */
-/*   Updated: 2023/11/09 19:55:09 by francis          ###   ########.fr       */
+/*   Created: 2023/11/10 11:04:09 by fallan            #+#    #+#             */
+/*   Updated: 2023/11/10 11:24:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// 1. count # of words (nb: if # words == 0, return NULL I guess. if # words == 1, return ft_strtrim(string))
-// 2. calloc an array of # strings
-// 3. copy the original, trimmed string (ft_strtrim) within the ft_split function (with malloc?)
-// iteratively:
-// 4. count length n of beginning of string to char c, i.e strchr - s_pointer iteratively (or use strrchr maybe)
-// 5. in ft_split, malloc an array of length (n + 1)
-// 6. copy that string to the malloc-ated string in ft_split: ft_strlcpy ? ft_memcpy ?
-// 7. trim the string from its first n characters using ft_substr: s= string, start = n, len = ft_strlen(s) - n
-// free the malloc from ft_substr ?
-// 8. in ft_split, got to the next string in the array
-// 9. copy iteratively each word, using strlcpy, to the array of strings
 
 #include "Libft.h"
 
 size_t	ft_count_words(char const *s, char c)
 {
-	size_t	words;
+	size_t	count;
 
-	words = 0;
+	count = 0;
 	while (*s)
 	{
 		if (*s == c)
@@ -40,105 +28,83 @@ size_t	ft_count_words(char const *s, char c)
 		{
 			while (*s != c && *s)
 				s++;
-			words++;
+			count++;
 		}
 	}
-	return (words);
+	return (count);
 }
 
+size_t	ft_word_length(char *copy, char c)
+{
+	size_t	length;
+
+	length = 0;
+	while (copy[length] != c && copy[length])
+		length++;
+	return (length);
+}
+
+char	*ft_add_word(char *string, char *copy, size_t length)
+{
+	size_t	j;
+
+	string = (char *)malloc((length + 1) * sizeof(char));
+	if (string == NULL)
+		return (NULL);
+	j = 0;
+	while (j < length)
+	{
+		string[j] = copy[j];
+		j++;
+	}
+	string[j] = '\0';
+	return (string);
+}
+
+char	*ft_trim_string(char *copy, char *character)
+{
+	char	*substr;
+	char	*trimmed;
+	size_t	wordlength;
+	size_t	copylength;
+
+	copylength = ft_strlen(copy);
+	wordlength = ft_word_length(copy, character[0]);
+	substr = ft_substr(copy, wordlength, copylength + 1);
+	trimmed = ft_strtrim(substr, character);
+	ft_strlcpy(copy, trimmed, copylength);
+	free(substr);
+	free(trimmed);
+	return (copy);
+}
 
 char	**ft_split(char const *s, char c)
 {
-	char	**split = NULL;
-	size_t	count;
+	char	**split;
 	size_t	i;
-	size_t	j;
-	size_t	length;
+	size_t	count;
 	char	*copy;
-	char character[1];
+	char	character[1];
 
-	count = ft_count_words(s, c); // counts the number of words in the string
-
-	split = ft_calloc(count + 1, sizeof(char*)); // allocates memory for an array of #count strings (+ 1 empty string at the end)
+	split = NULL;
+	split = ft_calloc(ft_count_words(s, c) + 1, sizeof (char *));
 	if (split == NULL)
 		return (NULL);
-
-	character[0] = (char) c; // typecast the separator as a string to allow use in strtrim
-
-	copy = ft_strtrim((char *) s, character); // trims the input string from the separator character at the beginning and the end
-
+	character[0] = (char) c;
+	copy = ft_strtrim((char *) s, character);
+	count = ft_count_words(copy, c);
 	i = 0;
-
-/*
-char **ft_add_word(char *string, char *copy, char c) // inputs: split[i], which is a pointer at a given index, i.e. a string, to be filled 
-{
-	size_t	length; // => probably not necessary, could have only j, but let's start with this
-	size_t	j;
-
-	length = 0;
-	j = 0;
-
-	while (copy[length] != c && copy[length])
-		length++;
-
-	split[i] = (char *)malloc((length + 1) * sizeof(char)); // allocate memory for the string in the array; n.b. need to change [i] here
-	if (split[i] == NULL)
-		return (NULL);
-
-	j = 0; // start the index at the first character of the string
-	while (j < length) // => transform this to remove length and stay with j
-	{
-		split[i][j] = copy[j]; // fill the string with each character
-		j++;
-	}
-
-	split[i][j] = '\0'; // null-terminates the string
-	return 
-}
-*/
-
-
-/* ft_trim_string // remove the first word and the separator characters from the beginning and end of the string
-
-*/
-
 	while (i < count)
 	{
-		length = 0;
-
-		while (copy[length] != c && copy[length])
-			length++;
-
-		split[i] = (char *)malloc((length + 1) * sizeof(char)); // allocate memory for the string in the array
-		if (split[i] == NULL)
-			return (NULL);
-
-// ft_add_word (split[i], copy)
-
-		j = 0; // start the index at the first character of the string
-		while (j < length)
-		{
-			split[i][j] = copy[j]; // fill the string with each character
-			j++;
-		}
-
-		split[i][j] = '\0'; // null-terminates the string
-
-		char *substr = ft_substr(copy, length, ft_strlen(copy) + 1); // removes the initial word of the string
-		char *trimmed = ft_strtrim(substr, character); // removes the separator character at the beginning and the end
-		ft_strlcpy(copy, trimmed, ft_strlen(copy)); // copies the trimmed string back to 'copy'
-		free(substr); // frees the memory used in the previous two operations
-		free(trimmed);
-	
-		i++; // increments the index to point to the next string in the array to be filled
+		split[i] = ft_add_word(split[i], copy, ft_word_length(copy, c));
+		ft_trim_string(copy, character);
+		i++;
 	}
-
-
-	split[i] = ""; // adds an empty string at the end of the array
+	split[i] = "";
 	return (split);
 }
 
-int main()
+/* int main()
 {
 	char 	*string = "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse";
 	char	c = ' ';
@@ -156,6 +122,5 @@ int main()
 		i++;
 	}
 	printf("split %d is '%s'\n", i, split[i]);
-	// free(split);
 	return (0);
-}
+} */
