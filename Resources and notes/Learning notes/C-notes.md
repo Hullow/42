@@ -70,6 +70,7 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 	- On a NULL string, undefined behavior due to the string not containing any element
 	- On an empty string, length of zero
 	- On other strings: only as long as non-null characters
+- *String literals*: immutable by default and stored in a read-only section of memory (ROM) for safety reasons (prevent accidental modification by the program) and security (prevent alteration of essential data, including also constants and code). Also, it is harder to handle in general, so most data is better off being constant. (See [StackExchange](https://softwareengineering.stackexchange.com/questions/294748/why-are-c-string-literals-read-only?newreg=0d8085bd75304612b414bf5e01daba16))
 
 ### Other topics
 **scanf()**

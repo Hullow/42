@@ -19,6 +19,8 @@ leak ne sera toléré" => free les malloc ?
 	- ft_split (suite - 2h): tourne, printf dans main marche, mais une fois sur 2 pour "CBonjourChelloCgoodbyeC" il print "Bonjour", "ello", "goodby" au lieu de "hello" et "goodbye". Il print aussi une ligne "dealloc" à la fin bizarrement.
 	- paco/francinette ne compile pas contrairement à moi. bizarre. => après essais, questions dans groupe whatsapp...c'était le makefile qu'il fallait compléter avec ft_split.c !
 	- C/C++ VSCode Microsoft debugger: add compile instructions, e.g. `-L. -lft`, to `tasks.json`
+- 8/11/23:
+	- ft_split (suite – 1h): debug with chatGPT => need to calloc correctly, with `*`: `ft_calloc(word_count, sizeof(char*))` and null-terminate each string in the array: `split[i][j] = '\0';`.
 
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->
