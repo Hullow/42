@@ -84,14 +84,15 @@ char	**ft_split(char const *s, char c)
 	size_t	i;
 	size_t	count;
 	char	*copy;
-	char	character[1];
+	char	character[2];
 
 	split = NULL;
 	split = ft_calloc(ft_count_words(s, c) + 1, sizeof (char *));
 	if (split == NULL)
 		return (NULL);
 	character[0] = (char) c;
-	copy = ft_strtrim((char *) s, character);
+    character[1] = '\0';
+	copy = ft_strtrim((char *) s, (char *)character);
 	count = ft_count_words(copy, c);
 	i = 0;
 	while (i < count)
@@ -100,13 +101,13 @@ char	**ft_split(char const *s, char c)
 		ft_trim_string(copy, character);
 		i++;
 	}
-	split[i] = "";
+    free(copy);
 	return (split);
 }
 
-/* int main()
+/*int main()
 {
-	char 	*string = "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse";
+	char 	*string = "hello!"; // "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse";
 	char	c = ' ';
 
 	char **split = ft_split(string, c);
@@ -123,4 +124,4 @@ char	**ft_split(char const *s, char c)
 	}
 	printf("split %d is '%s'\n", i, split[i]);
 	return (0);
-} */
+}*/

@@ -21,7 +21,11 @@ leak ne sera toléré" => free les malloc ?
 	- C/C++ VSCode Microsoft debugger: add compile instructions, e.g. `-L. -lft`, to `tasks.json`
 - 8/11/23:
 	- ft_split (suite – 1h): debug with chatGPT => need to calloc correctly, with `*`: `ft_calloc(word_count, sizeof(char*))` and null-terminate each string in the array: `split[i][j] = '\0';`.
-
+- 10/11/23:
+  - ft_split (suite - 5h): des heures a essayer de capter d'ou vient le memory leak.
+    - ChatGPT me pointe ds bonne direction: strtrim qui malloc (stop - start + 1), or des fois stop < start. J'avais ecris if (stop - start < 0), sans succes; c'etait parce que unsigned int (undefined behavior). Il fallait evaluer start > stop plutot. Reste des leaks dans split
+    - corrige probleme avec char character[1] => ne null-termine pas automatiquement !
+    - `fsanitize=address` me pointe ou je dois free()
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->
 Main.c:
