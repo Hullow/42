@@ -21,6 +21,23 @@ leak ne sera toléré" => free les malloc ?
 	- C/C++ VSCode Microsoft debugger: add compile instructions, e.g. `-L. -lft`, to `tasks.json`
 - 8/11/23:
 	- ft_split (suite – 1h): debug with chatGPT => need to calloc correctly, with `*`: `ft_calloc(word_count, sizeof(char*))` and null-terminate each string in the array: `split[i][j] = '\0';`.
+- 10/11/23:
+  - ft_split (suite - 5h): des heures a essayer de capter d'ou vient le memory leak.
+    - ChatGPT me pointe ds bonne direction: strtrim qui malloc (stop - start + 1), or des fois stop < start. J'avais ecris if (stop - start < 0), sans succes; c'etait parce que unsigned int (undefined behavior). Il fallait evaluer start > stop plutot. Reste des leaks dans split
+    - corrige probleme avec char character[1] => ne null-termine pas automatiquement !
+    - une fois corrige, la francinette me pointe ou je dois free()
+
+- 13/11/23:
+	- strlcat: enfin bon. Solution trouvee en regardant la reponse sur le gitbook: le man de strlcat n'etait pas clair, il fallait retourner une valeur differente selon les cas. Cas de figure:
+		- si `dstsize <= dstlen`, alors le buffer de destination est trop petit pour accueillir de nouveau caracteres; pas besoin de manip. Il faut return (dstsize + srclen) parce que ...(1) ?
+		- si `dstsize > srclen + dstlen`, on a la place pour tout copier, donc `ft_memcpy(dst + dstlen, src, srclen + 1)` (+1: pour copier le `'\0'`)
+		- sinon, on manque de place pour tout copier, donc:
+		```c
+		while (i < dstsize - dstlen - i)
+			dst[dstlen + i] = src[i]; i++;
+		dst[dstlen + i] = '\0'; // on NUL-termine manuellement
+		```
+	(1): question sur Discord, on m'envoie sur le [code source de libc/strlcat.c](https://android.googlesource.com/platform/bionic/+/ics-mr0/libc/string/strlcat.c): effectivement, deux return value differentes, selon si `dstlen >= dstsize` ou pas. Mais toujours pas compris *pourquoi*. 
 
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->

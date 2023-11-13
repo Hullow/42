@@ -15,10 +15,13 @@ ft_bzero         ✓✓                   OK
 ft_memcpy        ✓✓✓                  OK
 ft_memmove       ✓✓✓✓✓                OK
 ft_strlcpy       ✓✓✓✓✓                OK
+ft_strlcat       ✓✓✓✓✓✓✓✓✓            OK
+ft_tolower       ✓✓✓✓✓✓✓              OK
+ft_toupper       ✓✓✓✓✓✓✓              OK
+ft_substr        ✓✓✓✓✓                OK
+ft_strtrim       ✓✓✓✓✓                OK
 
-*ft_strlcat       ✓✓✓✓✗✗✗✓✓            KO*
-*ft_toupper       ✗✗✗✗✗✓✗             	 KO*
-*ft_tolower       ✗✗✗✓✗✗✗              KO*
+
 *ft_strchr        ✓✓✓✓✗✗               KO*
 *ft_strrchr       ✗✓✓✓✓✓✗✓             KO*
 *ft_strncmp       ✓✗✗✓✓✓✓✓✓✓✗          KO*
@@ -28,12 +31,9 @@ ft_strlcpy       ✓✓✓✓✓                OK
 *ft_atoi          ✓✓✓✓✓✓✗✗✗✗✓✓✓✓✓✓✓✓✓  KO*
 ft_calloc        ✓                    OK
 *ft_strdup        A                    KO*
+ft_strjoin       AAA✓                 KO*
 
-ft_substr        ✓✓✓✓✓                OK
 
-*ft_strjoin       AAA✓                 KO*
-
-ft_strtrim       ✓✓✓✓✓                OK
 
 *ft_split         compil. failed       KO*
 

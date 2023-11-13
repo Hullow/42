@@ -66,11 +66,12 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 - A string is ....
 - A `NULL` string is an empty char array, i.e. a pointer with an address that doesn't have any elements. For example, when declared, `char null[5]` doesn't contain any element and is a null string (see [ref](https://c-for-dummies.com/blog/?p=2641)). Strlen has undefined behavior since it doesn't contain any element.
 - An `empty` string is a char array that contains a single element, the `\0` element. It has a length of zero although it contains a character. For example, `char empty[5] = {'\0'}` is an empty string. Strlen returns a length of 0 (see [ref](https://c-for-dummies.com/blog/?p=2641))
-- `Strlen`:
+- `strlen`:
 	- On a NULL string, undefined behavior due to the string not containing any element
 	- On an empty string, length of zero
 	- On other strings: only as long as non-null characters
-- *String literals*: immutable by default and stored in a read-only section of memory (ROM) for safety reasons (prevent accidental modification by the program) and security (prevent alteration of essential data, including also constants and code). Also, it is harder to handle in general, so most data is better off being constant. (See [StackExchange](https://softwareengineering.stackexchange.com/questions/294748/why-are-c-string-literals-read-only?newreg=0d8085bd75304612b414bf5e01daba16))
+- **String literals**: immutable by default and stored in a read-only section of memory (ROM) for safety reasons (prevent accidental modification by the program) and security (prevent alteration of essential data, including also constants and code). Also, it is harder to handle in general, so most data is better off being constant. (See [StackExchange](https://softwareengineering.stackexchange.com/questions/294748/why-are-c-string-literals-read-only?newreg=0d8085bd75304612b414bf5e01daba16))
+- Creating a string with bracket notation, i.e. char array[1], creates a **non-null-terminated char array with one byte**. For a char array of length 1, declare `char array[2] = {'a', '\0'}` 
 
 ### Other topics
 **scanf()**
@@ -78,7 +79,7 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 To store input in a variable using scanf() , you need to pass the memory address of the variable as an argument to the function using the & (address of) operator. This is because scanf() expects pointers as arguments to store input values directly in memory locations.
 
 ## Functions
-***need a return type*** (`void`, `double`, `int`, `bool`, …)
+**need a return type** : `void`, `double`, `int`, `bool`, …
 
 ### Ordering functions
 The order of functions inside a file is arbitrary. It does not matter if you put function one at the top of the file and function two at the bottom, or vice versa. Caveat: In order for one function to "see" (use) another function, the "prototype" of the function must be seen in the file before the usage.

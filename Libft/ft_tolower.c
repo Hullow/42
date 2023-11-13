@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:05:24 by francis           #+#    #+#             */
-/*   Updated: 2023/10/26 17:05:28 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/13 13:37:22 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_tolower(int c)
 	if (c >= 65 && c <= 90)
 		return (c + 32);
 	else
-		return (1);
+		return (c);
 }
 
 /* #include <stdio.h>

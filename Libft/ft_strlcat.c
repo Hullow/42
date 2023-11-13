@@ -6,44 +6,26 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:07:37 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/06 15:18:55 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/13 15:35:17 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-/* size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-#include <string.h>
-int main()
-{
-	char src[] =  "abcd"; // srclen == 4
-	char src2[] = "abcd";
-
-	char dst[] =  "pqrstuvwxyz"; // dstlen == 11
-	char dst2[] = "pqrstuvwxyz";
-
-	size_t dstsize = 20;
-	printf("for src '%s' and dst '%s', with dstsize = %lu,\n", src, dst, dstsize);
-	printf("strlcat yields    '%s' with return value '%lu'\n", dst, strlcat(dst, src, dstsize));
-	printf("strlen(dst) is %lu\n\n", strlen(dst));
-
-	printf("for src '%s' and dst '%s', with dstsize = %lu,\n", src2, dst2, dstsize);
-	printf("ft_strlcat yields '%s' with return value '%lu'\n", dst2, ft_strlcat(dst2, src2, dstsize));
-	printf("strlen(dst) is %lu\n", strlen(dst2));
-
-	return (0);
-} */
-
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	dstlen;
+	size_t	srclen;
 
 	i = 0;
 	dstlen = ft_strlen(dst);
-	// printf("ft_strlen(dst) is %lu\n", dstlen);
-	// printf("ft_strlen(src) is %lu\n", ft_strlen(src));
-	if (dstsize > 0 && dstlen < dstsize)
+	srclen = ft_strlen(src);
+	if (dstlen >= dstsize)
+		return (dstsize + srclen);
+	if (srclen + dstlen < dstsize)
+		ft_memcpy(dst + dstlen, src, srclen + 1);
+	else
 	{
 		while (i < dstsize - dstlen - 1)
 		{
@@ -52,29 +34,36 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		}
 		dst[dstlen + i] = '\0';
 	}
-	// else if (dstsize == 0)
-	//  && dstlen >= dstsize)
-	// {
-	// }
-	return (dstlen + ft_strlen(src));
+	return (dstlen + srclen);
 }
 
-/* #include <stdio.h>
-#include <string.h>
+/* #include <string.h>
 int main()
 {
-	char src[50] = "djdjdjd glou glou glou";
-	char dst1[50];
-	char dst2[50];
+    // char src[] =  "abcd"; // srclen == 4
+    // char src2[] = "abcd";
 
-	size_t	result;
-	size_t	dstsize = 0;
+    // char dst[] =  "mnopqrstuvwxyz"; // dstlen == 14
+    // char dst2[] = "mnopqrstuvwxyz";
+    char dst3[10] = "a";
+    char dst4[10] = "a";
 
-	result = strlcat(dst1, src, dstsize);
-	printf("strlcat: dst is now %s\n, return value is %lu\n", dst1, result);
+    // size_t dstsize = 13;
+    // printf("for src '%s' and dst '%s', with dstsize = %lu,\n", src, dst, dstsize);
+    // printf("strlcat yields '%s' with return value '%lu'\n", dst, strlcat(dst, src, dstsize));
+    // printf("strlen(dst) is %lu\n\n", strlen(dst));
 
-	result = ft_strlcat(dst2, src, dstsize);
-	printf("ft_strlcat: dst is now %s, return value is %lu\n", dst2, result);
-	strlcat();
-	return (0);
+    // printf("for src '%s' and dst '%s', with dstsize = %lu,\n", src2, dst2, dstsize);
+    // printf("ft_strlcat yields '%s' with return value '%lu'\n", dst2, ft_strlcat(dst2, src2, dstsize));
+    // printf("strlen(dst) is %lu\n", strlen(dst2));
+
+    printf("strlcat yields '%s' with return value '%lu'\n", dst3, strlcat(dst3, "lorem ipsum dolor sit amet", 0));
+	printf("ft_strlcat yields '%s' with return value '%lu'\n\n", dst4, ft_strlcat(dst4, "lorem ipsum dolor sit amet", 0));
+
+    // printf("strlcat yields '%s' with return value '%lu'\n", dst3, strlcat(dst3, "lorem ipsum", 1));
+	// printf("ft_strlcat yields '%s' with return value '%lu'\n\n", dst3, ft_strlcat(dst3, "lorem ipsum", 1));
+
+    // printf("strlcat yields '%s' with return value '%lu'\n", dst3, strlcat(dst3, "lorem ipsum", 5));
+	// printf("ft_strlcat yields '%s' with return value '%lu'\n", dst3, ft_strlcat(dst3, "lorem ipsum", 5));
+	  return (0);
 } */

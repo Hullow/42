@@ -23,9 +23,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	start = ft_findstart(s1, set);
 	stop = ft_findstop(s1, set);
-	ts1 = (char *)malloc((stop - start + 1) * sizeof(char));
-	if (ts1 == NULL)
-		return (NULL);
+    if (start > stop)
+        stop = start;
+    ts1 = (char *)malloc((stop - start + 1) * sizeof(char));
+    if (ts1 == NULL)
+        return (NULL);
 	ft_strlcpy(ts1, &s1[start], stop - start + 1);
 	return (ts1);
 }
@@ -70,10 +72,16 @@ unsigned int	ft_findstop(char const *s1, char const *set)
 	return (stop);
 }
 
-/* #include <stdlib.h>
+/*
+#include <stdlib.h>
+#include <string.h>
 int	main()
 {
-	printf("ft_strtrim yields '%s'\n", \
-	ft_strtrim("bcbcghghcabc", "aaaacebacccccddd"));
-	return (0);
-} */
+    char *s;
+
+    s = ft_strtrim("   xxx   xxx", " x");
+	printf("ft_strtrim yields '%s'\n", s);
+
+   return (0);
+}
+*/
