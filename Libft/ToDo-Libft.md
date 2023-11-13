@@ -1,3 +1,6 @@
+ft_split: continue working on ft_fill_word, starting with the input variables (notably length)
+
+
 Paco:
 
 FUNCTION         TESTS                RESULT
