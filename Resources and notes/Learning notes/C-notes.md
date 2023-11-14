@@ -149,6 +149,7 @@ A fragment of code which has been given a name. Using the name replaces it with 
 ## Debugging flags
 - `-g` : generate debug information
 - `-fsanitize` : [AddressSanitizer](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html). With `=address`, `=leak`, ...
+- adding compile instructions (e.g. `-L. -lft`) to the VSCode C/C++ debugger: in `tasks.json`
 
 ## Common errors
 `initializing 'char *' with an expression of type 'const char *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]` => typecast the new pointer. E.g. `const char *s`, `char *search = (char *) s`; error without the `(char *)`. 
