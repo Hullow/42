@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:24:01 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/26 17:08:59 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/14 18:16:43 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char	*ft_strrchr(const char *s, int c)
 		ptr++;
 		i++;
 	}
-	while (i > 0)
+	while (i >= 0)
 	{
-		if (*ptr == c)
+		if (*ptr == (char) c)
 			return (ptr);
 		else
 		{
@@ -34,7 +34,7 @@ char	*ft_strrchr(const char *s, int c)
 			i--;
 		}
 	}
-	return (0);
+	return (NULL);
 }
 
 /* #include <string.h>

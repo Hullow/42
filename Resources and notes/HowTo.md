@@ -5,8 +5,3 @@
 - Inline variable values: go to Settings and set `Debug:inline` to `true`
 - Open `settings.json`: Go to `Settings` and click on the document icon top-right to switch to `.json` view
 - 
-
-
-# C
-## Debugging
-- `-fsanitize=address`: use with `-g`

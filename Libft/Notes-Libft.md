@@ -39,6 +39,11 @@ leak ne sera toléré" => free les malloc ?
 		```
 	(1): question sur Discord, on m'envoie sur le [code source de libc/strlcat.c](https://android.googlesource.com/platform/bionic/+/ics-mr0/libc/string/strlcat.c): effectivement, deux return value differentes, selon si `dstlen >= dstsize` ou pas. Mais toujours pas compris *pourquoi*. 
 
+- 14/11/23:
+	- debugged many Libft functions. notes on a few:
+		- ft_memchr: had to convert `*string` to `unsigned char` to test: `if ((unsigned char) *string == character)`, and not stop at end of string, i.e. remove `while (*string)`
+		- ft_strchr: had to include case where `c` is `'\0'` and typecast `c` to `char` when comparing with `*string`
+
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->
 Main.c:

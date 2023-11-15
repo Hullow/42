@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:21:44 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/24 16:55:09 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:03:33 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char	*string1;
-	unsigned char	*string2;
+	char	*string1;
+	char	*string2;
 
-	string1 = (unsigned char *) s1;
-	string2 = (unsigned char *) s2;
+	string1 = (char *) s1;
+	string2 = (char *) s2;
+	if (string1 == 0 && string2 == 0)
+		return (0);
 	while (n > 0)
 	{
 		if (*string1 == *string2)
@@ -28,35 +30,38 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 			n--;
 		}
 		else
-			return (*string1 - *string2);
+			return ((unsigned char) *string1 - (unsigned char) *string2);
 	}
-	return (*string1 - *string2);
+	if (n == 0)
+		return (0);
+	else
+		return ((unsigned char) *string1 - (unsigned char) *string2);
 }
 
-/* #include <string.h>
+/*
+#include <string.h>
+int	test(const void *s1, const void *s2, size_t n)
+{
+	int	result1 = ft_memcmp(s1, s2, n);
+	int	result2 = memcmp(s1, s2, n);
+	if (result1 == result2)
+		printf("both functions return the same value: %d\n******************************\n", result1);
+	else
+		printf("the functions have different returns: ft_memcmp returns %d and memcmp returns %d.\n******************************\n", result1, result2);
+	return (0);
+}
+
 int	main()
 {
-	char string1[10];
-	char string2[10];
+	// char s[] = {-128, 0, 127, 0};
+	// char sCpy[] = {-128, 0, 127, 0};
+	char s2[] = {0, 0, 127, 0};
+	char s3[] = {0, 0, 42, 0};
 
-	strcpy(string1, "abed");
-	strcpy(string2, "abcd");
-	
-	const void *s1 = string1;
-	const void *s2 = string2;
-
-
-	if (ft_memcmp(s1, s2, 3) == 0)
-		printf("my function: The two strings are identical.\n");
-	else
-		printf("my function:The two strings are different.\n");
-	printf("my function's return value is %d.\n\n", ft_memcmp(s1, s2, 3));
-
-	if (memcmp(s1, s2, 3) == 0)
-		printf("memcmp: The two strings are identical.\n");
-	else
-		printf("memcmp: The two strings are different.\n");
-	printf("memcmp's return value is %d.\n", memcmp(s1, s2, 3));
-
+	// test(s, sCpy, 4); 
+	// test(s, s2, 0);
+	// test(s, s2, 1);
+	// test(s2, s, 1); 
+	test(s2, s3, 4);
 	return (0);
-} */
+}*/

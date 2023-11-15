@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:23:50 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/26 16:28:21 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/14 18:53:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,48 +17,53 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	if (n == 0)
 		return (0);
 	else if (*s1 > 0 && *s2 == 0)
-		return (1);
+		return ((unsigned char) *s1 - (unsigned char) *s2);
 	else if (*s1 == 0 && *s2 > 0)
-		return (-1);
+		return ((unsigned char) *s1 - (unsigned char) *s2);
 	else
 	{
-		while (n && *s1 && *s2)
+		while (n > 0 && *s1 && *s2)
 		{
 			if (*s1 == *s2)
 				n--;
 			else if (*s1 > *s2)
-				return (1);
+				return ((unsigned char) *s1 - (unsigned char) *s2);
 			else if (*s1 < *s2)
-				return (-1);
-			s1++;
-			s2++;
+				return ((unsigned char) *s1 - (unsigned char) *s2);
+			if (n != 0)
+			{
+				s1++;
+				s2++;
+			}
 		}
 	}
-	return (0);
+	return ((unsigned char) *s1 - (unsigned char) *s2);
 }
 
 /* #include <string.h>
-#include <stdio.h>
+int	test(const char *s1, const char *s2, size_t n)
+{
+	char	*string1;
+	char	*string2;
+	int result;
+	int benchmark;
+
+	string1 = (char *) s1;
+	string2 = (char *) s2;
+
+	result = ft_strncmp(string1, string2, n);
+	benchmark = strncmp(string1, string2, n);
+
+	if (result == benchmark)
+		printf("return value is the same as strncmp\n");
+	else
+		printf("ft_strncmp's return value %d is not the same as strncmp: %d\n", result, benchmark);
+	return (0);
+}
+
 int main(void)
 {
-unsigned int n;
-int result;
-int benchmark;
-
-n = 0;
-result = ft_strncmp("aaa", "", n);
-benchmark = strncmp("aaa", "", n);
-if (!result)
-printf("my function, the strings are the same for the \
-first %d characters, the return value being %d.\n", n, result);
-else
-printf("my function, the strings are different for the \
-first %d characters, the return value being %d.\n", n, result);
-if (!benchmark)
-printf("strncmp: the strings are the same for the \
-first %d characters, the return value being %d.\n", n, benchmark);
-else
-printf("strncmp: the strings are different for the \
-first %d characters, the return value being %d.\n", n, benchmark);
-return(0);
+	test("1234", "1235", 3);
+	test("abcdefgh", "abcdwxyz", 4);
+	return(0);
 } */

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:22:38 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/24 16:59:47 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/14 12:30:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,54 @@
 
 char	*ft_strdup(const char *s1)
 {
-	char			*str;
-	unsigned int	len;
+	char	*str;
+	size_t	i;
 
-	len = 0;
-	while (s1[len])
-		len++;
-	str = malloc(len * sizeof(char));
+	str = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (!str)
-		return (0);
-	if (str)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		while (len > 0)
-		{
-			str[len - 1] = s1[len - 1];
-			len--;
-		}
+		str[i] = s1[i];
+		i++;
 	}
+	str[i] ='\0';
 	return (str);
 }
 
-/*
+
+
+/* #include <stdio.h>
 #include <string.h>
-#include <stdio.h>
+int	test_dup(char *string1, int test_number)
+{
+	char	*s1 = NULL;
+	char	*s2 = NULL;
+
+	s1 = ft_strdup(string1);
+	s2 = strdup(string1);
+	
+	if (strcmp(s1,s2) == 0)
+	{
+		printf("test %d: s1 is '%s', s2 is '%s'\n", test_number, s1, s2);
+		printf("result: same\n******************\n");	
+	}
+	else
+	{		
+		printf("test %d: s1 is '%s', s2 is '%s'\n", test_number, s1, s2);
+		printf("result: not the same\n******************\n");
+	}
+	free(s1);
+	free(s2);
+	return (0);
+}
 
 int	main()
 {
-	char	s1[] = "blablabla";
-
-	printf("strdup copies s1: '%s' at address '%p' \
-	to str '%s' at address '%p'\n", s1, s1, strdup(s1), strdup(s1));
-	
-	//printf("ft_strdup copies s1: '%s' at address '%p' \
-	to str '%s' at address '%p'\n", s1, s1, ft_strdup(s1), ft_strdup(s1));
+	test_dup("", 1);
+	test_dup("blablabla", 2);
+	test_dup("   ", 3);
 	
 	return (0);
 } */

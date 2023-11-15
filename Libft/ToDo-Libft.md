@@ -1,41 +1,35 @@
-ft_split: continue working on ft_fill_word, starting with the input variables (notably length)
+Paco --strict + normal:
+
+ft_isalpha      : OK
+ft_isdigit      : OK
+ft_isalnum      : OK
+ft_isascii      : OK
+ft_isprint      : OK
+ft_strlen       : OK
+ft_memset       : OK
+ft_bzero        : OK
+ft_memcpy       : OK
+ft_memmove      : OK
+ft_strlcpy      : OK
+ft_strlcat      : OK
+ft_toupper      : OK
+ft_tolower      : OK
+ft_strchr       : OK
+ft_strrchr      : OK
+ft_memchr       : OK
+ft_memcmp       : OK
+ft_strdup       : OK
+ft_strtrim      : OK
+ft_strncmp      : OK
 
 
-Paco:
+ft_strnstr      : KO
+ft_atoi         : KO
 
-FUNCTION         TESTS                RESULT
-ft_isalpha       ✓✓✓✓✓✓✓              OK
-ft_isdigit       ✓✓✓✓✓✓✓              OK
-ft_isalnum       ✓✓✓✓✓✓✓              OK
-ft_isascii       ✓✓✓✓✓✓✓✓             OK
-ft_isprint       ✓✓✓✓✓✓✓              OK
-ft_strlen        ✓✓✓✓✓✓               OK
-ft_memset        ✓✓✓✓                 OK
-ft_bzero         ✓✓                   OK
-ft_memcpy        ✓✓✓                  OK
-ft_memmove       ✓✓✓✓✓                OK
-ft_strlcpy       ✓✓✓✓✓                OK
-ft_strlcat       ✓✓✓✓✓✓✓✓✓            OK
-ft_tolower       ✓✓✓✓✓✓✓              OK
-ft_toupper       ✓✓✓✓✓✓✓              OK
-ft_substr        ✓✓✓✓✓                OK
-ft_strtrim       ✓✓✓✓✓                OK
-
-
-*ft_strchr        ✓✓✓✓✗✗               KO*
-*ft_strrchr       ✗✓✓✓✓✓✗✓             KO*
-*ft_strncmp       ✓✗✗✓✓✓✓✓✓✓✗          KO*
-*ft_memchr        ✓✓✓✓✓✗               KO*
-*ft_memcmp        ✓✓✓✓✓✓✗✓✗            KO*
-*ft_strnstr       ✗✓✓✓✗✓✓✓✓✓           KO*
-*ft_atoi          ✓✓✓✓✓✓✗✗✗✗✓✓✓✓✓✓✓✓✓  KO*
-ft_calloc        ✓                    OK
-*ft_strdup        A                    KO*
-ft_strjoin       AAA✓                 KO*
-
-
-
-*ft_split         compil. failed       KO*
+ft_calloc       : 3.KO Segfault
+ft_substr       : 1.KO Segfault
+ft_strjoin      : 2.KO Abort
+ft_split        : 1.KO Segfault
 
 Abort: A  Bus error: B  Segmentation fault: S  Timeout: T
 
