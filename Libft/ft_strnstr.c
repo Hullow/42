@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:23:56 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/15 17:13:38 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/15 17:57:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 			i++;
 		else
 		{
+			len += i;
 			i = 0;
 			start++;
 		}
@@ -40,7 +41,9 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		return (NULL);
 }
 
-/* #include <string.h>
+// 	test(6, "abcabcd", "abcd", 7);
+
+#include <string.h>
 #include <stdio.h>
 int	test(int test_number, const char *haystack, const char *needle, size_t len)
 {
@@ -58,9 +61,10 @@ int	main()
 {
 	// test(1, "eeeabc", "abc", 7);
 	// test(2, "eeeabcffff", "abc", 7);
-	test(3, "eeeabc", "abc", 7);
-	test(4, "eeeabcfff", "abc", 7);
+	// test(3, "eeeabc", "abc", 7);
+	// test(4, "eeeabcfff", "abc", 7);
+	// test(5, "eeeabcfff", "abc", 7);
+	test(6, "abcabcd", "abcd", 7);
 	
 	return (0);
 }
- */
