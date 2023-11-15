@@ -40,3 +40,8 @@ alias g="gcc -Wall -Wextra -Werror"
 alias o="./a.out"
 alias mini='~/mini-moulinette/mini-moul.sh'
 alias l='ls -la'
+alias n="norminette"
+
+alias francinette="/Users/francis/francinette/tester.sh -in"
+alias paco="/Users/francis/francinette/tester.sh -in"
+alias gl="gcc -Wall -Wextra -Werror -L. -lft"
