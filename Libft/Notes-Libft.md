@@ -43,6 +43,7 @@ leak ne sera toléré" => free les malloc ?
 	- debugged many Libft functions. notes on a few:
 		- ft_memchr: had to convert `*string` to `unsigned char` to test: `if ((unsigned char) *string == character)`, and not stop at end of string, i.e. remove `while (*string)`
 		- ft_strchr: had to include case where `c` is `'\0'` and typecast `c` to `char` when comparing with `*string`
+- 15/11/23: 30 bonnes minutes pour faire marcher le debugger VSCode, solution trouvee
 
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:23:56 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/26 16:48:42 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/15 17:13:38 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,75 +16,51 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	char			*anchor;
 	unsigned int	start;
+	unsigned int	i;
 
-	start = 0;
 	anchor = (char *) haystack;
 	if (ft_strlen(needle) == 0)
 		return ((char *)haystack);
-	while (*haystack++ && *needle && len-- > 0)
+	start = 0;
+	i = 0;
+	while (haystack[start + i] && needle[i] && len > 0) // 
 	{
-		if (*needle == *haystack)
-			needle++;
+		if (needle[i] == haystack[start + i])
+			i++;
 		else
+		{
+			i = 0;
 			start++;
+		}
+		len--;
 	}
-	if (*needle == '\0')
-		return (anchor + start + 1);
+	if (needle[i] == '\0')
+		return (anchor + start);
 	else
 		return (NULL);
 }
 
 /* #include <string.h>
 #include <stdio.h>
+int	test(int test_number, const char *haystack, const char *needle, size_t len)
+{
+	char *result1 = ft_strnstr(haystack, needle, len);
+	char *result2 = strnstr(haystack, needle, len);
+
+	if (result1 == result2)
+		printf("test %d: same return '%s'\n", test_number, result2);
+	else
+		printf("test %d: strnstr returns '%s', ft_strnstr returns '%s'\n", test_number, result2, result1);
+	return (0);
+}
+
 int	main()
 {
-	char	haystack[] = {'a', 'c', 'd', 'a', 'b', 'a', \
-	'c', 'd', 'e', 'c', 'd', 'e', 'f', '\0'};
-
-	char	needle0[] = "";
-	char	needle1[] = {'c', '\0'};
-	char	needle2[] = {'g', '\0'};
-	char	needle3[] = {'c', 'd', '\0'};
-
-	size_t	len = 15;
-	printf("strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n", needle0, \
-	haystack, strnstr(haystack, needle0, len), \
-	strnstr(haystack, needle0, len));
-
-	printf("ft_strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n\n", needle0, \
-	haystack, ft_strnstr(haystack, needle0, len), \
-	ft_strnstr(haystack, needle0, len));
-
-	printf("strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n", needle1, \
-	haystack, strnstr(haystack, needle1, len), \
-	strnstr(haystack, needle1, len));
-
-	printf("ft_strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n\n", needle1, \
-	haystack, ft_strnstr(haystack, needle1, len), \
-	ft_strnstr(haystack, needle1, len));
-
-	printf("strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n", needle2, \
-	haystack, strnstr(haystack, needle2, len), \
-	strnstr(haystack, needle2, len));
-
-	printf("ft_strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n\n", needle2, \
-	haystack, ft_strnstr(haystack, needle2, len), \
-	ft_strnstr(haystack, needle2, len));
-
-	printf("strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n", needle3, \
-	haystack, strnstr(haystack, needle3, len), \
-	strnstr(haystack, needle3, len));
-
-	printf("ft_strnstr, looking for '%s' in '%s', \
-produces '%s' which is at address '%p'\n", needle3, \
-	haystack, ft_strnstr(haystack, needle3, len), \
-	ft_strnstr(haystack, needle3, len));
+	// test(1, "eeeabc", "abc", 7);
+	// test(2, "eeeabcffff", "abc", 7);
+	test(3, "eeeabc", "abc", 7);
+	test(4, "eeeabcfff", "abc", 7);
+	
 	return (0);
-} */
+}
+ */

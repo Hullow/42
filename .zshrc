@@ -38,4 +38,4 @@ alias n="norminette"
 
 alias francinette="/Users/francis/francinette/tester.sh -in"
 alias paco="/Users/francis/francinette/tester.sh -in"
-alias gl="gcc -Wall -Wextra -Werror -L. -lft"
+alias gl="gcc -Wall -Wextra -Werror -L. -lft -g"

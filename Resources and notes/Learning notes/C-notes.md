@@ -147,7 +147,7 @@ A fragment of code which has been given a name. Using the name replaces it with 
 ## Compilers (gcc)
 
 ## Debugging flags
-- `-g` : generate debug information
+- `-g` : generate debug information => n.b.; necessary to set breakpoints in source code !
 - `-fsanitize` : [AddressSanitizer](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html). With `=address`, `=leak`, ...
 - adding compile instructions (e.g. `-L. -lft`) to the VSCode C/C++ debugger: in `tasks.json`
 
