@@ -145,6 +145,12 @@ int main()
 A fragment of code which has been given a name. Using the name replaces it with the code. Two kinds: ***object-like***: resemble data objects and ***function-like***: resemble function calls
 
 ## Compilers (gcc)
+- gcc: GNU compiler collection (C, C++, Ada, Go)
+- [Clang](https://clang.llvm.org/): compiler/frontend for LLVM for C, C++, Objective-C, CUDA, ...). Contains a gcc-compatible compiler driver
+
+## Debugging
+- GDB: GNU debugger
+- lldb: low-level debugger, part of the LLVM project
 
 ## Debugging flags
 - `-g` : generate debug information => n.b.; necessary to set breakpoints in source code !
