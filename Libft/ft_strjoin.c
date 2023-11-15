@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:22:41 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/03 15:15:49 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/15 18:13:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	str = malloc((len1 + len2) * sizeof(char));
+	str = malloc((len1 + len2 + 1) * sizeof(char));
 	if (str)
 	{
 		i = 0;

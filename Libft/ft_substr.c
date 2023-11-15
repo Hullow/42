@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:24:19 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/07 18:53:45 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/15 19:31:02 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*str;
 	unsigned int	i;
-	size_t			strlens;
+	unsigned int	strlens;
 
-	strlens = ft_strlen(s);
+	strlens = (unsigned int) ft_strlen(s);
 	if (len > strlens)
 		len = strlens;
-	str = (char *)ft_calloc((len + 1), sizeof(char)); // 
+	str = (char *)malloc((len + 1) * sizeof(char)); // 
 	if (str == NULL)
 		return (NULL);
-	// ft_bzero(str, ft_strlen(str));
 	i = 0;
 	if (start <= strlens)
 	{
@@ -38,23 +37,63 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (str);
 }
 
-/* void ft_print_result(char const *s, unsigned int start, size_t len)
+// "tripouille", 100, 1) => ""
+
+#include <string.h>
+int test(int test_number, char const *s, unsigned int start, size_t len)
 {
-	printf("ft_substr on '%s' at \
-address '%p' with start = %d and len = %zu, \
-yields '%s' at address '%p'\n\n", s, s, start, len, \
-	ft_substr(s, start, len), ft_substr(s, start, len));
+	char *result = ft_substr(s, start, len);
+	printf("Test %d: \"%s\"\n", test_number, result);
+	free(result);
+	return (0);
 }
 
 #include <stdio.h>
 int	main()
 {
-	char s[] = "hola"; // Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-	unsigned int start = 0;
-	size_t len = 1844674407370955161;
+	// char s[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."; // Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
+	char s[] = "tripouille";
+	// unsigned int start = 0;
+	// unsigned int start2 = 3;
 
-	ft_print_result(s, start, len);
-	// ft_print_result(s, start + 2, len - 3);
+	test(0, s, 100, 1);
+	if (!strcmp(s, ""))
+		printf("OK\n");
+	else
+		printf("KO\n");
+
+	// printf("start = 0:\n");
+	// test(1, s, start, 0);
+	// test(2, s, start, 1);
+	// test(3, s, start, 3);
+	// test(4, s, start, 4);
+	// test(5, s, start, 5);
+	// test(55, s, start, 55);
+	// test(6, s, start, 56);
+	// test(7, s, start, 57);
+	// test(8, s, start, 57);
+	// test(9, s, start, 1844674407370955161);
+
+	// printf("\nstart = 3:\n");
+	// test(1, s, start2, 0);
+	// test(2, s, start2, 1);
+	// test(3, s, start2, 3);
+	// test(4, s, start2, 4);
+	// test(5, s, start2, 5);
+	// test(6, s, start2, 1844674407370955161);
 	
+	// printf("\nstart = 56:\n");
+	// test(1, s, 56, 0);
+	// test(2, s, 56, 1);
+	// test(3, s, 56, 2);
+	// test(3, s, 56, 3);
+	// test(4, s, 56, 57);
+	
+	// printf("\nstart: >57\n");
+	// test(2, s, 57, 1);
+	// test(3, s, 58, 3);
+	// test(4, s, 2576980377, 4);
+	// test(5, s, -15, 5);
+	// test(6, s, 2576980377, 1844674407370955161);
 	return (0);
-} */
+}

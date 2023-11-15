@@ -21,14 +21,14 @@ ft_memcmp       : OK
 ft_strdup       : OK
 ft_strtrim      : OK
 ft_strncmp      : OK
+ft_strnstr      : OK
+ft_strjoin      : OK
 
 
-ft_strnstr      : KO
 ft_atoi         : KO
 
 ft_calloc       : 3.KO Segfault
 ft_substr       : 1.KO Segfault
-ft_strjoin      : 2.KO Abort
 ft_split        : 1.KO Segfault
 
 Abort: A  Bus error: B  Segmentation fault: S  Timeout: T
