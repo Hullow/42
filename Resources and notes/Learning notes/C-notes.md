@@ -72,6 +72,11 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 	- On other strings: only as long as non-null characters
 - **String literals**: immutable by default and stored in a read-only section of memory (ROM) for safety reasons (prevent accidental modification by the program) and security (prevent alteration of essential data, including also constants and code). Also, it is harder to handle in general, so most data is better off being constant. (See [StackExchange](https://softwareengineering.stackexchange.com/questions/294748/why-are-c-string-literals-read-only?newreg=0d8085bd75304612b414bf5e01daba16))
 - Creating a string with bracket notation, i.e. char array[1], creates a **non-null-terminated char array with one byte**. For a char array of length 1, declare `char array[2] = {'a', '\0'}` 
+#### Characters
+##### Encoding conventions
+- In C, implicit encoding is implementation specific:
+> "The encoding used by the char is that of the environment under which it is executing, but the type also doubles as a type for working with any byte (octet) data. This is likely one of the sources of confusion that cause developers to assume that one character equals one byte. C99 defines char to have a range of either -127 to 127 or 0 to 255. That is, it is always 8 bits." (see [comparing character encoding in C, C#, Java, Python and Ruby](https://illegalargumentexception.blogspot.com/2010/04/i18n-comparing-character-encoding-in-c.html))
+
 
 ### Other topics
 **scanf()**
