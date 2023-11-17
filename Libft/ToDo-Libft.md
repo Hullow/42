@@ -28,7 +28,7 @@ ft_calloc       : OK
 ft_split        : OK
 ft_atoi         : OK for francinette (incl. "--strict"), although found issue with INT_MAX => check if okay with others
 
-Missing functions: itoa, strmapi, striteri, putchar_fd, putstr_fd, putendl_fd, putnbr_fd
+Missing functions: **itoa, strmapi, striteri, putchar_fd, putstr_fd, putendl_fd, putnbr_fd**
 
 
 Abort: A  Bus error: B  Segmentation fault: S  Timeout: T

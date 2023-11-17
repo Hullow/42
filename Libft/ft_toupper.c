@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:24:37 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/13 13:36:42 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/17 17:23:08 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,26 @@ int	ft_toupper(int c)
 		return (c);
 }
 
-/*
-#include <stdio.h>
+/* 
+#include <ctype.h>
+int	test(int test_number, int c)
+{
+	if (ft_toupper(c) == toupper(c))
+		printf("Test %d OK.\n", test_number);
+	else
+		printf("Test %d failed. ft_toupper: %c, toupper: %c\n", test_number, ft_toupper(c), toupper(c));
+	return (0);
+} */
+
+/* #include <stdio.h>
 #include <ctype.h>
 int	main(void)
 {
-	int	character;
-
-	characters = {'a','b', 'c', 'y', '0', ' ', '9', 'z', ;
-	printf("The return value of tupper is %c\n", toupper(character));
-	printf("The return value of ft_tupper is %c\n", ft_toupper(character));
-	printf("The variable character is now equal to: %c\n", character);
+	test(0, 'A');
+	test(1, 'a');
+	test(2, 'b');
+	test(3, 'c');
+	test(4, 'y');
+	
 	return (0);
-}*/
+} */

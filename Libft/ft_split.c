@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 11:04:09 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/17 15:18:53 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/17 17:33:44 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ char	*ft_trim_string(char *copy, char *character)
 	copylength = ft_strlen(copy);
 	wordlength = ft_word_length(copy, character[0]);
 	substr = ft_substr(copy, wordlength, copylength + 1);
+	if (!substr)
+		return (NULL);
 	trimmed = ft_strtrim(substr, character);
+	if (!trimmed)
+		return (NULL);
 	ft_strlcpy(copy, trimmed, copylength);
 	free(substr);
 	free(trimmed);
@@ -87,14 +91,13 @@ char	**ft_split(char const *s, char c)
 	char	character[2];
 
 	split = ft_calloc(ft_count_words(s, c) + 1, sizeof (char *));
-	if (split == NULL)
-	{
-		free (split);
+	if (!split)
 		return (NULL);
-	}
 	character[0] = (char) c;
     character[1] = '\0';
 	copy = ft_strtrim((char *) s, (char *)character);
+	if (!copy)
+		return (NULL);
 	count = ft_count_words(copy, c);
 	i = 0;
 	while (i < count)
@@ -107,14 +110,13 @@ char	**ft_split(char const *s, char c)
 	return (split);
 }
 
-/*int main()
+/* int	test(int test_number, char const *s, char c)
 {
-	char 	*string = "hello!"; // "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse";
-	char	c = ' ';
+	char **split = ft_split(s, c);
 
-	char **split = ft_split(string, c);
-
-	unsigned int count = ft_count_words(string, c);
+	unsigned int count = ft_count_words(s, c);
+	
+	printf("test %d:\n", test_number);
 	printf("count is %d\n", count);
 	char character[1];
 	character[0] = (char) c;
@@ -126,4 +128,15 @@ char	**ft_split(char const *s, char c)
 	}
 	printf("split %d is '%s'\n", i, split[i]);
 	return (0);
-}*/
+} */
+
+/* int main()
+{
+	char 	*s = "hello!"; // "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse";
+	char	c = ' ';
+	
+	ft_split(s, c);
+	// test(1, s, c);
+
+	return (0);
+} */
