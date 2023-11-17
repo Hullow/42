@@ -23,13 +23,13 @@ ft_strtrim      : OK
 ft_strncmp      : OK
 ft_strnstr      : OK
 ft_strjoin      : OK
+ft_substr       : OK
+ft_calloc       : OK
+ft_split        : OK
+ft_atoi         : OK for francinette (incl. "--strict"), although found issue with INT_MAX => check if okay with others
 
+Missing functions: itoa, strmapi, striteri, putchar_fd, putstr_fd, putendl_fd, putnbr_fd
 
-ft_atoi         : KO
-
-ft_calloc       : 3.KO Segfault
-ft_substr       : 1.KO Segfault
-ft_split        : 1.KO Segfault
 
 Abort: A  Bus error: B  Segmentation fault: S  Timeout: T
 

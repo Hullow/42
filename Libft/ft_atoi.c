@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 21:15:23 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/17 11:43:54 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/17 15:20:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_atoi(char *str)
 	return (sign * nb);
 }
 
-#include <unistd.h>
+/* #include <unistd.h>
 #include <stdlib.h>
 int	test(int number, char *str)
 {
@@ -77,3 +77,4 @@ int	main(void)
 	test(8, "  -000456abc55554de     ");
 	return (0);
 }
+ */

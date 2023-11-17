@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 11:04:09 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/13 17:20:54 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/17 15:18:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ char	**ft_split(char const *s, char c)
 	char	*copy;
 	char	character[2];
 
-	split = NULL;
 	split = ft_calloc(ft_count_words(s, c) + 1, sizeof (char *));
 	if (split == NULL)
 	{

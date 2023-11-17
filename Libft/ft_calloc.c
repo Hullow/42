@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:20:12 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/26 17:51:41 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/17 14:44:57 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,44 @@
 void	*ft_calloc(size_t count, size_t size)
 {
 	void			*ptr;
-	unsigned int	total;
+	unsigned int	total_size;
 	unsigned char	*filler;
 
-	total = (unsigned int)count * (unsigned int)size;
-	ptr = malloc(total);
+	total_size = (unsigned int)count * (unsigned int)size;
+	ptr = malloc(total_size);
+	if (ptr == NULL)
+		return (NULL);
 	filler = (unsigned char *) ptr;
-	while (total > 0)
+	while (total_size > 0)
 	{
 		*filler = '\0';
 		filler++;
-		total--;
+		total_size--;
 	}
 	return (ptr);
 }
 
-/* #include <stdlib.h>
-#include <stdio.h>
+/* #include <string.h>
+int	test(int number, int count, int size)
+{
+	void	*ptr1 = ft_calloc(count, size);
+	void	*ptr2 = calloc(count, size);
+	
+	ft_memset(ptr1, 65, count);
+	ft_memset(ptr2, 65, count);
+	
+	if (memcmp(ptr1, ptr1, (size_t)count) == 0)
+		printf("test %d OK: \nft_calloc: %s at address %p\ncalloc: %s at address %p\n", number, ptr1, ptr1, ptr2, ptr2);
+	else
+		printf("test %d KO: ft_calloc: %p, calloc %p\n", number, ptr1, ptr2);
+	return (0);
+}
+
 int	main()
 {
-	size_t count = 3;
-	size_t size = 4;
-
-	printf("ft_calloc generates: '%s' at address '%p'\n", \
-	(char *)ft_calloc(count, size), ft_calloc(count, size));
-	printf("calloc generates: '%s' at address '%p'\n", \
-	(char *)calloc(count, size), calloc(count, size));
+	test(0, 3, 4);
+	test(1, 0, 4);
+	test(2, 4, 0);
+	test(3, 0, 0);
 	return (0);
 } */

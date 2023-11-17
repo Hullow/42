@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:24:19 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/15 19:31:02 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/17 14:27:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,39 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*str;
 	unsigned int	i;
-	unsigned int	strlens;
 
-	strlens = (unsigned int) ft_strlen(s);
-	if (len > strlens)
-		len = strlens;
-	str = (char *)malloc((len + 1) * sizeof(char)); // 
+	if (s == NULL)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_strdup(""));
+	if (start + len > ft_strlen(s))
+		len = ft_strlen(s) - start;
+	str = (char *)malloc((len + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	i = 0;
-	if (start <= strlens)
+	while (s[start + i] && i < len)
 	{
-		while (s[start + i] && i < len)
-		{
-			str[i] = s[start + i];
-			i++;
-		}
-		str[i] = '\0';
+		str[i] = s[start + i];
+		i++;
 	}
+	str[i] = '\0';
 	return (str);
 }
 
 // "tripouille", 100, 1) => ""
 
-#include <string.h>
+/* #include <string.h>
 int test(int test_number, char const *s, unsigned int start, size_t len)
 {
 	char *result = ft_substr(s, start, len);
 	printf("Test %d: \"%s\"\n", test_number, result);
-	free(result);
+	if (!strcmp(s, ""))
+		printf("OK\n");
+	else
+		printf("KO\n");
+	if (result != NULL)
+		free(result);
 	return (0);
 }
 
@@ -52,16 +56,13 @@ int test(int test_number, char const *s, unsigned int start, size_t len)
 int	main()
 {
 	// char s[] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."; // Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.
-	char s[] = "tripouille";
 	// unsigned int start = 0;
 	// unsigned int start2 = 3;
 
+	char s[] = "Tripouille";
 	test(0, s, 100, 1);
-	if (!strcmp(s, ""))
-		printf("OK\n");
-	else
-		printf("KO\n");
-
+	char *s2 = NULL;
+	test(0, s2, 1, 1);
 	// printf("start = 0:\n");
 	// test(1, s, start, 0);
 	// test(2, s, start, 1);
@@ -97,3 +98,4 @@ int	main()
 	// test(6, s, 2576980377, 1844674407370955161);
 	return (0);
 }
+ */
