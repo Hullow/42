@@ -6,13 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 21:15:23 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/17 15:20:00 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/21 14:28:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-int	remove_whitespaces(char *str, int i)
+int	remove_whitespaces(const char *str, int i)
 {
 	while (str[i] == ' ' | str[i] == '\t' | str[i] == '\n' | str[i] == \
 	'\v' | str[i] == '\f' | str[i] == '\r')
@@ -20,7 +20,7 @@ int	remove_whitespaces(char *str, int i)
 	return (i);
 }
 
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int	nb;
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:21:47 by fallan            #+#    #+#             */
-/*   Updated: 2023/10/24 16:55:24 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/21 14:33:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	unsigned char	*s1;
 	unsigned char	*s2;
 
+
 	s1 = (unsigned char *) src;
 	s2 = (unsigned char *) dst;
+	if (s1 == NULL && s2 == NULL)
+		return (NULL);
 	i = 0;
 	while (i < n)
 	{
