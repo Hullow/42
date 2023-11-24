@@ -168,10 +168,13 @@ A fragment of code which has been given a name. Using the name replaces it with 
 - GDB: GNU debugger
 - lldb: low-level debugger, part of the LLVM project
 
-## Debugging flags
-- `-g` : generate debug information => n.b.; necessary to set breakpoints in source code !
+### Debugging flags
+- `-g` (or `-g3`) : generate debug information => n.b.; necessary to set breakpoints in source code !
 - `-fsanitize` : [AddressSanitizer](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html). With `=address`, `=leak`, ...
 - adding compile instructions (e.g. `-L. -lft`) to the VSCode C/C++ debugger: in `tasks.json`
+
+### CLI debugging
+- lldb a.out, b 21 or b main (set breakpoint), run, gui, s to go to next step, esc. process restart to restart debugging.
 
 ## Common errors
 `initializing 'char *' with an expression of type 'const char *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]` => typecast the new pointer. E.g. `const char *s`, `char *search = (char *) s`; error without the `(char *)`. 
