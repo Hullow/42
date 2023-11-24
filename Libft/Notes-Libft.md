@@ -45,6 +45,38 @@ leak ne sera toléré" => free les malloc ?
 		- ft_strchr: had to include case where `c` is `'\0'` and typecast `c` to `char` when comparing with `*string`
 
 - 15/11/23: 30 bonnes minutes pour faire marcher le debugger VSCode, solution trouvee (`-g` flag en compilant pour produire des debugging infos)
+- 24/11/23: reading about linked lists, but mostly working on Makefile for the bonus. One note: `clean` and `fclean` rules only need a target but no prerequisites. My bonus rule: 
+```c
+bonus: | $(NAME) $(OBJ_BONUS)
+	ar -rcs $(NAME) $(OBJ_BONUS)
+```
+didn't work without the prerequisites (`$(NAME) $(OBJ_BONUS)`) in the dependency line (first line). Why ? ChatGPT: the **purpose of a prerequisite** in a makefile is to specify a file that must be up-to-date before the target can be processed; thus leads make to check if each prerequisite is newer than the target. If so, or if the prerequisite doesn't exist, make executes the commands associated with that target.
+
+Purpose of Prerequisites: In a makefile, a prerequisite is a file that must be up-to-date before the target can be processed. When you specify prerequisites for a target, make checks if each prerequisite is newer than the target. If so, or if the prerequisite doesn't exist, make executes the commands associated with that target.
+
+
+All right, that was helpful. `make bonus` now works, after adding `$(NAME) $(OBJ_BONUS)` as prerequisites in the dependency line. However, I don't understand the underlying logic for the need to include these variables there. Indeed, the following rules `clean` and `fclean` don't have prerequisites yet work. Why is it different ?
+
+For reference see the code below:
+
+
+```c
+bonus: $(NAME) $(OBJ_BONUS)
+	ar -rcs $(NAME) $(OBJ_BONUS)
+
+clean:
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+```
+
+ChatGPT
+I'm glad to hear that your make bonus now works! Let's break down the underlying logic behind prerequisites in makefiles and why they are necessary for some targets but not others.
+
+Understanding Prerequisites in Makefiles
+
+
 
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->

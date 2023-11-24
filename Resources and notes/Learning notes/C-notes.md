@@ -30,7 +30,18 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 
 #### [Constant Pointers](https://www.javatpoint.com/const-pointer-in-c)
 - A pointer that cannot change the address of the variable to which it is pointing, i.e. the address will remain constant. The pointer is thus a read-only variable
- 
+
+#### Operations on pointers
+##### Dereferencing
+Using the "**indirection** operator" `*`, or array brackets `[]`, the act of referring to where the pointer points, instead of a memory address. For instance, we might refer to the first element of an array
+##### Referencing
+Using the "**address** operator" `&` to take the address of a given variable to set a pointer variable
+
+##### Modifying where a pointer points
+- Because function arguments in C are passed by value, i.e. the function receives a copy of the argument, to modify where a pointer is pointing to in a function, you need to pass a pointer to that pointer.
+
+When you want to modify where a pointer is pointing in a function, you need to pass a pointer to that pointer. This is because in C, function arguments are passed by value, meaning the function receives a copy of the argument.
+
 #### Void Pointers
 **Benefits and Applications**
 - Memory allocation: used to allocate memory dynamically in conjunction with malloc and calloc without specifying the data type beforehand

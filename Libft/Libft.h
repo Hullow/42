@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:57:45 by francis           #+#    #+#             */
-/*   Updated: 2023/11/21 15:53:02 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/24 18:12:26 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@
 # include <stdio.h> // for size_t => acceptable ??
 # include <unistd.h>
 
+
+// bonus
 typedef struct	s_list
 {
 	void			*content;
 	struct s_list	*next;
 }					t_list;
 
+t_list	*ft_lstnew(void *content);
+// void	ft_lstadd_back(t_list **lst, t_list *new);
 
-// prototypes
+// partie obligatoire
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, unsigned int n);
 void	*ft_calloc(size_t count, size_t size);
