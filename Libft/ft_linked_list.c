@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct Node {
+	int				x;
+	struct Node*	next;
+} Node;
+
+int	main(int argc, char* argv[])
+{
+
+	return 0;
+}
+
+/* 
 typedef struct node {
 	int val;
 	struct node * next;
@@ -37,4 +49,4 @@ int	main()
 	printf("The val of the new_node is %d and next points to %p\nprevious node's value is still %d and next now points to %p\n", base_node->next->val, base_node->next->next, base_node->val, base_node->next);
 
 	return (0);
-}
+} */

@@ -1,3 +1,9 @@
+To do:
+- Static:
+"Si vous avez besoin de fonctions auxiliaires pour réaliser une fonction complexe,
+vous devez définir ces dernières en static dans le respect de la Norme. Ainsi, leur
+portée sera limitée au fichier concerné."
+
 Paco --strict + normal:
 
 ft_isalpha      : OK

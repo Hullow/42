@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:23:13 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/24 19:39:58 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/27 17:29:14 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ t_list *ft_lstnew(void *content) // input: we've got a pointer to content.
 
 /* int main()
 {
+	char    str [] = "lorem ipsum dolor sit";
+	t_list *result = ft_lstnew(str);
 
+	printf("%s\n", (char *)result);
 return (0);
 } */
