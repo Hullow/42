@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:57:45 by francis           #+#    #+#             */
-/*   Updated: 2023/11/28 14:03:10 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/28 17:28:57 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_list
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstdelone(t_list *lst, void (*del)(void *));
 int	ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 
