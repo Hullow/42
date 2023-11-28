@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:58:36 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/28 14:46:04 by fallan           ###   ########.fr       */
+/*   Created: 2023/11/28 13:22:27 by fallan            #+#    #+#             */
+/*   Updated: 2023/11/28 14:39:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-/* typedef struct	s_list
+t_list	*ft_lstlast(t_list *lst)
 {
-	void			*content;
-	struct s_list	*next;
-}					t_list; */
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	*lst = ft_lstlast(*lst);
-	if (!*lst)
-		*lst = new;
-	else
-		(*lst)->next = new;
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
 
 /* int main()
@@ -52,15 +46,4 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 
 	printf("last element value: %d\n", *((int *)(elem2->content)));
 	printf("ft_lstlast value: %d\n", *((int *)(result->content)));
-
-	t_list	*add = (t_list *)malloc(sizeof(t_list));
-	
-	int	intadd = 32;
-	add->content = &intadd;
-	add->next = NULL;
-
-	ft_lstadd_back(&elem2, add);
-	t_list *result2 = ft_lstlast(elem2);
-	printf("\nafter ft_lstadd_back: ft_lstlast value: %d\n", *((int *)(result2->content)));
-}
- */
+} */
