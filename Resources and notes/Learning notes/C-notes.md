@@ -53,14 +53,11 @@ When you want to modify where a pointer is pointing in a function, you need to p
 - Reason: for pointer arithmetic
 - Syntax: `(data type *) pointer_name`. Me: reason is because the whole type needs to be precised inside the parenthesis
 
-<<<<<<< HEAD
 ### Data structures
 #### Linked lists
 - Syntax note: `->` takes precedence, as in `*lst->next = new;` is equivalent to `*(lst->next) = new;`. To dereference, you need to a parenthesis: `(*lst)->next = new;` (example from Libft/ft_lstadd_back_bonus.c)
 
 
-=======
->>>>>>> parent of 9e91824 (Linked lists stuff)
 ### Specificities of types
 #### [size_t](https://www.geeksforgeeks.org/size_t-data-type-c-language/)
 - An unsigned integer type used to represent the size of objects in bytes. 
