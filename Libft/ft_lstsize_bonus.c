@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:58:36 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/28 13:06:40 by fallan           ###   ########.fr       */
+/*   Created: 2023/11/28 13:13:16 by fallan            #+#    #+#             */
+/*   Updated: 2023/11/28 13:21:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-/* typedef struct	s_list
+int	ft_lstsize(t_list *lst)
 {
-	void			*content;
-	struct s_list	*next;
-}					t_list; */
+	int	lstsize;
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	new->next = *lst;
-	*lst = new;
+	if (lst)
+		lstsize = 1;
+	else
+		return (0);
+	while (lst->next)
+	{
+		lst = lst->next;
+		lstsize++;
+	}	
+	return (lstsize);
 }
-
-/* int	main()
-{
-	t_list	root;
-	root->x = 15;
-	root->next = NULL;
-	
-	ft_lstadd_front(&root, &10);
-	root = 
-	printf("%d\n", (int) )
-} */

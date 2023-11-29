@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:23:13 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/27 17:29:14 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/28 18:16:45 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 /* typedef struct	s_list
 {
-	void			*content; a pointer to content. to get its content, "*content"
-	struct s_list	*next; a pointer to the next node. to get its address, "*node"
+	void			*content; // a pointer to content. to get its content, "*content"
+	struct s_list	*next; // a pointer to the next node. to get its address, "*node"
 }					t_list; */
 
 // we've got a linked list, we want to add an element
@@ -30,6 +30,8 @@ t_list *ft_lstnew(void *content) // input: we've got a pointer to content.
 	t_list	*new_node; // we declare a new pointer 
 	
 	new_node = (t_list *)malloc(sizeof(t_list)); // we declare a new node
+	if (!new_node)
+		return (NULL);
 
 	// new_node->next = (t_list *)malloc(sizeof(t_list));
 	// if (new_node == NULL)
@@ -37,13 +39,14 @@ t_list *ft_lstnew(void *content) // input: we've got a pointer to content.
 
 	new_node->content = content;
 	new_node->next = NULL;
-	return (new_node->content);
+	return (new_node);
 }
 
 /* int main()
 {
-	char    str [] = "lorem ipsum dolor sit";
-	t_list *result = ft_lstnew(str);
+t_list	root;
+root.x = 15
+
 
 	printf("%s\n", (char *)result);
 return (0);

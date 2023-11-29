@@ -17,8 +17,33 @@ typedef struct node {
 	int val;
 	struct node * next;
 } node_t;
+=======
+
+typedef struct Node {
+	int 			x;
+	struct Node *	next;
+} Node;
 
 
+int main(int argc, char* argv[]) {
+	Node	root;
+	root.x = 15;
+	root.next = malloc(sizeof(Node));
+	root.next->x = -2;
+	root.next->next = NULL;
+
+	Node* curr = &root;
+	while (curr != NULL) 
+	{
+		printf("Current: %d\n", curr->x);
+		curr = curr->next;
+	}
+
+	free(root.next);
+	return 0;
+}
+
+/* 
 // TO DO: take a look at https://www.cs.cmu.edu/~clo/www/CMU/DataStructures/Lessons/lesson1_2.htm
 
 

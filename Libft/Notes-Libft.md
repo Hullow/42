@@ -45,6 +45,9 @@ leak ne sera toléré" => free les malloc ?
 		- ft_strchr: had to include case where `c` is `'\0'` and typecast `c` to `char` when comparing with `*string`
 
 - 15/11/23: 30 bonnes minutes pour faire marcher le debugger VSCode, solution trouvee (`-g` flag en compilant pour produire des debugging infos)
+
+- 23/11/23: trip to Aix, no work sadly.
+
 - 24/11/23: reading about linked lists, but mostly working on Makefile for the bonus. One note: `clean` and `fclean` rules only need a target but no prerequisites. My bonus rule: 
 ```c
 bonus: | $(NAME) $(OBJ_BONUS)
@@ -76,7 +79,20 @@ I'm glad to hear that your make bonus now works! Let's break down the underlying
 
 Understanding Prerequisites in Makefiles
 
+- 27/11/23: little work, fooling around with linked lists/bonus part for 1h30 at societe de lecture. tired, not v focused.
 
+- 28/11/23: advancing on linked lists. Debugging `lstadd_back`: needed to add a temp variable to modify. See [42 gitbook answer](https://42-cursus.gitbook.io/guide/rank-00/libft/bonus-functions/ft_lstadd_back) which I still don't fully understand.
+
+```c
+void ft_lstadd_back(t_list **alst, t_list *new)
+{
+    t_list *last;
+    last = ft_lstlast(*alst);
+    if (!last)
+        *alst = new; /* if last is NULL, there is no list, so we set the list pointer * to point to the new element */
+    last->next = new;  /* we set the last's next variable to point to the new element */
+}
+```
 
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->
