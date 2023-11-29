@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:00:24 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/28 17:29:42 by fallan           ###   ########.fr       */
+/*   Updated: 2023/11/29 16:47:22 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
-
-
-void	del(void *content)
-{
-	content = NULL;
-}
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
@@ -24,6 +18,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	free(lst);
 }
 
+/* 
 int main()
 {
 	t_list	*elem0 = (t_list *)malloc(sizeof(t_list));
@@ -71,7 +66,6 @@ int main()
 	
 }
 
-/* 
 long long add(int a, int b)
 {
 	return a+b;
@@ -88,4 +82,4 @@ void exec(long long	(*fun)(int, int))
 	
 }
 
- */
+*/
