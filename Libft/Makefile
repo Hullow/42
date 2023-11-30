@@ -21,7 +21,7 @@ OBJ := $(SRC:%.c=%.o)
 $(NAME) : $(OBJ)
 	ar -rcs $@ $^
 
-SRC_BONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c
+SRC_BONUS = ft_lstclear_bonus.c ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c
 
 OBJ_BONUS := $(SRC_BONUS:%.c=%.o)
 
@@ -35,7 +35,7 @@ bonus: $(NAME) $(OBJ_BONUS)
 	ar -rcs $(NAME) $(OBJ_BONUS)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
 	rm -f $(NAME)
