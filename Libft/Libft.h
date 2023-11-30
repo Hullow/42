@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:57:45 by francis           #+#    #+#             */
-/*   Updated: 2023/11/28 18:16:26 by francis          ###   ########.fr       */
+/*   Updated: 2023/11/30 17:06:55 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }					t_list;
 
+// void	ft_lstclear(t_list **lst, void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);
