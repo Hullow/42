@@ -94,6 +94,8 @@ void ft_lstadd_back(t_list **alst, t_list *new)
 }
 ```
 
+- 1/12/23: morning: video about stack and heap in train; reading about structs online.
+
 ## Tester librairie
 `gcc main.c -L. -lname -o main` <!-- n.b.: name is "ft" in our case ("Libft.a"). We remove the "lib" from the name and the extension, so flag is "-lft" -->
 Main.c:

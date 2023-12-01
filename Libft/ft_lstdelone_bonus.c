@@ -6,17 +6,17 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:00:24 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/28 17:29:42 by fallan           ###   ########.fr       */
+/*   Updated: 2023/12/01 12:10:02 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
 
-void	del(void *content)
+/* void	del(void *content)
 {
 	content = NULL;
-}
+} */
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {

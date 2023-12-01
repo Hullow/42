@@ -6,23 +6,29 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:52:19 by fallan            #+#    #+#             */
-/*   Updated: 2023/11/30 18:33:45 by fallan           ###   ########.fr       */
+/*   Updated: 2023/12/01 12:24:04 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Libft.h"
 
-
-void	ft_lstclear(t_list **lst) //, void (*del)(void *))
+void	del(void *content)
 {
-		// del(lst->content);
-		(*lst)->content = NULL;
-		// *lst = NULL;
-		free(*lst);
-		*lst = (*lst)->next;
-	// while (lst->content)
-	// {
-	// }
+	content = NULL;
+}
+
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*temp = *lst;
+
+	while (temp)
+	{
+		del(temp->content);
+		t_list	*temptemp = temp;
+		temp = temp->next;
+		free(temptemp);
+	}
+	*lst = NULL;
 }
 
 int main()
@@ -66,7 +72,7 @@ int main()
 	printf("*******\nafter lstadd_ back:\nlast element: %p\n", result2);
 	printf("last element value: %s\n", ((char *)(result2->content)));
 
-	ft_lstclear(&elem3);
+	ft_lstclear(&elem3, del);
 	
 	// t_list *result3 = ft_lstlast(elem0);
 	

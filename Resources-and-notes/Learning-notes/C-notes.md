@@ -19,6 +19,12 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 
 ## Variables
 - Constant variables: in CAPITALS by convention
+### [Passing variables](https://chat.openai.com/share/5bb153a7-bba4-4daf-8608-9e02c8092f8a)
+#### By value
+- This copies the value of the variable to the stack. E.g. when a function is called, memory is automatically allocated on the stack for its local variables. When the function returns, this memory is automatically deallocated.
+#### By pointer
+- Passing a pointer to a function doesn't copy the variable. Variables allocated to the heap persist until they are explicitly freed, regardless of the scope. N.b.: you can create pointers to stack-allocated data. In general, passing value by pointer is more efficient in terms of memory usage, especially for large variables, but requires careful management of the memory to avoid leaks or invalid accesses.
+
 ### Data types
 #### Type-casting
 - A typecast explicitly causes an expression to be of a specific data type
@@ -52,6 +58,49 @@ When you want to modify where a pointer is pointing in a function, you need to p
 #### Type-casting a pointer
 - Reason: for pointer arithmetic
 - Syntax: `(data type *) pointer_name`. Me: reason is because the whole type needs to be precised inside the parenthesis
+
+#### [Structs](https://abstractexpr.com/2023/06/29/structures-in-c-from-basics-to-memory-alignment/)
+- Defined as
+```c
+struct s {
+	int a;
+	int b;
+	char c;
+	char d[10];
+};
+```
+- Accessing elements: `s.element`
+- To accessing elements using a pointer:
+```c
+struct s s1; // declare a variable s1 as struct of type s
+struct s *sp = &s1;
+```
+we have: `sp->a == s1.a;`, `sp->d[0] == s1.d[0]`, etc.
+- Comparison: needs to be done element by element; C does not support simple comparison of structs
+(`struct s == struct t` will lead to a compile error)
+- Nested structs are possible
+- Self-referential structs: only are possible using pointers. Otherwise, they would lead to infinite recursion, taking up an infinite amount of memory. 
+
+
+#### Typedefs
+- Allow us to give a type a new name, e.g. `typedef unsigned char BYTE;` will allow us to declare an unsigned char like so: `BYTE b = 'r';`.
+- By convention, uppercase letters are used for definitions, but lowercase letters work: `typedef unsigned char byte;`.
+- [For structs](https://abstractexpr.com/2023/06/29/structures-in-c-from-basics-to-memory-alignment/), removes the need to write `struct` when declaring a variable, as in `struct s s1;`. If we typedef struct s as `str`: 
+```c
+struct Vector 2d{
+	float	x;
+	float	y;
+};
+typedef struct Vector2D Vector2D;
+```
+allowing to make declarations like `Vector 2D vector;` rather than `struct Vector2D vector;`
+More succintly:
+```c
+typedef struct Vector2D{
+	float	x;
+	float	y;
+} Vector2D;
+```
 
 ### Data structures
 #### Linked lists
@@ -87,7 +136,7 @@ When you want to modify where a pointer is pointing in a function, you need to p
 	- On an empty string, length of zero
 	- On other strings: only as long as non-null characters
 - **String literals**: immutable by default and stored in a read-only section of memory (ROM) for safety reasons (prevent accidental modification by the program) and security (prevent alteration of essential data, including also constants and code). Also, it is harder to handle in general, so most data is better off being constant. (See [StackExchange](https://softwareengineering.stackexchange.com/questions/294748/why-are-c-string-literals-read-only?newreg=0d8085bd75304612b414bf5e01daba16))
-- Creating a string with bracket notation, i.e. char array[1], creates a **non-null-terminated char array with one byte**. For a char array of length 1, declare `char array[2] = {'a', '\0'}` 
+- Creating a string with bracket notation, i.e. char array[1], creates a **non-null-terminated char array with one byte**. For a char array of length 1, declare `char array[2] = {'a', '\0'}`
 #### Characters
 ##### Encoding conventions
 - In C, implicit encoding is implementation specific:
@@ -108,7 +157,7 @@ The order of functions inside a file is arbitrary. It does not matter if you put
 ### Function parameters
 When functions are called, parameters can be called by a different name (provided they are defined in the scope), but they have to be mentioned in the right order, i.e. the order of invocation.
 Example:
-```
+```c
  void birthday(char x[], int y) {
   printf("\nHappy Birthday dear %s!", x);
   printf("\nYo	u are %d years old!", y);
@@ -126,12 +175,11 @@ int main() {
 Advantages of using prototypes: helps navigate program with main at the top
 
 ## Header files
-
 A header file is a file containing C declarations and macro definitions to be shared between several source files. It is requested by *including* it with the C prepocessing directive `#include`
 - **Include Syntax** : `#include <file>` for system header files, `#include "file"` for header files of the program
 - [**Include guards**](https://www.oreilly.com/library/view/c-cookbook/0596007612/ch02s02.html) (**`#ifndef` wrapper**):
   - [an `#ifndef` directive](https://www.educative.io/answers/what-is-the--sharpifndef-directive-in-c) allows conditional compilation, by asking the preprocessor to determine if any provided macros exist before any subsequent code is included. Example:
-```
+```c
 #include <stdio.h>
 
 // we define a variable 
@@ -148,9 +196,9 @@ int main()
 
    return 0;
 }
-``` 
-   - [Header files often use](https://gcc.gnu.org/onlinedocs/cpp/Once-Only-Headers.html) an #ifndef wrapper to prevent them being processed twice by the compiler, which is very likely to cause an error, e.g. when the compiler sees the same structure definition twice. Example:
 ```
+   - [Header files often use](https://gcc.gnu.org/onlinedocs/cpp/Once-Only-Headers.html) an #ifndef wrapper to prevent them being processed twice by the compiler, which is very likely to cause an error, e.g. when the compiler sees the same structure definition twice. Example:
+```c
 #ifndef FILE_FOO_SEEN
 #define FILE_FOO_SEEN
 
@@ -182,4 +230,4 @@ A fragment of code which has been given a name. Using the name replaces it with 
 - lldb a.out, b 21 or b main (set breakpoint), run, gui, s to go to next step, esc. process restart to restart debugging.
 
 ## Common errors
-`initializing 'char *' with an expression of type 'const char *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]` => typecast the new pointer. E.g. `const char *s`, `char *search = (char *) s`; error without the `(char *)`. 
+initializing `char *` with an expression of type `const char *` discards qualifiers `[-Werror,-Wincompatible-pointer-types-discards-qualifiers]` => typecast the new pointer. E.g. `const char *s`, `char *search = (char *) s`; error without the `(char *)`. 
