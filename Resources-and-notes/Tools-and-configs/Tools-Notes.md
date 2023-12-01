@@ -7,6 +7,8 @@ Theory and practice (how-to)
   - **Launch** starts the app or process in debug mode before VS Code attaches to it
   - **Attach** connects VS Code's debugger to an app or process that's already running
 
+### Show indentation:
+- add `"editor.renderWhitespace": "all",` in settings.json (note: did so in ~/.vscode)
 
 ## Github
 **Private repos and subscriptions**
