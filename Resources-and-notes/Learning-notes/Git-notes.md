@@ -16,6 +16,7 @@
 	- `-f` to force deletion of files (necessary if the config clean.requireForce is not set to false)
 
 ## [Retrieve deleted files](https://www.git-tower.com/learn/git/faq/restoring-deleted-files)
+- Retrieve deletion commit: `git log -- <filename>`
 - If deletion committed and pushed : `git revert --no-commit <commit-id>` then select changes to commit (i.e. files to undelete), commit them, push.
 
 

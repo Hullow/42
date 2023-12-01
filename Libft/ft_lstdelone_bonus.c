@@ -6,11 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:00:24 by fallan            #+#    #+#             */
-/*   Updated: 2023/12/01 18:32:17 by fallan           ###   ########.fr       */
+/*   Updated: 2023/12/01 20:11:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "Libft.h"
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
@@ -66,8 +66,6 @@ int main()
 	printf("last element after lstdelone: %p\n", result2);
 	
 }
- */
-/* 
 long long add(int a, int b)
 {
 	return a+b;
@@ -84,4 +82,4 @@ void exec(long long	(*fun)(int, int))
 	
 }
 
- */
+*/
