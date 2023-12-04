@@ -102,6 +102,8 @@ typedef struct Vector2D{
 } Vector2D;
 ```
 
+
+
 ### Data structures
 #### Linked lists
 - Syntax note: `->` takes precedence, as in `*lst->next = new;` is equivalent to `*(lst->next) = new;`. To dereference, you need to a parenthesis: `(*lst)->next = new;` (example from Libft/ft_lstadd_back_bonus.c)
@@ -213,9 +215,24 @@ int main()
 ## [Macros](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
 A fragment of code which has been given a name. Using the name replaces it with the code. Two kinds: ***object-like***: resemble data objects and ***function-like***: resemble function calls
 
+#### [Variable arguments/Variadic functions](https://www.gnu.org/software/libc/manual/html_node/Receiving-Arguments.html)
+Function arguments can vary in number and in type. To handle this, C doesn't have any built-in functionality, hence stdarg.h's special macros must be used. 
+##### [Argument access macros](gnu.org/software/libc/manual/html_node/Argument-Macros.html):
+- Data type: `va_list`. A type used for argument pointer variables
+- Macro: `void va_start (va_list ap, last-required)`. This macro initializes the *argument pointer variable* `ap` to point to the first of the optional arguments of the current function; *last-required* must be the last required argument to the function.
+- Macro: `type va_arg (va_list ap, type)`. This macro returns the value of the next optional argument, and modifies the value of `ap` to point to the subsequent argument. The type of the return value is specified in the call. 
+- Macro: `void va_end(va_list ap)`. This macro ends the use of `ap`; after it, further va_arg calls with the same `ap` may not work. In the GNU C Library, `va_end` doesn't do anything and is only used for reasons of portability.
+- Macro: `va_copy(va_list dest, va_list src)`. This macro allows copying of objects of type `va_list` even if this is not an integral type. The argument pointer in `dest` is initialized to point to the same argument as the pointer in `src`.
+##### [Calling variadic functions](https://www.gnu.org/software/libc/manual/html_node/Calling-Variadics.html)
+> Since the prototype doesn’t specify types for optional arguments, in a call to a variadic function the default argument promotions are performed on the optional argument values. This means the objects of type char or short int (whether signed or not) are promoted to either int or unsigned int, as appropriate; and that objects of type float are promoted to type double. So, if the caller passes a char as an optional argument, it is promoted to an int, and the function can access it with va_arg (ap, int).
+
 ## Compilers (gcc)
 - gcc: GNU compiler collection (C, C++, Ada, Go)
 - [Clang](https://clang.llvm.org/): compiler/frontend for LLVM for C, C++, Objective-C, CUDA, ...). Contains a gcc-compatible compiler driver
+- ### Compiler flags
+- `-I` : specifies to look in the current directory (.) for header files. Alternative: `INC_DIR = .`
+- `-c`: generate the object file, i.e. compile and assemble, but do not link
+- `-o` : write output to file
 
 ## Debugging
 - GDB: GNU debugger

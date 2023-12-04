@@ -65,22 +65,14 @@ bar := $(%foo:.o=.c)
 ```
 sets `bar` to 'a.c b.c l.a c.c'
 
-
 ## Syntax
 - `make` with no arguments executes from the first rule in the file
 - line split: "`$\`+newline", although `make`` places no limit on the length of a line in a makefile
 - `tab` is required at the beginning of any command, e.g. "`gcc`"
 - `%` matches any nonempty string (see [Pattern rules](https://www.gnu.org/software/make/manual/make.html#Pattern-Intro)). N.b.: 42 Norm doesn't authorize wildcards for `SRC`
-- **Compiler flags** :
-	- `-I` : specifies to look in the current directory (.) for header files. Alternative: `INC_DIR = .`
-	- `-c`: generate the object file, i.e. compile and assemble, but do not link
-	- `-o` : write output to file
-
-- 
 
 ## Making a static library with archiver (`ar`)
 - **Flags**:
-	- `-r` : to replace or add the specified files to the archive. Creates a new archive file is the archive does not exist
+	- `-r` : to replace or add the specified files to the archive. Creates a new archive file if the archive does not exist
 	- `-c` : create the archive silently (no message to `stderr`)
 	- `-s` : write an object-file index to the archive, or update an existing one. N.b.: the index is used by the compiler to speed-up symbol-lookup inside the library and make sure the order of the symbols in the library don't matter during compilation.
-	- 
