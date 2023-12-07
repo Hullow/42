@@ -22,6 +22,54 @@
 //  		``abcdef'' are used for x conversions; the letters ``ABCDEF'' are used for X conversions.  The precision, if any, gives the minimum number of digits that must appear; if the converted value
 //  		requires fewer digits, it is padded on the left with zeros.
 
+static int	ft_print_hex(int decimal)
+{
+	if (decimal < 16)
+	{
+		if (decimal <= 9)
+			write(1, &decimal, 1);
+		else if (decimal == 10)
+			write(1, "A", 1);
+		else if (decimal == 11)
+			write(1, "B", 1);
+		else if (decimal == 12)
+			write(1, "C", 1);
+		else if (decimal == 13)
+			write(1, "D", 1);
+		else if (decimal == 14)
+			write(1, "E", 1);
+		else if (decimal == 15)
+			write(1, "F", 1);
+		return (0);
+	}
+	else
+		return (-1);
+}
+
+static int	ft_hex(int input)
+{
+	int number;
+	int hex_base;
+
+	number = input;
+	hex_base = 0;
+	while (number > 15)
+		{
+			number /= 16;
+			hex_base++;
+		}
+	number = input;
+	while (hex_base > 0)
+	{
+		if (ft_print_hex(number /= 16**hex_base) == -1)
+			write(1, "ft_print_hex error", 20);
+		number %= 16**hex_base;
+		hex_base--;
+	}
+	if (ft_print_hex(number) == -1);
+		write(1, "ft_print_hex error", 20);
+}
+
 static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 {
 	int			character;
@@ -71,6 +119,13 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 	}
 	if (format_specifier == '%')
 		write(1, "%", 1);
+	if (format_specifier == 'X')
+		{
+			number = va_arg(ap, int);
+			if (!number)
+				return (0);
+			ft_hex(number);
+		}
 	return (res);
 }
 
@@ -152,10 +207,10 @@ static void	test_number(int number)
 	// testing for %x
 	pf_res = 0;
 	ft_res = 0;
-	printf("testing '%d' for %%x:\n", number);
-	printf("pf - %%x: %x\n", number);
+	printf("testing '%d' for %%X:\n", number);
+	printf("pf - %%x: %X\n", number);
 	printf("pf_res = %d\n\n", pf_res);
-	// ft_printf("ft - %%x: %x\n", number);
+	ft_printf("ft - %%X: %X\n", number);
 	// printf("ft_res = %d\n\n", ft_res);
 
 	// // testing for %u
