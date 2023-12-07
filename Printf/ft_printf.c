@@ -5,29 +5,11 @@
 #include <stdlib.h>
 // #include "Libft.h"
 
-// va_list	args;
-
-// va_start	( args, format);
-
-// va_arg( args, char *)
-
-// va_arg( args, int)
-// va_end(args); // frees the allocated memory
-
-
-
-// what happens in our function ? 
-// it takes a string pointer const char: the format
-// if the string is empty, it writes the va characters as in putstr
 
 
 // Requirements:
 // Don’t implement the buffer management of the original printf().
 // •Your function has to handle the following conversions: cspdiuxX%
-//
-// diuxX : The int (or appropriate variant) argument is converted to signed decimal (d and i), unsigned octal (o), unsigned decimal (u), or unsigned hexadecimal (x and X) notation.  The letters
-//  		``abcdef'' are used for x conversions; the letters ``ABCDEF'' are used for X conversions.  The precision, if any, gives the minimum number of digits that must appear; if the converted value
-//  		requires fewer digits, it is padded on the left with zeros.
 //
 // c: The int argument is converted to an unsigned char, and the resulting character is written.
 //
@@ -40,12 +22,10 @@
 // p: The void * pointer argument is printed in hexadecimal (as if by `%#x' or `%#lx').
 //
 // %: A `%' is written.  No argument is converted.  The complete conversion specification is `%%'.
-
-
-// •Your function will be compared against the original printf().
-// •You must use the command ar to create your library.
-// Using the libtool command is forbidden.
-// •Your libftprintf.a has to be created at the root of your repository.
+//
+// diuxX : The int (or appropriate variant) argument is converted to signed decimal (d and i), unsigned octal (o), unsigned decimal (u), or unsigned hexadecimal (x and X) notation.  The letters
+//  		``abcdef'' are used for x conversions; the letters ``ABCDEF'' are used for X conversions.  The precision, if any, gives the minimum number of digits that must appear; if the converted value
+//  		requires fewer digits, it is padded on the left with zeros.
 
 void	ft_print_formatted_output(const char *format, int i, va_list ap)
 {
@@ -53,7 +33,18 @@ void	ft_print_formatted_output(const char *format, int i, va_list ap)
 	char		*str;
 	void		*ptr;
 	int			j;
+	int			number;
 
+	if (format[i+1] == 'd' || format[i+1] == 'i')
+	{
+		number = va_arg(ap, int);
+		ft_putnbr_fd(number, 1);
+	}
+	if (format[i+1] == 'u')
+	{
+		number = (unsigned int)va_arg(ap, int);
+		write(1, &number, 1);
+	}
 	if (format[i+1] == 'c')
 	{
 		character = va_arg(ap, int);
@@ -91,40 +82,80 @@ int	ft_printf(const char *format, ...)
 	int		i;
 	va_list	ap;
 
-	ap = malloc(sizeof(va_list));
+	// ap = malloc(sizeof(va_list));
 	va_start(ap, format);
 	i = 0;
 	while (format[i])
 	{
-		i = ft_print_characters(format, i);
+		i = ft_print_characters(format, i); // prints characters before the first % and returns i to the array index of % (if present)
 		// printf("\tbefore ft_format_specification, i is %d\n", i);
 		if (format[i] == '%')
 			ft_print_formatted_output(format, i++, ap);
 		i++;
 	}
+	// free(ap);
 	va_end(ap);
-	free(ap);
 	return(0);
 }
 
-/* int	test(char *format, ...)
-{
-	va_list	testargs;
 
-	va_start(testargs);
-	printf(str);
+/* void	test_string(char *str)
+{
+	printf("testing '%s':\n", str);
+	printf("pf - %%s: %s\n", str);
+	ft_printf("ft - %%s: %s\n", str);
+} */
+
+/* void	test_number(int number)
+{
+	printf("testing '%d':\n", number);
+	printf("pf - %%d: %d\n", number);
+	ft_printf("ft - %%d: %d\n", number);
+	// printf("pf - %%i: %i\n", number);
+	// ft_printf("ft - %%i: %i\n", number);
+	// printf("pf - %%u: %u\n", number);
+	// ft_printf("ft - %%u: %u\n", number);
+	// printf("pf - %%o: %o\n", number);
+	// ft_printf("ft - %%o: %o\n", number);
+	// printf("pf - %%x: %x\n", number);
+	// ft_printf("ft - %%x: %x\n", number);
+	// printf("pf - %%X: %X\n\n", number);
+	// ft_printf("ft - %%X: %X\n\n", number);
 } */
 
 int	main()
 {
-	char character = 'b';
-	char *str = "hello";
+	// string tests:
+	//
+	// test_string("aaa");
+	//
+	// char character = 'b';
+	// char *str = "hello";
+	// printf("aaa%saaa%%aaa%s\n", str, str);
+	// ft_printf("aaa%saaa%%aaa%s\n", str, str);
 	// printf("aaa%c\n", character);
-	// ft_printf("aaa%c\n", "hello");
 	// ft_printf("aaa%c\n", character);
-	printf("aaa%saaa%%aaa%s\n", str, str);
-	ft_printf("aaa%saaa%%aaa%s\n", str, str);
-	// test("hello");
-	// printf("\tbro");
+	// ft_printf("aaa%c\n", "hello");
+
+	// number tests:
+	//
+	int number = 10;
+	write(1, &number, 8);
+	// ft_printf("ft: %i\n", number);
+	//
+	// test_number(0);
+	// test_number(-0);
+	// test_number(1);
+	// test_number(10);
+	// test_number(-10);
+	// test_number(2147483647);
+	// test_number(-2147483647);
+	// test_number(-2147483648);
+	// test_number(0.5);
+	// test_number(100.5);
+
 	return (0);
 }
+
+
+
