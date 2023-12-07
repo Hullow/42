@@ -2,10 +2,10 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Launch ${workspaceFolder}/a.out",
+			"name": "(lldb) Launch Printf/a.out",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/Printf/a.out",
+			"program": "/Users/fallan/42/Printf/a.out",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",

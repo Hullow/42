@@ -7,9 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
 				"-L.",
 				"-libftprint",
+                "${file}",
             ],
             "options": {
                 "cwd": "${fileDirname}"
