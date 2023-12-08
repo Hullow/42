@@ -1,1 +1,2 @@
 - %u : since behavior undefined when passing an int < 0, maybe it's not a problem if we have different output ? => see later
+- result value (e.g. for '%d')

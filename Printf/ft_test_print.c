@@ -4,9 +4,11 @@ static void ft_print_hex(int decimal)
 {
 	if (decimal < 16)
 	{
-
 		if (decimal <= 9)
+		{
+			decimal += 48;
 			write(1, &decimal, 1);
+		}
 		else if (decimal == 10)
 			write(1, "A", 1);
 		else if (decimal == 11)
@@ -24,6 +26,6 @@ static void ft_print_hex(int decimal)
 
 int main()
 {
-	ft_print_hex(10);
+	ft_print_hex(1);
 	return 0;
 }

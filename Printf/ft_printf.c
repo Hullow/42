@@ -22,58 +22,104 @@
 //  		``abcdef'' are used for x conversions; the letters ``ABCDEF'' are used for X conversions.  The precision, if any, gives the minimum number of digits that must appear; if the converted value
 //  		requires fewer digits, it is padded on the left with zeros.
 
-static int	ft_print_hex(int decimal)
+static int	ft_putnbr(int n, int res)
+{
+	if (n == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		return (11);
+	}
+	else
+	{
+		if (n < 0)
+		{
+			n *= (-1);
+			write(1, "-", 1);
+			res++;
+		}
+		if (n >= 0 && n <= 9)
+		{
+			n += 48;
+			write(1, &n, 1);
+			n -= 48;
+			res++;
+		}
+		if (n > 9)
+		{
+			res = ft_putnbr(n / 10, res);
+			res = ft_putnbr(n % 10, res);
+		}
+	}
+	return(res);
+}
+
+static int	ft_putnbr_unsigned(unsigned int n)
+{
+	if (n == 2147483648)
+		write(1, "2147483648", 11);
+	else
+	{
+		if (n < 0)
+		{
+			n *= (-1);
+			write(1, "-", 1);
+		}
+		if (n >= 0 && n <= 9)
+		{
+			n += 48;
+			write(1, &n, 1);
+			n -= 48;
+		}
+		if (n > 9)
+		{
+			ft_putnbr_unsigned(n / 10);
+			ft_putnbr_unsigned(n % 10);
+		}
+	}
+	return(1);
+}
+
+static int	ft_print_hex(int decimal, char format_specifier)
 {
 	if (decimal < 16)
 	{
 		if (decimal <= 9)
+		{
+			decimal += 48;
 			write(1, &decimal, 1);
-		else if (decimal == 10)
-			write(1, "A", 1);
-		else if (decimal == 11)
-			write(1, "B", 1);
-		else if (decimal == 12)
-			write(1, "C", 1);
-		else if (decimal == 13)
-			write(1, "D", 1);
-		else if (decimal == 14)
-			write(1, "E", 1);
-		else if (decimal == 15)
-			write(1, "F", 1);
-		return (0);
+		}
+		else
+		{
+			if (format_specifier == 'X')
+			{
+				decimal += 55;
+				write(1, &decimal, 1);
+			}
+			if (format_specifier == 'x')
+			{
+				decimal += 87;
+				write(1, &decimal, 1);
+			}
+		}
+		return (1);
 	}
 	else
 		return (-1);
 }
 
-static void	ft_hex(int input)
+static int	ft_hex(unsigned int number, char format_specifier)
 {
-	int number;
-	int hex_base;
-	int temp;
-	int factor;
+	int				res;
 
-	number = input;
-	hex_base = 0;
-	while (number > 15)
-		{
-			number /= 16;
-			hex_base++;
-		}
-	number = input;   //// REMOVABLE
-	while (hex_base > 0)
+	res = 0;
+	if (number < 16)
+		res += ft_print_hex(number, format_specifier);
+	else
 	{
-		factor = 1;
-		temp = 0;
-		while(temp++ < hex_base)
-			factor *= 16;
-		if (ft_print_hex(number /= 16*factor) == -1)
-			write(1, "ft_print_hex error", 20);  //// REMOVABLE
-		number %= factor;
-		hex_base--;
+		res += ft_hex(number / 16, format_specifier);
+		res += ft_hex(number % 16, format_specifier);
 	}
-	if (ft_print_hex(number) == -1) //// REMOVABLE
-		write(1, "ft_print_hex error", 20); //// REMOVABLE
+	return (res);
 }
 
 static int	ft_print_formatted_output(const char format_specifier, va_list ap)
@@ -82,19 +128,19 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 	char		*str;
 	void		*ptr;
 	int			j;
-	int			number;
+	int			number = 0;
 	int			res;
 
 	res = 0;
 	if (format_specifier == 'd' || format_specifier == 'i')
 	{
 		number = va_arg(ap, int);
-		ft_putnbr_fd(number, 1);
+		res += ft_putnbr(number, 0);
 	}
 	if (format_specifier == 'u')
 	{
 		number = va_arg(ap, unsigned int);
-		ft_putnbr_fd(number, 1);
+		res += ft_putnbr_unsigned(number);
 	}
 	if (format_specifier == 'c')
 	{
@@ -106,12 +152,12 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 		str = va_arg(ap, char *);
 		if (!str)
 		{
-			write(1, "(null)", 6);
+			res += write(1, "(null)", 6);
 			return (0);
 		}
 		j = 0;
 		while (str[j])
-			write(1, &str[j++], 1);
+			res += write(1, &str[j++], 1);
 	}
 	if (format_specifier == 'p')
 	{
@@ -121,19 +167,26 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 			write(1, "0x0", 3);
 			return (0);
 		}
-		write(1, &ptr, 8);
+		res += write(1, &ptr, 8);
 	}
 	if (format_specifier == '%')
-		write(1, "%", 1);
-	if (format_specifier == 'X')
+		res += write(1, "%", 1);
+	if (format_specifier == 'X' || format_specifier == 'x')
 		{
-			number = va_arg(ap, int);
-			if (!number)
-				return (0);
-			ft_hex(number);
+			number = va_arg(ap, unsigned int);
+			res += ft_hex(number, format_specifier);
 		}
 	return (res);
 }
+
+// Data type: va_list. A type used for argument pointer variables
+// Macro: void va_start (va_list ap, last-required). This macro initializes the argument pointer variable ap to point to the first of the optional arguments of the current function; last-required must be the last required argument to the function.
+// Macro: type va_arg (va_list ap, type). This macro returns the value of the next optional argument, and modifies the value of ap to point to the subsequent argument. The type of the return value is specified in the call.
+// Macro: void va_end(va_list ap). This macro ends the use of ap; after it, further va_arg calls with the same ap may not work. In the GNU C Library, va_end doesn't do anything and is only used for reasons of portability.
+
+// Macro: va_copy(va_list dest, va_list src). This macro allows copying of objects of type va_list even if this is not an integral type. 
+//        The argument pointer in dest is initialized to point to the same argument as the pointer in src.
+
 
 int	ft_printf(const char *format, ...)
 {
@@ -163,28 +216,59 @@ int	ft_printf(const char *format, ...)
 
 // static void	test_string(char *str);
 // static void	test_character(int character);
-static void	test_number(int number);
+//  static void	test_number(int number);
 // static void	test_pointer(void *ptr);
 
+/*
 int main()
 {
-	int number = 10;
-	int numb = -10;
-	printf("tests of number (10):\n");
-	test_number(number);
-	printf("**************\ntests of numb (-10):\n");
-	test_number(numb);
+// number tests:
+	test_number(10);
+	// test_number(-10);
+	test_number(0);
+	// test_number(-0);
+	// test_number(1);
+	test_number(100);
+	test_number(12832);
+	test_number(2147483647);
+	test_number(-100);
+	test_number(-2147483647);
+	// test_number(-2147483648);
+	// test_number(0.5);
+	// test_number(100.5);
 
+// character tests:
+// char character = 'b';
 	// test_character(0); // tests char = 0->127
+
+
+// pointer tests:
+// 	char character2 = 'b';
+// 	char *str2 = "hello";
+// 	int number2 = 10;
+// test_pointer(&character2);
+// test_pointer(&str2);
+// test_pointer(&number2);
+
+	// test_pointer(&number);
+	// test_pointer(NULL);
+
+// string tests:
+// char *str = "hello";
+
+	// test_string("aaa");
+	//
+	// printf("aaa%saaa%%aaa%s\n", str, str);
+	// ft_printf("aaa%saaa%%aaa%s\n", str, str);
+	// printf("aaa%c\n", character);
+	// ft_printf("aaa%c\n", character);
+	// ft_printf("aaa%c\n", "hello");
 
 	// test_string(NULL);
 	// test_string("");
 	// test_string("0");
 	// test_string("a");
 	// test_string("\t");
-	
-	// test_pointer(&number);
-	// test_pointer(NULL);
 
 	return 0;
 }
@@ -195,11 +279,12 @@ static void	test_number(int number)
 	int	ft_res = 0;
 
 	// testing for %d
-	// printf("testing '%d' for %%d:\n", number);
-	// printf("pf - %%d: %d\n", number);
-	// printf("pf_res = %d\n\n", pf_res);
-	// ft_printf("ft - %%d: %d\n", number);
-	// printf("ft_res = %d\n\n", ft_res);
+	printf("testing '%d' for %%d:\n", number);
+	pf_res = printf("pf - %%d: %d\n", number);
+	printf("pf_res 1 = %d\n\n", pf_res);
+	ft_res = ft_printf("ft - %%d: %d\n", number);
+	printf("ft_res 1 = %d\n", ft_res);
+	printf("*********************\n");
 
 	// testing for %i
 	// pf_res = 0;
@@ -210,26 +295,33 @@ static void	test_number(int number)
 	// ft_printf("ft - %%i: %i\n", number);
 	// printf("ft_res = %d\n\n", ft_res);
 
+	// testing for %X
+	// printf("testing '%d' for %%X:\n", number);
+	// pf_res = printf("pf - %%X: %X\n", number);
+	// printf("pf_res = %d\n\n", pf_res);
+	// ft_res = ft_printf("ft - %%X: %X\n", number);
+	// printf("ft_res = %d\n", ft_res);
+	// printf("*********************\n");
+
 	// testing for %x
-	pf_res = 0;
-	ft_res = 0;
-	printf("testing '%d' for %%X:\n", number);
-	printf("pf - %%x: %X\n", number);
-	printf("pf_res = %d\n\n", pf_res);
-	ft_printf("ft - %%X: %X\n", number);
-	printf("ft_res = %d\n\n", ft_res);
+	// printf("testing '%d' for %%x:\n", number);
+	// pf_res = printf("pf - %%x: %x\n", number);
+	// printf("pf_res = %d\n\n", pf_res);
+	// ft_res = ft_printf("ft - %%x: %x\n", number);
+	// printf("ft_res = %d\n", ft_res);
+	// printf("*********************\n");
 
 	// // testing for %u
 	// pf_res = 0;
 	// ft_res = 0;
 	// printf("testing '%d' for %%u:\n", number);
-	// printf("pf - %%u: %u\n", number);
+	// pf_res = printf("pf - %%u: %u\n", number);
 	// printf("pf_res = %d\n\n", pf_res);
-	// ft_printf("ft - %%u: %u\n", number);
-	// printf("ft_res = %d\n\n", ft_res);
-
+	// ft_res = ft_printf("ft - %%u: %u\n", number);
+	// printf("ft_res = %d\n", ft_res);
+	// printf("*********************\n");
 }
-
+ */
 /* 
 static void	test_pointer(void *address)
 {
@@ -268,57 +360,5 @@ static void	test_character(int character)
 		pf_res = 0;
 		ft_res = 0;
 	}
-}
-
- */
-/* int	main()
-{
-// character tests:
-// char character = 'b';
-
-
-// pointer tests:
-// 	char character2 = 'b';
-// 	char *str2 = "hello";
-// 	int number2 = 10;
-// test_pointer(&character2);
-// test_pointer(&str2);
-// test_pointer(&number2);
-
-
-// string tests:
-// char *str = "hello";
-
-	// test_string("aaa");
-	//
-	// printf("aaa%saaa%%aaa%s\n", str, str);
-	// ft_printf("aaa%saaa%%aaa%s\n", str, str);
-	// printf("aaa%c\n", character);
-	// ft_printf("aaa%c\n", character);
-	// ft_printf("aaa%c\n", "hello");
-
-// number tests:
-int number = 10;
-// int number2 = -10;
-	// printf("pf: %i\n", number);
-	// ft_printf("ft: %i\n", number);
-
-	// test_number(0);
-	// test_number(-0);
-	// test_number(1);
-	// test_number(10);
-	// test_number(-10);
-
-	ft_printf("ft - %%u: %u\n", number);
-	printf("pf - %%u: %u\n", number);
-	// ft_printf("ft - %%u: %u\n", number2);
-	// printf("pf - %%u: %u\n", number2);
-	// test_number(2147483647);
-	// test_number(-2147483647);
-	// test_number(-2147483648);
-	// test_number(0.5);
-	// test_number(100.5);
-
-	return (0);
 }
 */
