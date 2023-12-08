@@ -46,10 +46,12 @@ static int	ft_print_hex(int decimal)
 		return (-1);
 }
 
-static int	ft_hex(int input)
+static void	ft_hex(int input)
 {
 	int number;
 	int hex_base;
+	int temp;
+	int factor;
 
 	number = input;
 	hex_base = 0;
@@ -58,16 +60,20 @@ static int	ft_hex(int input)
 			number /= 16;
 			hex_base++;
 		}
-	number = input;
+	number = input;   //// REMOVABLE
 	while (hex_base > 0)
 	{
-		if (ft_print_hex(number /= 16**hex_base) == -1)
-			write(1, "ft_print_hex error", 20);
-		number %= 16**hex_base;
+		factor = 1;
+		temp = 0;
+		while(temp++ < hex_base)
+			factor *= 16;
+		if (ft_print_hex(number /= 16*factor) == -1)
+			write(1, "ft_print_hex error", 20);  //// REMOVABLE
+		number %= factor;
 		hex_base--;
 	}
-	if (ft_print_hex(number) == -1);
-		write(1, "ft_print_hex error", 20);
+	if (ft_print_hex(number) == -1) //// REMOVABLE
+		write(1, "ft_print_hex error", 20); //// REMOVABLE
 }
 
 static int	ft_print_formatted_output(const char format_specifier, va_list ap)
@@ -211,7 +217,7 @@ static void	test_number(int number)
 	printf("pf - %%x: %X\n", number);
 	printf("pf_res = %d\n\n", pf_res);
 	ft_printf("ft - %%X: %X\n", number);
-	// printf("ft_res = %d\n\n", ft_res);
+	printf("ft_res = %d\n\n", ft_res);
 
 	// // testing for %u
 	// pf_res = 0;
