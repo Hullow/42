@@ -53,30 +53,35 @@ static int	ft_putnbr(int n, int res)
 	return(res);
 }
 
-static int	ft_putnbr_unsigned(unsigned int n)
+static int	ft_putnbr_unsigned(unsigned int n, int res)
 {
 	if (n == 2147483648)
-		write(1, "2147483648", 11);
+	{
+		write(1, "2147483648", 10);
+		return (10);
+	}
 	else
 	{
 		if (n < 0)
 		{
 			n *= (-1);
 			write(1, "-", 1);
+			res++;
 		}
 		if (n >= 0 && n <= 9)
 		{
 			n += 48;
 			write(1, &n, 1);
 			n -= 48;
+			res++;
 		}
 		if (n > 9)
 		{
-			ft_putnbr_unsigned(n / 10);
-			ft_putnbr_unsigned(n % 10);
+			res = ft_putnbr_unsigned(n / 10, res);
+			res = ft_putnbr_unsigned(n % 10, res);
 		}
 	}
-	return(1);
+	return(res);
 }
 
 static int	ft_print_hex(int decimal, char format_specifier)
@@ -107,7 +112,7 @@ static int	ft_print_hex(int decimal, char format_specifier)
 		return (-1);
 }
 
-static int	ft_hex(unsigned int number, char format_specifier)
+static int	ft_hex(signed long long number, char format_specifier)
 {
 	int				res;
 
@@ -124,13 +129,17 @@ static int	ft_hex(unsigned int number, char format_specifier)
 
 static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 {
-	int			character;
-	char		*str;
-	void		*ptr;
-	int			j;
-	int			number = 0;
-	int			res;
+	int					character;
+	char				*str;
+	void				*ptr;
+	int					j;
+	int					number;
+	signed long long 	hexvalue;
+	int					res;
 
+	// int input = 0;
+	// hexvalue = 0;
+	number = 0;
 	res = 0;
 	if (format_specifier == 'd' || format_specifier == 'i')
 	{
@@ -140,7 +149,7 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 	if (format_specifier == 'u')
 	{
 		number = va_arg(ap, unsigned int);
-		res += ft_putnbr_unsigned(number);
+		res += ft_putnbr_unsigned(number, res);
 	}
 	if (format_specifier == 'c')
 	{
@@ -153,7 +162,7 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 		if (!str)
 		{
 			res += write(1, "(null)", 6);
-			return (0);
+			return (6);
 		}
 		j = 0;
 		while (str[j])
@@ -162,19 +171,28 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 	if (format_specifier == 'p')
 	{
 		ptr = va_arg(ap, void *);
+		// printf("%%p according to printf: %p\n", ptr);
 		if (!ptr)
 		{
 			write(1, "0x0", 3);
-			return (0);
+			return (3);
 		}
-		res += write(1, &ptr, 8);
+		else
+		{
+			res += write(1, "0x", 2);
+			hexvalue = (signed long long) ptr;
+			character = 'x';
+			res += ft_hex(hexvalue, character);
+		}
 	}
 	if (format_specifier == '%')
 		res += write(1, "%", 1);
 	if (format_specifier == 'X' || format_specifier == 'x')
 		{
-			number = va_arg(ap, unsigned int);
-			res += ft_hex(number, format_specifier);
+			// int input = va_arg(ap, int);
+			// hexvalue = (signed long long) input;
+			hexvalue = va_arg(ap, int);
+			res += ft_hex(hexvalue, format_specifier);
 		}
 	return (res);
 }
@@ -216,23 +234,134 @@ int	ft_printf(const char *format, ...)
 
 // static void	test_string(char *str);
 // static void	test_character(int character);
-//  static void	test_number(int number);
+ static void	test_number(int number);
 // static void	test_pointer(void *ptr);
 
-/*
+
 int main()
 {
+// random values tests
+	int pf_res = 0;
+	int ft_res = 0;
+
+// the entire sequence: error (ft prints "1C4B1776C" au lieu de "1C4B1776C" pour "%X,  -995002516")
+pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+printf("\npf_res = %d\n", pf_res);
+ft_res = ft_printf("ft:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+ft_printf("\nft_res = %d\n", ft_res);
+
+// remove the second variable right after our problem variable
+// pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// remove the variable right before (%x): no error
+// pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%Xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n_{\t=>R%d4MadvfeQ%d%s\7KL%Xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// remove the text before the first variable: error
+// pf_res = printf("pf:%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// remove the first variable: no error
+// pf_res = printf("pf:4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// enlever la derniere variable: no error
+// pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// enlever juste la premiere variable mais laisser le texte qui la precede: no error
+// pf_res = printf("pf:\n_{\t=>R4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n_{\t=>R4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// quatre variables precedentes: no error
+// pf_res = printf("pf:%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// trois variables precedentes: no error
+// pf_res = printf("pf:%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// deux variables precedentes: no error
+// pf_res = printf("pf:%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// une variable precedente: no error
+// pf_res = printf("pf:%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// enlever toutes variables precedentes: no error
+// pf_res = printf("pf:%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// enlever variables suivantes => no error
+// pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%X", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%X", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// no error
+// pf_res = printf("pf:\n_{\t\7KL%X%xa1G7%X", 1387750149, 14284835, -995002516);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n_{\t\7KL%X%xa1G7%X", 1387750149, 14284835, -995002516);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+
+// pf_res = printf("pf:\n%XO", -995002516);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("ft:\n%XO", -995002516);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// pointer tests:
+	// char character2 = 'b';
+	// char *str2 = "hello";
+	// int number2 = 10;
+	// test_pointer(&character2);
+	// test_pointer(&str2);
+	// test_pointer(&number2);
+
+	// test_pointer(NULL);
+	// test_pointer((void*)-14523);
+
 // number tests:
-	test_number(10);
+	// test_number(-995002516);
+	// test_number(10);
 	// test_number(-10);
-	test_number(0);
+	// test_number(0);
 	// test_number(-0);
 	// test_number(1);
-	test_number(100);
-	test_number(12832);
-	test_number(2147483647);
-	test_number(-100);
-	test_number(-2147483647);
+	// test_number(100);
+	// test_number(12832);
+	// test_number(2147483647);
+	// test_number(-100);
+	// test_number(-2147483647);
 	// test_number(-2147483648);
 	// test_number(0.5);
 	// test_number(100.5);
@@ -241,17 +370,6 @@ int main()
 // char character = 'b';
 	// test_character(0); // tests char = 0->127
 
-
-// pointer tests:
-// 	char character2 = 'b';
-// 	char *str2 = "hello";
-// 	int number2 = 10;
-// test_pointer(&character2);
-// test_pointer(&str2);
-// test_pointer(&number2);
-
-	// test_pointer(&number);
-	// test_pointer(NULL);
 
 // string tests:
 // char *str = "hello";
@@ -279,12 +397,12 @@ static void	test_number(int number)
 	int	ft_res = 0;
 
 	// testing for %d
-	printf("testing '%d' for %%d:\n", number);
-	pf_res = printf("pf - %%d: %d\n", number);
-	printf("pf_res 1 = %d\n\n", pf_res);
-	ft_res = ft_printf("ft - %%d: %d\n", number);
-	printf("ft_res 1 = %d\n", ft_res);
-	printf("*********************\n");
+	// printf("testing '%d' for %%d:\n", number);
+	// pf_res = printf("pf - %%d: %d\n", number);
+	// printf("pf_res 1 = %d\n\n", pf_res);
+	// ft_res = ft_printf("ft - %%d: %d\n", number);
+	// printf("ft_res 1 = %d\n", ft_res);
+	// printf("*********************\n");
 
 	// testing for %i
 	// pf_res = 0;
@@ -296,12 +414,12 @@ static void	test_number(int number)
 	// printf("ft_res = %d\n\n", ft_res);
 
 	// testing for %X
-	// printf("testing '%d' for %%X:\n", number);
-	// pf_res = printf("pf - %%X: %X\n", number);
-	// printf("pf_res = %d\n\n", pf_res);
-	// ft_res = ft_printf("ft - %%X: %X\n", number);
-	// printf("ft_res = %d\n", ft_res);
-	// printf("*********************\n");
+	printf("testing '%d' for %%X:\n", number);
+	pf_res = printf("pf - %%X: %X\n", number);
+	printf("pf_res = %d\n\n", pf_res);
+	ft_res = ft_printf("ft - %%X: %X\n", number);
+	printf("ft_res = %d\n", ft_res);
+	printf("*********************\n");
 
 	// testing for %x
 	// printf("testing '%d' for %%x:\n", number);
@@ -311,7 +429,7 @@ static void	test_number(int number)
 	// printf("ft_res = %d\n", ft_res);
 	// printf("*********************\n");
 
-	// // testing for %u
+	// testing for %u
 	// pf_res = 0;
 	// ft_res = 0;
 	// printf("testing '%d' for %%u:\n", number);
@@ -321,18 +439,21 @@ static void	test_number(int number)
 	// printf("ft_res = %d\n", ft_res);
 	// printf("*********************\n");
 }
- */
-/* 
+
+
+/*
 static void	test_pointer(void *address)
 {
 	int	pf_res = 0;
 	int	ft_res = 0;
-	printf("pf - %%p: %p\n", address);
+	pf_res = printf("pf - %%p: %p\n", address);
 	printf("pf_res = %d\n\n", pf_res);
-	ft_printf("ft - %%p: %p\n\n", address);
-	printf("ft_res = %d\n", ft_res);
+	ft_res = ft_printf("ft - %%p: %p\n", address);
+	printf("ft_res = %d\n******************\n", ft_res);
 }
+ */
 
+/*
 static void	test_string(char *str)
 {
 	int	pf_res = 0;
@@ -343,6 +464,7 @@ static void	test_string(char *str)
 	ft_printf("ft - %%s: %s\n\n", str);
 	printf("ft_res = %d\n", ft_res);
 }
+
 
 static void	test_character(int character)
 {
