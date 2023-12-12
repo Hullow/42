@@ -1,8 +1,4 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include "libft/libft.h"
+#include "ft_printf.h"
 
 // •Your function has to handle the following conversions: cspdiuxX%
 //
@@ -191,25 +187,14 @@ static int	ft_print_formatted_output(const char format_specifier, va_list ap)
 		{
 			// int input = va_arg(ap, int);
 			// hexvalue = (signed long long) input;
-			hexvalue = va_arg(ap, int);
+			hexvalue = va_arg(ap, signed long long);
 			res += ft_hex(hexvalue, format_specifier);
 		}
 	return (res);
 }
 
-// Data type: va_list. A type used for argument pointer variables
-// Macro: void va_start (va_list ap, last-required). This macro initializes the argument pointer variable ap to point to the first of the optional arguments of the current function; last-required must be the last required argument to the function.
-// Macro: type va_arg (va_list ap, type). This macro returns the value of the next optional argument, and modifies the value of ap to point to the subsequent argument. The type of the return value is specified in the call.
-// Macro: void va_end(va_list ap). This macro ends the use of ap; after it, further va_arg calls with the same ap may not work. In the GNU C Library, va_end doesn't do anything and is only used for reasons of portability.
-
-// Macro: va_copy(va_list dest, va_list src). This macro allows copying of objects of type va_list even if this is not an integral type. 
-//        The argument pointer in dest is initialized to point to the same argument as the pointer in src.
-
-
 int	ft_printf(const char *format, ...)
 {
-	// if (!format)
-	// 	return (0);
 	int		i;
 	int		res;
 	va_list	ap;
@@ -236,19 +221,86 @@ int	ft_printf(const char *format, ...)
 // static void	test_character(int character);
  static void	test_number(int number);
 // static void	test_pointer(void *ptr);
-
+ 
 
 int main()
 {
 // random values tests
-	int pf_res = 0;
-	int ft_res = 0;
+int pf_res = 0;
+int ft_res = 0;
 
 // the entire sequence: error (ft prints "1C4B1776C" au lieu de "1C4B1776C" pour "%X,  -995002516")
-pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
-printf("\npf_res = %d\n", pf_res);
-ft_res = ft_printf("ft:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
-ft_printf("\nft_res = %d\n", ft_res);
+// pf_res =    printf("printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420,1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// modify the problematic variable (-995517 rather than -995002516): error
+// pf_res =    printf("printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995517, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420,1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995517, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+
+// modify the problematic variable (-1 rather than -995002516): error
+// pf_res =    printf("printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -1, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420,1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -1, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+
+// modify the problematic variable (125 rather than -995002516): error (not just an additional "1" this time, but 1000000)
+// pf_res =    printf("printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 125, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 125, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// modify the problematic variable and remove one other variable: no error
+// pf_res =    printf("printf:\n_{\t=>R4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 125, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 125, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// change the order of format specifiers (our problematic '%X' after '%u'): no error
+// pf_res =    printf("printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7,A$O7a$K%uUQC%XOCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 125, 1475840544, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7,A$O7a$K%uUQC%XOCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 125, 1475840544, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// change the order of format specifiers (our problematic '%X' after '%u') AND their original values ("-995002516, 1475840544" becomes "1475840544, -995002516"): no error
+// pf_res =    printf("printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%uO,A$O7a$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544, -995002516, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%uO,A$O7a$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420,1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544, -995002516, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// change the order of format specifiers ('%u' put before our problematic '%X' and the '%x%X' preceding it) but not the variables: error 
+// pf_res =    printf("_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%uO,A$O7%X%xa$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ\n:    printf", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544, -995002516, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%uO,A$O7%X%xa$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ\n: ft_printf", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544, -995002516, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+// %X%x is printed as "D9F823 157f78a20" instead of "D9F823 57f78a20"
+// nb: 14284835_decimal is D9F823_hex and 1475840544_decimal is 57F78A20_hex.
+// Using debugger we see that the function takes 14284835_decimal "normally" and prints D9F823_hex as desired
+// it then takes in 1475840544(_decimal) as 5770807840_decimal, printing out the corresponding 157F78A20_hex, instead of 57F78A20_hex as desired
+
+// if however we invert the order of our format specifiers and corresponding variables and put the '%u' in between %X%x and the second '%X', there is no error!
+// pf_res =    printf("_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%X%xO,A$O7%ua$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ\n:    printf", 68420, 1314672812, ",I^U?p{@y[!", 14284835, 1475840544, 1387750149, -995002516, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%X%xO,A$O7%ua$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ\n: ft_printf", 68420, 1314672812, ",I^U?p{@y[!", 14284835, 1475840544, 1387750149, -995002516, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+
+// no we try only changing format specifiers place, not variables: no error
+// pf_res =    printf("_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%X%xO,A$O7%ua$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ\n:    printf", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544, -995002516, 1988102481, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%X%xO,A$O7%ua$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ\n: ft_printf", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544, -995002516, 1988102481, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
+// =====> conclusion: it's not about the specific values, but the order of the format specifiers
+
+// same but variables moved around: error
+// pf_res =    printf("     printf:\n_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%uO,A$O7%X%xa$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544,  1988102481, -995002516, 45130549);
+// printf("\npf_res = %d\n", pf_res);
+// ft_res = ft_printf("\nft_printf:\n_{\t=>R%d4MadvfeQ%d%s\7KLa1G7%uO,A$O7%X%xa$K%XUQCCw<g-=E%X-*=M!r\CoC%d)*_RoVrbgZ", 68420, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, 1475840544, 1988102481, -995002516, 45130549);
+// ft_printf("\nft_res = %d\n", ft_res);
 
 // remove the second variable right after our problem variable
 // pf_res = printf("pf:\n_{\t=>R%d4MadvfeQ%d%s\7KL%X%xa1G7%XO,A$O7a$K%uUQCCw<g-=E-*=M!r\CoC%d)*_RoVrbgZ", 906887661, 1314672812, ",I^U?p{@y[!", 1387750149, 14284835, -995002516, 1475840544, 45130549);
@@ -439,7 +491,6 @@ static void	test_number(int number)
 	// printf("ft_res = %d\n", ft_res);
 	// printf("*********************\n");
 }
-
 
 /*
 static void	test_pointer(void *address)
