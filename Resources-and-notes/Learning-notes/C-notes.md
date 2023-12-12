@@ -177,7 +177,7 @@ int main() {
 Advantages of using prototypes: helps navigate program with main at the top
 
 ## Header files
-A header file is a file containing C declarations and macro definitions to be shared between several source files. It is requested by *including* it with the C prepocessing directive `#include`
+A header file is a file containing C declarations and macro definitions to be shared between several source files. It is requested by *including* it with the C preprocessing directive `#include`
 - **Include Syntax** : `#include <file>` for system header files, `#include "file"` for header files of the program
 - [**Include guards**](https://www.oreilly.com/library/view/c-cookbook/0596007612/ch02s02.html) (**`#ifndef` wrapper**):
   - [an `#ifndef` directive](https://www.educative.io/answers/what-is-the--sharpifndef-directive-in-c) allows conditional compilation, by asking the preprocessor to determine if any provided macros exist before any subsequent code is included. Example:

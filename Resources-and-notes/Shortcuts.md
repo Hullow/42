@@ -2,6 +2,7 @@
 
 ## 42-Intra
 - `francinette -c` ou `paco` (a checker) pour nettoyer le cache (cclean)
+- `alt + shift + F`: formattage norminette (extension VSCode 42 format)
 
 ## OS X
 - `Cmd+alt opt+<number>` to select a given window
@@ -37,7 +38,7 @@
 **Navigation**
 - go to previous directory: `cd -`
 - `find . -name “<filename>” -delete` : delete all files of a certain name
-						`2 > /dev/null` : don’t print out error messages (e.g. “folder not permitted”)
+						`2 > /dev/null` : silent (don’t print out error messages (e.g. “folder not permitted”, "permission denied"))
 - `curl -o [filename] [URL]` (nb: `-o` for output): download a file
 
 **Information**

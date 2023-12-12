@@ -1,18 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 15:28:38 by fallan            #+#    #+#             */
-/*   Updated: 2023/12/12 15:28:39 by fallan           ###   ########.fr       */
+/*   Created: 2023/12/12 15:28:43 by fallan            #+#    #+#             */
+/*   Updated: 2023/12/12 15:32:27 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
+int	ft_putnbr(int n, int res)
 {
-	return (write(1, &c, 1));
+	if (n == -2147483648)
+		return (write(1, "-2147483648", 11));
+	else
+	{
+		if (n < 0)
+		{
+			n *= (-1);
+			res += write(1, "-", 1);
+		}
+		if (n >= 0 && n <= 9)
+		{
+			n += 48;
+			write(1, &n, 1);
+			n -= 48;
+			res++;
+		}
+		if (n > 9)
+		{
+			res = ft_putnbr(n / 10, res);
+			res = ft_putnbr(n % 10, res);
+		}
+	}
+	return (res);
 }
