@@ -9,3 +9,5 @@ Prevoir partitions pour bonus si jamais
 Bonus: pas faire partition trop grosse (30gb de l’exemple ca va pas)
 
 wordpress: pas faire (“j’ai fait .exe… “?)
+
+Damian: pas eu moyen d'installer Linux avec VirtualBox sur M1
