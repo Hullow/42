@@ -15,10 +15,23 @@ a.k.a. *low-order bit* or *right-most bit*, due to convention in positional nota
 "Allows an ***unmodified*** operating system with all of its installed software to run in a special environment, a **virtual machine**, on top of [an existing] system. This process is created by intercepting access to certain hardware components and certain features. This approach, called "**native virtualization**" is different from emulation, where machine instructions are translated ("emulated"). Emulators typically allow running code written for one type of hardware on completely different hardware (e.g. 64-bit code on 32-bit hardware), they tend to be quite slow, whereas virtualizers can achieve near-native performance for the guest code, but can only run guest code that was written for the same hardware (e.g. 32-bit Linux on a 32-bit Windows host).
 - "**Host**": the physical computer
 - "**Guest**": the virtual machine
+
 ### [Benefits of using VMs](https://www.virtualbox.org/wiki/Virtualization)
 	- run software for other OS without rebooting
-	- pack many VMs on a few powerful machines (e.g. servers)
+	- pack many VMs on a few powerful machines (e.g. servers), and enable efficient use of infrastructure
 	- testing and disaster recovery – mess with a computing environment with little consequence: switching back easily to a previous snapshot and avoid need for frequent backups and restores
+### [VirtualBox](https://www.virtualbox.org/manual/)
+A *hosted*, a.k.a. *type 2* **hypervisor**, which requires a host operating system to run, as opposed to *bare-metal*, *type 1* hypervisors which runs directly on the hardware
+#### [Disk image files](https://www.virtualbox.org/manual/ch05.html#vdidetails)
+Reside on the host system and are seen by the guest systems as hard disks of a certain geometry. Can be expanded after creation, even if it has data already.
+Types:
+- Virtual Disk Image/VDI (VirtualBox container format for guest hard disks)
+- Virtual Machine Disk/VMDK (popular format used by other virtualization products like VMware)
+- Virtual Hard Disk/VHD (Microsoft's format)
+- HDD (Parallels v2)
+Options:
+- fixed-size: image roughly the same size as the virtual disk's capacity. slower to create.
+- dynamically allocated: grows every time a disk sector is written for the first time, until it reaches the maximum capacity chosen. Requires additional computing resources and write operations may be slower until the disk file size has stabilized, but mostly in the beginning when the rate of growth is high. fast to create, uses very little storage initially.
 
 ## [Partitioning](https://www.redhat.com/sysadmin/lvm-vs-partitioning)
 - "*traditional storage management*" : the process of partitioning, formatting, and mounting storage capacity from a basic hard disk drive (HDD)

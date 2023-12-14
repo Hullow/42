@@ -45,6 +45,8 @@
 - `file <filename>` : gives filetype
 - `whereis <command>` : shows path to an executable
 - `which [command]` => path to executable
+- `arch`: displays machine's architecture type
+- `uname -m`/`machine`: prints the machine hardware name/type
 
 **Users/groups**
 - `whoami`: gives current user
