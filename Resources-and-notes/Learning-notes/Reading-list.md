@@ -12,3 +12,7 @@ Currently:
 
 At some point:
 - [Stack overflow - Wikipedia](https://en.wikipedia.org/wiki/Stack_overflow)
+
+
+Maybe:
+- [Virtual machine - Wikipedia](https://en.wikipedia.org/wiki/Virtual_machine)
