@@ -24,6 +24,8 @@
 - `esc` : reject all code suggestions
 - `Ctrl+Enter` : open a new tab with multiple additional options, press .
 
+### Obsidian
+- `cmd + ;` anywhere / `---` at the very beginning of a file (under the title): add properties (aliases, tags, links, ...)
 ## Bash
 - `CMD+up/down` : next/previous command
 - `vim ~/.zsh_history` : see commands of current terminal session

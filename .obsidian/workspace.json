@@ -4,11 +4,23 @@
     "type": "split",
     "children": [
       {
-        "id": "2ded7bf9ca1a8f91",
+        "id": "4bd61b1eee379325",
         "type": "tabs",
         "children": [
           {
-            "id": "37935a92763c84ec",
+            "id": "edfc726c50d5e5cc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Resources-and-notes/Learning-notes/Programming-notes.md",
+                "mode": "source",
+                "source": true
+              }
+            }
+          },
+          {
+            "id": "7975c368274222f2",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -18,8 +30,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "0436983dbd88e1e1",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Born2beroot/fr.subject.pdf"
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -69,7 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 238.50390243530273
   },
   "right": {
     "id": "40c6e04d9416a628",
@@ -146,9 +169,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "37935a92763c84ec",
+  "active": "7975c368274222f2",
   "lastOpenFiles": [
     "Born2beroot/fr.subject.pdf",
-    "Resources-and-notes/Learning-notes/Programming-notes.md"
+    "Born2beroot/B2Broot.md",
+    "Resources-and-notes/Learning-notes/Programming-notes.md",
+    "GNU GRUB boot loader.md",
+    "Resources-and-notes/Learning-notes/Reading-list.md",
+    "Resources-and-notes/Shortcuts.md"
   ]
 }

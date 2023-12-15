@@ -1,3 +1,9 @@
+---
+aliases:
+  - computing-notes
+tags:
+  - computer-science
+---
 ### [Bit numbering](https://en.wikipedia.org/wiki/Bit_numbering)
 #### [Most significant bit (MSb)](https://en.wikipedia.org/wiki/Bit_numbering#Most_significant_bit)
 a.k.a. the *high-order bit* or *left-most bit*. The highest-order place of the binary integer.
@@ -16,16 +22,18 @@ a.k.a. *low-order bit* or *right-most bit*, due to convention in positional nota
 - "**Host**": the physical computer
 - "**Guest**": the virtual machine
 
-### [Benefits of using VMs](https://www.virtualbox.org/wiki/Virtualization)
+### [Benefits of using VMs](https://www.virtualbox.org/wiki/Virtualization) 
 	- run software for other OS without rebooting
 	- pack many VMs on a few powerful machines (e.g. servers), and enable efficient use of infrastructure
-	- testing and disaster recovery – mess with a computing environment with little consequence: switching back easily to a previous snapshot and avoid need for frequent backups and restores
+	- testing and disaster recovery – mess with a computing environment with little consequence: switching back easily to a previous snapshot and avoid need for frequent backups and restores. for instance when a physical server crashes, data recovery can be complicated, whereas switching to a VM snapshot is relatively simple.
+	- security of data: isolate services on different (virtual) servers, limiting e.g. the risk of malware propagation in case of malware intrusion ([source](https://42-cursus.gitbook.io/guide/rank-01/born2beroot/whats-a-virtual-machine))
 ### [VirtualBox](https://www.virtualbox.org/manual/)
-A *hosted*, a.k.a. *type 2* **hypervisor**, which requires a host operating system to run, as opposed to *bare-metal*, *type 1* hypervisors which runs directly on the hardware
+A *hosted*, a.k.a. *type 2* **hypervisor** (a.k.a. virtual machine monitor VMM), which requires a host operating system to run, as opposed to *bare-metal*, *type 1* hypervisors which runs directly on the hardware (more often used in industry)
 #### [Disk image files](https://www.virtualbox.org/manual/ch05.html#vdidetails)
+#storage
 Reside on the host system and are seen by the guest systems as hard disks of a certain geometry. Can be expanded after creation, even if it has data already.
 Types:
-- Virtual Disk Image/VDI (VirtualBox container format for guest hard disks)
+- Virtual Disk Image/VDI (VirtualBox container format for guest hard disks) ^1f390e
 - Virtual Machine Disk/VMDK (popular format used by other virtualization products like VMware)
 - Virtual Hard Disk/VHD (Microsoft's format)
 - HDD (Parallels v2)
@@ -33,14 +41,34 @@ Options:
 - fixed-size: image roughly the same size as the virtual disk's capacity. slower to create.
 - dynamically allocated: grows every time a disk sector is written for the first time, until it reaches the maximum capacity chosen. Requires additional computing resources and write operations may be slower until the disk file size has stabilized, but mostly in the beginning when the rate of growth is high. fast to create, uses very little storage initially.
 
-## [Partitioning](https://www.redhat.com/sysadmin/lvm-vs-partitioning)
+### [ISO image](https://en.wikipedia.org/wiki/Optical_disc_image)
+"An optical disk image or ISO image is a disk image that contains everything that would be written to an optical disk, disk sector by disk sector, including the optical disk filet system. ISO images contain the binary image of an optical media file system (usually [ISO 9660](https://en.wikipedia.org/wiki/ISO_9660), a file system for optical disk media, or UDF)" 
+## Partitioning 
+#storage
+Sources: "[LVM vs partitioning (Red Hat)](https://www.redhat.com/sysadmin/lvm-vs-partitioning)", [42 Gitbook](https://42-cursus.gitbook.io/guide/rank-01/born2beroot/install-your-virtual-machine)
 - "*traditional storage management*" : the process of partitioning, formatting, and mounting storage capacity from a basic hard disk drive (HDD)
-=> admins think of storage based on max capacity of individual HDDs (e.g. 3*1TB => "I have three HDDs of one TB)
+=> admins think of storage based on max capacity of individual HDDs (e.g. 3 * 1TB => "I have three HDDs of one TB)
 - disk partitioning or disk slicing
+### Logical Volume Manager
+LVM can be thought of as "dynamic partitions" which can be created/resized/deleted from the CLI while Linux is running, without needing to reboot the system to make the kernel aware of the partitioning changes. It combines the capacity of the available *Physical Volumes* (PV), which are then added to *Volume Groups* (VGs). VGs are then carved into one or more *Logical Volumes* (LVs), which are then treated as traditional partitions. LVMs allow for easy capacity reallocation; for instance if too much capacity was allocated to one VG, it can be reduced and added to another.
 
 ## OS concepts and terminology
 ### [BIOS](https://www.intel.com/content/www/us/en/gaming/resources/how-to-update-bios.html#:~:text=BIOS%20stands%20for%20Basic%20Input,and%20load%20your%20operating%20system.)
+
+^e7c5f7
+
 Basic Input/Output System: "firmware that loads before your operating system, performing startup procedures that check system devices (from RAM to hard drive to keyboard) and load the operating system"
+
+### [Boot loader](https://en.wikipedia.org/wiki/Bootloader)
+A program that is responsible for booting a computer. 
+#### First-stage boot loaders
+[[Programming-notes#^e7c5f7|BIOS]], UEFI, coreboot, ...
+(N.b.: the BIOS is not a boot loader, it loads a boot loader.)
+#### Second-stage boot loaders
+[GNU GRUB](https://en.wikipedia.org/wiki/GNU_GRUB), rEFInd, BOOTMGR, Syslinux, ... load an operating system properly and transfer execution to it; the OS subsequently initializes itself and may load extra device drivers. The ssbl does not require drivers for its own operation but may instead use generic storage access methods provided by system firmware such as the BIOS or Open Firmware. Can often be configured to give the user multiple booting choices: different OSes, versions of the same OS, loading options (e.g. booting into a rescue or safe mode), and some standalone programs that can function without an operating system, such as memory testers, a basic shell, or even games. 
+^428b1b
+
+
 
 ### DOS: disk operating system, an operating system that runs from a disk drive
 
@@ -67,8 +95,9 @@ Components:
 
 
 ## Linux
-
+#linux
 ### Security enhancement modules
+#security
 #### SELinux
 - "Security-Enhanced Linux (SELinux) is a Linux kernel security module that provides a mechanism for supporting access control security policies, including mandatory access controls (MAC). SELinux is a set of kernel modifications and user-space tools that have been added to various Linux distributions." (Wikipedia)
 - [Developed by the NSA](https://web.archive.org/web/20201022103915/https://www.nsa.gov/what-we-do/research/selinux/), handed over to the Linux community in 2008.
