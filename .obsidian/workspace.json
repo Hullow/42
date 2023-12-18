@@ -13,9 +13,21 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Resources-and-notes/Learning-notes/Programming-notes.md",
+                "file": "Resources-and-notes/Learning-notes/Bash and system commands.md",
                 "mode": "source",
                 "source": true
+              }
+            }
+          },
+          {
+            "id": "dd5b051ab5fb192f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Born2beroot/B2Broot.md",
+                "mode": "source",
+                "source": false
               }
             }
           },
@@ -25,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Born2beroot/B2Broot.md",
+                "file": "Resources-and-notes/Learning-notes/Programming-notes.md",
                 "mode": "source",
                 "source": false
               }
@@ -169,13 +181,14 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7975c368274222f2",
+  "active": "dd5b051ab5fb192f",
   "lastOpenFiles": [
-    "Born2beroot/fr.subject.pdf",
-    "Born2beroot/B2Broot.md",
     "Resources-and-notes/Learning-notes/Programming-notes.md",
+    "Born2beroot/B2Broot.md",
+    "Resources-and-notes/Learning-notes/Bash and system commands.md",
+    "Born2beroot/fr.subject.pdf",
+    "Resources-and-notes/Shortcuts.md",
     "GNU GRUB boot loader.md",
-    "Resources-and-notes/Learning-notes/Reading-list.md",
-    "Resources-and-notes/Shortcuts.md"
+    "Resources-and-notes/Learning-notes/Reading-list.md"
   ]
 }
