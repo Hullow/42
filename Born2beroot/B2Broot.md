@@ -112,6 +112,7 @@ fallan   ALL=(ALL)ALL
 - `getent group sudo` : list users part of the sudo group ^7fc8e8
 
 To do next:
+- bootable flag: on ? (sda1 cf Père Meechan)
 [Create logical volumes](https://www.redhat.com/sysadmin/creating-logical-volumes) for bonus
 
 
