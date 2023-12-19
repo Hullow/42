@@ -113,6 +113,7 @@ fallan   ALL=(ALL)ALL
 - `getent group sudo` : list users part of the sudo group ^7fc8e8
 
 To do next:
+- bootable flag: on ? (sda1 cf Père Meechan)
 [Create logical volumes](https://www.redhat.com/sysadmin/creating-logical-volumes) for bonus
 
 
@@ -137,3 +138,4 @@ see var/log/dpkg.log
 		- `sudo apt install ufw`, `sudo ufw enable,  ufw allow ssh, ufw allow 4242, ufw status, ufw delete [X]
 		- setup port forwarding in VirtualBox settings, then close and `sudo reboot`. Then iTerm, ssh fallan@127.0.0.1 (=> localhost)
 		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
+=======
