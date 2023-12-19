@@ -49,11 +49,23 @@ Sources: "[LVM vs partitioning (Red Hat)](https://www.redhat.com/sysadmin/lvm-vs
 - "*traditional storage management*" : the process of partitioning, formatting, and mounting storage capacity from a basic hard disk drive (HDD)
 => admins think of storage based on max capacity of individual HDDs (e.g. 3 * 1TB => "I have three HDDs of one TB)
 - disk partitioning or disk slicing
+### **primary** vs **logical** partitioning scheme
+in the legacy [[Programming-notes#^6da68e|Master boot record]], only at most four partitions (called "primary") can be created; this limit can be bypassed by making one of them an "extended" partition (a.k.a. "[extended boot record](https://en.wikipedia.org/wiki/Extended_boot_record)"), which contains several "logical" partitions instead of files. Some OS's (such as Windows) are unable to boot from logical partitions (from [superuser](https://superuser.com/questions/337146/what-are-the-differences-between-primary-and-logical-partition))
+```
+	MBR: < primary | primary | primary | primary >
+	MBR: < primary | primary | extended [logical, logical, logical] >
+```
+#### [Logical Volume Manager](https://www.redhat.com/sysadmin/lvm-vs-partitioning)
+LVM can be thought of as "dynamic partitions" which can be created/resized/deleted from the CLI while Linux is running, without needing to reboot the system to make the kernel aware of the partitioning changes. It combines the capacity of the available *Physical Volumes* (PV), which are then added to *Volume Groups* (VGs). VGs are then carved into one or more *Logical Volumes* (LVs), which are then treated as traditional partitions. LVMs allow for easy capacity reallocation; for instance if too much capacity was allocated to one VG, it can be reduced and added to another
+#### [Master boot record](https://en.wikipedia.org/wiki/Master_boot_record) (MBR) partition scheme
+a special type of boot sector at the very beginning of partitioned computer mass storage devices like fixed discs or removable drives intended for use with IBM PC-compatible systems and beyond. The MBR holds the information on how the disc's sectors (aka "blocks") are divided into partitions, each partition notionally containing a file system. The MBR also contains executable code to function as a loader for the installed operating system – this MBR code is usually referred to as a [[Programming-notes#^e6240f |boot loader]].  ^6da68e
+#### [GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table)
+a standard for the layout of partition tables of a physical computer storage device, such as an HDD or a solid-state drive, using universally unique identifiers, also known as globally unique identifiers (GUIDs). All modern PC OSes support GPT. GPT has less limits than MBR and does not need to use extended/logical partitions.
+#### [Boot sector](https://en.wikipedia.org/wiki/Boot_sector)
+the sector of a persistent data storage device (e.g. hard disk, floppy disk, optical disk, etc.) containing machine code to be loaded into RAM and then executed by a computer system's built-in firmware (e.g. the [[Programming-notes#^e7c5f7 |BIOS]]). Usually the very first sector of the hard disk, regardless of sector size (512 or 4096 bytes) and partitioning flavor (MBR or [GPT/GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table))
 ## Swap memory/area/space
 - definition: section of a computer's hard disk or SSD that the OS uses to store inactive data from RAM/area on a hard disk which is part of the Virtual Memory of your machine
 - two types: swap partition, swap file
-### Logical Volume Manager
-LVM can be thought of as "dynamic partitions" which can be created/resized/deleted from the CLI while Linux is running, without needing to reboot the system to make the kernel aware of the partitioning changes. It combines the capacity of the available *Physical Volumes* (PV), which are then added to *Volume Groups* (VGs). VGs are then carved into one or more *Logical Volumes* (LVs), which are then treated as traditional partitions. LVMs allow for easy capacity reallocation; for instance if too much capacity was allocated to one VG, it can be reduced and added to another.
 
 ## OS concepts and terminology
 ### [BIOS](https://www.intel.com/content/www/us/en/gaming/resources/how-to-update-bios.html#:~:text=BIOS%20stands%20for%20Basic%20Input,and%20load%20your%20operating%20system.)
@@ -63,6 +75,9 @@ LVM can be thought of as "dynamic partitions" which can be created/resized/delet
 Basic Input/Output System: "firmware that loads before your operating system, performing startup procedures that check system devices (from RAM to hard drive to keyboard) and load the operating system"
 
 ### [Boot loader](https://en.wikipedia.org/wiki/Bootloader)
+
+^e6240f
+
 A program that is responsible for booting a computer. 
 #### First-stage boot loaders
 [[Programming-notes#^e7c5f7|BIOS]], UEFI, coreboot, ...
@@ -93,12 +108,12 @@ Components:
 ##### History
 - Origin: Linus Torvalds didn't want to write a filesystem and so simply included the filesystem of Minix, a UNIX-like educational OS written by Andrew S. Tanenbaum, which was open source and appropriately licensed for Linus's purposes
 - Minix structures:
-	- boot sector: the sector of a persistant data storage device containing machine code to be loaded into RAM and then executed by a computer system's built-in firmware (e.g. the BIOS). Usually the very first sector of the hard disk, regardless of sector size (512 or 4096 bytes) and partitioning flavor (MBR or GPT)
-	- 
 
 
 ## Linux
 #linux
+
+
 ### Security enhancement modules
 #security
 #### SELinux
@@ -120,3 +135,6 @@ Components:
 - Used in Ubuntu/Debian distributions among others
 
 
+
+
+^14c7ce
