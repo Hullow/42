@@ -100,6 +100,7 @@ N.b.: when turning off the VM, choose "Save the machine state to prevent losing 
 	- apt install sudo
 	- usermod -aG sudo fallan
 	- sudo visudo (nb: in nano, so `ctrl+O to save and `ctrl+X` to exit)
+	- (visudo is a utility to edit sudo safely, avoiding syntax errors and warning other users in the system that the sudoers file is being edited, if necessary)
 ```bash
 # User privilege specification
 fallan   ALL=(ALL)ALL
@@ -119,3 +120,20 @@ dpkg error code 1: a check or assertion command returned false
 
 see var/log/dpkg.log
  var/lib/dpkf/available
+
+## 19/12/23
+- gotham machine: 
+	- login fallan
+	- password: password
+	- root/encrypt: unlock
+
+- relogging in Asgard, had issue "virtualbox Cannot register the DVD image because a CD/DVD image with UUID already exists" => solved by deleting the stuff between tags `<DVDImages></DVDImages>` in the .vbox file of each VM (same folder as .vdi file) (source: [Stackoverflow](https://stackoverflow.com/questions/36857343/virtualbox-import-error-cannot-register-the-dvd-image))
+
+- suite de l'installation:
+	- ssh:
+		- already installed but my `sudo apt install openssh-server` at least set it as "manually installed"
+		- `sudo nano /etc/ssh/sshd_config`: uncomment line "Port 22" and change to "Port 4242" (check with sudo grep Port /etc/ssh/sshd_config)
+		- `sudo service ssh restart` 
+		- `sudo apt install ufw`, `sudo ufw enable,  ufw allow ssh, ufw allow 4242, ufw status, ufw delete [X]
+		- setup port forwarding in VirtualBox settings, then close and `sudo reboot`. Then iTerm, ssh fallan@127.0.0.1 (=> localhost)
+		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
