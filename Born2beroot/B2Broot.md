@@ -121,7 +121,6 @@ dpkg error code 1: a check or assertion command returned false
 
 see var/log/dpkg.log
  var/lib/dpkf/available
-<<<<<<< HEAD
 
 ## 19/12/23
 - gotham machine: 
@@ -139,5 +138,21 @@ see var/log/dpkg.log
 		- `sudo apt install ufw`, `sudo ufw enable,  ufw allow ssh, ufw allow 4242, ufw status, ufw delete [X]
 		- setup port forwarding in VirtualBox settings, then close and `sudo reboot`. Then iTerm, ssh fallan@127.0.0.1 (=> localhost)
 		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
-=======
->>>>>>> d0e64a0 (Update B2Broot.md - to do)
+
+## 21/12/13
+- `sudo apt install libpam-pwquality`
+- `groupadd --users fallan user42` to create user42 group with fallan in it. (note: `groups` doesn't list user42 whereas `groups fallan` does, weirdly)
+- password policy (following prossi but also [server-world](https://www.server-world.info/en/note?os=Debian_12&p=pam&f=1)):
+	- modified `/etc/login.defs` with sudo:
+	```bash
+	PASS_MAX_DAYS  30
+	PASS_MIN_DAYS  2
+	PASS_WARN_AGE  7
+	```
+	(n.b.: this setting only impact when creating a user)
+	- used `chage --mindays 2 --maxdays 30 --warndays 7 fallan` and `chage --mindays 2 --maxdays 30 --warndays 7 root
+	- PAM:
+		- /etc/security/pwquality.conf
+			- difok = 7, minlen = 10, dcredit = 1, ucredit = 1, lcredit = 1, maxrepeat = 3, usercheck = 1, enforce_for_root
+	
+>>>>>>> 67aed80 (B2Broot notes)
