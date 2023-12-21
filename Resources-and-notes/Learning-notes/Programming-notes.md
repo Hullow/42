@@ -69,15 +69,12 @@ a special type of boot sector at the very beginning of partitioned computer mass
 a standard for the layout of partition tables of a physical computer storage device, such as an HDD or a solid-state drive, using universally unique identifiers, also known as globally unique identifiers (GUIDs). All modern PC OSes support GPT. GPT has less limits than MBR and does not need to use extended/logical partitions.
 #### [Boot sector](https://en.wikipedia.org/wiki/Boot_sector)
 the sector of a persistent data storage device (e.g. hard disk, floppy disk, optical disk, etc.) containing machine code to be loaded into RAM and then executed by a computer system's built-in firmware (e.g. the [[Programming-notes#^e7c5f7 |BIOS]]). Usually the very first sector of the hard disk, regardless of sector size (512 or 4096 bytes) and partitioning flavor (MBR or [GPT/GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table))
-<<<<<<< HEAD
 
 ### [Character vs block devices](https://www.baeldung.com/linux/dev-directory)
 - Character special files are [[Linux#^dccf41|device files]] that interface to **character devices**, with which drivers communicate by sending single characters as data such as bytes. In addition, they don't require buffering when communicating with a driver. Examples: sound cards, serial ports.
 - Block special files are device files that interface to **block devices**, with which drivers communicate by sending entire blocks of data. Examples: hard disks, USBs
 - Identification: the first letter of the permissions (`ls -l`) : `c` or `d`
 
-=======
->>>>>>> 879b9a0 (More notes on B2BRoot & programming)
 ## Swap memory/area/space
 - definition: section of a computer's hard disk or SSD that the OS uses to store inactive data from RAM/area on a hard disk which is part of the Virtual Memory of your machine
 - two types: swap partition, swap file
@@ -116,12 +113,7 @@ Components:
 #### [Mount point](https://www.techtarget.com/whatis/definition/mount-point)
 - A directory on a filesystem that is logically linked to another filesystem. Mount points allow data present on different physical devices and logical volumes to be put on the same filesystem, allowing all data needed on the system to be accessed from the root directory. 
 - Virtual machines and containers make extensive use of mount points. Servers also use mount points, for instance to enable use of network-attached storage devices (a mount point is made on the server pointing to the NAS data).
-<<<<<<< HEAD
 - The `mount` command is used to make a device or file system accessible to the system, and then to connect its root directory to a mount point on the local file system. The mount point location is typically an empty folder.
-=======
-- The `mount` command is used to make a device or file system accessible to the system, and then to connect its root directory to a mount point on the local file system. The mount point location is typically an empty folder.
-
-### Linux filesystems
 #### Ext4
 ##### History
 - Origin: Linus Torvalds didn't want to write a filesystem and so simply included the filesystem of Minix, a UNIX-like educational OS written by Andrew S. Tanenbaum, which was open source and appropriately licensed for Linus's purposes
@@ -154,6 +146,4 @@ Components:
 
 
 
-
 ^14c7ce
->>>>>>> 879b9a0 (More notes on B2BRoot & programming)

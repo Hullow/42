@@ -140,7 +140,6 @@ see var/log/dpkg.log
 		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
 
 ## 21/12/23
-At 42
 - `sudo apt install libpam-pwquality`
 - `groupadd --users fallan user42` to create user42 group with fallan in it. (note: `groups` doesn't list user42 whereas `groups fallan` does, weirdly)
 - password policy (following prossi but also [server-world](https://www.server-world.info/en/note?os=Debian_12&p=pam&f=1)):
@@ -155,6 +154,7 @@ At 42
 	- PAM:
 		- /etc/security/pwquality.conf
 			- difok = 7, minlen = 10, dcredit = 1, ucredit = 1, lcredit = 1, maxrepeat = 3, usercheck = 1, enforce_for_root
+<<<<<<< HEAD
 	
 **left to do** : change passwoords of all user accounts on the machine, incl. root
 

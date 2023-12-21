@@ -23,6 +23,10 @@ In Linux, the shell is a command line interpreter (CLI).
 - [A pseudo-TTY (PTY)](https://www.baeldung.com/linux/pty-vs-tty#what-is-a-pty) connects its input and output to the respective streams of another device, behaving like a TTY but for any two endpoints. Multiple PTYs can co-exist within the context of the same TTY. One of PTYs main function is to enable terminal emulators such as *xterm* or *GNOME terminal*, which request as many PTYs as it needs from the OS, often presenting them as tabs or windows in the GUI.
 - Communication protocols like *ssh* and *telnet* depend on terminal emulation to interact with the OS. 
  Terminal allocation
+#### Ext4
+##### History
+- Origin: Linus Torvalds didn't want to write a filesystem and so simply included the filesystem of Minix, a UNIX-like educational OS written by Andrew S. Tanenbaum, which was open source and appropriately licensed for Linus's purposes
+- Minix structures:
 
 ## Security
 #security
