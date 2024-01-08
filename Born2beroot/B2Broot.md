@@ -139,7 +139,7 @@ see var/log/dpkg.log
 		- setup port forwarding in VirtualBox settings, then close and `sudo reboot`. Then iTerm, ssh fallan@127.0.0.1 (=> localhost)
 		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
 =======
-## 21/12/13
+## 21/12/23
 - `sudo apt install libpam-pwquality`
 - `groupadd --users fallan user42` to create user42 group with fallan in it. (note: `groups` doesn't list user42 whereas `groups fallan` does, weirdly)
 - password policy (following prossi but also [server-world](https://www.server-world.info/en/note?os=Debian_12&p=pam&f=1)):
@@ -154,4 +154,40 @@ see var/log/dpkg.log
 	- PAM:
 		- /etc/security/pwquality.conf
 			- difok = 7, minlen = 10, dcredit = 1, ucredit = 1, lcredit = 1, maxrepeat = 3, usercheck = 1, enforce_for_root
-	
+
+
+## 8/1/24
+- Removed users "testusr", "testusr2" by editing `/etc/shadow`, `/etc/passwd` and `/etc/group`,
+- Changed passwords of all accounts on the VM, root included:
+	- (disk: still Debianunlock-1993)
+	- root: Keychain-1993
+	- fallan: password-2024 (nb: error message when shorter than 9 characters, and when trying to change right after, but no error for lack of uppercase character)
+	- testusr: Password-2025
+- `sudo visudo /etc/sudoers`:
+	- Defaults    badpass_message="Wrong password, please retype"
+	- Defaults    passwd_tries=3
+	- Defaults    logfile="/var/log/sudo/sudo.log". ==> file to write logs to
+	- Defaults    log_input, log_output ==> to log I/O for sudo
+	- Defaults    requiretty.    ==> forces sudo to require we are in a logged in tty session. test with `ssh -T localhost 'sudo test'`=> should return `sudo: sorry, you must have a tty to run sudo`. See [article](https://www.baeldung.com/linux/sudo-requiretty-option)
+	- usable paths: left as is (`/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/`)
+	- 
+- Script `monitoring.sh`
+	- Commands:
+		- `uname -r` : display OS architecture and kernel release
+		- (arch : display CPU architecture)
+		- (`uname`: display kernel name => Linux)
+		- (`users`: display currently logged in users)
+		- `lscpu | grep ^CPU\(s\): | awk '{print $2}'` (see [article](https://how.wtf/grep-for-contents-after-pattern-match.html) for explanation) : display physical processors
+		- `nproc`: display vCPUs assigned to the VM:  This command prints the number of processing units available to the current process. In a virtualized environment, this command displays the number of vCPUs assigned to the VM (see [article](https://webhostinggeeks.com/howto/how-to-display-the-number-of-processors-vcpu-on-linux-vps/))
+		- `free | grep Mem: | awk '{print $2}'` :  total memory
+		- `free | grep Mem: | awk '{print $3}'` :  available memory
+		- `df -h --total | grep ^total | awk '{print $2}'` : total storage
+		- `df -block-size=M --total | grep ^total | awk '{print $2}'` : available storage (in MB)
+		- `top -i | grep ^%Cpu\(s\): | awk '{print $1}'` : CPU usage =>time out
+		- `vmstat -y`
+		- CPU usage: see https://askubuntu.com/questions/274349/getting-cpu-usage-realtime 
+		- installed sysstat which installed mpstat. Now need to go to next line with awk (how?)
+
+
+self-evaluation: 
+- chage -l <username> to see password change policy

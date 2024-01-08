@@ -9,6 +9,12 @@
 	- `checkout` : more powerful, can **overwrite local changes!!**
 	- `switch` : simpler, just switching branches
 
+## Going back on changes
+- `Git reset --soft` : reset to previous commit. `--soft`: "Does not touch the index file or the working tree at all (but resets the head to `<commit>`, just like all modes do). This leaves all your changed files "Changes to be committed", as `git status` would put it.""
+
+- `Git rm --cached <file>` : removes files from tree but not local storage (CAUTION)
+
+
 # How-tos
 ## [Discard unstaged changes](https://www.baeldung.com/git-discard-unstaged-changes)
 - `git clean -df` first, to remove untracked files from the working tree; n.b.: **careful with this command**, can remove untracked files you want to keep that are .gitignored.
@@ -16,7 +22,7 @@
 	- `-f` to force deletion of files (necessary if the config clean.requireForce is not set to false)
 
 ## [Retrieve deleted files](https://www.git-tower.com/learn/git/faq/restoring-deleted-files)
-- Retrieve deletion commit: `git log -- <filename>`
+- Retrieve deletion commit: `git log -- <file>`
 - If deletion committed and pushed : `git revert --no-commit <commit-id>` then select changes to commit (i.e. files to undelete), commit them, push.
 
 

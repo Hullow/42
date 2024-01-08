@@ -1,9 +1,28 @@
 #linux
 ## Linux filesystems
-#### Ext4
+Linux and Unix-like operating systems follow a Filesystem Hierarchy Standard (FHS), which defines the structure of the file system, i.e. the main directories and their contents.
+#### Ext4 filesystem
 ##### History
 - Origin: Linus Torvalds didn't want to write a filesystem and so simply included the filesystem of Minix, a UNIX-like educational OS written by Andrew S. Tanenbaum, which was open source and appropriately licensed for Linus's purposes
 - Minix structures:
+### [/dev](https://www.baeldung.com/linux/dev-directory)
+
+^dccf41
+
+Consists of files, named device files or special files, representing devices that are attached to the local system
+
+## Terminals and shells
+
+In Linux, the shell is a command line interpreter (CLI).
+### Shell types
+- Interactive shell: receives commands from the user and displays output to the user
+- Non-interactive shell: a shell that doesn't interact with the user, eg that can be run through a script or similar, or some automated processes. A shell running a script is always non-interactive, although it can emulate an interactive shell
+- Login shell: `echo $0` => returns `-` if login shell. "A login shell loads the profile of the submission user whereas the non-login shell loads the default environment." ([forum](https://community.broadcom.com/communities/community-home/digestviewer/viewthread?MID=795300#:~:text=The%20difference%20is%20that%20with,use%20the%20non%2Dlogin%20shell.))
+### Terminal types
+- [A TTY](https://www.baeldung.com/linux/pty-vs-tty#what-is-a-tty) (teletypewriter) is a device that enables typing from a distance. Linux uses a device file to represent a virtual TTY, which enables interaction with the OS by handling input (usually a keyboard) and output (usually a screen).
+- [A pseudo-TTY (PTY)](https://www.baeldung.com/linux/pty-vs-tty#what-is-a-pty) connects its input and output to the respective streams of another device, behaving like a TTY but for any two endpoints. Multiple PTYs can co-exist within the context of the same TTY. One of PTYs main function is to enable terminal emulators such as *xterm* or *GNOME terminal*, which request as many PTYs as it needs from the OS, often presenting them as tabs or windows in the GUI.
+- Communication protocols like *ssh* and *telnet* depend on terminal emulation to interact with the OS. 
+ Terminal allocation
 
 ## Security
 #security
