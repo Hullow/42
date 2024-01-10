@@ -16,7 +16,13 @@ a.k.a. *low-order bit* or *right-most bit*, due to convention in positional nota
 - Uses the binary digit with the greatest place value (MSb, see above) to indicate if positive (1) or negative (0).
 - General method: take the absolute value of the number, invert all bits, add 1 to the entire inverted number, ignoring any overflow (n.b.: accounting for overflow will produce the wrong value).
 
+
+## [Emulation](https://stackoverflow.com/questions/6234711/what-are-the-specific-differences-between-an-emulator-and-a-virtual-machine)
+Emulation is using software to provide a different execution environment or architecture. In other words, emulators emulate hardware, aiming to accurately reproduce its behavior, including quirks and bugs. Given that software fills in for hardware, the processor takes a toll by allocating cycles to the emulation process, which therefore cannot be used to execute calculations. 
+### vs virtualization
+- Both aim for some level of independence from the hardware of the host machine
 ## Virtualization
+A virtual machine's purpose is to create an isolated environment, allowing to raise virtual barriers between multiple virtual environments running isolated from each other in the same physical environment.
 ### [Full virtualization](https://www.virtualbox.org/wiki/Virtualization)
 "Allows an ***unmodified*** operating system with all of its installed software to run in a special environment, a **virtual machine**, on top of [an existing] system. This process is created by intercepting access to certain hardware components and certain features. This approach, called "**native virtualization**" is different from emulation, where machine instructions are translated ("emulated"). Emulators typically allow running code written for one type of hardware on completely different hardware (e.g. 64-bit code on 32-bit hardware), they tend to be quite slow, whereas virtualizers can achieve near-native performance for the guest code, but can only run guest code that was written for the same hardware (e.g. 32-bit Linux on a 32-bit Windows host).
 - "**Host**": the physical computer

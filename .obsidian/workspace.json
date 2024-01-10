@@ -49,7 +49,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Resources-and-notes/Learning-notes/Git-notes.md",
+                "file": "Resources-and-notes/Learning-notes/Bash and system commands.md",
                 "mode": "source",
                 "source": false
               }
@@ -132,7 +132,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Resources-and-notes/Learning-notes/Git-notes.md",
+                "file": "Resources-and-notes/Learning-notes/Bash and system commands.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,7 +149,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Resources-and-notes/Learning-notes/Git-notes.md",
+                "file": "Resources-and-notes/Learning-notes/Bash and system commands.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -172,7 +172,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Resources-and-notes/Learning-notes/Git-notes.md"
+                "file": "Resources-and-notes/Learning-notes/Bash and system commands.md"
               }
             }
           }
@@ -195,14 +195,15 @@
   },
   "active": "6d1188d308927791",
   "lastOpenFiles": [
+    "Born2beroot/debian-12.4.0-arm64-netinst.iso",
+    "Born2beroot/debian-12.4.0-amd64-netinst.iso",
+    "Resources-and-notes/Learning-notes/Git-notes.md",
     "Resources-and-notes/Learning-notes/Linux.md",
     "Libft Archive/ft_split_tal.c",
     "Born2beroot/2023-12-10_Born2Beroot-Meechan-walkthrough.pdf",
     "GNU GRUB boot loader.md",
-    "Born2beroot/debian-12.4.0-arm64-netinst.iso",
     "Resources-and-notes/Resources/git-cheat-sheet.pdf",
     "Resources-and-notes/Resources/C-resources.md",
-    "Resources-and-notes/Learning-notes/Git-notes.md",
     "Born2beroot/B2Broot.md",
     "Born2beroot/fr.subject.pdf",
     "Resources-and-notes/Learning-notes/Programming-notes.md",
@@ -212,7 +213,6 @@
     "Resources-and-notes/Tools-and-configs/GithubConfig.md",
     "Resources-and-notes/Tools-and-configs/Tools-Notes.md",
     "Resources-and-notes/Learning-notes/Bash and system commands.md",
-    "Born2beroot/debian-12.4.0-amd64-netinst.iso",
     "Resources-and-notes/Learning-notes/C-notes.md",
     "Born2beroot/2023-12-10_Born2Beroot-P.Meechan-walkthrough.pdf",
     "Born2beroot/2023-12-10_Born2Beroot - P.Meechan walkthrough.pdf",
