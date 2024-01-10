@@ -138,19 +138,9 @@ see var/log/dpkg.log
 		- `sudo apt install ufw`, `sudo ufw enable,  ufw allow ssh, ufw allow 4242, ufw status, ufw delete [X]
 		- setup port forwarding in VirtualBox settings, then close and `sudo reboot`. Then iTerm, ssh fallan@127.0.0.1 (=> localhost)
 		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-## 21/12/13
-=======
-=======
 ## 21/12/23
 At 42
->>>>>>> 68eed5c (Obsidian notes on B2BRoot)
-=======
-=======
-## 21/12/23
->>>>>>> 98d458d (B2BRoot notes)
 - `sudo apt install libpam-pwquality`
 - `groupadd --users fallan user42` to create user42 group with fallan in it. (note: `groups` doesn't list user42 whereas `groups fallan` does, weirdly)
 - password policy (following prossi but also [server-world](https://www.server-world.info/en/note?os=Debian_12&p=pam&f=1)):
@@ -165,11 +155,7 @@ At 42
 	- PAM:
 		- /etc/security/pwquality.conf
 			- difok = 7, minlen = 10, dcredit = 1, ucredit = 1, lcredit = 1, maxrepeat = 3, usercheck = 1, enforce_for_root
-<<<<<<< HEAD
-<<<<<<< HEAD
 	
->>>>>>> 67aed80 (B2Broot notes)
-=======
 **left to do** : change passwoords of all user accounts on the machine, incl. root
 
 ## 31/12/23
@@ -177,8 +163,6 @@ At 42
 	- disk encryption password: debian
 	- login: fallan
 	- password: "password"
->>>>>>> 68eed5c (Obsidian notes on B2BRoot)
-=======
 
 
 ## 8/1/24
@@ -216,4 +200,3 @@ At 42
 
 self-evaluation: 
 - chage -l <username> to see password change policy
->>>>>>> 98d458d (B2BRoot notes)

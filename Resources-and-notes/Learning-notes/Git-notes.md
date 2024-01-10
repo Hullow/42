@@ -1,3 +1,10 @@
+# Commands pêle-mêle
+- Show files changed by a commit: `git diff-tree --no-commit-id --name-only <commit-id> -r`
+- Show changes of a commit: `git show <commit-id>`
+- Show changes of multiple previous commits (incl. size of changes): `git log --stat`
+- Show tracked files: `git ls-tree -r main --name-only`
+- Tell git to stop tracking a file: `git rm --cached <file> && git commit` (CAUTION)
+
 # Git pull
 - A `pull` is two operations in one:
 	- `fetch`
