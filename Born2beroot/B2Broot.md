@@ -138,7 +138,6 @@ see var/log/dpkg.log
 		- `sudo apt install ufw`, `sudo ufw enable,  ufw allow ssh, ufw allow 4242, ufw status, ufw delete [X]
 		- setup port forwarding in VirtualBox settings, then close and `sudo reboot`. Then iTerm, ssh fallan@127.0.0.1 (=> localhost)
 		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
-=======
 ## 21/12/23
 - `sudo apt install libpam-pwquality`
 - `groupadd --users fallan user42` to create user42 group with fallan in it. (note: `groups` doesn't list user42 whereas `groups fallan` does, weirdly)
@@ -154,6 +153,14 @@ see var/log/dpkg.log
 	- PAM:
 		- /etc/security/pwquality.conf
 			- difok = 7, minlen = 10, dcredit = 1, ucredit = 1, lcredit = 1, maxrepeat = 3, usercheck = 1, enforce_for_root
+	
+**left to do** : change passwoords of all user accounts on the machine, incl. root
+
+## 31/12/23
+- Relogging into Debian emulator in UTM on my MacBook:
+	- disk encryption password: debian
+	- login: fallan
+	- password: "password"
 
 
 ## 8/1/24

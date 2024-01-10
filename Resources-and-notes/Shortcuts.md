@@ -8,6 +8,12 @@
 - `Cmd+alt opt+<number>` to select a given window
 - `cmd+ctrl+F` : enter/exit fullscreen
 
+## Chrome
+- `CMD + !/-/0` to zoom in/out/default
+
+## Firefox
+- `CMD + !/-/0` to zoom in/out/default
+
 ## iTerm2
 - Duplicate tab in iterm2 : create shortcut for `CMD+Shift+T`
 - scrolling down with mouse/trackpad: `settings > advanced` > chercher “`scroll`” > Mouse > Scroll wheel sends arrow keys when in alternate screen mode : `Yes` (restart app)
@@ -18,6 +24,7 @@
 - `shift + alt opt + arrow` to duplicate a line
 - ``CTRL + ` `` to toggle between editor and terminal
 - `ALT + CMD + H` to add 42 header
+- `CMD + +`  to zoom in
 
 ### Github Copilot
 - `tab` : accept a code suggestion

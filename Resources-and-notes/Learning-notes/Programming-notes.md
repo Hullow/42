@@ -16,7 +16,13 @@ a.k.a. *low-order bit* or *right-most bit*, due to convention in positional nota
 - Uses the binary digit with the greatest place value (MSb, see above) to indicate if positive (1) or negative (0).
 - General method: take the absolute value of the number, invert all bits, add 1 to the entire inverted number, ignoring any overflow (n.b.: accounting for overflow will produce the wrong value).
 
+
+## [Emulation](https://stackoverflow.com/questions/6234711/what-are-the-specific-differences-between-an-emulator-and-a-virtual-machine)
+Emulation is using software to provide a different execution environment or architecture. In other words, emulators emulate hardware, aiming to accurately reproduce its behavior, including quirks and bugs. Given that software fills in for hardware, the processor takes a toll by allocating cycles to the emulation process, which therefore cannot be used to execute calculations. 
+### vs virtualization
+- Both aim for some level of independence from the hardware of the host machine
 ## Virtualization
+A virtual machine's purpose is to create an isolated environment, allowing to raise virtual barriers between multiple virtual environments running isolated from each other in the same physical environment.
 ### [Full virtualization](https://www.virtualbox.org/wiki/Virtualization)
 "Allows an ***unmodified*** operating system with all of its installed software to run in a special environment, a **virtual machine**, on top of [an existing] system. This process is created by intercepting access to certain hardware components and certain features. This approach, called "**native virtualization**" is different from emulation, where machine instructions are translated ("emulated"). Emulators typically allow running code written for one type of hardware on completely different hardware (e.g. 64-bit code on 32-bit hardware), they tend to be quite slow, whereas virtualizers can achieve near-native performance for the guest code, but can only run guest code that was written for the same hardware (e.g. 32-bit Linux on a 32-bit Windows host).
 - "**Host**": the physical computer
@@ -108,3 +114,36 @@ Components:
 - A directory on a filesystem that is logically linked to another filesystem. Mount points allow data present on different physical devices and logical volumes to be put on the same filesystem, allowing all data needed on the system to be accessed from the root directory. 
 - Virtual machines and containers make extensive use of mount points. Servers also use mount points, for instance to enable use of network-attached storage devices (a mount point is made on the server pointing to the NAS data).
 - The `mount` command is used to make a device or file system accessible to the system, and then to connect its root directory to a mount point on the local file system. The mount point location is typically an empty folder.
+#### Ext4
+##### History
+- Origin: Linus Torvalds didn't want to write a filesystem and so simply included the filesystem of Minix, a UNIX-like educational OS written by Andrew S. Tanenbaum, which was open source and appropriately licensed for Linus's purposes
+- Minix structures:
+
+
+## Linux
+#linux
+
+
+### Security enhancement modules
+#security
+#### SELinux
+- "Security-Enhanced Linux (SELinux) is a Linux kernel security module that provides a mechanism for supporting access control security policies, including mandatory access controls (MAC). SELinux is a set of kernel modifications and user-space tools that have been added to various Linux distributions." (Wikipedia)
+- [Developed by the NSA](https://web.archive.org/web/20201022103915/https://www.nsa.gov/what-we-do/research/selinux/), handed over to the Linux community in 2008.
+- [Self-definition](https://selinuxproject.org/page/Main_Page): "a security enhancement to Linux which allows users and administrators more control over access control":
+	- Standard Linux access controls like file modes are modifiable by the user and applications the user runs, whereas SELinux access controls are determined by a policy loaded on the system which can not be changed.
+	- SELinux also adds finer granularity to ACs, e.g. by letting one specific who can unlink, append only, move a file, etc. It also works on non-file resources such as network resources and interprocess communication (IPC)
+- Used in RHEL([Red Hat Entreprise Linux](https://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux))-based distributions ([source](https://www.techtarget.com/searchdatacenter/tip/Compare-two-Linux-security-modules-SELinux-vs-AppArmor))
+- Highly complex to use, sometimes leading admins to disable it, leaving systems vulnerable ([source](https://www.techtarget.com/searchdatacenter/tip/Compare-two-Linux-security-modules-SELinux-vs-AppArmor))
+[SELinux](https://en.wikipedia.org/wiki/Security-Enhanced_Linux)
+
+### AppArmor
+- Uses profiles to determine what files and permissions an application requires
+- Security policies based on paths
+- Provides mandatory access control
+- Certain features used differently by each system
+- Much easier to learn and use than SELinux, thus often considered the safer choice ([source](https://www.techtarget.com/searchdatacenter/tip/Compare-two-Linux-security-modules-SELinux-vs-AppArmor))
+- Used in Ubuntu/Debian distributions among others
+
+
+
+^14c7ce
