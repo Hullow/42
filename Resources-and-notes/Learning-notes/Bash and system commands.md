@@ -9,7 +9,9 @@
 ## Names, users,  groups, permissions
 - `whoami` : current user
 - change user: `su <username>`
+- `cat /etc/passwd` : lists all users
 - [[B2Broot#^77cbc1 | usermod]]: to change users' groups, home directories, etc.
+- `userdel` : delete user
 - [[B2Broot#^7fc8e8 | getent group sudo]] : list users part of the sudo group
 - `hostname`, `hostnamectl`, `hostnamectl -set-hostname <new_hostname>`
 - `passwd`: change password of current user
