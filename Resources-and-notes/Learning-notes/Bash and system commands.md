@@ -3,6 +3,13 @@
 - `du -h` / `df -h`: disk usage/disk free space (-h: human readable)
 
 
+## Text analysis and processing
+- `wc -c/-m/-l/-w` : count bytes, characters, lines (or all with only `wc`)
+- `tail` : print the last 10 lines of each FILE (or piped input).
+	- `-n X` : input the last X lines
+	- `-n +X`: start with line X
+- `[command] | > file.txt`: write the results of a command to a file
+- `awk 'NR {count++} END {print count} <file>'`: print number of lines in a file
 ## Packages
 -  [[B2Broot#^b03539 | apt list --installed]]: show all installed packages
 

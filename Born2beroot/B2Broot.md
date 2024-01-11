@@ -195,7 +195,13 @@ see var/log/dpkg.log
 		- CPU usage: see https://askubuntu.com/questions/274349/getting-cpu-usage-realtime 
 		- installed sysstat which installed mpstat. Now need to go to next line with awk (how?)
 
+## 10/1/24
+- fixing git issue from MacBook caused by large .iso file in previous commit causing issues with github sync. Solution: git rebase, delete file in problematic commits, then rebase all the way to HEAD, then merge with remote.
+- MacBook: trying to advance with the emulator but need to set up a lot
 
+## 11/1/24
+- Script `monitoring.sh` (continued)
+	- count TCP connections: `awk 'NR>1 {count++} END {print count}' /proc/net/tcp`
 
 
 self-evaluation: 

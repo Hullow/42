@@ -1,9 +1,15 @@
 # Commands pêle-mêle
+
+- stop tracking a file: `git rm --cached <file> && git commit` (CAUTION)
+
+## Display information
 - Show files changed by a commit: `git diff-tree --no-commit-id --name-only <commit-id> -r`
 - Show changes of a commit: `git show <commit-id>`
 - Show changes of multiple previous commits (incl. size of changes): `git log --stat`
 - Show tracked files: `git ls-tree -r main --name-only`
-- Tell git to stop tracking a file: `git rm --cached <file> && git commit` (CAUTION)
+- Show HEAD commit ID: `git rev-parse HEAD`
+
+
 
 # Git pull
 - A `pull` is two operations in one:
@@ -21,16 +27,31 @@
 
 - `Git rm --cached <file>` : removes files from tree but not local storage (CAUTION)
 
+## [Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
+
+### How it works
+- goes to the common ancestor of the two branches
+- gets the diff introduced by each commit on the current branch
+- saves those diffs to temporary files
+- resets the current branch to the same commit as the branch we are rebasing to
+- applies each change in turn
+### Why rebase ?
+To get a cleaner history (e.g. for collaboration, contribute a single branch to a remote to enable easier integration)
+### Caution when collaborating
+Do not rebase commits that exist outside your repository and that people may have based work on**: “If you push commits somewhere and others pull them down and base work on them, and then you rewrite those commits with git rebase and push them up again, your collaborators will have to re-merge their work and things will get messy when you try to pull their work back into yours.”
 
 # How-tos
 ## [Discard unstaged changes](https://www.baeldung.com/git-discard-unstaged-changes)
 - `git clean -df` first, to remove untracked files from the working tree; n.b.: **careful with this command**, can remove untracked files you want to keep that are .gitignored.
 	- `-d` to recurse into untracked directories as well
 	- `-f` to force deletion of files (necessary if the config clean.requireForce is not set to false)
-
+https://www.git-tower.com/learn/git/faq/restoring-deleted-files
 ## [Retrieve deleted files](https://www.git-tower.com/learn/git/faq/restoring-deleted-files)
 - Retrieve deletion commit: `git log -- <file>`
 - If deletion committed and pushed : `git revert --no-commit <commit-id>` then select changes to commit (i.e. files to undelete), commit them, push.
+
+
+
 
 
 ***To order***:

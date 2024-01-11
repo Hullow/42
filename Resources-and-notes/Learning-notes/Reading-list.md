@@ -12,7 +12,8 @@ Currently:
 
 At some point:
 - [Stack overflow - Wikipedia](https://en.wikipedia.org/wiki/Stack_overflow)
-
+- [Commits are snapshots, not diffs](https://github.blog/2020-12-17-commits-are-snapshots-not-diffs/) (on git)
 
 Maybe:
 - [Virtual machine - Wikipedia](https://en.wikipedia.org/wiki/Virtual_machine)
+
