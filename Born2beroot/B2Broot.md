@@ -201,8 +201,11 @@ see var/log/dpkg.log
 
 ## 11/1/24
 - Script `monitoring.sh` (continued)
-	- count TCP connections: `awk 'NR>1 {count++} END {print count}' /proc/net/tcp`
-	- 
+	- Commands (continued)
+		- count TCP connections: `awk 'NR>1 {count++} END {print count}' /proc/net/tcp`
+		- date of last reboot: `who -b | grep boot | awk '{print $3" "$4" "$5}'`
+		- number of sudo commands executed: `sudo grep sudo /var/log/secure` or `sudo grep sudo /var/log/auth.log` ([StackExchange](https://unix.stackexchange.com/questions/167935/details-about-sudo-commands-executed-by-all-user)) or `sudo journalctl _COMM=sudo`
+	- Calculations: see [article](https://www.linuxjournal.com/content/mastering-division-variables-bash)
 
 self-evaluation: 
 - chage -l <username> to see password change policy
