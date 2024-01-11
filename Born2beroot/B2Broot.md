@@ -187,9 +187,9 @@ see var/log/dpkg.log
 		- `lscpu | grep ^CPU\(s\): | awk '{print $2}'` (see [article](https://how.wtf/grep-for-contents-after-pattern-match.html) for explanation) : display physical processors
 		- `nproc`: display vCPUs assigned to the VM:  This command prints the number of processing units available to the current process. In a virtualized environment, this command displays the number of vCPUs assigned to the VM (see [article](https://webhostinggeeks.com/howto/how-to-display-the-number-of-processors-vcpu-on-linux-vps/))
 		- `free | grep Mem: | awk '{print $2}'` :  total memory
-		- `free | grep Mem: | awk '{print $3}'` :  available memory
+		- `free | grep Mem: | awk '{print $3}'` :  used memory
 		- `df -h --total | grep ^total | awk '{print $2}'` : total storage
-		- `df -block-size=M --total | grep ^total | awk '{print $2}'` : available storage (in MB)
+		- `df -h --total | grep ^total | awk '{print $3}'` : used storage
 		- `top -i | grep ^%Cpu\(s\): | awk '{print $1}'` : CPU usage =>time out
 		- `vmstat -y`
 		- CPU usage: see https://askubuntu.com/questions/274349/getting-cpu-usage-realtime 
@@ -202,7 +202,7 @@ see var/log/dpkg.log
 ## 11/1/24
 - Script `monitoring.sh` (continued)
 	- count TCP connections: `awk 'NR>1 {count++} END {print count}' /proc/net/tcp`
-
+	- 
 
 self-evaluation: 
 - chage -l <username> to see password change policy

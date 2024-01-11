@@ -8,8 +8,9 @@
 - Show changes of multiple previous commits (incl. size of changes): `git log --stat`
 - Show tracked files: `git ls-tree -r main --name-only`
 - Show HEAD commit ID: `git rev-parse HEAD`
-
-
+- `git log` :
+	- [Find when a term existed or was introduced, by commit](https://git-scm.com/book/en/v2/Git-Tools-Searching#:~:text=Simply%20run%20git%20log%20with,%2DL%20%3Agit_deflate_bound%3Azlib.): `git log -S <term> --since=2024-01-01 --oneline
+	- show the content of commits since with a certain name introducing a certain term since a certain date: `git show $(git log -S <term> --since=2024-01-01 --oneline | grep <name> | awk '{print $1}')`
 
 # Git pull
 - A `pull` is two operations in one:
