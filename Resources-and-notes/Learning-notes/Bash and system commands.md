@@ -10,6 +10,8 @@
 	- `-n +X`: start with line X
 - `[command] | > file.txt`: write the results of a command to a file
 - `awk 'NR {count++} END {print count} <file>'`: print number of lines in a file
+- CLI copy-paste: `screen` followed by `ctrl + A`followed by `[` followed by `space`, select text with arrows, `space`, to copy, then `ctrl + A` and `[` again to paste
+
 ## Packages
 -  [[B2Broot#^b03539 | apt list --installed]]: show all installed packages
 
