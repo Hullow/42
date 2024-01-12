@@ -119,6 +119,21 @@ Components:
 - Origin: Linus Torvalds didn't want to write a filesystem and so simply included the filesystem of Minix, a UNIX-like educational OS written by Andrew S. Tanenbaum, which was open source and appropriately licensed for Linus's purposes
 - Minix structures:
 
+## CPU
+### CPU architecture
+A CPU core, or processing unit, can only carry out one task at a time, which lead to the emergence of technologies of parallel processing:
+#### Multi-processor
+Two or more physical CPUs integrated into a single computer system
+#### Multi-core
+A single physical CPU with two or more separate cores (/processing units) that work in parallel
+### Hyper threading
+A single physical CPU core appears as two logical CPUs to an operating system (developed by Intel)
+
+
+### CPU load versus usage
+- **CPU load** is the number of processes using or waiting to use one core at a single point in time. E.g. for a single-core system, a CPU load average always below 0.6 means every process needing the CPU can use it. If the CPU load average is above 1, this indicates there are processes that cannot use the CPU at the moment due to its unavailability (n.b.: in a multi-core system, this isn't a problem).
+
+
 
 ## Linux
 #linux

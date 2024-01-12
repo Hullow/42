@@ -205,7 +205,19 @@ see var/log/dpkg.log
 		- count TCP connections: `awk 'NR>1 {count++} END {print count}' /proc/net/tcp`
 		- date of last reboot: `who -b | grep boot | awk '{print $3" "$4" "$5}'`
 		- number of sudo commands executed: `sudo grep sudo /var/log/secure` or `sudo grep sudo /var/log/auth.log` ([StackExchange](https://unix.stackexchange.com/questions/167935/details-about-sudo-commands-executed-by-all-user)) or `sudo journalctl _COMM=sudo`
-	- Calculations: see [article](https://www.linuxjournal.com/content/mastering-division-variables-bash)
-
+		- Calculations: see [article](https://www.linuxjournal.com/content/mastering-division-variables-bash)
+		- LVM: from gitbook solution `lvmu=$(if [ $(lsblk | grep "lvm" | wc -l) -eq 0 ]; then echo no; else echo yes; fi)`
+		- IP address of server:
+		> RFC 1918 specified a private address space of IPs reserved for internal networks:
+			10.0.0.0 – 10.255.255.255 (10.0.0.0/8)
+			172.16.0.0 – 172.31.255.255 (172.16.0.0/12)
+			192.168.0.0 – 192.168.255.255 (192.168.0.0/16)
+			(see [types of IP addresses](https://nordvpn.com/blog/types-of-ip-addresses/))
+		Using `ip - `ere we have lo and enp0s3
 self-evaluation: 
 - chage -l <username> to see password change policy
+
+
+
+IP_ADDRESS=$(hostname -I)
+MAC_ADDRESS=$(ip -4 link show | grep ether | awk '{print $2}')
