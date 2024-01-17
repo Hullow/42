@@ -53,7 +53,8 @@ O or o to insert a line above/below and go to insert mode
 search: / then n or N to go to the next or previous occurrence
 
 ### modifying text
-- substitute: `:%s/old/new` => % for all lines/current file *
+- substitute: `:%s/old/new/gn` => % for all lines/current file (`g` to substitute for all of each line, not just once per line, `n` to count occurrences)
+- case insensitivity in patterns: adding \c anywhere in the pattern, e.g. `:$s/\cold/new` for a substitution.
 - delete:
 	- range of lines: `:[start],[end]d`
 	- beginning/rest of line up to cursor: `d0/d$`

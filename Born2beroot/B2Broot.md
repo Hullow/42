@@ -217,7 +217,26 @@ see var/log/dpkg.log
 self-evaluation: 
 - chage -l <username> to see password change policy
 
-
-
 IP_ADDRESS=$(hostname -I)
 MAC_ADDRESS=$(ip -4 link show | grep ether | awk '{print $2}')
+
+## 17/1/24
+- Script `monitoring.sh` (continued)
+	- Sudo logins: corrected to `SUDO=$(journalctl _COMM=sudo -q | grep "COMMAND" | wc -l)`
+	- `Crontab -e`: `*/10 * * * * ~/monitoring.sh >/dev/null 2>&1`
+		`>/dev/null`: sends stdout to black hole instead of email
+		`2>&1` : sends stderr (2) to same as stdout (1)
+
+- Wordpress server:
+	- Installation:
+	- `sudo apt update`
+		- `sudo apt upgrade`
+		- `sudo apt install wordpress mariadb-server lighttpd php`
+		- `sudo apt-get remove apache2*` : because "If you are not going to use Apache v1.3/2.x at all, then it is better to remove it (make sure you have a backup of Apache data and config file):" (see [Cyberciti article](https://www.cyberciti.biz/tips/installing-and-configuring-lighttpd-webserver-howto.html))
+	- Lighttpd:
+		- Running the server:`systemctl start lighttpd` (/stop /restart)
+		- [Configuration](https://redmine.lighttpd.net/projects/lighttpd/wiki/TutorialConfiguration):
+			- 
+
+
+- `vim /var/www/html/index.html`
