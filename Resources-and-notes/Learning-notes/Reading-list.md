@@ -1,6 +1,7 @@
 To read:
 
 Soon:
+- [Types of IP addresses](https://nordvpn.com/blog/types-of-ip-addresses/)
 - [Structures in C: From Basics to Memory Alignment](https://abstractexpr.com/2023/06/29/structures-in-c-from-basics-to-memory-alignment/) (from "Element Order and Addressing")
 - [C - typedef](https://www.tutorialspoint.com/cprogramming/c_typedef.htm)
 - [Virtual Memory - Heap and Stack Memory](https://courses.engr.illinois.edu/cs240/sp2021/notes/virtualMemory-heap-stack.html)

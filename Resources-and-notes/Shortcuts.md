@@ -33,6 +33,7 @@
 
 ### Obsidian
 - `cmd + ;` anywhere / `---` at the very beginning of a file (under the title): add properties (aliases, tags, links, ...)
+
 ## Bash
 - `CMD+up/down` : next/previous command
 - `vim ~/.zsh_history` : see commands of current terminal session
@@ -74,36 +75,4 @@
 **Settings**
 - make prompt shorter: `PROMPT=“%~ “`
 
-## Vim
-- `let @*=@"` copy contents from unnamed register (from yank) to clipboard
 
-**navigation and edit mode**
-gg to go to top of file
-G to end of file
-M to go to middle of file
-O or o to insert a line above/below and go to insert mode
-search: / then n or N to go to the next or previous occurrence
-
-**modifying text**
-- substitute: `:%s/old/new` => % for all lines/current file *
-- delete:
-	- range of lines: `:[start],[end]d`
-	- beginning/rest of line up to cursor: `d0/d$`
-
-`:[line]co [destination line]`. Or just `:co [destination line]` to  ????
-
-
-**settings**
-
-to disable a setting: `set no[command]`, e.g. `set noline`
-- `:syntax enable / syntax off`
-- `:set` :
-	- `number` (to see line numbers)
-	- `cursorline`
-
-**File handling**
-- `:saveas [newname]` : rename
-
-
-## SSH
-- `ssh-keygen -p` to change passphrase of a private key

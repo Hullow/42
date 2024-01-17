@@ -187,9 +187,9 @@ see var/log/dpkg.log
 		- `lscpu | grep ^CPU\(s\): | awk '{print $2}'` (see [article](https://how.wtf/grep-for-contents-after-pattern-match.html) for explanation) : display physical processors
 		- `nproc`: display vCPUs assigned to the VM:  This command prints the number of processing units available to the current process. In a virtualized environment, this command displays the number of vCPUs assigned to the VM (see [article](https://webhostinggeeks.com/howto/how-to-display-the-number-of-processors-vcpu-on-linux-vps/))
 		- `free | grep Mem: | awk '{print $2}'` :  total memory
-		- `free | grep Mem: | awk '{print $3}'` :  available memory
+		- `free | grep Mem: | awk '{print $3}'` :  used memory
 		- `df -h --total | grep ^total | awk '{print $2}'` : total storage
-		- `df -block-size=M --total | grep ^total | awk '{print $2}'` : available storage (in MB)
+		- `df -h --total | grep ^total | awk '{print $3}'` : used storage
 		- `top -i | grep ^%Cpu\(s\): | awk '{print $1}'` : CPU usage =>time out
 		- `vmstat -y`
 		- CPU usage: see https://askubuntu.com/questions/274349/getting-cpu-usage-realtime 
@@ -201,8 +201,42 @@ see var/log/dpkg.log
 
 ## 11/1/24
 - Script `monitoring.sh` (continued)
-	- count TCP connections: `awk 'NR>1 {count++} END {print count}' /proc/net/tcp`
-
-
+	- Commands (continued)
+		- count TCP connections: `awk 'NR>1 {count++} END {print count}' /proc/net/tcp`
+		- date of last reboot: `who -b | grep boot | awk '{print $3" "$4" "$5}'`
+		- number of sudo commands executed: `sudo grep sudo /var/log/secure` or `sudo grep sudo /var/log/auth.log` ([StackExchange](https://unix.stackexchange.com/questions/167935/details-about-sudo-commands-executed-by-all-user)) or `sudo journalctl _COMM=sudo`
+		- Calculations: see [article](https://www.linuxjournal.com/content/mastering-division-variables-bash)
+		- LVM: from gitbook solution `lvmu=$(if [ $(lsblk | grep "lvm" | wc -l) -eq 0 ]; then echo no; else echo yes; fi)`
+		- IP address of server:
+		> RFC 1918 specified a private address space of IPs reserved for internal networks:
+			10.0.0.0 – 10.255.255.255 (10.0.0.0/8)
+			172.16.0.0 – 172.31.255.255 (172.16.0.0/12)
+			192.168.0.0 – 192.168.255.255 (192.168.0.0/16)
+			(see [types of IP addresses](https://nordvpn.com/blog/types-of-ip-addresses/))
+		Using `ip - `ere we have lo and enp0s3
 self-evaluation: 
 - chage -l <username> to see password change policy
+
+IP_ADDRESS=$(hostname -I)
+MAC_ADDRESS=$(ip -4 link show | grep ether | awk '{print $2}')
+
+## 17/1/24
+- Script `monitoring.sh` (continued)
+	- Sudo logins: corrected to `SUDO=$(journalctl _COMM=sudo -q | grep "COMMAND" | wc -l)`
+	- `Crontab -e`: `*/10 * * * * ~/monitoring.sh >/dev/null 2>&1`
+		`>/dev/null`: sends stdout to black hole instead of email
+		`2>&1` : sends stderr (2) to same as stdout (1)
+
+- Wordpress server:
+	- Installation:
+	- `sudo apt update`
+		- `sudo apt upgrade`
+		- `sudo apt install wordpress mariadb-server lighttpd php`
+		- `sudo apt-get remove apache2*` : because "If you are not going to use Apache v1.3/2.x at all, then it is better to remove it (make sure you have a backup of Apache data and config file):" (see [Cyberciti article](https://www.cyberciti.biz/tips/installing-and-configuring-lighttpd-webserver-howto.html))
+	- Lighttpd:
+		- Running the server:`systemctl start lighttpd` (/stop /restart)
+		- [Configuration](https://redmine.lighttpd.net/projects/lighttpd/wiki/TutorialConfiguration):
+			- 
+
+
+- `vim /var/www/html/index.html`
