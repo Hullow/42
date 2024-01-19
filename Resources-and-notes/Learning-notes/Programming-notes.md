@@ -48,30 +48,34 @@ Options:
 - dynamically allocated: grows every time a disk sector is written for the first time, until it reaches the maximum capacity chosen. Requires additional computing resources and write operations may be slower until the disk file size has stabilized, but mostly in the beginning when the rate of growth is high. fast to create, uses very little storage initially.
 
 ### [ISO image](https://en.wikipedia.org/wiki/Optical_disc_image)
-"An optical disk image or ISO image is a disk image that contains everything that would be written to an optical disk, disk sector by disk sector, including the optical disk filet system. ISO images contain the binary image of an optical media file system (usually [ISO 9660](https://en.wikipedia.org/wiki/ISO_9660), a file system for optical disk media, or UDF)" 
+"An optical disk image or ISO image is a disk image that contains everything that would be written to an optical disk, disk sector by disk sector, including the optical disk filet system. ISO images contain the binary image of an optical media file system (usually [ISO 9660](https://en.wikipedia.org/wiki/ISO_9660), a file system for optical disk media, or UDF)"
+
+## Booting
+#### [Boot sector](https://en.wikipedia.org/wiki/Boot_sector)
+the sector of a persistent data storage device (e.g. hard disk, floppy disk, optical disk, etc.) containing machine code to be loaded into RAM and then executed by a computer system's built-in firmware (e.g. the [[Programming-notes#^e7c5f7 |BIOS]]). Usually the very first sector of the hard disk, regardless of sector size (512 or 4096 bytes) and partitioning flavor (MBR or [GPT/GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table))
+#### [Master boot record](https://en.wikipedia.org/wiki/Master_boot_record) (MBR) partition scheme
+a special type of boot sector at the very beginning of partitioned computer mass storage devices like fixed discs or removable drives intended for use with IBM PC-compatible systems and beyond. The MBR holds the information on how the disc's sectors (aka "blocks") are divided into partitions, each partition notionally containing a file system. The MBR also contains executable code to function as a loader for the installed operating system – this MBR code is usually referred to as a [[Programming-notes#^e6240f |boot loader]].  ^6da68e
+#### [GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table)
+a standard for the layout of partition tables of a physical computer storage device, such as an HDD or a solid-state drive, using universally unique identifiers, also known as globally unique identifiers (GUIDs). All modern PC OSes support GPT. GPT has less limits than MBR and does not need to use extended/logical partitions.
+
 ## Partitioning 
 #storage
 Sources: "[LVM vs partitioning (Red Hat)](https://www.redhat.com/sysadmin/lvm-vs-partitioning)", [42 Gitbook](https://42-cursus.gitbook.io/guide/rank-01/born2beroot/install-your-virtual-machine)
 - "*traditional storage management*" : the process of partitioning, formatting, and mounting storage capacity from a basic hard disk drive (HDD)
 => admins think of storage based on max capacity of individual HDDs (e.g. 3 * 1TB => "I have three HDDs of one TB)
 - disk partitioning or disk slicing
-### **primary** vs **logical** partitioning scheme
+### **Primary** vs **logical** partitioning scheme
 in the legacy [[Programming-notes#^6da68e|Master boot record]], only at most four partitions (called "primary") can be created; this limit can be bypassed by making one of them an "extended" partition (a.k.a. "[extended boot record](https://en.wikipedia.org/wiki/Extended_boot_record)"), which contains several "logical" partitions instead of files. Some OS's (such as Windows) are unable to boot from logical partitions (from [superuser](https://superuser.com/questions/337146/what-are-the-differences-between-primary-and-logical-partition))
 ```
 	MBR: < primary | primary | primary | primary >
 	MBR: < primary | primary | extended [logical, logical, logical] >
 ```
-#### [Logical Volume Manager](https://www.redhat.com/sysadmin/lvm-vs-partitioning)
+#### [Logical Volume Manager (LVM)](https://www.redhat.com/sysadmin/lvm-vs-partitioning)
 LVM can be thought of as "dynamic partitions" which can be created/resized/deleted from the CLI while Linux is running, without needing to reboot the system to make the kernel aware of the partitioning changes. It combines the capacity of the available *Physical Volumes* (PV), which are then added to *Volume Groups* (VGs). VGs are then carved into one or more *Logical Volumes* (LVs), which are then treated as traditional partitions. LVMs allow for easy capacity reallocation; for instance if too much capacity was allocated to one VG, it can be reduced and added to another
-#### [Master boot record](https://en.wikipedia.org/wiki/Master_boot_record) (MBR) partition scheme
-a special type of boot sector at the very beginning of partitioned computer mass storage devices like fixed discs or removable drives intended for use with IBM PC-compatible systems and beyond. The MBR holds the information on how the disc's sectors (aka "blocks") are divided into partitions, each partition notionally containing a file system. The MBR also contains executable code to function as a loader for the installed operating system – this MBR code is usually referred to as a [[Programming-notes#^e6240f |boot loader]].  ^6da68e
-#### [GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table)
-a standard for the layout of partition tables of a physical computer storage device, such as an HDD or a solid-state drive, using universally unique identifiers, also known as globally unique identifiers (GUIDs). All modern PC OSes support GPT. GPT has less limits than MBR and does not need to use extended/logical partitions.
-#### [Boot sector](https://en.wikipedia.org/wiki/Boot_sector)
-the sector of a persistent data storage device (e.g. hard disk, floppy disk, optical disk, etc.) containing machine code to be loaded into RAM and then executed by a computer system's built-in firmware (e.g. the [[Programming-notes#^e7c5f7 |BIOS]]). Usually the very first sector of the hard disk, regardless of sector size (512 or 4096 bytes) and partitioning flavor (MBR or [GPT/GUID Partition Table](https://en.wikipedia.org/wiki/GUID_Partition_Table))
+
 
 ### [Character vs block devices](https://www.baeldung.com/linux/dev-directory)
-- Character special files are [[Linux#^dccf41|device files]] that interface to **character devices**, with which drivers communicate by sending single characters as data such as bytes. In addition, they don't require buffering when communicating with a driver. Examples: sound cards, serial ports.
+- Character special files are [[Linux#^dccf41|device files]] that interface to **character devices**, with which drivers communicate by sending single characters as data such as bytes. In addition, they don't require buffering when communicating with a driver. Examples: sound cards, serial ports, ptys.
 - Block special files are device files that interface to **block devices**, with which drivers communicate by sending entire blocks of data. Examples: hard disks, USBs
 - Identification: the first letter of the permissions (`ls -l`) : `c` or `d`
 
@@ -97,7 +101,6 @@ A program that is responsible for booting a computer.
 #### Second-stage boot loaders
 [GNU GRUB](https://en.wikipedia.org/wiki/GNU_GRUB), rEFInd, BOOTMGR, Syslinux, ... load an operating system properly and transfer execution to it; the OS subsequently initializes itself and may load extra device drivers. The ssbl does not require drivers for its own operation but may instead use generic storage access methods provided by system firmware such as the BIOS or Open Firmware. Can often be configured to give the user multiple booting choices: different OSes, versions of the same OS, loading options (e.g. booting into a rescue or safe mode), and some standalone programs that can function without an operating system, such as memory testers, a basic shell, or even games. 
 ^428b1b
-
 
 
 ### DOS: disk operating system, an operating system that runs from a disk drive
@@ -128,37 +131,5 @@ Two or more physical CPUs integrated into a single computer system
 A single physical CPU with two or more separate cores (/processing units) that work in parallel
 ### Hyper threading
 A single physical CPU core appears as two logical CPUs to an operating system (developed by Intel)
-
-
 ### CPU load versus usage
 - **CPU load** is the number of processes using or waiting to use one core at a single point in time. E.g. for a single-core system, a CPU load average always below 0.6 means every process needing the CPU can use it. If the CPU load average is above 1, this indicates there are processes that cannot use the CPU at the moment due to its unavailability (n.b.: in a multi-core system, this isn't a problem).
-
-
-
-## Linux
-#linux
-
-
-### Security enhancement modules
-#security
-#### SELinux
-- "Security-Enhanced Linux (SELinux) is a Linux kernel security module that provides a mechanism for supporting access control security policies, including mandatory access controls (MAC). SELinux is a set of kernel modifications and user-space tools that have been added to various Linux distributions." (Wikipedia)
-- [Developed by the NSA](https://web.archive.org/web/20201022103915/https://www.nsa.gov/what-we-do/research/selinux/), handed over to the Linux community in 2008.
-- [Self-definition](https://selinuxproject.org/page/Main_Page): "a security enhancement to Linux which allows users and administrators more control over access control":
-	- Standard Linux access controls like file modes are modifiable by the user and applications the user runs, whereas SELinux access controls are determined by a policy loaded on the system which can not be changed.
-	- SELinux also adds finer granularity to ACs, e.g. by letting one specific who can unlink, append only, move a file, etc. It also works on non-file resources such as network resources and interprocess communication (IPC)
-- Used in RHEL([Red Hat Entreprise Linux](https://en.wikipedia.org/wiki/Red_Hat_Enterprise_Linux))-based distributions ([source](https://www.techtarget.com/searchdatacenter/tip/Compare-two-Linux-security-modules-SELinux-vs-AppArmor))
-- Highly complex to use, sometimes leading admins to disable it, leaving systems vulnerable ([source](https://www.techtarget.com/searchdatacenter/tip/Compare-two-Linux-security-modules-SELinux-vs-AppArmor))
-[SELinux](https://en.wikipedia.org/wiki/Security-Enhanced_Linux)
-
-### AppArmor
-- Uses profiles to determine what files and permissions an application requires
-- Security policies based on paths
-- Provides mandatory access control
-- Certain features used differently by each system
-- Much easier to learn and use than SELinux, thus often considered the safer choice ([source](https://www.techtarget.com/searchdatacenter/tip/Compare-two-Linux-security-modules-SELinux-vs-AppArmor))
-- Used in Ubuntu/Debian distributions among others
-
-
-
-^14c7ce

@@ -27,7 +27,7 @@ Pas eu moyen d'installer Linux avec VirtualBox sur M1
 Geneve/SDL:
 	- read and took some notes about SELinux, AppArmor, partitioning, filesystems, mount points, ...
 	- downloaded Debian ?image? and started it on UTM on my M1
-
+	
 ### 14/12/23
 - Read through VirtualBox's manual, created a VM but failed to make it run so far ("No bootable medium found! System halted.")
 To do: 
@@ -227,6 +227,43 @@ MAC_ADDRESS=$(ip -4 link show | grep ether | awk '{print $2}')
 		`>/dev/null`: sends stdout to black hole instead of email
 		`2>&1` : sends stderr (2) to same as stdout (1)
 
+The full script:
+```bash
+CPU_PHYSICAL=$(lscpu | awk '$1=="CPU(s):" {print $2}')
+VCPU=$(nproc)
+
+DISK_USED=$(df -BM --total | grep total | awk '{sub(/M$/, "", $3); print $3}')
+DISK_CAPACITY=$(df -h --total| awk '$1=="total" {print $2}')
+DISK_USAGE=$(df -hP --total| grep total | awk '{print $5}')
+
+MEM_TOTAL=$(free --mega| grep Mem: | awk '{print $2}')
+MEM_USED=$(free --mega| grep Mem: | awk '{print $3}')
+MEM_USED_PERCENT=$(free --mega| awk '$1=="Mem:" {printf("%.2f"), $3/$2*100}')
+
+CPU_LOAD=$(mpstat | awk '$3=="all" {print 100-$13}')
+LAST_BOOT=$(who -b | awk '{print $3" "$4" "$5}')
+LVM_ACTIVE=$(if [ $(lsblk | grep "lvm" | wc -l) -eq 0 ]; then echo no; else echo yes; fi)
+TCP_CONNECTIONS=$(ss | grep "tcp" | wc -l)
+SERVER_USERS=$(users | wc -w)
+IP_ADDRESS=$(hostname -I)
+MAC_ADDRESS=$(ip -4 link show | grep ether | awk '{print $2}')
+SUDO=$(journalctl _COMM=sudo -q | grep "COMMAND" | wc -l)
+
+wall "  #Architecture: $(uname -a)
+        #CPU physical: $CPU_PHYSICAL
+        #vCPU: $VCPU
+        #Memory Usage: $MEM_USED/${MEM_TOTAL}MB ($MEM_USED_PERCENT%)
+        #Disk Usage: $DISK_USED/$DISK_CAPACITY ($DISK_USAGE)
+        #CPU load: $CPU_LOAD%
+        #Last boot: $LAST_BOOT
+        #LVM active: $LVM_ACTIVE
+        #Active TCP connections: $TCP_CONNECTIONS ESTABLISHED
+        #User log: $SERVER_USERS
+        #Network: $IP_ADDRESS ($MAC_ADDRESS)
+        #Sudo: $SUDO cmd"
+```
+
+
 - Wordpress server:
 	- Installation:
 	- `sudo apt update`
@@ -240,3 +277,33 @@ MAC_ADDRESS=$(ip -4 link show | grep ether | awk '{print $2}')
 
 
 - `vim /var/www/html/index.html`
+
+## 18/1/23
+- Preparing for examination by rereading subject, taking summary notes for the eval, testing system again (e.g. creating user, assigning groups, changing user and seeing if crontab works)
+- Issue: can't log in to root, seems like I forgot the password: neither "Debianunlock-1993", "Keychain-1993", nor "Debian", nor "" work...what to do what to do.
+	- Ok, changed it from fallan, it was actually the same as fallan I suppose. Changed it back to "Keychain-1993"
+- Checking if AppArmor is active: `sudo /usr/sbin/aa-status`
+- Server: 
+	- /var/www : mkdir servers
+	- Lighttpd: looked at the docs' [quickstart](https://redmine.lighttpd.net/projects/lighttpd/wiki/TutorialConfiguration) and managed to load the index.html at /var/www/server/index.html using the lynx browser with `lynx http://127.0.0.1:3000/index.html`
+
+## 19/1/23
+	- Server continued:
+	- Lighttpd [Config options](https://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ConfigurationOptions) (for modules) => enabled (the already default installed) FastCGI [module](https://redmine.lighttpd.net/projects/lighttpd/wiki/Mod_fastcgi) for PHP support
+	- Tried a quick PHP setup by going through [an old Cyberciti blogpost](https://www.cyberciti.biz/tips/lighttpd-php-fastcgi-configuration.html), and a hello.php script as in [PHP's documentation](https://www.php.net/manual/en/tutorial.firstpage.php) but it doesn't work (error 503 Service unavailable, or error 500 Internal Server Error), despite multiple new sockets spawning at /tmp/ (only 0-3 funny enough)
+		- `/etc/lighttpd/lighttpd.conf` : 
+		```
+		server.document-root = "/var/www/servers/"
+		
+		server.port = 3000
+		
+		# If running lighttpd earlier than lighttpd 1.4.71, uncomment (remove '#') to add the following:
+		mimetype.assign = (
+		  ".html" => "text/html",
+		  ".txt" => "text/plain",
+		  ".jpg" => "image/jpeg",
+		  ".png" => "image/png"
+		)
+		```
+		
+
