@@ -288,22 +288,88 @@ wall "  #Architecture: $(uname -a)
 	- Lighttpd: looked at the docs' [quickstart](https://redmine.lighttpd.net/projects/lighttpd/wiki/TutorialConfiguration) and managed to load the index.html at /var/www/server/index.html using the lynx browser with `lynx http://127.0.0.1:3000/index.html`
 
 ## 19/1/23
-	- Server continued:
-	- Lighttpd [Config options](https://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ConfigurationOptions) (for modules) => enabled (the already default installed) FastCGI [module](https://redmine.lighttpd.net/projects/lighttpd/wiki/Mod_fastcgi) for PHP support
-	- Tried a quick PHP setup by going through [an old Cyberciti blogpost](https://www.cyberciti.biz/tips/lighttpd-php-fastcgi-configuration.html), and a hello.php script as in [PHP's documentation](https://www.php.net/manual/en/tutorial.firstpage.php) but it doesn't work (error 503 Service unavailable, or error 500 Internal Server Error), despite multiple new sockets spawning at /tmp/ (only 0-3 funny enough)
-		- `/etc/lighttpd/lighttpd.conf` : 
-		```
-		server.document-root = "/var/www/servers/"
-		
-		server.port = 3000
-		
-		# If running lighttpd earlier than lighttpd 1.4.71, uncomment (remove '#') to add the following:
-		mimetype.assign = (
-		  ".html" => "text/html",
-		  ".txt" => "text/plain",
-		  ".jpg" => "image/jpeg",
-		  ".png" => "image/png"
-		)
-		```
-		
+- Server continued:
+- Lighttpd [Config options](https://redmine.lighttpd.net/projects/lighttpd/wiki/Docs_ConfigurationOptions) (for modules) => enabled (the already default installed) FastCGI [module](https://redmine.lighttpd.net/projects/lighttpd/wiki/Mod_fastcgi) for PHP support
+- Tried a quick PHP setup by going through [an old Cyberciti blogpost](https://www.cyberciti.biz/tips/lighttpd-php-fastcgi-configuration.html), and a hello.php script as in [PHP's documentation](https://www.php.net/manual/en/tutorial.firstpage.php) but it doesn't work (error 503 Service unavailable, or error 500 Internal Server Error), despite multiple new sockets spawning at /tmp/ (only 0-3 funny enough)
+	- `/etc/lighttpd/lighttpd.conf` : 
+	```
+	server.document-root = "/var/www/servers/"
+	
+	server.port = 3000
+	
+	# If running lighttpd earlier than lighttpd 1.4.71, uncomment (remove '#') to add the following:
+	mimetype.assign = (
+	  ".html" => "text/html",
+	  ".txt" => "text/plain",
+	  ".jpg" => "image/jpeg",
+	  ".png" => "image/png"
+	)
+	```
 
+
+## 22/1/23
+- fallan user password expired, changed it to "newpass-2024" 
+- Continuing server setup, setting up PHP on Lighttpd with FastCGI module:
+	- following the [old (2006) Cyberciti blogpost](https://www.cyberciti.biz/tips/lighttpd-php-fastcgi-configuration.html), decide to install php-cgi. 'apt show php-cgi' => "Note that MOST users probably want the php-fpm package that provide FastCGI support.". Thus, **install php-fpm**, a PHP dependency package which "provides the Fast Process Manager interpreter that runs as a daemon and receives Fast/CGI requests."
+	- N.b.:
+> The following packages were automatically installed and are no longer required:
+ libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libevent-core-2.1-7 liblua5.3-0
+  linux-image-6.1.0-15-amd64 ssl-cert
+Use 'sudo apt autoremove' to remove them."
+	- sudo apt autoremove: 
+> Removed linux-image-6.1.0-15-amd64 (6.1.66-1) ...
+/etc/kernel/postrm.d/initramfs-tools:
+update-initramfs: Deleting /boot/initrd.img-6.1.0-15-amd64
+(...)
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+(...)
+Removing ssl-cert (1.1.2) ...
+- test `lynx http://127.0.0.1:3000/hello.php` again, still HTTP error ("HTTP/1.0 503 Service Unavailable")
+- found [official PHP lighttpd setup guide](https://www.php.net/manual/en/install.unix.lighttpd-14.php), recommends php-cgi so `sudo apt remove php-fpm` and `sudo apt install php-cgi`:
+	- in lighttpd.conf:
+	```
+	server.modules += ( "mod_fastcgi" )
+	
+	fastcgi.server = ( ".php" =>
+	  ((
+		"bin-path" => "/usr/local/bin/php-cgi",
+		"socket" => "/tmp/php.socket"
+		))
+	)
+	```
+	- [lighttpd community tutorial: PHP + lighttpd setup](https://redmine.lighttpd.net/projects/lighttpd/wiki/TutorialLighttpdAndPHP#Configuration):
+		- in `/etc/php/8.2/cgi/php.ini`: 
+		> `cgi.fix_pathinfo = 1`
+		- `sudo lighttpd -tt -f /etc/lighttpd/lighttpd.conf` to check config
+		- `sudo lighttpd -D -f /etc/lighttpd/lighttpd.conf` to start server for testing:
+		error "(gw_backend.c.537) bind failed for: tcp:127.0.0.1:80: Permission denied"
+		- From [Atlassian help](https://confluence.atlassian.com/confkb/permission-denied-error-when-binding-a-port-290750651.html):
+		>Ports below 1024 are called **Privileged Ports** and in Linux (and most UNIX flavors and UNIX-like systems), they are not allowed to be opened by any non-root user. This is a security feature originally implemented as a way to prevent a malicious user from setting up a malicious service on a well-known service port."
+
+		=> back to previous snapshot (so beginning of the present day).
+		- Install php8.2-cgi (for a change):
+		> dpkg: error processing archive /var/cache/apt/archives/php8.2-cgi_8.2.7-1~deb12u1_amd64.deb (--unpack):
+		 cannot copy extracted data for './usr/bin/php-cgi8.2' to '/usr/bin/php-cgi8.2.dpkg-new': failed to write (No space left on device)
+		Errors were encountered while processing:
+		 /var/cache/apt/archives/php8.2-cgi_8.2.7-1~deb12u1_amd64.deb
+		E: Sub-process /usr/bin/dpkg returned an error code (1)
+		- `sudo apt autoremove` (removed same as above) + `sudo apt install php8.2-cgi`
+		- Config in short:
+			```
+			# Activated modules
+			server.modules += ( "mod_fastcgi" )
+			
+			fastcgi.server = ( ".php" =>
+				((
+			"bin-path" => "/usr/bin/php-cgi",
+			"socket" => "/tmp/php.socket"
+				)) 
+			)
+			  fastcgi.debug = 1
+			```
+			- in /etc/php/8.2/cgi/php.ini file, set `cgi.fix_pathinfo=1`.
+			- 500 internal server error
+			- ChatGPT: check log `tail /var/log/lighttpd/error.log` => "2024-01-22 15:29:44: (mod_fastcgi.c.449) FastCGI-stderr:PHP Parse error: syntax error, unexpected string content "\<p>Hello World\</p>; ?> -->" in /var/www/servers/hello.php on line 8" => replace line 8 with `<?php echo '<p>Hello World</p>'; ?>`
+			- `lynx http://127.0.0.1:3000/hello.php` works ! 
