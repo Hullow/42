@@ -373,3 +373,4 @@ Removing ssl-cert (1.1.2) ...
 			- 500 internal server error
 			- ChatGPT: check log `tail /var/log/lighttpd/error.log` => "2024-01-22 15:29:44: (mod_fastcgi.c.449) FastCGI-stderr:PHP Parse error: syntax error, unexpected string content "\<p>Hello World\</p>; ?> -->" in /var/www/servers/hello.php on line 8" => replace line 8 with `<?php echo '<p>Hello World</p>'; ?>`
 			- `lynx http://127.0.0.1:3000/hello.php` works ! 
+			- Asked ChatGPT for more interesting scripts than "Hello World". (see ["Sysadmin" chat](https://chat.openai.com/share/25291e7b-99ac-452a-bb4e-51df624d7dd8))
