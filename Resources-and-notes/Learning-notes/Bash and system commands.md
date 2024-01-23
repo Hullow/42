@@ -1,3 +1,8 @@
+
+## Command handling
+- `ctrl+A` : move cursor to start of command prompt
+- `ctrl+R` : search past commands (tap `ctrl+R` again to search for the next occurrence, then `tab` to select)
+
 ## System state
 - `uname -a` : print system information (kernel name, release, nodename, machine, processor, hardware, OS)
 - `cat /etc/os-release`: display OS version

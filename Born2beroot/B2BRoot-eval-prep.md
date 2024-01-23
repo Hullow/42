@@ -1,5 +1,5 @@
 
-### Credentials:
+## Credentials:
 - Root password: Keychain-1993 (old: Debianunlock-1993)
 - Additional user full name: Francis
 - Additional user username: fallan
@@ -7,12 +7,41 @@
 	- (disk: still Debianunlock-1993)
 	- fallan: password-2024 (nb: error message when shorter than 9 characters, and when trying to change right after, but no error for lack of uppercase character)
 	- testusr: password-2025
+- MariaDB: db name 'wordpress', user 'wordpressuser', password 'webadmin-1991'
 
-### Commands:
+## Commands:
+
+### Partitioning
 - `lsblk` to list storage volumes (partitions) ^9f40d4
+### Package management
 - `apt list su* --installed` to show all installed packages starting with "su" ^b03539
+### Users
 - `chage -l <\username>` : see age information of user password
+## Server
+### Lighttpd
+Lighttpd ("Lighty") is a light FOSS server software. Lighter than Apache so more efficient.
+- `sudo lighttpd -tt -f /etc/lighttpd/lighttpd.conf` to check the configuration
+- `sudo lighttpd -D -f /etc/lighttpd/lighttpd.conf` start lighttpd directly in the foreground and not in the background as a daemon, without using systemd. To use when testing or debugging in the console, and systemctl for regular operation and production environments
+- `sudo systemctl start/stop/restart/reload lighttpd` : running, stopping, restarting, reloading the server using systemd (init-V systems use the `service` command)
+- `sudo systemctl enable lighttpd` 
+- `sudo systemctl status lighttpd`
+- `sudo lighttpd -D -f /etc/lighttpd/lighttpd.conf`: 
+- data handled by the www-data user (and group) and in the `/var/www/servers` folder
+- `sudo lighttpd-enable-mod` : to enable modules but not used afair
+### PHP and HTML webpages
+- `vim /var/www/servers/hello.php/index.html` to modify webpage
+- FastCGI setup: see Lighttpd.conf file + .../..../php.ini `cgi.fix....=1;`
+- ddd
 
+### MariaDB
+- `sudo mysql -u root -p`
+- ddd
+- 
+- 
+### Wordpress
+- configuration file: /usr/share/wordpress/wpconfig.php
+- set up 
+## Questions/Answers
 - Pourquoi Debian ?
 	- plus simple, utilise partout
 - LVM: a dynamic partition. Physical disks are united into Volume groups, which are then subdivided into logical volumes. LVM allows for dynamic partitioning, i.e. during system run, no need to reboot.

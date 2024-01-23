@@ -374,3 +374,93 @@ Removing ssl-cert (1.1.2) ...
 			- ChatGPT: check log `tail /var/log/lighttpd/error.log` => "2024-01-22 15:29:44: (mod_fastcgi.c.449) FastCGI-stderr:PHP Parse error: syntax error, unexpected string content "\<p>Hello World\</p>; ?> -->" in /var/www/servers/hello.php on line 8" => replace line 8 with `<?php echo '<p>Hello World</p>'; ?>`
 			- `lynx http://127.0.0.1:3000/hello.php` works ! 
 			- Asked ChatGPT for more interesting scripts than "Hello World". (see ["Sysadmin" chat](https://chat.openai.com/share/25291e7b-99ac-452a-bb4e-51df624d7dd8))
+
+## 23/1/23
+- Continuing PHP script with ChatGPT assistance:
+	- to create visit counting file: `su`, `echo "0" > /var/www/servers/visit-counter.txt`, `chown www-data:www-data visit-counter.txt`, `chmod 664 visit-counter.txt` => it works, counting visits each time.
+	- Full script (/var/www/servers/hello.php)
+```PHP
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PHP Test</title>
+	</head>
+	<body>
+	Ceci est la page hello.php, et ce qui suit est un script PHP:
+<?php
+# Salutations dynamiques en fonction de l'heure du jour
+date_default_timezone_set('Europe/Zurich');
+$hour = date("H:i");
+
+if ($hour < 12) {
+	echo '<p>Bonjour ! Il est ' . $hour .' heure. Bonne matinee !</p>';
+} elseif ($hour < 18) {
+	echo '<p>Bonjour. Il est ' . $hour . ' heure. Bonne apres-midi!</p>';
+} else {
+	echo '<p>Bonsoir ! Il est ' . $hour . ' heure. Bonne soiree!</p>';
+}
+
+# Compliment a l'evaluateur choisi d'une liste au hasard
+$compliments = ["Quel honneur t'avoir comme evaluateur/trice!", "Tres cool que tu m'evalues (j'espere que l'evaluation sera clemente !)", "Merci pour l'evaluation", "Ton evaluation c'est du 5/5 jusqu'ici" ];
+$randomIndex = array_rand($compliments);
+echo '<p>' . $compliments[$randomIndex] . '</p>';
+
+# Informations sur le serveur et le visiteur
+echo '<p>Logiciel server: ' . $_SERVER['SERVER_SOFTWARE'] . '</p>';
+echo '<p>Addresse IP du visiteur: ' . $_SERVER['REMOTE_ADDR'] . '</p>';
+
+# Compteur de visites
+$file = 'visit-counter.txt';
+
+// Lire le nombre de visites dans le fichier
+$hits = file_exists($file) ? file_get_contents($file) : 0;
+
+// Incrementer les visites
+$hits++;
+
+// Enregistrer le nouveau numero dans le fichier
+file_put_contents($file, $hits);
+
+// Afficher le nombre de visites
+echo "<p>Cette page a ete visionnee $hits fois.</p>";
+
+// Reporting d'erreurs dans le script
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+?>
+	</body>
+</html>
+```
+- Wordpress + MariaDB setup:
+		- MariaDB: `sudo mysql_secure_installation` (a binary included in mariadb-server package, that sets up mariadb security, e.g. reserving access to root, removing freely accessible test server, etc.)
+> Note from ChatGPT: "MariaDB is designed to be a binary drop-in replacement for MySQL, which means it maintains high compatibility with MySQL, including client tools, command-line utilities, and scripts like `mysql_secure_installation`. This compatibility allows users to switch from MySQL to MariaDB without having to learn new commands or change their operational scripts."
+		- Installing more PHP modules: `php -m` to check installed modules; no need though, you can just run `sudo apt-get install php-mysql php-gd php-xml php-mbstring`
+		- Configuring MariaDB: 
+			- log in: `sudo mysql -u root -p`
+			- create a new db: `CREATE DATABASE wordpress;`
+			- create a new user: CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'webadmin-1991';
+			- Grant privileges: `GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';`
+			- Flush privileges: `FLUSH PRIVILEGES; EXIT;` (n.b.: an important command that is **used to refresh the user privileges**)
+		- Configuring Wordpress ([following B2BRoot bonus guide](https://github.com/mcombeau/Born2beroot/blob/main/guide/bonus_debian.md))
+			- create link from server's document root to WordPress directory: `sudo ln -s /usr/share/wordpress /var/www/servers/wordpress`
+			- edit configuration file /usr/share/wordpress/wp-config.php ([WordPress manual](https://developer.wordpress.org/advanced-administration/wordpress/wp-config/)) => access README with `sudo gzip -d /usr/share/doc/wordpress/README.Debian.gz`
+			- in `/usr/share/wordpress/wpconfig.php` (`sudo vim`) :
+> 
+	/** The name of the database for WordPress */
+	define( 'DB_NAME', 'wordpress' );
+	
+	/** Database username */
+	define( 'DB_USER', 'wordpressuser' );
+	
+	/** Database password */
+	define( 'DB_PASSWORD', 'webadmin-1991' );
+	
+	/** Database host */
+	 define( 'DB_HOST', 'localhost' ); 
+
+- 
+
+
+
+
+- Additional service to add: [Let's Encrypt](https://www.howtoforge.com/how-to-install-lighttpd-with-php-and-mariadb-on-debian-10/#secure-lighttpd-with-lets-encrypt-free-ssl) ?
