@@ -99,6 +99,9 @@ In Linux, the shell is a command line interpreter (CLI).
 
 ## Security
 #security
+### File permissions
+- `ls` on a directory requires both read (`r`) and execute (`x`) to list contents
+
 ### Password policies
 Using sudo, one can do things prohibited by /etc/login.defs, because root can do pretty much anything. For instance, setting PASS_MIN_DAYS to 2 prevents a user from changing their password for two days, but `sudo passwd <username>` will still work.
 

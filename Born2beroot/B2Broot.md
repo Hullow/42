@@ -432,19 +432,19 @@ ini_set("display_errors", 1);
 </html>
 ```
 - Wordpress + MariaDB setup:
-		- MariaDB: `sudo mysql_secure_installation` (a binary included in mariadb-server package, that sets up mariadb security, e.g. reserving access to root, removing freely accessible test server, etc.)
-> Note from ChatGPT: "MariaDB is designed to be a binary drop-in replacement for MySQL, which means it maintains high compatibility with MySQL, including client tools, command-line utilities, and scripts like `mysql_secure_installation`. This compatibility allows users to switch from MySQL to MariaDB without having to learn new commands or change their operational scripts."
-		- Installing more PHP modules: `php -m` to check installed modules; no need though, you can just run `sudo apt-get install php-mysql php-gd php-xml php-mbstring`
-		- Configuring MariaDB: 
-			- log in: `sudo mysql -u root -p`
-			- create a new db: `CREATE DATABASE wordpress;`
-			- create a new user: CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'webadmin-1991';
-			- Grant privileges: `GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';`
-			- Flush privileges: `FLUSH PRIVILEGES; EXIT;` (n.b.: an important command that is **used to refresh the user privileges**)
-		- Configuring Wordpress ([following B2BRoot bonus guide](https://github.com/mcombeau/Born2beroot/blob/main/guide/bonus_debian.md))
-			- create link from server's document root to WordPress directory: `sudo ln -s /usr/share/wordpress /var/www/servers/wordpress`
-			- edit configuration file /usr/share/wordpress/wp-config.php ([WordPress manual](https://developer.wordpress.org/advanced-administration/wordpress/wp-config/)) => access README with `sudo gzip -d /usr/share/doc/wordpress/README.Debian.gz`
-			- in `/usr/share/wordpress/wpconfig.php` (`sudo vim`) :
+	- MariaDB: `sudo mysql_secure_installation` (a binary included in mariadb-server package, that sets up mariadb security, e.g. reserving access to root, removing freely accessible test server, etc.)
+	 > 	Note from ChatGPT: "MariaDB is designed to be a binary drop-in replacement for MySQL, which means it maintains high compatibility with MySQL, including client tools, command-line utilities, and scripts like `mysql_secure_installation`. This compatibility allows users to switch from MySQL to MariaDB without having to learn new commands or change their operational scripts."
+	- Installing more PHP modules: `php -m` to check installed modules; no need though, you can just run `sudo apt-get install php-mysql php-gd php-xml php-mbstring`
+- Configuring MariaDB: 
+	- log in: `sudo mysql -u root -p`
+	- create a new db: `CREATE DATABASE wordpress;`
+	- create a new user: CREATE USER 'wordpressuser'@'localhost' IDENTIFIED BY 'webadmin-1991';
+	- Grant privileges: `GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpressuser'@'localhost';`
+	- Flush privileges: `FLUSH PRIVILEGES; EXIT;` (n.b.: an important command that is **used to refresh the user privileges**)
+- Configuring Wordpress ([following B2BRoot bonus guide](https://github.com/mcombeau/Born2beroot/blob/main/guide/bonus_debian.md))
+	- create link from server's document root to WordPress directory: `sudo ln -s /usr/share/wordpress /var/www/servers/wordpress`
+	- edit configuration file /usr/share/wordpress/wp-config.php ([WordPress manual](https://developer.wordpress.org/advanced-administration/wordpress/wp-config/)) => access README with `sudo gzip -d /usr/share/doc/wordpress/README.Debian.gz`
+	- in `/usr/share/wordpress/wpconfig.php` (`sudo vim`) :
 > 
 	/** The name of the database for WordPress */
 	define( 'DB_NAME', 'wordpress' );
@@ -461,6 +461,63 @@ ini_set("display_errors", 1);
 - 
 
 
+## 24/1/23
+- Trying to load Wordpress, checking MariaDB config, etc.
+- `sudo chown -R www-data:www-data /usr/share/wordpress
+`
+- `sudo chmod -R 755 /usr/share/wordpress`
+
+
+- create testusr3 with password "simplepassword" to test logging in to MariaDB => didn't work in any way !
+
+
+- Managed to finally set up Wordpress:
+	- chown www-data:www-data and /usr/share/wordpress and /var/www/servers/wordpress to own the link to it, chmod 777 to allow read (and write and execute...=> test only read !)
+	- Changed lighttpd.conf:
+	  ```
+		url.rewrite-if-not-file = (
+	    "^/wordpress/wp-admin$" => "/wordpress/wp-admin/",
+	    "^/wordpress/(wp-(content|admin|includes).*)" => "/wordpress/$1",
+	    "^/wordpress/(.*\.php)$" => "/wordpress/$1",
+	    "^/wordpress/.*$" => "/wordpress/index.php"
+	)
+		server.modules += ( "mod_rewrite" )
+	  ```
+	of note:
+		- server.document-root set to "/var/www/servers" rather than /wordpress.
+		- url rewrite rules for Wordpress (from ChatGPT) + enable rewrite module
+	- create an additional and specific **config-127.0.0.1.php file for Wordpress in /etc/wordpress** to fix error "Location URL is not absolute" when browsing `lynx http://127.0.0.1:3000/wordpress`, followed by error: "Neither /etc/wordpress/config-127.0.0.1.php nor /etc/wordpress/config-0.0.1.php could be found. Ensure one of them exists, is readable by the webserver and contains the right password/username." According to ChatGPT, Debian needs such a config file to load : "looking for its configuration file based on the hostname is behavior is specific to the way WordPress is packaged and configured in Debian-based systems." This file, (made readable to www-data) contains:
+		```
+			<?php
+			define('DB_NAME', 'wordpress');
+			define('DB_USER', 'wordpressuser');
+			define('DB_PASSWORD', 'webadmin-1991');
+			define('DB_HOST', 'localhost');
+			define('DB_CHARSET', 'utf8');
+			define('DB_COLLATE', '');
+			
+			# define('AUTH_KEY',         'put your unique phrase here');
+			# define('SECURE_AUTH_KEY',  'put your unique phrase here');
+			# define('LOGGED_IN_KEY',    'put your unique phrase here');
+			# define('NONCE_KEY',        'put your unique phrase here');
+			# define('AUTH_SALT',        'put your unique phrase here');
+			# define('SECURE_AUTH_SALT', 'put your unique phrase here');
+			# define('LOGGED_IN_SALT',   'put your unique phrase here');
+			# define('NONCE_SALT',       'put your unique phrase here');
+			
+			$table_prefix = 'wp_';
+			?>
+		```
+
+		- DDDD
+
+
+- Wordpress setup:
+	- Site title: Born2BeWebmaster
+	- Username: fallan
+	- Password: PwAPyoWYxQeK => change it!!
+	- Email: fallan@student.42lausanne.ch
+- Log in: message "wp-admin.php" => 403 Forbidden. Website now loads with `lynx http://127.0.0.1:3000/wordpress` but cannot log in as admin. `lynx http://127.0.0.1:3000/wordpress/wp-admin` gives a 403 Forbidden error
 
 
 - Additional service to add: [Let's Encrypt](https://www.howtoforge.com/how-to-install-lighttpd-with-php-and-mariadb-on-debian-10/#secure-lighttpd-with-lets-encrypt-free-ssl) ?

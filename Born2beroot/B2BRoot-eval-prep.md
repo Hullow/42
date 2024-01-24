@@ -34,7 +34,7 @@ Lighttpd ("Lighty") is a light FOSS server software. Lighter than Apache so more
 - ddd
 
 ### MariaDB
-- `sudo mysql -u root -p`
+- `sudo mysql -u root -p` : to start MariaDB interactive prompt
 - ddd
 - 
 - 
