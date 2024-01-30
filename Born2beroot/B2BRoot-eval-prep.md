@@ -94,4 +94,28 @@ Lighttpd ("Lighty") is a light FOSS server software. Lighter than Apache so more
 	- usable paths: left as is (`/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/`)
 - cf TTYs: "*While Linux systems can have multiple TTYs, their number is usually limited by the configuration. Actually, we can change this by modifying _/etc/init/tty*.conf_, _/etc/securetty_, _/etc/systemd/logind.conf, or similar configuration files depending on the Linux distribution._" (same [article](https://www.baeldung.com/linux/sudo-requiretty-option) as above)
 
-- 
+- Pourquoi utiliser SSL/TLS ?
+Using SSL/TLS on a local server, even when it's not exposed to the internet, can still provide several benefits related to security and best practices:
+
+### 1. **Data Encryption:**
+
+- **Protection of Sensitive Data:** SSL/TLS encrypts the data transmitted between the server and clients (like browsers). If you're handling any sensitive information, encryption protects this data from being intercepted or read by unauthorized users within the local network.
+
+### 2. **Practice Security Best Practices:**
+
+- **Developing Good Habits:** Implementing SSL/TLS on a local server is a good practice. It helps you and any other users develop a habit of implementing security measures by default, which is a critical mindset in cybersecurity.
+
+### 3. **Testing and Development:**
+
+- **Realistic Environment for Development:** If you’re developing websites or applications that will eventually be deployed to a production environment with SSL/TLS, using SSL/TLS in your development environment can help catch and resolve potential security issues early.
+- **Compatibility Testing:** Modern web development often involves features that require HTTPS (like certain browser APIs). Testing on an HTTPS environment ensures compatibility.
+
+### 4. **Internal Security:**
+
+- **Mitigating Internal Threats:** Even within a local network, security threats can exist. Unauthorized access, packet sniffing, or insider threats can be mitigated by encrypting network traffic.
+- **Compliance:** In some cases, compliance with data protection standards (like GDPR, HIPAA, etc.) requires encryption of data in transit, even on internal networks.
+
+### 5. **Building a Secure Infrastructure:**
+
+- **Foundation for Scaling:** If your local server might eventually be scaled up to a public-facing server, having SSL/TLS already set up makes the transition smoother and more secure.
+- **Establishing Trust:** Using SSL/TLS can help in establishing trustworthiness of the server, even in a local setting, especially if different teams or departments are accessing it.

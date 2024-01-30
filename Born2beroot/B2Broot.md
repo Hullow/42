@@ -520,4 +520,76 @@ ini_set("display_errors", 1);
 - Log in: message "wp-admin.php" => 403 Forbidden. Website now loads with `lynx http://127.0.0.1:3000/wordpress` but cannot log in as admin. `lynx http://127.0.0.1:3000/wordpress/wp-admin` gives a 403 Forbidden error
 
 
-- Additional service to add: [Let's Encrypt](https://www.howtoforge.com/how-to-install-lighttpd-with-php-and-mariadb-on-debian-10/#secure-lighttpd-with-lets-encrypt-free-ssl) ?
+## 30/1/23
+### Adding an additional service - SSL/TLS self-signed certificate
+ChatGPT how-to:
+### 1. **Self-Signed Certificate:**
+
+For local development or private servers, you can create a self-signed SSL certificate. While this certificate won't be validated by an external authority (and will trigger browser warnings), it provides the same level of encryption as a Let's Encrypt certificate.
+
+- Generate a Self-Signed Certificate: `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt`
+    This command creates a private key (`localhost.key`) and a self-signed certificate (`localhost.crt`). You can use these with your Lighttpd configuration.
+>Options and flags explained:
+>2. `req`: this stands for "PKCS#10 certificate request and certificate generating utility." It's used here to create and process certificate requests in PKCS#10 format.
+>3. `-x509`: This option specifies that you want to generate a self-signed certificate rather than a certificate signing request (CSR). X.509 is a standard defining the format of public key certificates.
+>4. `-nodes` : This stands for "no DES" (Data Encryption Standard). It means that the private key should not be encrypted with a passphrase. This is typically used for server keys, as it allows the server to read the key without human intervention to enter a passphrase.
+>5. `-days 365` : This option sets the validity period of the certificate. Here, the certificate will be valid for 365 days from its creation.
+>6. `-newkey rsa:2048`: This is a combination of two options:
+>        - **`-newkey`** tells OpenSSL to create a new certificate and a new private key.
+>        - **`rsa:2048`** specifies the algorithm to use for generating the private key (RSA) and the size of the key in bits (2048 bits). RSA with 2048 bits is a good choice for most purposes, offering a strong level of security.
+>7. `-keyout /etc/ssl/private/localhost.key`:  This option specifies the filename to write the newly created private key to. Here, it's being saved to `/etc/ssl/private/localhost.key`. This file should be kept secure and private.
+>8. `-out /etc/ssl/certs/localhost.crt` : This option specifies the output filename for the newly created X.509 certificate. Here, the certificate is being saved to `/etc/ssl/certs/localhost.crt`.
+
+Restrict File Permissions:
+- The private key should be readable only by the root user or the specific user under which the web server runs (often `www-data` in the case of servers like Apache or Nginx).
+- Set the permissions so that only the owner can read it. For example: `sudo chmod 600 /etc/ssl/private/localhost.key`
+
+Secure Ownership:
+- The file should be owned by the root user and possibly the group associated with the web server. Use `chown` to set the appropriate ownership: `sudo chown root:www-data /etc/ssl/private/localhost.key`
+nb: Some configurations might require the file to be owned directly by the web server user
+
+Keep private keys in a secure directory, such as `/etc/ssl/private/`, which is a standard location with restricted access.
+
+
+
+- Configure Lighttpd: Update your Lighttpd configuration to use the self-signed certificate
+    ```
+    $SERVER["socket"] == ":443" {     
+    ssl.engine = "enable"     
+    ssl.pemfile = "/etc/ssl/certs/localhost.crt"     
+    ssl.privkey = "/etc/ssl/private/localhost.key" }`
+    ```
+
+### Explanation of the Syntax:
+
+1. **`$SERVER["socket"] == ":443" { ... }`:**
+    
+    - This line is a conditional configuration statement in Lighttpd. It tells the server to apply the configuration enclosed in the curly braces `{ ... }` only when the condition is met.
+    - The condition here is `$SERVER["socket"] == ":443"`, which means the configuration is applied to the server socket listening on port 443. Port 443 is the standard port for HTTPS.
+2. **`ssl.engine = "enable"`:**
+    
+    - This line enables SSL/TLS for the server. It's telling Lighttpd to use SSL/TLS encryption on this socket.
+3. **`ssl.pemfile = "/etc/ssl/certs/localhost.crt"`:**
+    
+    - This specifies the path to your SSL certificate file. In this case, it's pointing to `localhost.crt`, which would be your self-signed certificate.
+4. **`ssl.privkey = "/etc/ssl/private/localhost.key"`:**
+    
+    - This line specifies the path to your private key file associated with your SSL certificate. It should match the key used to generate the certificate.
+
+
+### Applying the Configuration
+
+After adding this configuration to your `lighttpd.conf`:
+
+1. Save the file and exit the text editor.
+2. Restart Lighttpd to apply the changes:`sudo systemctl restart lighttpd`
+3. Verify that Lighttpd is running without errors: `sudo systemctl status lighttpd`
+
+### Important Notes
+
+- Ensure the paths to the certificate (`localhost.crt`) and key (`localhost.key`) are correct and that these files are readable by the user under which Lighttpd is running (usually `www-data`).
+    
+- Remember that browsers will show a security warning when accessing sites with a self-signed certificate. You can add a security exception in your browser for your local site to avoid these warnings during development or internal use.
+
+## 31/1/23
+
