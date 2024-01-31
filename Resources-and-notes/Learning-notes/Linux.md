@@ -1,6 +1,9 @@
 #linux
 ## Linux filesystems
 Linux and Unix-like operating systems follow a Filesystem Hierarchy Standard (FHS), which defines the structure of the file system, i.e. the main directories and their contents.
+
+See `man 7 file-hierarchy`
+
 ### [Directory structure/Filesystem hierarchy](linuxfoundation.org/blog/blog/classic-sysadmin-the-linux-filesystem-explained)
 #### [/dev](https://www.baeldung.com/linux/dev-directory)
 

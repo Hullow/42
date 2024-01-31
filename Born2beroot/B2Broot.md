@@ -136,6 +136,7 @@ see var/log/dpkg.log
 		- `sudo nano /etc/ssh/sshd_config`: uncomment line "Port 22" and change to "Port 4242" (check with sudo grep Port /etc/ssh/sshd_config)
 		- `sudo service ssh restart` 
 		- `sudo apt install ufw`, `sudo ufw enable,  ufw allow ssh, ufw allow 4242, ufw status, ufw delete [X]
+		- (P.S.: `sudo ufw status numbered` to show numbered list of rules, then `sudo ufw delete 2` to delete rule 2)
 		- setup port forwarding in VirtualBox settings, then close and `sudo reboot`. Then iTerm, ssh fallan@127.0.0.1 (=> localhost)
 		- hostname change: `sudo hostnamectl hostname <new_hostname>`, `hostname` to display current hostname, `hostnamectl` to display more details
 ## 21/12/23
@@ -520,12 +521,14 @@ ini_set("display_errors", 1);
 - Log in: message "wp-admin.php" => 403 Forbidden. Website now loads with `lynx http://127.0.0.1:3000/wordpress` but cannot log in as admin. `lynx http://127.0.0.1:3000/wordpress/wp-admin` gives a 403 Forbidden error
 
 
-## 30/1/23
+## 30/1/24
 ### Adding an additional service - SSL/TLS self-signed certificate
 ChatGPT how-to:
 ### 1. **Self-Signed Certificate:**
 
 For local development or private servers, you can create a self-signed SSL certificate. While this certificate won't be validated by an external authority (and will trigger browser warnings), it provides the same level of encryption as a Let's Encrypt certificate.
+
+P.S.: didn't do this in the end, generated a key and a CSR, then a self-signed certificate (see [[#^6b8bf6|31/12/24]])
 
 - Generate a Self-Signed Certificate: `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/localhost.key -out /etc/ssl/certs/localhost.crt`
     This command creates a private key (`localhost.key`) and a self-signed certificate (`localhost.crt`). You can use these with your Lighttpd configuration.
@@ -556,8 +559,8 @@ Keep private keys in a secure directory, such as `/etc/ssl/private/`, which is a
     ```
     $SERVER["socket"] == ":443" {     
     ssl.engine = "enable"     
-    ssl.pemfile = "/etc/ssl/certs/localhost.crt"     
-    ssl.privkey = "/etc/ssl/private/localhost.key" }`
+    ssl.pemfile = "/etc/ssl/certs/domain.crt"     
+    ssl.privkey = "/etc/ssl/private/domain.key" }`
     ```
 
 ### Explanation of the Syntax:
@@ -593,3 +596,62 @@ After adding this configuration to your `lighttpd.conf`:
 
 ## 31/1/23
 
+^6b8bf6
+
+______
+#### [What Is an X.509 Certificate? ](https://www.ssl.com/faqs/what-is-an-x-509-certificate/)
+**X.509** is a standard format for **public key certificates**, digital documents that securely associate cryptographic key pairs with identities such as websites, individuals, or organizations.
+
+First introduced in 1988 alongside the X.500 standards for electronic directory services, X.509 has been adapted for internet use by the IETF’s Public-Key Infrastructure (X.509) (PKIX) working group. 
+Common applications of X.509 certificates include:
+
+- [SSL/TLS](https://www.ssl.com/faqs/faq-what-is-ssl/) and [HTTPS](https://www.ssl.com/faqs/what-is-https/) for authenticated and encrypted web browsing
+- Signed and encrypted email via the [S/MIME](https://www.ssl.com/article/sending-secure-email-with-s-mime/) protocol
+- [Code signing](https://www.ssl.com/faqs/what-is-code-signing/)
+- [Document signing](https://www.ssl.com/s-mime-client-and-document-signing-certificates/)
+- [Client authentication](https://www.ssl.com/s-mime-client-and-document-signing-certificates/)
+- [Government-issued electronic ID](https://www.ssl.com/article/pki-and-digital-certificates-for-government/)
+
+No matter its intended application(s), each X.509 certificate includes a **public key**, **digital signature**, and information about both the identity associated with the certificate and its issuing **certificate authority (CA)**:
+________
+OpenSSL self-signed certificate:
+(Following *Baeldung* [how to](https://www.baeldung.com/openssl-self-signed-cert))
+
+create an RSA key pair and a certificate signing request (CSR):
+`openssl req -newkey rsa:2048 -nodes -keyout domain.key -out domain.csr`
+- Certificate request information:
+> Country Name (2 letter code) [AU]:FT
+State or Province Name (full name) [Some-State]:Lausanne
+Locality Name (eg, city) []:Renens
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:42 Lausanne
+Organizational Unit Name (eg, section) []:Asgard
+Common Name (e.g. server FQDN or YOUR name) []:fallan
+Email Address []:
+
+- Create a self-signed certificate using our private key and CSR:
+`openssl x509 -signkey /etc/ssl/private/domain.key -in /etc/ssl/private/domain.csr -req -days 365 -out /etc/ssl/certs/domain.crt`
+=> 
+```
+Certificate request self-signature ok
+subject=C = FT, ST = Lausanne, L = Renens, O = 42 Lausanne, OU = Asgard, CN = fallan
+```
+> A self-signed certificate is **a certificate that’s signed with its own private key**. It can be used to encrypt data just as well as CA-signed certificates, but our users will be shown a warning that says the certificate isn’t trusted.
+
+Viewing the certificate:
+`openssl x509 -text -noout -in /etc/ssl/certs/domain.crt`
+command explained: x509 to display X509 certificates, `-text`: print the certificate in text form, `-noout` outputs the details from the certificate, not the certificate itself (which is in binary form), `-in domain.crt` specifies the input certificate file.
+
+Allow server to view the certificate and key:
+`chown root:www-data domain.crt`
+`chown root:www-data domain.key`
+`chmod 640 domain.key`
+
+
+
+# POST-EVALUATION WORK
+
+- View webpages from host machine:
+	- VirtualBox : Settings > Networking > Advanced > Port Forwarding : New rule "HTTP", Host IP: 127.0.0.1, Host port: 3000, Guest IP: \<blank\>, Guest Port: 3000
+	- Restart VM
+	- `sudo ufw allow 3000/tcp`
+	You can now view http://127.0.0.1/wordpress

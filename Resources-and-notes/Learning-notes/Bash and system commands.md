@@ -3,7 +3,8 @@
 - `ctrl+A` : move cursor to start of command prompt
 - `ctrl+R` : search past commands (tap `ctrl+R` again to search for the next occurrence, then `tab` to select)
 
-## System state
+## System state and information
+- `man 7 file-hierarchy`: explain Linux file hierarchy
 - `uname -a` : print system information (kernel name, release, nodename, machine, processor, hardware, OS)
 - `cat /etc/os-release`: display OS version
 - [[B2Broot#^9f40d4 | lsblk]] : list storage volumes (partitions)

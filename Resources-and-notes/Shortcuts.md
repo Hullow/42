@@ -64,10 +64,13 @@
 						`2 > /dev/null` : silent (don’t print out error messages (e.g. “folder not permitted”, "permission denied"))
 - `curl -o [filename] [URL]` (nb: `-o` for output): download a file
 
-**Information**
+**File Information**
 - `file <filename>` : gives filetype
 - `whereis <command>` : shows path to an executable
 - `which [command]` => path to executable
+
+**System information**
+- `man 7 file-hierarchy`: explain Linux file hierarchy
 - `arch`: displays machine's architecture type
 - `uname -m`/`machine`: prints the machine hardware name/type
 
