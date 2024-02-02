@@ -1,0 +1,9 @@
+This is an example text.
+
+To be tested with open() and read()
+
+Does it print out the whole file ?
+
+We shall see.
+
+(The end)

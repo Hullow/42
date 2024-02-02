@@ -4,7 +4,11 @@
 - `free --mega`: show total, used and available memory in megabytes
 - `uptime`: current time, time running, users logged in, system (CPU+I/O e.g. disks) load averages for 1, 5, 15min
 
-
+## File manipulation
+- Add "*-suffix*" to all file names: ```for file in *; do
+						        mv "$file" "${file%.}-suffix"
+							done```
+- 
 ## Text analysis and processing
 - `wc -c/-m/-l/-w` : count bytes, characters, lines (or all with only `wc`)
 - `tail` : print the last 10 lines of each FILE (or piped input).
@@ -13,9 +17,6 @@
 - `[command] | > file.txt`: write the results of a command to a file
 - `awk 'NR {count++} END {print count} <file>'`: print number of lines in a file
 - CLI copy-paste: `screen` followed by `ctrl + A`followed by `[` followed by `space`, select text with arrows, `space`, to copy, then `ctrl + A` and `[` again to paste
-
-## Packages
--  [[B2Broot#^b03539 | apt list --installed]]: show all installed packages
 
 ## Names, users,  groups, permissions
 - `whoami` : current user
