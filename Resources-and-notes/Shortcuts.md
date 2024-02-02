@@ -32,8 +32,21 @@
 - `Ctrl+Enter` : open a new tab with multiple additional options, press .
 
 ### Obsidian
+#### Editing
 - `cmd + ;` anywhere / `---` at the very beginning of a file (under the title): add properties (aliases, tags, links, ...)
-
+- `[[target-note^section|text]]` : internal link
+- `Ctrl + D` : delete current line
+- `Ctrl + V` : duplicate current line
+- `Ctrl + ]`: indent
+- `Ctrl + [` : unindent
+- `Ctrl + Click` : open Note in Current Panel via Link
+- `Ctrl + Shift + Click`: open Note in New Panel via Link
+#### Navigation
+- `Cmd + home/end`: navigate to beginning/end of note
+- `Ctrl + P`: open command pallette
+- `Ctrl + O`: opens Quick Switcher
+- `Ctrl + E` : toggle edit/preview modes
+- `Ctrl + (+Shift) + Tab`: Next (Previous) tab
 ## Bash
 - `CMD+up/down` : next/previous command
 - `vim ~/.zsh_history` : see commands of current terminal session
@@ -51,10 +64,13 @@
 						`2 > /dev/null` : silent (don’t print out error messages (e.g. “folder not permitted”, "permission denied"))
 - `curl -o [filename] [URL]` (nb: `-o` for output): download a file
 
-**Information**
+**File Information**
 - `file <filename>` : gives filetype
 - `whereis <command>` : shows path to an executable
 - `which [command]` => path to executable
+
+**System information**
+- `man 7 file-hierarchy`: explain Linux file hierarchy
 - `arch`: displays machine's architecture type
 - `uname -m`/`machine`: prints the machine hardware name/type
 
