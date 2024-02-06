@@ -46,7 +46,10 @@ If it is an array, the [max length of an array is constrained by multiple factor
 Another factor is the maximum index value that can be used to access elements in an array. This value depends on the data type used for indexing, and using a signed integer, for instance, will limit the maximum index value to 2^31 – 1.
 
 ## File descriptor
-The file descriptor is an integer that uniquely identifies an open file of the process. 
+- [Wikipedia](https://en.wikipedia.org/wiki/File_descriptor):
+>In Unix and Unix-like computer operating systems, a file descriptor (FD, less frequently fildes) is a process-unique identifier (handle) for a file or other input/output resource, such as a pipe or network socket.
+- A file descriptor is an unsigned integer used by a process to uniquely identify an open file. 
+
 
 Now, every process in Unix starts out with three file descriptors predefined:
 File descriptor 0 is standard input.
@@ -64,9 +67,24 @@ main()
 }
 ```
 
+T
+
+
 ## Functions
 ### System calls
+The "tool" used by a software in the userspace to request a "service" to the kernel.
+Modern OSes generally divide the virtual memory into user space and kernel space.
+
 Read the rest of [I/O Syscalls intro - CS360](https://web.eecs.utk.edu/~huangj/cs360/360/notes/Syscall-Intro/lecture.html) if interest
+
+#### open
+`man 2 open`: The file name specified by *path* is opened for reading and/or writing, as specified by the argument *oflag*; the file descriptor is returned to the calling process.
+The flags of the *oflag* argument must include exactly one of:
+- O_RDONLY        open for reading only
+- O_WRONLY        open for writing only
+- O_RDWR          open for reading and writing
+
+
 #### read
 `man 2 read`: read input. Standard C library/libc.
 
@@ -91,6 +109,13 @@ Important Points (from [geeksforgeeks](https://www.geeksforgeeks.org/input-outpu
 
 [Linux Hints](https://linuxhint.com/posix-read-functioning-in-c-programming/):
 >If the read() function returns successfully, it returns the number of bytes read. A result that is equal to 0 means that the file is read to the end, and -1 means that an error occurs
+
+On the buffer used by `read()`, Copilot says:
+>In the context of the `read()` system call, a buffer is a block of memory used for temporary storage of data. 
+When you call `read(int fildes, void *buf, size_t nbyte);`, you're asking the system to read `nbyte` bytes of data from the file or device represented by `fildes`, and store that data in the memory area pointed to by `buf`. 
+This buffer must be large enough to hold at least `nbyte` bytes. The data can then be processed from this buffer as needed. This is a common pattern in I/O operations, as it allows for efficient reading and writing of data.
+
+
 
 # [EOF](https://stackoverflow.com/a/7622741/21457978)
 EOF (as defined in the C language) is not a character/not an ASCII value. That's why getc returns an int and not an unsigned char - because the character read could have any value in the range of unsigned char, and the return value of getc also needs to be able to represent the non-character value EOF (which is necessarily negative).

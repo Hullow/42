@@ -100,6 +100,12 @@ In Linux, the shell is a command line interpreter (CLI).
 - Communication protocols like *ssh* and *telnet* depend on terminal emulation to interact with the OS. 
  Terminal allocation
 
+## Kernel
+### cgroups
+Abbreviated from control groups, cgroups are a Linux kernel feature that limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, etc.) of a collection of [[Computing-notes.md^Process|processes]].
+- Developed by Google engineers from 2006 under the name "process containers", before changing the nomenclature to avoid confusion. 
+
+
 ## Security
 #security
 ### File permissions

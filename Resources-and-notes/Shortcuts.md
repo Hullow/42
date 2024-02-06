@@ -31,10 +31,13 @@
 - `esc` : reject all code suggestions
 - `Ctrl+Enter` : open a new tab with multiple additional options, press .
 
+## Markdown
+- [title of link](#name-of-section-of-link) : to link to different section
+
 ### Obsidian
 #### Editing
 - `cmd + ;` anywhere / `---` at the very beginning of a file (under the title): add properties (aliases, tags, links, ...)
-- `[[target-note^section|text]]` : internal link
+- `[[target-note^section|text]]` : internal link (n.b.: Obsidian, not Markdown specific)
 - `Ctrl + D` : delete current line
 - `Ctrl + V` : duplicate current line
 - `Ctrl + ]`: indent
