@@ -57,14 +57,16 @@
 - `let @*=@"` copy contents from unnamed register (from yank) to clipboard
 
 ### navigation and edit mode
-gg to go to top of file
-G to end of file
-M to go to middle of file
-O or o to insert a line above/below and go to insert mode
-search: / then n or N to go to the next or previous occurrence
+- go to top of file: `gg`
+- go to end of file: `G`
+- go to middle of file: `M`
+- insert a line above/below and go to insert mode: `O` or `o`
+- search: `/` then `n` or `N` to go to the next or previous occurrence
+- show whitespace (including end of lines, as `$`, and carriage returns, as `^M`): `:set list`
 
 ### modifying text
 - substitute: `:%s/old/new/gn` => % for all lines/current file (`g` to substitute for all of each line, not just once per line, `n` to count occurrences)
+	- to substitute newlines: use `\n`
 - case insensitivity in patterns: adding \c anywhere in the pattern, e.g. `:$s/\cold/new` for a substitution.
 - delete:
 	- range of lines: `:[start],[end]d`
