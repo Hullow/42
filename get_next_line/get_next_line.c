@@ -6,10 +6,9 @@ char	*get_next_line(int fd)
 	int					i;
 	char				*buf;
 	static t_list		*head; // it also works if it's not static
-	static unsigned int	element_count; // counts linked list elements
 	
-	element_count = 0;
 	buf = malloc(BUFFER_SIZE * sizeof(char));
+	// char *ret = malloc((element_count * BUFFER_SIZE + 1) * sizeof(char));
 	read(fd, buf, BUFFER_SIZE);
 	i = 0;
 	while (buf[i] && buf[i] != 10) // check if there is a \n in the buffer
@@ -23,7 +22,7 @@ char	*get_next_line(int fd)
 		end_of_line[i] = '\0';
 		t_list	*new_element = ft_lstnew(end_of_line);
 		free (end_of_line);
-		element_count = ft_lstadd_back_increment_element_count(&head, new_element);
+		ft_lstadd_back(&head, new_element);
 		t_list	*last_element = ft_lstlast(head); //test
 		char *ret = last_element->content; //test
  		printf("last_element->content is \"%s\"\n", ret); // test
@@ -33,14 +32,12 @@ char	*get_next_line(int fd)
 	{
 		printf("We've hit end of buffer. index of buffer is %d\n", i);
 		t_list	*new_element = ft_lstnew(buf);
-		element_count = ft_lstadd_back_increment_element_count(&head, new_element);
+		ft_lstadd_back(&head, new_element);
 		printf("new_element->content is \"%s\"\n\n", new_element->content); // test
 		free (buf);
 		get_next_line(fd);
 	}
-	char *ret = malloc((element_count * BUFFER_SIZE + 1) * sizeof(char));
-	
-	return (ret);
+	return (ft_list_to_string(head));
 }
 
 int main(void)
