@@ -217,34 +217,47 @@ Example output:
 The controller circuit which enables the CPU to communicate with a hard disk, a floppy disk, or other kind of disk drive. It also provides an interface between the disk drive and the bus connecting it to the rest of the system. 
 
 
-## [Interrupt](https://en.wikipedia.org/wiki/Interrupt)
+## Programs
+
+### [Interrupt](https://en.wikipedia.org/wiki/Interrupt)
 In digital computers, an interrupt (sometimes referred to as a trap) is a request for the [processor](#cpu) to *interrupt* currently executing code (when permitted), so that the event can be processed in a timely manner. If the request is accepted, the processor will suspend its current activities, save its state, and execute a function called an interrupt handler (or *interrupt service routine*) to deal with the event. This interruption is often temporary, allowing the software to resume normal activities after the interrupt handler finishes, although the interrupt could instead indicate a fatal error.
 Interrupts are commonly used by hardware devices to indicate electronic or physical state changes that require time-sensitive attention. Interrupts are also commonly used to implement computer multitasking and system calls, especially in real-time computing. Systems that use interrupts in these ways are said to be interrupt-driven.
 
-### Terminology
+#### Terminology
 The terms *interrupt*, *trap*, *exception*, *fault*, and *abort* are used to distinguish types of interrupts, although "there is no clear consensus as to the meaning of these terms".
 
-### Types
-#### Hardware interrupts
+#### Types of interrupts
+##### Hardware interrupts
 A hardware interrupt is a condition related to the state of the hardware may be signaled by an external hardware device, e.g. an interrupt request (IRQ) line on a PC, or detected by devices embedded in processor logic (e.g., the CPU timer in IBM System/370), to communicate that the device needs attention from the operating system (OS), or, if there is no OS, from the bare metal program running on the CPU. Such external devices may be part of the computer (e.g. [disk controller](#disk-controller)), or they may be external peripherals. For example, pressing a keyboard key or moving a mouse plugged into a PS/2 port triggers hardware interrupts that cause the processor to read the keystroke or mouse position.
 Hardware interrupts can arrive asynchronously with respect to the processor clock, and at any time during instruction execution. Consequently, all incoming hardware interrupt signals are conditioned by synchronizing them to the processor clock, and acted upon only at instruction execution boundaries.
 
-#### Software interrupt
+##### Software interrupt
 A software interrupt is requested by the processor itself upon executing particular instructions or when certain conditions are met. A software interrupt may be intentionally caused by executing a special instruction which, by design, invokes an interrupt when executed. Software interrupts may also be triggered by program execution errors or by the [virtual memory](#virtual-memory) system. Every software interrupt signal is associated with a particular interrupt handler.
 Typically, the operating system will catch and handle such interrupts. Some are handled transparently to the program - for example, the normal resolution of a page fault is to make the required page accessible in physical memory. In other words, this transparent handling means that some interrupts are managed in a way that the program doesn’t even realize they occurred. For example, when a page fault happens (an attempt to access a portion of memory that is not currently in physical RAM), the operating system steps in to load the required data into RAM from the disk and then resumes the program execution as if nothing happened. This process is essential for virtual memory management, allowing the system to use disk space as an extension of RAM (from [ChatGPT explanation](https://chat.openai.com/share/3018844e-e773-4cb6-bd4d-f5d655a40e62)). But in other cases such as a [segmentation fault](#segmentation-fault) the operating system executes a process [callback](#callback). ChatGPT: the OS may terminate the program or trigger a specific response defined by the program (a callback). A process callback here is a specific function or set of instructions predefined by the application or system to deal with such errors. For instance, cleaning up resources, logging information about the fault for debugging purposes, or attempting a recovery operation.
 On Unix-like OSes this involves sending a signal such as SIGSEGV, SIGBUS, SIGILL or SIGFPE, which may either call a signal handler or execute a default action (terminating the program). On Windows the callback is made using Structured Exception Handling with an exception code such as STATUS_ACCESS_VIOLATION or STATUS_INTEGER_DIVIDE_BY_ZERO.
 In a kernel [process](#process), it is often the case that some types of software interrupts are not supposed to happen. If they occur nonetheless, an operating system crash may result.
 
-### Segmentation fault
+#### Segmentation fault
 A segfault or access violation is a [fault](#terminology), or failure condition, raised by hardware with memory protection, notifying an operating system the software has attempted to access a restricted area of memory (a memory access violation). On standard x86 computers, this is a form of general protection fault. The OS kernel will, in response, usually perform some corrective action, generally passing the fault on to the offending [process](#process) by sending the process a [signal](#signal). Processes can in some cases install a custom signal handler, allowing them to recover on their own, but otherwise the OS default signal handler is used, generally causing abnormal termination of the process (a program crash), and sometimes a core dump.
 
-Se
+#### Bus error
+>A [fault](#interrupt) raised by hardware, notifying an OS that a process is trying to access memory that the CPU cannot physically address: an invalid address for the address bus, hence the name. In modern use on most architectures these are much rarer than [segmentation faults](#segmentation-fault), which occur primarily due to memory access violations: problems in the logical address or permissions.
 
-### Bus error
+### Memory management of programs
+#### General memory layout in C
+Organised in segments, from lower to higher addresses in memory:
+- Text segment: where the compiled program (machine code, a.out) resides. Read-only to prevent accidental modification of the program.
+- [Data segment](https://en.wikipedia.org/wiki/Data_segment): size determined by size of the values in the source code, and does not change at run time. Is read/write.
+	- Initialized variables: global, static and external variables that are explicitly initialized
+	- [Uninitialized Data Section (BSS: block starting symbol)](https://en.wikipedia.org/wiki/.bss): contains the statically allocated variables that are declared but have not been assigned a value yet. Typically only its length is stored in the object file, to reduce the file's size, with the program loader allocating memory when it loads the program.
+- Heap: used for dynamic memory allocation during program execution. Grows upward toward higher memory addresses.
+- Stack: used for automatic memory allocation and deallocation as functions are called and return during the program execution. Stores local (automatic) variables, function parameters, return addresses, and is managed in LIFO (Last-In-First-Out). Grows downward toward lower memory addresses.
 
+
+#### Call stack
+A structure that tracks function calls and returns, ensuring that each function call leads back to the point from which it was called, in the correct order. Each time a function is called, a new frame is added to the call stack, which contains the function's parameters, local variables, and the return address.
 
 ## [Signal](https://en.wikipedia.org/wiki/Signal_(computing))
-
 
 ## CPU
 ### CPU architecture

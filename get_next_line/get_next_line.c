@@ -8,17 +8,10 @@ int main(void)
 {
 	int fd;
 	char buff[5];
-	printf("buff is \"%s\"\n", buff);
-	// printf("buff[0] is \"%c\"\n", buff[0]);
-	// printf("buff[1] is \"%c\"\n", buff[1]);
-	// printf("buff[2] is \"%c\"\n", buff[2]);
-	// printf("strlen(buff) is initially %zu\n", strlen(buff));
 	char path[] = "example.txt";
 
 	fd = open(path, O_RDONLY);
-	// printf("fd is %d\n", fd);
-	ssize_t ret = read(fd, buff, 92);
-	// printf("\n(read)\n\nstrlen(buff) is now %zu\n", strlen(buff));
+	ssize_t ret = read(fd, buff, 5);
 	printf("\nbuffer now contains:\n%s**********************\nand read returns %zu\n\n", buff, ret);
 
 	close(fd);

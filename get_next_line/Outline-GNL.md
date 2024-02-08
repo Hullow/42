@@ -5,6 +5,10 @@
 
 // 1. take in a file descriptor
 // 2. read that file descriptor, byte by byte, to a buffer of size BUFFER_SIZE (variable), until you hit a newline character byte ("\n"), or you hit the end of the BUFFER_SIZE
+// X. define a linked list "initial item" (malloc), then iterate through the file descriptor by reading into the buffer, add an element to the list of size of the buffer (implicit malloc), filling it with the contents of the buffer, this until you hit a '\n' character (ASCII: 10)
+// X. addendum: how to look for '\n' in the file descriptor ? No way to use read() byte-by-byte, it reads nbytes. So we have to use read(), then look for 10 in the buffer, then add the buffer's contents until 10 or the end of the buffer to the end of the linked list (if the buffer is long, this could potentially take some time).
+// how to start at the next line ? doesn't read automatically do this for us ? read called on a fd automatically starts from where we stopped last time. So this shouldn't be too complicated. The get_next_line function, called once loops read() until we reach a '\n'. Then, if we call get_next_line another time, it should continue from after that point.
+
 // 3. If the BUFFER_SIZE is smaller than the number of characters of the line, ?
 // 4. Return the line read as a string
 

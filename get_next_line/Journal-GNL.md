@@ -4,7 +4,7 @@
 	- played with the open() and read() functions with examples borrowed from the web (see *read-open.c*) 
 	- started writing an outline of the function and its components, including pseudocode
 
-# 7/2/24
+# 6/2/24
 - Reading and taking notes about more concepts: system calls (because `open()` is referred to as a "BSD system call" in its manual), virtual memory, secondary and primary memory, userspace and kernel space, page table, file descriptors, ...
 - Outline: trying to summarize how to do GNL
 - Tests: playing with `open()`, `read()`, `close()`, and the buffer.
@@ -12,4 +12,8 @@
 	Strangely enough, it works even though buff has length 6=> probably because characters after string end are there, so
 	Segfault definition:
 	the software attempted to access a restricted area of memory ()
-	Common in languages like C providing low-level memory access and few to no safety checks. They arise primarily due to errors in use of pointers for virtual memory 
+	Common in languages like C providing low-level memory access and few to no safety checks. They arise primarily due to errors in use of pointers for virtual memory
+
+
+# 8/2/24
+- Still reading and taking notes. Watched video on [Memory Layout of C program](https://www.youtube.com/watch?v=0jhQBQcGnuM), [chatted with ChatGPT](https://chat.openai.com/c/ba5844cd-c83f-4e95-aa7c-fa5d01b90ffd#:~:text=Can%20you%20explain%20how%20a%20static%20variable) about Memory layout and concepts associated (stack, heap, call stack, memory segments, tools to visualize all this, etc.)
