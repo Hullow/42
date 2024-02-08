@@ -26,7 +26,7 @@
 - `ALT + CMD + H` to add 42 header
 - `CMD + +`  to zoom in
 
-### Github Copilot
+### Github Copilot in VS Code
 - `tab` : accept a code suggestion
 - `esc` : reject all code suggestions
 - `Ctrl+Enter` : open a new tab with multiple additional options, press .

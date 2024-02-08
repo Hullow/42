@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/24 17:58:36 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/08 16:24:06 by fallan           ###   ########.fr       */
+/*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
+/*   Updated: 2024/02/08 18:29:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-/* typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}					t_list; */
+}					t_list;
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	new->next = *lst;
-	*lst = new;
-}
-
-/* int	main()
-{
-	t_list	root;
-	root->x = 15;
-	root->next = NULL;
-	
-	ft_lstadd_front(&root, &10);
-	root = 
-	printf("%d\n", (int) )
-} */
-
-
-
-
-
+void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_lstnew(void *content);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlen(const char *str);
