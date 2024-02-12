@@ -5,39 +5,35 @@ char	*get_next_line(int fd)
 {
 	int					i;
 	char				*buf;
-	static t_list		*head; // it also works if it's not static
+	char				*end_of_line;
+	static char			*line;
 	
-	buf = malloc(BUFFER_SIZE * sizeof(char));
-	// char *ret = malloc((element_count * BUFFER_SIZE + 1) * sizeof(char));
+	buf = malloc(BUFFER_SIZE * sizeof(char)); // buffer which will be read into
+	if (!buf)
+		return (NULL);
+	line = malloc(1 * sizeof(char));
+	if (!line)
+		return (NULL);
+
 	read(fd, buf, BUFFER_SIZE);
 	i = 0;
-	while (buf[i] && buf[i] != 10) // check if there is a \n in the buffer
-		i++;
-	if (buf[i] == 10) // if yes, create a new string end_of_line, and add it to the linked list
+
+	if ((end_of_line = ft_locatenewline(buf))) // if we find \n in the buffer string
 	{
-		printf("We've hit end of line. index of buffer is %d\n", i);
-		char	*end_of_line = malloc((i+1) * sizeof(char));
-		ft_strlcpy(end_of_line, buf, i+1);
-		free (buf);
-		end_of_line[i] = '\0';
-		t_list	*new_element = ft_lstnew(end_of_line);
-		free (end_of_line);
-		ft_lstadd_back(&head, new_element);
-		t_list	*last_element = ft_lstlast(head); //test
-		char *ret = last_element->content; //test
- 		printf("last_element->content is \"%s\"\n", ret); // test
-		return (ret);
+		printf("end of line is \"%s\"\n", end_of_line); //test
+		line = ft_addstring(end_of_line, line); // add the buffer's contents from buf[0] to buf[i] to the "line" string
+ 		printf("We've hit end of line. the whole line is \"%s\"\n", line); // test
+		return (line);
 	}
-	else // if no, create a new element in the linked list and add the buffer's contents to it 
+
+	else // if we simply hit the end of the buffer, add its contents to the "line" string
 	{
-		printf("We've hit end of buffer. index of buffer is %d\n", i);
-		t_list	*new_element = ft_lstnew(buf);
-		ft_lstadd_back(&head, new_element);
-		printf("new_element->content is \"%s\"\n\n", new_element->content); // test
-		free (buf);
+		printf("end of line is \"%s\"\n", end_of_line); ///test
+		line = ft_addstring(buf, line);
+ 		printf("We've hit end of buffer. the line so far is \"%s\"\n", line); // test
 		get_next_line(fd);
 	}
-	return (ft_list_to_string(head));
+	return (line);
 }
 
 int main(void)
