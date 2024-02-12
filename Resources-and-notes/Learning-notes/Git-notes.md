@@ -24,6 +24,7 @@
 	- `switch` : simpler, just switching branches
 
 ## Going back on changes
+- `Git restore <file>` : restore the contents of currently tracked but unstaged <files> to their state at the last commit
 - `Git reset --soft` : reset to previous commit. `--soft`: "Does not touch the index file or the working tree at all (but resets the head to `<commit>`, just like all modes do). This leaves all your changed files "Changes to be committed", as `git status` would put it.""
 
 - `Git rm --cached <file>` : removes files from tree but not local storage (CAUTION)
