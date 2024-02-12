@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/12 15:33:12 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/12 16:33:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@
 // if it locates one, return a null-terminated string stopping at \n
 // if not, return 0 => usable in an if condition
 
+char	*ft_strchr(const char *s, int c)
+{
+	char	*ptr;
+
+	ptr = (char *)s;
+	while (*ptr)
+	{
+		if (*ptr == (char) c)
+			return (ptr);
+		else
+			ptr++;
+	}
+	if (*ptr == (char) c)
+		return (ptr);
+	else
+		return (NULL);
+}
+
 char	*ft_locatenewline(char *buf)
 {
 	unsigned int	i;
@@ -24,7 +42,7 @@ char	*ft_locatenewline(char *buf)
 
 	i = 0;
 	j = 0;
-	while (buf[i] && buf[i] != '\n') // check if there is a \n in the buffer string
+	while (i < BUFFER_SIZE && buf[i] != '\n') // check if there is a \n in the buffer string
 		i++;
 	if (buf[i] == '\n')
 	{
@@ -59,20 +77,20 @@ char	*ft_addstring(char const *addition, char const *base)
 	if (output)
 	{
 		i = 0;
-		while (addition[i])
+		while (i < len2)
 		{
-			output[i] = addition[i];
+			output[i] = base[i];
 			i++;
 		}
-		while (base[i - len1])
+		i = 0;
+		while (i < len1)
 		{
-			output[i] = base[i - len1];
+			output[len2 + i] = addition[i];
 			i++;
 		}
-		output[i] = '\0';
+		output[len2 + i] = '\0';
 	}
-	free((void *)addition); // is this really needed ? isn't it automatically freed when we call read(fd, buf, BUFFER_SIZE); again ?
-	free((void *)base);
+	// free((void *)addition); // is this really needed ? isn't it automatically freed when we call read(fd, buf, BUFFER_SIZE); again ?
 	return (output);
 }
 
