@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/12 16:33:54 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:47:43 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 // we need a function to locate the \n
 // if it locates one, return a null-terminated string stopping at \n
 // if not, return 0 => usable in an if condition
-
-char	*ft_strchr(const char *s, int c)
-{
-	char	*ptr;
-
-	ptr = (char *)s;
-	while (*ptr)
-	{
-		if (*ptr == (char) c)
-			return (ptr);
-		else
-			ptr++;
-	}
-	if (*ptr == (char) c)
-		return (ptr);
-	else
-		return (NULL);
-}
 
 char	*ft_locatenewline(char *buf)
 {

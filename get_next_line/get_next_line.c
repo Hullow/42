@@ -4,9 +4,10 @@
 
 char	*get_next_line(int fd)
 {
-	char	*buf;
-	char	*end_of_line;
-	char	*line = "";
+	char		*buf;
+	char		*end_of_line;
+	char		*line = "";
+	// static char	*next_lines = "";
 	
 	buf = malloc(BUFFER_SIZE * sizeof(char)); // buffer which will be read into
 	if (!buf)
@@ -17,15 +18,18 @@ char	*get_next_line(int fd)
 	{
 		// printf("end of line is \"%s\"\n\n", end_of_line); ///test
 		line = ft_addstring(buf, line);
+		free(end_of_line);
  		printf("We've hit end of buffer. the line so far is \"%s\"\n\n", line); // test
 		read(fd, buf, BUFFER_SIZE);
 	}
 	if ((end_of_line = ft_locatenewline(buf))) // if we find \n in the buffer string
 	{
 		// printf("end of line is \"%s\"\n", end_of_line); //test
-		line = ft_addstring(end_of_line, line); // add the buffer's contents to the "line" string
- 		printf("We've hit end of line. the whole line is \"%s\"\n", line); // test
+		line = ft_addstring(end_of_line, line); // add the buffer's contents to the "line" string; // should I free line somewhere ??
+ 		free(end_of_line);
+		printf("We've hit end of line. the whole line is \"%s\"\n", line); // test
 	}
+	free(buf);
 	return (line);
 }
 
