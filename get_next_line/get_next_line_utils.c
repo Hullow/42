@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/13 14:47:43 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:48:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // if it locates one, return a null-terminated string stopping at \n
 // if not, return 0 => usable in an if condition
 
-char	*ft_locatenewline(char *buf)
+char	*ft_end_of_line(char *buf)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -44,9 +44,46 @@ char	*ft_locatenewline(char *buf)
 		return (0);
 }
 
+char	*ft_next_lines(char *buf)
+{
+	int		i;
+	int		j;
+	char	*output;
+
+	i = 0;
+	j = 0;
+	while (buf[i] != 0 && buf[i] != '\n') // check if there is a \n in the buffer string
+		i++;
+	// printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
+	if (buf[i++] == '\n')
+	{
+		// printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
+		while (buf[i + j])
+			j++;
+		// printf("\nin ft_next_lines:\nj is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", j, j, buf[j], j, buf[j-1]);
+		// printf("\nin ft_next_lines:\nj is %d and buf[i+j-1] is '%c'\n", j, buf[i+j-1]);
+		output = malloc((j) * sizeof(char));
+		if (output)
+		{
+			// printf("before the while, j is %d\n", j);
+			output[j - 1] = '\0';
+			// printf("before the while, j is %d, output[j] is '%c'\n", j, output[j]);
+			while (j >= 0)
+			{
+				output[j] = buf[i + j];
+				// printf("output[%d] is %c (char # %d)\n", j, output[j], output[j]);
+				j--;
+			}
+		}
+		// printf("in ft_next_lines:\noutput is \"%s\"\n", output);
+		return (output);
+	}
+	else
+		return (0);
+}
 
 // ft_strjoin with a free for both input strings
-char	*ft_addstring(char const *addition, char const *base)
+char	*ft_add_string(char const *addition, char const *base)
 {
 	char			*output;
 	unsigned int	i;
@@ -70,7 +107,7 @@ char	*ft_addstring(char const *addition, char const *base)
 			output[len2 + i] = addition[i];
 			i++;
 		}
-		output[len2 + i] = '\0';
+		output[len2 + i + 1] = '\0';
 	}
 	// free((void *)addition); // is this really needed ? isn't it automatically freed when we call read(fd, buf, BUFFER_SIZE); again ?
 	return (output);

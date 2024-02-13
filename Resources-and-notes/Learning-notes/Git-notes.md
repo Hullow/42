@@ -1,6 +1,7 @@
 # Commands pêle-mêle
 
 - stop tracking a file: `git rm --cached <file> && git commit` (CAUTION)
+- stage unstaged changes (but not changes to untracked files): `git add -u` 
 
 ## Display information
 - Show files changed by a commit: `git diff-tree --no-commit-id --name-only <commit-id> -r`

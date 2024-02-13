@@ -6,16 +6,16 @@
 // 1. take in a file descriptor (**open()** in main)
 
 // 2. check if string *next_lines* is empty (**ft_strlen**)
-// 2.a. if non-empty, go to 4 (**function**)
+// 2.a. if non-empty, go to 4 (**ft_next_lines**)
 // 2.b. if empty, go to 3
 
-// 3. read the file descriptor to a buffer `buf` of size BUFFER_SIZE (**read**)
+// 3. read the file descriptor to a buffer `buf` of size BUFFER_SIZE (**malloc**, **read**) 
 
 // 4. check if *buf*/*next_lines* contains any *'\n'* (**ft_locatenewline**)
-// 4.a. if it doesn't, add its contents to a string *line* (**ft_addstring**) and **read** again
-// 4.b. if it does, add the contents up to there to *line* (**ft_locatenewline** && **ft_addstring**) and add the rest of the `buf`'s contents to a static variable *next_lines* (**function**)
+// 4.a. if it doesn't, add its contents to a string *line* (**ft_addstring**) and go to step 3
+// 4.b. if it does, add the contents up to there to *line* (**ft_locatenewline** && **ft_addstring**) and add the rest of the `buf`'s contents to a static variable *next_lines* (**ft_next_lines**)
 
-// at the end, free `buf`
+// at the end, free `buf` and `line`
 
 // Summary of procedure:
 // you want it to read the line until the buffer is full, then store the buffer value into a "return" array, empty the buffer ? or refill it ? => test to see what happens when you read twice. then repeat the procedure, add it to the return array, => problem: array size isn't known. so array of arrays ? just use linked list. then, return string from linked list, maybe after having extracted it.
