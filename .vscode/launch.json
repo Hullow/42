@@ -5,10 +5,10 @@
 			"name": "(lldb) Launch ${workspaceFolder}/a.out",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/Printf/a.out",
+			"program": "${workspaceFolder}/get_next_line/GNL",
 			"args": [],
 			"stopAtEntry": false,
-			"cwd": "${fileDirname}",
+			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"
