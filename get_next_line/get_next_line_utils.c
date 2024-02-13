@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/13 17:48:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:59:44 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,30 @@ char	*ft_next_lines(char *buf)
 	j = 0;
 	while (buf[i] != 0 && buf[i] != '\n') // check if there is a \n in the buffer string
 		i++;
-	// printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
+	printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
 	if (buf[i++] == '\n')
 	{
-		// printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
-		while (buf[i + j])
+		printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
+		while (buf[i + j]) // we start at buf[i+1], one character after the \n
+						// and go to the end of the buffer, thus we arrive at buf[i + j] == '\0'.
+						// j will be the strlen + 1 of the rest of the buf/next_lines,
 			j++;
-		// printf("\nin ft_next_lines:\nj is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", j, j, buf[j], j, buf[j-1]);
-		// printf("\nin ft_next_lines:\nj is %d and buf[i+j-1] is '%c'\n", j, buf[i+j-1]);
+		printf("\nin ft_next_lines:\nj is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", j, j, buf[j], j, buf[j-1]);
+		printf("\nin ft_next_lines:\nj is %d and buf[i+j-1] is '%c'\n", j, buf[i+j-1]);
 		output = malloc((j) * sizeof(char));
 		if (output)
 		{
-			// printf("before the while, j is %d\n", j);
+			printf("before the while, j is %d\n", j);
 			output[j - 1] = '\0';
-			// printf("before the while, j is %d, output[j] is '%c'\n", j, output[j]);
+			printf("before the while, j is %d, output[j] is '%c'\n", j, output[j]);
 			while (j >= 0)
 			{
 				output[j] = buf[i + j];
-				// printf("output[%d] is %c (char # %d)\n", j, output[j], output[j]);
+				printf("output[%d] is %c (char # %d)\n", j, output[j], output[j]);
 				j--;
 			}
 		}
-		// printf("in ft_next_lines:\noutput is \"%s\"\n", output);
+		printf("in ft_next_lines:\noutput is \"%s\"\n", output);
 		return (output);
 	}
 	else

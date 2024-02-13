@@ -51,10 +51,10 @@ int main(void)
 	int fd = open(path, O_RDONLY);
 	printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
 	printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
-	printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
-	printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
-	printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
-	printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
+	// printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
+	// printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
+	// printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
+	// printf("\n\nget_next_line returns:\n**********************\n%s**********************\n", get_next_line(fd));
 	close(fd);
 	return (0);
 }
