@@ -24,3 +24,7 @@
 - Actually we do need a static variable
 - Early working version. Now need to work on memory handling, exceptions, and Norm
 - Next time: continue writing outline in comments of utils (in **ft_next_lines**)
+
+# 15/2/24
+- Working on issues with "temp"
+- EOF handling
