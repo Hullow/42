@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/13 16:03:26 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/15 14:26:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 
 char	*ft_add_string(char const *addition, char const *base);
 char	*ft_end_of_line(char *buf);
+void	*ft_fill_zero(void *s, unsigned int n);
+char	*get_next_line(int fd);
 char	*ft_next_lines(char *buf);
 size_t	ft_strlen(const char *str);
