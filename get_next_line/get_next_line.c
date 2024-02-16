@@ -36,12 +36,13 @@ char	*get_next_line(int fd)
 	ft_fill_zero(end_of_line, ft_strlen(end_of_line));
 	free(end_of_line);
 	printf("after our while(), end_of_line at address %p is \"%s\"\n", end_of_line, end_of_line);
-	printf("after our while(), temp at address %p is \"%s\"\n\n", temp, temp);
 	printf("after our while(), next_lines at address %p is \"%s\"\n\n", next_lines, next_lines);
+	printf("after our while(), temp at address %p is \"%s\"\n\n", temp, temp);
 	// if we can locate a '\n' in temp
 	if ((end_of_line = ft_end_of_line(temp)))
 	{
 		line = ft_add_string(end_of_line, line); // add end_of_line (defined from temp) to line
+		printf("in the if, temp at address %p is \"%s\"\n\n", temp, temp);;
 		printf("in the if, next_lines before redefinition at address %p is \"%s\"\n\n", next_lines, next_lines);
 		next_lines = ft_next_lines(temp); // redefine next_lines to 
 		printf("in the if, next_lines after redefinition at address %p is \"%s\"\n", next_lines, next_lines);
