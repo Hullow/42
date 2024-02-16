@@ -71,6 +71,7 @@
 - delete:
 	- range of lines: `:[start],[end]d`
 	- beginning/rest of line up to cursor: `d0/d$`
+- delete every line containing "printf": `:g/printf/d`
 
 `:[line]co [destination line]`. Or just `:co [destination line]` to  ????
 
