@@ -76,3 +76,7 @@ sets `bar` to 'a.c b.c l.a c.c'
 	- `-r` : to replace or add the specified files to the archive. Creates a new archive file if the archive does not exist
 	- `-c` : create the archive silently (no message to `stderr`)
 	- `-s` : write an object-file index to the archive, or update an existing one. N.b.: the index is used by the compiler to speed-up symbol-lookup inside the library and make sure the order of the symbols in the library don't matter during compilation.
+
+
+## Commands
+- `make -n` : check if relink

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/16 15:27:54 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/19 17:15:04 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_end_of_line(char *buf)
 
 	i = 0;
 	j = 0;
-	while (i < BUFFER_SIZE && buf[i] != '\n') // check if there is a \n in the buffer string
+	while (i < BUFFER_SIZE && buf[i] != '\n' && buf[i]) // check if there is a \n in the buffer string
 		i++;
 	if (buf[i] == '\n')
 	{
@@ -77,16 +77,21 @@ char	*ft_end_of_line(char *buf)
 }
 
 // adapted from ft_bzero (see libft)
+// takes a string s, creates a pointer str to it of length ft_strlen(s), then fill that pointer with '\0', and return it
 void	*ft_fill_zero(void *s, unsigned int n)
 {
 	unsigned char	*str;
+	unsigned int	i;
 
 	str = (unsigned char *) s;
-	while (n > 0)
+	i = 0;
+	if (str)
 	{
-		*str = '\0';
-		str++;
-		n--;
+		while (i <= n)
+		{
+			str[i] = '\0';
+			i++;
+		}
 	}
 	return (str);
 }
@@ -110,17 +115,17 @@ char	*ft_next_lines(char *buf)
 			j++;
 		// printf("\nin ft_next_lines:\nj is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", j, j, buf[j], j, buf[j-1]);
 		// printf("\nin ft_next_lines:\nj is %d and buf[i+j-1] is '%c'\n", j, buf[i+j-1]);
-		output = malloc((j) * sizeof(char));
+		output = malloc((j + 1) * sizeof(char));
 		if (output)
 		{
 			// printf("before the while, j is %d\n", j);
-			output[j - 1] = '\0';
+			output[j] = '\0';
 			// printf("before the while, j is %d, output[j] is '%c'\n", j, output[j]);
-			while (j >= 0)
+			while (j > 0)
 			{
+				j--;
 				output[j] = buf[i + j];
 				// printf("output[%d] is %c (char # %d)\n", j, output[j], output[j]);
-				j--;
 			}
 		}
 		// printf("in ft_next_lines:\noutput is \"%s\"\n", output);
@@ -130,13 +135,17 @@ char	*ft_next_lines(char *buf)
 		return (0);
 }
 
+// adapted for str == NULL
 size_t	ft_strlen(const char *str)
 {
 	int	length;
 
 	length = 0;
-	while (str[length] != 0)
-		length++;
+	if (str)
+	{
+		while (str[length] != 0)
+			length++;
+	}
 	return (length);
 }
 
