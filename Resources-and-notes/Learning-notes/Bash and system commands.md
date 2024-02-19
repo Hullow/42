@@ -86,3 +86,7 @@ to disable a setting: `set no[command]`, e.g. `set noline`
 
 ### File handling
 - `:saveas [newname]` : rename
+
+### Open a program
+- `open -a TextEdit` : opens the TextEdit program
+- `code main.c` : opens a main.c file in VSCode

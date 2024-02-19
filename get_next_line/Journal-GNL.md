@@ -29,3 +29,7 @@
 # 15/2/24
 - Working on issues with "temp"
 - EOF handling
+
+# 19/2/24
+- Worked on issues caused by lack of EOF awareness
+- After having removed EOF handling, brought it back. It solves some issues
