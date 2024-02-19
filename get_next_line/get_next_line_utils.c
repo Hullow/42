@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/15 14:09:18 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/16 15:27:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ char	*ft_next_lines(char *buf)
 	j = 0;
 	while (buf[i] != 0 && buf[i] != '\n') // check if there is a \n in the buffer string
 		i++;
-	// printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
 	if (buf[i++] == '\n')
 	{
 		// printf("\nin ft_next_lines:\ni is %d, buf[%d] is '%c' and buf[%d-1] is '%c'\n", i, i, buf[i], i, buf[i-1]);
@@ -139,4 +138,21 @@ size_t	ft_strlen(const char *str)
 	while (str[length] != 0)
 		length++;
 	return (length);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (src[i] && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+	dst[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

@@ -19,6 +19,7 @@
 - Still reading and taking notes. Watched video on [Memory Layout of C program](https://www.youtube.com/watch?v=0jhQBQcGnuM), [chatted with ChatGPT](https://chat.openai.com/c/ba5844cd-c83f-4e95-aa7c-fa5d01b90ffd#:~:text=Can%20you%20explain%20how%20a%20static%20variable) about Memory layout and concepts associated (stack, heap, call stack, memory segments, tools to visualize all this, etc.)
 - Started coding
 
+(...)
 
 # 13/2/24
 - Actually we do need a static variable
