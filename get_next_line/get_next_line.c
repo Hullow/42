@@ -1,55 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
+/*   Updated: 2024/02/22 17:12:35 by fallan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <stdio.h>
 #include <string.h>
 
 char	*get_next_line(int fd)
 {
+	// too many variable declarations in a function
 	char		*buf;
 	char		*temp = NULL;
 	char		*end_of_line = NULL;
 	char		*line = NULL;
 	static char	*next_lines = "";
 	static int	read_ret = BUFFER_SIZE;
-	
-	buf = malloc(BUFFER_SIZE * sizeof(char)); // allocate memory for the buffer
+
+	buf = malloc(BUFFER_SIZE * sizeof(char));
 	if (!buf)
 		return (NULL);
-	// we want the function to first check if there were next lines to output
-	// else, we want the function to read, unless the EOF was reached (read_ret < BUFFER_SIZE)
-
-	// if there were lines previously read by the function but not returned, point the temp string to those lines
 	if (ft_strlen(next_lines))
 		temp = next_lines;
-
-	// if no lines previously read to return, read BUFFER_SIZE bytes from the file descriptor, into the buffer buf, and set the temp string to buf
-	else if (read_ret == BUFFER_SIZE) // if read_ret has not reached the end of file, i.e. previously read a full buffer (read_ret < BUFFER_SIZE) 
-		read_ret = read(fd, (temp = buf), BUFFER_SIZE);
-	// when we've arrived at the end 
+	else if (read_ret == BUFFER_SIZE)
+		read_ret = read(fd, (temp = buf), BUFFER_SIZE); // make this into a function with read() error handling
 	else
-		return(line);
-	// check if there is an '\n' in temp with ft_end_of_line and assign the return value to end_of_line (without this assignation, it seg faults)
-	// do this while temp contains something (ft_strlen)
-	// if no '\n' (== 0), enter the loop
-	while (((end_of_line = ft_end_of_line(temp)) == 0) && ft_strlen(temp)) // read_ret: if we've got no \n in temp, either buffer or next_lines, we can add to line
+		return (line);
+	while (((end_of_line = ft_end_of_line(temp)) == 0) && ft_strlen(temp)) // no assignment in control structure
 	{
-		line = ft_add_string(temp, line); // add our whole string temp to line (because temp contains something but no '\n')
-		temp = ft_fill_zero(temp, ft_strlen(temp)); // fills temp (which points to buf or next_lines) with zeros => is this really needed ?
+		line = ft_add_string(temp, line);
+		temp = ft_fill_zero(temp, ft_strlen(temp));
 		buf = ft_fill_zero(buf, ft_strlen(buf));
-		if (read_ret == BUFFER_SIZE) // same condition as above
-			read_ret = read(fd, (temp = buf), BUFFER_SIZE); // sets temp to buf and reads more into buf/temp 
+		if (read_ret == BUFFER_SIZE)
+			read_ret = read(fd, (temp = buf), BUFFER_SIZE);
 	}
-	// if there is '\n' in temp (end_of_line) or if we've hit end of file and temp is non empty 
 	if ((end_of_line = ft_end_of_line(temp)) || ((read_ret < BUFFER_SIZE) && (ft_strlen(temp))))
 	{
-		line = ft_add_string(end_of_line, line); // add the characters up to '\n' (== end_of_line string) to line
-		next_lines = ft_next_lines(temp); // redefine next_lines to
-		free(end_of_line);
+		line = ft_add_string(end_of_line, line);
+		next_lines = ft_next_lines(temp); // when to free ?
 	}
 	free(buf);
+	free(end_of_line); // frees malloc from ft_end_of_line
+	free(line); // free malloc from ft_add_string
 	return (line);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+// adapted for str == NULL
+size_t	ft_strlen(const char *str)
+{
+	int	length;
+
+	length = 0;
+	if (str)
+	{
+		while (str[length] != 0)
+			length++;
+	}
+	return (length);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (src[i] && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+	dst[i] = '\0';
+	}
+	return (ft_strlen(src));
+}
+
+/* void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	i;
 
@@ -61,7 +95,7 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-int main() // int argc, char *argv[])
+int main()
 {
 	char	*ret_value;
 
@@ -128,4 +162,4 @@ int main() // int argc, char *argv[])
 	free(buf);
 	return (0);
 }
-
+ */
