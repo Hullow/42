@@ -34,3 +34,17 @@
 - Worked on issues caused by lack of EOF awareness
 - After having removed EOF handling, brought it back. It solves some issues
 - N.b.: might need read error handling, when read returns -1
+
+# 22/2/24
+- Seems like we have a working version for many buffer sizes
+- To do :
+	- test different inputs (texts and file descriptors)
+	- return NULL when nothing to read or in case of error
+	- write a test program (compare desired output to actual output)
+	- handle read() errors
+	- Memory management
+	- Norm
+	- not read all the file ?
+	- hhh
+	- check if it is correct: 
+

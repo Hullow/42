@@ -52,13 +52,13 @@ Another factor is the maximum index value that can be used to access elements in
 ## File descriptor
 - [Wikipedia](https://en.wikipedia.org/wiki/File_descriptor):
 >In Unix and Unix-like computer operating systems, a file descriptor (FD, less frequently fildes) is a process-unique identifier (handle) for a file or other input/output resource, such as a pipe or network socket.
-- A file descriptor is an unsigned integer used by a process to uniquely identify an open file. 
+- A file descriptor is an unsigned integer used by a process to uniquely identify an open file.
 
-
-Now, every process in Unix starts out with three file descriptors predefined:
-File descriptor 0 is standard input.
-File descriptor 1 is standard output.
-File descriptor 2 is standard error.
+- [42 Gitbook](https://42-cursus.gitbook.io/guide/useful-tools/file-descriptors-fd):
+Now, every process in Unix starts out with three file descriptors predefined, i.e. there are 3 standards file descriptors that are automatically added to the file descriptor table. These file descriptors are the standard input/output file descriptor and always have these values :
+0 : this file descriptor represents the stdin (=> standard input, the terminal). This is the file descriptor used when reading user input from the terminal.
+1 : this file descriptor represents the stdout (=> standard output, the terminal). This is the file descriptor used when writing to the terminal.
+2 : this file descriptor represents the stderr (=> standard error output, the terminal). This is the file descriptor used when writing an error to the terminal, the information is written the same way, but a program which logs errors to a file can redirect everything written to the stderr file descriptor to a file. It's managed in another way by the operating system.
 ([Unix system calls - CS360 UTK](https://web.eecs.utk.edu/~huangj/cs360/360/notes/Syscall-Intro/lecture.html))
 
 Example: a [simple version](https://web.eecs.utk.edu/~huangj/cs360/360/notes/Syscall-Intro/simpcat.c) of **cat** can be written as:
@@ -71,7 +71,15 @@ main()
 }
 ```
 
-T
+### Terminology
+- File Descriptor: the index of the File Table Entry in the file descriptor table.
+- File Descriptor Table: an array of File Table Entry, each process gets its own File Descriptor Table.
+- File Table Entry: a structure that contains informations about a file.
+- Global File Table: a system wide table containing all files. (It can't contain all files at once but the operating system will automatically update the table if you request a file that's not in this table).
+
+### How it works
+When you read bytes from a file descriptor, it remembers where in the file it was last time.
+This means, if you read 20 bytes from a file, next time you'll read from the same file descriptor, it will start reading from byte 21. Take a look at the example below.
 
 
 ## Functions

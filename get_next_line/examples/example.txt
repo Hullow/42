@@ -1,0 +1,7 @@
+This is.
+an example text.
+Using open(), read() and printf().
+Will it work all the way ?
+We shall see.
+
+(The end)
