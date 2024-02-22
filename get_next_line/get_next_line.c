@@ -13,12 +13,12 @@ char	*get_next_line(int fd)
 	static int	read_ret = BUFFER_SIZE; // return value of read
 																						 										 										 // // printf("in the beginning of the function, next_lines at address %p is \"%s\"\n\n", next_lines, next_lines);
 																						 										 										 // // printf("\nin the beginning of the function, temp at address %p is \"%s\"\n\n", temp, temp);
-	buf = malloc(BUFFER_SIZE * sizeof(char)); // allocate memory to store the contents of our buffer
+	buf = malloc(BUFFER_SIZE * sizeof(char)); // allocate memory for the buffer
 	if (!buf)
 		return (NULL);
 	
 	// we want the function to first check if there were next lines to output
-	// else, we want the function to read, unless the EOF was
+	// else, we want the function to read, unless the EOF was reached (read_ret < BUFFER_SIZE)
 
 
 	// if there were lines previously read by the function but not returned, point the temp string to those lines
@@ -32,8 +32,8 @@ char	*get_next_line(int fd)
 		// printf("first read: read_ret is %d\n", read_ret);
 	}
 	// when we've arrived at the end 
-	else EDIT HERE !!!
-		return(line); EDIT HERE !!!
+	else
+		return(line);
 																																										// // printf("after our if-else, temp at address %p is \"%s\"\n\n", temp, temp);
 																																										// // printf("before our while(), end_of_line at address %p is \"%s\"\n", end_of_line, end_of_line);
 	// check if there is an '\n' in temp with ft_end_of_line and assign the return value to end_of_line (without this assignation, it seg faults)
@@ -46,23 +46,15 @@ char	*get_next_line(int fd)
 																																										// // printf("while loop - temp address before ft_fill_zero: %p\n", temp);
 		temp = ft_fill_zero(temp, ft_strlen(temp)); // fills temp (which points to buf or next_lines) with zeros => is this really needed ?
 		buf = ft_fill_zero(buf, ft_strlen(buf));
-		if (trigger > 5)
-			// printf("\n__________________________________________________________________________\n^^^^^^^^^^^^^^^^Trigger hit: We are close to the last line^^^^^^^^^^^^^^^^\n__________________________________________________________________________\n");
-
-		// printf("in the while before read(): read_ret is %d\n", read_ret);
 																																										// // printf("while loop - temp address after ft_fill_zero: %p\n", temp);
 		if (read_ret == BUFFER_SIZE) // same condition as above
 			read_ret = read(fd, (temp = buf), BUFFER_SIZE); // sets temp to buf and reads more into buf/temp 
-		
-		// printf("in the while after read(): read_ret is %d\n", read_ret);
-		// if (read_ret < BUFFER_SIZE)
-			// printf("We've hit EOF and temp == buf is %s\n", temp);
 	}
 																																										// // printf("after our while(), end_of_line at address %p is \"%s\"\n", end_of_line, end_of_line);
 																																										// // printf("after our while(), next_lines at address %p is \"%s\"\n\n", next_lines, next_lines);
 																																										// // printf("after our while(), temp at address %p is \"%s\"\n\n", temp, temp);
-	// if we locate a '\n' in temp or if temp is non empty and we've hit end of file
-	if ((end_of_line = ft_end_of_line(temp)) || (ft_strlen(temp) && (read_ret < BUFFER_SIZE)))
+	// if there is '\n' in temp (end_of_line) or if we've hit end of file and temp is non empty 
+	if ((end_of_line = ft_end_of_line(temp)) || ((read_ret < BUFFER_SIZE) && (ft_strlen(temp))))
 	{
 		line = ft_add_string(end_of_line, line); // add the characters up to '\n' (== end_of_line string) to line
 																																										// // printf("in the if, temp at address %p is \"%s\"\n\n", temp, temp);;
@@ -80,7 +72,7 @@ char	*get_next_line(int fd)
 
 int main(void)
 {
-	char path[] = "/Users/francis/42/get_next_line/example.txt";
+	char path[] = "/Users/fallan/42/get_next_line/example.txt";
 	int fd = open(path, O_RDONLY);
 	char *ret_value;
 
@@ -119,39 +111,6 @@ int main(void)
 	ret_value = get_next_line(fd);
 	if (ret_value == NULL) printf("get_next_line returned NULL");
 	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("get_next_line returned NULL");
-	else printf("\nnext line:\n*********************\"%s\"", ret_value);
-
 
 	close(fd);
 	return (0);
