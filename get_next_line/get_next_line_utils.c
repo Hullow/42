@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/22 17:08:01 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/23 15:16:45 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ char	*ft_add_string(char const *addition, char const *base)
 	}
 	return (output);
 }
+
+// //
+// int ft_clean(char *ptr)
+// {
+// 	free(ptr);
+// 	ptr = NULL;
+// 	return (NULL);
+// }
 
 /* takes in a string, checks #BUFFER_SIZE characters, 
 if those characters contain an '\n', 

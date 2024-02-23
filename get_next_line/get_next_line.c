@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/22 17:15:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/23 16:04:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,70 @@
 
 char	*get_next_line(int fd)
 {
-	// too many variable declarations in a function
 	char		*buf;
-	char		*temp = NULL;
-	char		*end_of_line = NULL;
-	char		*line = NULL;
+	char		*end_of_line;
+	char		*line;
 	static char	*next_lines = "";
 	static int	read_ret = BUFFER_SIZE;
 
+	line = NULL;
 	buf = malloc(BUFFER_SIZE * sizeof(char));
 	if (!buf)
 		return (NULL);
 	if (ft_strlen(next_lines))
-		temp = next_lines;
+		buf = next_lines;
 	else if (read_ret == BUFFER_SIZE)
-		read_ret = read(fd, (temp = buf), BUFFER_SIZE); // make this into a function with read() error handling
+		read_ret = read(fd, buf, BUFFER_SIZE); // make this into a function with read() error handling
 	else
 		return (line);
-	while (((end_of_line = ft_end_of_line(temp)) == 0) && ft_strlen(temp)) // no assignment in control structure
+
+	// ft_fill_line: examines our buffer and adds its content to line and looks at it
+	// takes as input 
+	// int	ft_fill_line(buf, line, read_ret)
+	// {
+	// 	char		*end_of_line;
+
+	// 	end_of_line = ft_end_of_line(buf);
+	// 	while (end_of_line == 0 && ft_strlen(buf))
+	// 	{
+	// 		line = ft_add_string(buf, line);
+	// 		buf = ft_fill_zero(buf, ft_strlen(buf));
+	// 		if (read_ret == BUFFER_SIZE)
+	// 			read_ret = read(fd, buf, BUFFER_SIZE);
+	// 	}
+	// 	return (read_ret);
+	// }
+
+	// read_ret = ft_fill_line(buf, line, read_ret);
+
+	
+	while (((end_of_line = ft_end_of_line(buf)) == 0) && ft_strlen(buf)) // no assignment in control structure
 	{
-		line = ft_add_string(temp, line);
-		temp = ft_fill_zero(temp, ft_strlen(temp));
+		line = ft_add_string(buf, line);
 		buf = ft_fill_zero(buf, ft_strlen(buf));
 		if (read_ret == BUFFER_SIZE)
-			read_ret = read(fd, (temp = buf), BUFFER_SIZE);
+			read_ret = read(fd, buf, BUFFER_SIZE);
 	}
-	if ((end_of_line = ft_end_of_line(temp)) || ((read_ret < BUFFER_SIZE) && (ft_strlen(temp))))
+
+	if ((end_of_line = ft_end_of_line(buf)) || ((read_ret < BUFFER_SIZE) && (ft_strlen(buf))))
 	{
 		line = ft_add_string(end_of_line, line);
-		next_lines = ft_next_lines(temp); // when to free ?
+		next_lines = ft_next_lines(buf); // when to free ?
 	}
 	free(buf);
 	free(end_of_line); // frees malloc from ft_end_of_line
-	free(line); // free malloc from ft_add_string
 	return (line);
 }
+
+// compile
+// lldb a.out
+// b main
+// r
+// n
+// n
+// n
+// v
+
 
 // adapted for str == NULL
 size_t	ft_strlen(const char *str)
@@ -83,7 +112,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-/* void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	i;
 
@@ -162,4 +191,3 @@ int main()
 	free(buf);
 	return (0);
 }
- */
