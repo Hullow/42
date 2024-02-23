@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/22 11:48:58 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/23 17:05:38 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 char	*ft_add_string(char const *addition, char const *base);
-char	*ft_end_of_line(char *buf);
+char	*ft_locate_end_of_line(char *buf);
 void	*ft_fill_zero(void *s, unsigned int n);
 char	*get_next_line(int fd);
 char	*ft_next_lines(char *buf);

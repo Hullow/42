@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/23 15:16:45 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/23 17:05:39 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ char	*ft_add_string(char const *addition, char const *base)
 // 	return (NULL);
 // }
 
-/* takes in a string, checks #BUFFER_SIZE characters, 
-if those characters contain an '\n', 
-returns a string of all characters up to that point, otherwise returns 0 */
-char	*ft_end_of_line(char *buf)
+/* looks at #BUFFER_SIZE characters in a string: 
+	- if those characters contain an '\n', 
+	returns a string of all characters up to that point
+	- otherwise, returns 0 */
+char	*ft_locate_end_of_line(char *buf)
 {
 	unsigned int	i;
 	unsigned int	j;
