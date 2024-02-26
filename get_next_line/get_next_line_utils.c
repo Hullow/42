@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/26 11:37:54 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/26 14:45:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_locate_end_of_line(char *buf)
 {
 	unsigned int	i;
 	unsigned int	j;
-	char			*output;
+	char			*output = NULL;
 
 	i = 0;
 	j = 0;
