@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/26 14:49:38 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/26 16:31:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,34 @@
 char	**ft_fill_line(char *buf, char **return_array, int read_ret, int fd)
 {
 	char	*end_of_line;
+	char	*temp = NULL;
 	
 	return_array = malloc (2 * sizeof(char *));
 	if (!return_array)
 		return (NULL);
 	end_of_line = ft_locate_end_of_line(buf);
-	while (end_of_line == 0 && ft_strlen(buf))
+	while (end_of_line == 0 && ft_strlen(buf)) // infinite loop
 	{
 		return_array[1] = ft_add_string(buf, return_array[1]);
 		buf = ft_fill_char(buf, ft_strlen(buf), '\0');
 		if (read_ret == BUFFER_SIZE)
 			read_ret = read(fd, buf, BUFFER_SIZE);
-		end_of_line = ft_locate_end_of_line(buf); // whole issue with '\n' line is here
-		// what do we do with end_of_line ? nothing it seems
+		end_of_line = ft_locate_end_of_line(buf);
 	}
+	temp = return_array[1];
 	if (read_ret > 0) // >= 0 ? // seems to produce a string too long, check
 	{
-		return_array[0] = malloc ((read_ret) * sizeof(char)); 
-		ft_fill_char(return_array[0], read_ret - 1, '1');
+		return_array[0] = malloc ((read_ret + 1) * sizeof(char));
+		if (!(return_array[0]))
+			return (NULL);
+		ft_fill_char(return_array[0], read_ret - 1, '1'); // add a '\0' at the end in ft_fill_char ?gi
 	}
-	return_array[1] = malloc ((ft_strlen(return_array[1]) + 1) * sizeof(char)); // we do it here because we don't know the length before...
+	return_array[1] = malloc ((ft_strlen(temp) + 1) * sizeof(char)); // we do it here because we don't know the length before...
+	if (!return_array[1])
+		return (NULL);
+	if (return_array[1] && temp)
+		ft_strlcpy(return_array[1], temp, ft_strlen(temp) + 1);
 	free(end_of_line);
-	// free(line); ?
 	return (return_array);
 }
 
@@ -75,22 +81,13 @@ char    *get_next_line(int fd)
 	return (line);
 }
 
-
-// compile
-// lldb a.out
-// b main
-// r
-// n
-// n
-// n
-// v
-
-
 // adapted for str == NULL
 size_t	ft_strlen(const char *str)
 {
 	int	length;
 
+	if (!str)
+		return (0);
 	length = 0;
 	if (str)
 	{

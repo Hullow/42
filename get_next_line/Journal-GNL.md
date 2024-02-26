@@ -51,6 +51,40 @@
 
 # 23/2/24
 - Continued work on norm and memory management, cutting the gnl function into smaller pieces to fit 25 lines. Removed the temp variable, it works
--
 
+
+ERROR Copilot:
+
+> GitHub Copilot
+The const char * type in C means that the function promises not to change the contents of the string pointed to by the pointer. It doesn't mean that the string itself can't be changed by other parts of your program, or that the string can't be a null pointer.
+
+If you're getting a "EXC_BAD_ACCESS (code=EXC_I386_GPFLT)" error when calling ft_strlen(), it's likely because you're passing a null pointer (NULL) to ft_strlen(). Your implementation of ft_strlen() correctly checks if str is NULL before trying to access it, so the error must be happening somewhere else.
+
+Without seeing the rest of your code, it's hard to say exactly where the error is occurring. However, here are a few things you could check:
+
+Make sure you're not calling ft_strlen() with a null pointer elsewhere in your code.
+
+Make sure you're not freeing a string and then trying to access it. Once a string has been freed, you can't access it anymore.
+
+Make sure you're not going out of bounds of your strings. If you try to access a character beyond the end of a string, you'll get a "EXC_BAD_ACCESS" error.
+
+Make sure you're not trying to modify a string that was declared as a string literal. String literals are read-only, and trying to modify them will result in a "EXC_BAD_ACCESS" error.
+
+Hullow
+I added
+
+c if (!str) return (0); to my ft_strlen function in get_next_line.c, as you can see. Still the problem persists. Can you help me understand why ?
+
+GitHub Copilot
+The check you added in ft_strlen is a good step, it prevents the function from trying to access memory through a null pointer. However, the "EXC_BAD_ACCESS (code=EXC_I386_GPFLT)" error means that your program is trying to access memory that it doesn't have permission to access. This can happen for a variety of reasons, not just null pointers.
+
+Here are a few other possibilities:
+
+Accessing freed memory: If you're trying to access memory that has already been freed, you'll get this error. Make sure you're not freeing any strings that ft_strlen might be trying to access.
+
+Buffer overflow: If you're trying to access memory beyond the end of an allocated block, you'll get this error. Make sure you're not going past the end of any strings.
+
+Modifying a string literal: In C, string literals are read-only. If you're trying to modify a string literal, you'll get this error. Make sure any strings you're trying to modify are not string literals.
+
+Without seeing the rest of your code, it's hard to say exactly what's causing the error. However, you can use a debugger to help find the issue. If you're using a debugger like gdb, you can run your program until it crashes, then use the backtrace command to see what function the program was in when it crashed. This should give you a clue as to where the problem is.
 

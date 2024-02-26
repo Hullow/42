@@ -13,6 +13,7 @@
 	- [Find when a term existed or was introduced, by commit](https://git-scm.com/book/en/v2/Git-Tools-Searching#:~:text=Simply%20run%20git%20log%20with,%2DL%20%3Agit_deflate_bound%3Azlib.): `git log -S <term> --since=2024-01-01 --oneline
 	- show the content of commits since with a certain name introducing a certain term since a certain date: `git show $(git log -S <term> --since=2024-01-01 --oneline | grep <name> | awk '{print $1}')`
 - Show a file's state n commits before the last commit: `git show HEAD~n:relative/path/to/file` (e.g. `get_next_line/get_next_line.c`)
+- View the whole git folder in a previous commit stage: `git checkout HEAD~n` (`git checkout main/master` to go back)
 
 # Git pull
 - A `pull` is two operations in one:
