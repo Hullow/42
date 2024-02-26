@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/23 17:05:39 by francis          ###   ########.fr       */
+/*   Updated: 2024/02/26 10:28:18 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 // the end_of_line string contains all of the buffer up to the first '\n', or nothing if no '\n' is found
 int	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
-	char		*end_of_line;
+	char	*end_of_line;
+	char	return_array[2];
 
 	end_of_line = ft_locate_end_of_line(buf);
 	while (end_of_line == 0 && ft_strlen(buf))
@@ -31,6 +32,8 @@ int	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 			read_ret = read(fd, buf, BUFFER_SIZE);
 		end_of_line = ft_locate_end_of_line(buf);
 	}
+	return_array[0] = read_ret;
+	return_array[1] = line;
 	return (read_ret);
 }
 
@@ -51,7 +54,8 @@ char	*get_next_line(int fd)
 		read_ret = read(fd, buf, BUFFER_SIZE); // make this into a function with read() error handling
 	else
 		return (line);
-	read_ret = ft_fill_line(buf, line, read_ret, fd);
+	read_ret = (ft_fill_line(buf, line, read_ret, fd))[0];
+	line = (ft_fill_line(buf, line, read_ret, fd))[1];
 	if (ft_locate_end_of_line(buf))
 		line = ft_add_string(ft_locate_end_of_line(buf), line);
 	next_lines = ft_next_lines(buf);

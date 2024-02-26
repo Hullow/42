@@ -36,6 +36,7 @@
 - N.b.: might need read error handling, when read returns -1
 
 # 22/2/24
+- Back to work
 - Seems like we have a working version for many buffer sizes
 - To do :
 	- test different inputs (texts and file descriptors)
@@ -47,4 +48,9 @@
 	- not read all the file ?
 	- hhh
 	- check if it is correct: 
+
+# 23/2/24
+- Continued work on norm and memory management, cutting the gnl function into smaller pieces to fit 25 lines. Removed the temp variable, it works
+-
+
 
