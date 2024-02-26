@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/26 10:28:18 by francis          ###   ########.fr       */
+/*   Updated: 2024/02/26 11:48:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,59 @@
 // takes as input the buffer, the line to modify, and the return value of read (read_ret)
 // returns the read_ret value so that GNL can further evaluate if we've reached EOF of need to read() more
 // the end_of_line string contains all of the buffer up to the first '\n', or nothing if no '\n' is found
-int	ft_fill_line(char *buf, char *line, int read_ret, int fd)
+
+/* int     ft_fill_line(char *buf, char *line, int read_ret, int fd)
+{
+        char            *end_of_line;
+
+        end_of_line = ft_locate_end_of_line(buf);
+        while (end_of_line == 0 && ft_strlen(buf))
+        {
+                line = ft_add_string(buf, line);
+                buf = ft_fill_char(buf, ft_strlen(buf), '\0');
+                if (read_ret == BUFFER_SIZE)
+                        read_ret = read(fd, buf, BUFFER_SIZE);
+                end_of_line = ft_locate_end_of_line(buf);
+        }
+        return (read_ret);
+} */
+
+char	**ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
 	char	*end_of_line;
-	char	return_array[2];
+	char	**return_array = NULL;
+
+	return_array[0] = malloc (200 * sizeof(char)); // size to determine
+	return_array[1] = malloc (200 * sizeof(char)); // size to determine
 
 	end_of_line = ft_locate_end_of_line(buf);
 	while (end_of_line == 0 && ft_strlen(buf))
 	{
 		line = ft_add_string(buf, line);
-		buf = ft_fill_zero(buf, ft_strlen(buf));
+		buf = ft_fill_char(buf, ft_strlen(buf), '\0');
 		if (read_ret == BUFFER_SIZE)
 			read_ret = read(fd, buf, BUFFER_SIZE);
 		end_of_line = ft_locate_end_of_line(buf);
 	}
-	return_array[0] = read_ret;
+	if (read_ret > 0)
+	{
+		printf("ft_fill_line: read_ret is %d\n", read_ret);
+		return_array[0] = malloc ((read_ret) * sizeof(char));
+		ft_fill_char(return_array[0], read_ret - 1, '1');
+	}
+	printf("ft_fill_line: ft_strlen(return_array[0]) = %zu\n", ft_strlen(return_array[0]));
 	return_array[1] = line;
-	return (read_ret);
+	printf("ft_fill_line: ft_strlen(return_array[1]) = %zu\n", ft_strlen(return_array[1]));
+	printf("ft_fill_line: ft_strlen(line) is %zu\n", ft_strlen(line));
+	return (return_array);
 }
 
-char	*get_next_line(int fd)
+char    *get_next_line(int fd)
 {
-	char		*buf;
-	char		*line;
-	static char	*next_lines = "";
-	static int	read_ret = BUFFER_SIZE;
+	char            *buf;
+	char            *line;
+	static char     *next_lines = "";
+	static int      read_ret = BUFFER_SIZE;
 
 	line = NULL;
 	buf = malloc(BUFFER_SIZE * sizeof(char));
@@ -54,14 +82,16 @@ char	*get_next_line(int fd)
 		read_ret = read(fd, buf, BUFFER_SIZE); // make this into a function with read() error handling
 	else
 		return (line);
-	read_ret = (ft_fill_line(buf, line, read_ret, fd))[0];
-	line = (ft_fill_line(buf, line, read_ret, fd))[1];
+	read_ret = ft_strlen(ft_fill_line(buf, line, read_ret, fd)[0]);
+	line = ft_fill_line(buf, line, read_ret, fd)[1];
+	printf("GNL: read_ret is %d\n", read_ret);
 	if (ft_locate_end_of_line(buf))
 		line = ft_add_string(ft_locate_end_of_line(buf), line);
 	next_lines = ft_next_lines(buf);
 	free(buf);
 	return (line);
 }
+
 
 // compile
 // lldb a.out
@@ -129,7 +159,7 @@ int main()
 	if (!buf)
 		return (0);
 
-	char *path_to_example_text = "/Users/francis/42/get_next_line/examples/example.txt";
+	char *path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
 

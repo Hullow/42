@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/23 17:05:39 by francis          ###   ########.fr       */
+/*   Updated: 2024/02/26 11:37:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_locate_end_of_line(char *buf)
 /* adapted from ft_bzero (see libft)
 takes a string s, creates a pointer str to it of length ft_strlen(s), 
 then fills that pointer with '\0', and return it */
-void	*ft_fill_zero(void *s, unsigned int n)
+void	*ft_fill_char(void *s, unsigned int n, char c)
 {
 	unsigned char	*str;
 	unsigned int	i;
@@ -96,7 +96,7 @@ void	*ft_fill_zero(void *s, unsigned int n)
 	{
 		while (i <= n)
 		{
-			str[i] = '\0';
+			str[i] = c;
 			i++;
 		}
 	}
