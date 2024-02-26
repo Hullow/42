@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/26 11:48:13 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/26 13:27:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,14 @@
 // takes as input the buffer, the line to modify, and the return value of read (read_ret)
 // returns the read_ret value so that GNL can further evaluate if we've reached EOF of need to read() more
 // the end_of_line string contains all of the buffer up to the first '\n', or nothing if no '\n' is found
-
-/* int     ft_fill_line(char *buf, char *line, int read_ret, int fd)
-{
-        char            *end_of_line;
-
-        end_of_line = ft_locate_end_of_line(buf);
-        while (end_of_line == 0 && ft_strlen(buf))
-        {
-                line = ft_add_string(buf, line);
-                buf = ft_fill_char(buf, ft_strlen(buf), '\0');
-                if (read_ret == BUFFER_SIZE)
-                        read_ret = read(fd, buf, BUFFER_SIZE);
-                end_of_line = ft_locate_end_of_line(buf);
-        }
-        return (read_ret);
-} */
-
-char	**ft_fill_line(char *buf, char *line, int read_ret, int fd)
+char	**ft_fill_line(char *buf, char **return_array, int read_ret, int fd)
 {
 	char	*end_of_line;
-	char	**return_array = NULL;
-
-	return_array[0] = malloc (200 * sizeof(char)); // size to determine
-	return_array[1] = malloc (200 * sizeof(char)); // size to determine
 
 	end_of_line = ft_locate_end_of_line(buf);
 	while (end_of_line == 0 && ft_strlen(buf))
 	{
-		line = ft_add_string(buf, line);
+		return_array[1] = ft_add_string(buf, return_array[1]);
 		buf = ft_fill_char(buf, ft_strlen(buf), '\0');
 		if (read_ret == BUFFER_SIZE)
 			read_ret = read(fd, buf, BUFFER_SIZE);
@@ -54,25 +33,26 @@ char	**ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	}
 	if (read_ret > 0)
 	{
-		printf("ft_fill_line: read_ret is %d\n", read_ret);
 		return_array[0] = malloc ((read_ret) * sizeof(char));
 		ft_fill_char(return_array[0], read_ret - 1, '1');
 	}
-	printf("ft_fill_line: ft_strlen(return_array[0]) = %zu\n", ft_strlen(return_array[0]));
-	return_array[1] = line;
-	printf("ft_fill_line: ft_strlen(return_array[1]) = %zu\n", ft_strlen(return_array[1]));
-	printf("ft_fill_line: ft_strlen(line) is %zu\n", ft_strlen(line));
+	return_array[1] = malloc ((ft_strlen(return_array[1]) + 1) * sizeof(char));
+	free(end_of_line);
+	// free(line); ?
 	return (return_array);
 }
 
 char    *get_next_line(int fd)
 {
 	char            *buf;
-	char            *line;
 	static char     *next_lines = "";
 	static int      read_ret = BUFFER_SIZE;
+	char			**return_array = NULL;
 
-	line = NULL;
+	return_array = malloc (2 * sizeof(char *));
+	if (!return_array)
+		return (NULL);
+	return_array[1] = NULL;
 	buf = malloc(BUFFER_SIZE * sizeof(char));
 	if (!buf)
 		return (NULL);
@@ -81,15 +61,15 @@ char    *get_next_line(int fd)
 	else if (read_ret == BUFFER_SIZE)
 		read_ret = read(fd, buf, BUFFER_SIZE); // make this into a function with read() error handling
 	else
-		return (line);
-	read_ret = ft_strlen(ft_fill_line(buf, line, read_ret, fd)[0]);
-	line = ft_fill_line(buf, line, read_ret, fd)[1];
-	printf("GNL: read_ret is %d\n", read_ret);
+		return (return_array[1]);
+	return_array = ft_fill_line(buf, return_array, read_ret, fd);
+	read_ret = ft_strlen(return_array[0]);
 	if (ft_locate_end_of_line(buf))
-		line = ft_add_string(ft_locate_end_of_line(buf), line);
+		return_array[1] = ft_add_string(ft_locate_end_of_line(buf), return_array[1]);
 	next_lines = ft_next_lines(buf);
 	free(buf);
-	return (line);
+	// free(return_array);
+	return (return_array[1]);
 }
 
 
@@ -155,7 +135,7 @@ int main()
 	// else printf("\nline from stdin:\"%s\"\n\n", ret_value);
 
 	char *buf;
-	buf = malloc(BUFFER_SIZE * sizeof(char)); // allocate memory for the buffer
+	buf = malloc(10000 * sizeof(char)); // allocate memory for the buffer
 	if (!buf)
 		return (0);
 
@@ -163,12 +143,16 @@ int main()
 
 	int fd = open(path_to_example_text, O_RDONLY);
 
-	read(fd, buf, BUFFER_SIZE);
+	read(fd, buf, 10000);
 	close(fd);
 	printf("Our example file is:\n\n");
 	ft_putstr_fd(buf, 1);
-	printf("\n\nNow let's check out if our get_next_line works on it:\n***********************\n");
-	
+	printf("**************************\n\nNow let's check out if our get_next_line works on it:\n***********************\n");
+
+	buf = malloc(BUFFER_SIZE * sizeof(char)); // allocate memory for the buffer
+	if (!buf)
+		return (0);
+
 	fd = open(path_to_example_text, O_RDONLY);
 	printf("fd is %d\n", fd);
 	ret_value = NULL;
