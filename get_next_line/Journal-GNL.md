@@ -106,3 +106,6 @@ Without seeing the rest of your code, it's hard to say exactly what's causing th
 - Discussion with Copilot on memory errors and good practices (to copy in Computing Notes/C notes)
 
 - **The memory problems seem to arise from using return_array[2] `` => asked Copilot for a solution to return two values of different types from a function, suggested the struct, so I use a struct ! It works now**, but still issues when using -fsanitize=address.
+
+- Doesn't work actually; problems seem to come from my ft_fill_char with buf (see ft_fill_line comment line 29
+ft_strlen

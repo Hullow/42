@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/26 11:37:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/27 17:06:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 15
+#endif
+
+struct	Result {
+	int		read_ret;
+	char	*line;
+};
 
 char	*ft_add_string(char const *addition, char const *base);
 char	*ft_locate_end_of_line(char *buf);

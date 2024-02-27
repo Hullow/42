@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/27 15:58:31 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/27 18:05:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 // takes as input the buffer, the line to modify, and the return value of read (read_ret)
 // returns the read_ret value so that GNL can further evaluate if we've reached EOF of need to read() more
 // the end_of_line string contains all of the buffer up to the first '\n', or nothing if no '\n' is found
-struct	Result {
-	int		read_ret;
-	char	*line;
-};
-
 struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
 	char			*end_of_line;
@@ -31,8 +26,8 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	end_of_line = ft_locate_end_of_line(buf);
 	while (end_of_line == 0 && ft_strlen(buf)) // infinite loop
 	{
-		line = ft_add_string(buf, line);
-		buf = ft_fill_char(buf, ft_strlen(buf), '\0');
+		line = ft_add_string(buf, line); // buf: "open(), read() a�Y", line: "Using "
+		buf = ft_fill_char(buf, BUFFER_SIZE, '\0'); // could cause issues if buf == next_lines ?
 		if (read_ret == BUFFER_SIZE)
 			read_ret = read(fd, buf, BUFFER_SIZE);
 		end_of_line = ft_locate_end_of_line(buf);
@@ -82,7 +77,7 @@ size_t	ft_strlen(const char *str)
 	length = 0;
 	if (str)
 	{
-		while (length < BUFFER_SIZE && str[length] != 0)
+		while (str[length] != 0)
 			length++;
 	}
 	return (length);

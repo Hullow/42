@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/27 16:00:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/27 18:06:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	*ft_fill_char(void *s, unsigned int n, char c)
 	i = 0;
 	if (str)
 	{
-		while (i < n)
+		while (i < BUFFER_SIZE && i < n && str[i])
 		{
 			str[i] = c;
 			i++;
