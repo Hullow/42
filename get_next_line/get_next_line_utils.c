@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/27 14:19:03 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/27 16:00:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ char	*ft_add_string(char const *addition, char const *base)
 		while (i++ < len2)
 			output[i - 1] = base[i - 1];
 		i = 0;
-		while (i++ < len1)
-			output[len2 + i - 1] = addition[i - 1];
-		output[len2 + i + 1 - 1] = '\0';
+		while (i < len1)
+		{
+			output[len2 + i] = addition[i]; // we go to addition[len1 - 1]
+			i++;
+		}
+		output[len2 + i] = '\0';
 	}
 	return (output);
 }
@@ -111,11 +114,13 @@ char	*ft_next_lines(char *buf)
 
 	i = 0;
 	j = 0;
-	while (buf[i] != 0 && buf[i] != '\n')
+	while (buf[i] != '\n' && buf[i] != '\0' && i < (int)ft_strlen(buf))
 		i++;
 	if (buf[i++] == '\n')
 	{
-		while (buf[i + j])
+		if (buf[i + j] == '\0')
+			return (0);
+		while (((i + j) < BUFFER_SIZE) && buf[i + j] != '\0')
 			j++;
 		output = malloc((j + 1) * sizeof(char));
 		if (!output)

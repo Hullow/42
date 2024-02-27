@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/27 14:17:36 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/27 15:58:31 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,30 @@
 // takes as input the buffer, the line to modify, and the return value of read (read_ret)
 // returns the read_ret value so that GNL can further evaluate if we've reached EOF of need to read() more
 // the end_of_line string contains all of the buffer up to the first '\n', or nothing if no '\n' is found
-char	**ft_fill_line(char *buf, char **return_array, int read_ret, int fd)
+struct	Result {
+	int		read_ret;
+	char	*line;
+};
+
+struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
-	char	*end_of_line;
-	char	*temp = NULL;
-	
-	return_array = malloc (2 * sizeof(char *));
-	if (!return_array)
-		return (NULL);
-	return_array[0] = NULL;
-	return_array[1] = NULL;
+	char			*end_of_line;
+	struct Result	result_struct;
+
 	end_of_line = ft_locate_end_of_line(buf);
-	ft_strlen(return_array[1]);
 	while (end_of_line == 0 && ft_strlen(buf)) // infinite loop
 	{
-		return_array[1] = ft_add_string(buf, return_array[1]);
+		line = ft_add_string(buf, line);
 		buf = ft_fill_char(buf, ft_strlen(buf), '\0');
 		if (read_ret == BUFFER_SIZE)
 			read_ret = read(fd, buf, BUFFER_SIZE);
 		end_of_line = ft_locate_end_of_line(buf);
 	}
-	// temp = ft_fill_char(return_array[1]);
-	if (read_ret > 0) // >= 0 ? // seems to produce a string too long, check
-	{
-		return_array[0] = malloc ((read_ret + 1) * sizeof(char));
-		if (!(return_array[0]))
-			return (NULL);
-		ft_fill_char(return_array[0], read_ret - 1, '1'); // add a '\0' at the end in ft_fill_char ?gi
-	}
-	return_array[1] = malloc ((ft_strlen(temp) + 1) * sizeof(char)); // we do it here because we don't know the length before...
-	if (!return_array[1])
-		return (NULL);
-	if (return_array[1] && temp)
-		ft_strlcpy(return_array[1], temp, ft_strlen(temp) + 1);
 	free(end_of_line);
-	return (return_array);
+	result_struct.read_ret = read_ret;
+	result_struct.line = line;
+	// printf("ft_fill_line: result_struct.line is \"%s\"\n", result_struct.line);
+	return (result_struct);
 }
 
 char    *get_next_line(int fd)
@@ -61,7 +50,7 @@ char    *get_next_line(int fd)
 	char            *line;
 	static char     *next_lines = "";
 	static int      read_ret = BUFFER_SIZE;
-	char			**return_array = NULL;
+	struct Result	result_struct;
 
 	line = NULL;
 	buf = malloc(BUFFER_SIZE * sizeof(char));
@@ -73,18 +62,17 @@ char    *get_next_line(int fd)
 		read_ret = read(fd, buf, BUFFER_SIZE); // make this into a function with read() error handling
 	else
 		return (line);
-	return_array = ft_fill_line(buf, return_array, read_ret, fd);
-	read_ret = ft_strlen(return_array[0]);
-	line = return_array[1];
+	result_struct = ft_fill_line(buf, line, read_ret, fd);
+	line = result_struct.line;
+	read_ret = result_struct.read_ret;
 	if (ft_locate_end_of_line(buf))
 		line = ft_add_string(ft_locate_end_of_line(buf), line);
 	next_lines = ft_next_lines(buf);
 	free(buf);
-	free(return_array);
 	return (line);
 }
 
-// adapted for str == NULL
+// adapted for str == NULL && non-null terminated strings (length < BUFFER_SIZE)
 size_t	ft_strlen(const char *str)
 {
 	int	length;
@@ -94,7 +82,7 @@ size_t	ft_strlen(const char *str)
 	length = 0;
 	if (str)
 	{
-		while (str[length] != 0)
+		while (length < BUFFER_SIZE && str[length] != 0)
 			length++;
 	}
 	return (length);
@@ -128,6 +116,8 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
+
+
 
 int main()
 {
@@ -212,3 +202,4 @@ int main()
 	free(buf);
 	return (0);
 }
+
