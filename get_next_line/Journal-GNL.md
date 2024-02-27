@@ -88,3 +88,21 @@ Modifying a string literal: In C, string literals are read-only. If you're tryin
 
 Without seeing the rest of your code, it's hard to say exactly what's causing the error. However, you can use a debugger to help find the issue. If you're using a debugger like gdb, you can run your program until it crashes, then use the backtrace command to see what function the program was in when it crashed. This should give you a clue as to where the problem is.
 
+# 27/2/24
+- Works on ARM/M1 (all buffer sizes) but not Intel iMac (segfaults). Why could that be ? Copilot:
+
+> Different architectures have different ways of handling memory, and what causes a segmentation fault on one might not cause a segmentation fault on another. Here are a few reasons why this might be happening:
+
+> Differences in memory alignment requirements: Some architectures require certain types of data to be aligned on specific boundaries in memory. If your code violates these requirements, it could cause a segmentation fault on one architecture but not on another.
+
+> Differences in how out-of-bounds memory access is handled: Some architectures might allow you to access memory slightly beyond the end of an allocated block, while others will immediately cause a segmentation fault.
+
+> Differences in the default value of uninitialized memory: On some architectures, newly allocated memory is automatically set to zero, while on others it's filled with arbitrary data. If your code relies on memory being initialized to zero, it might work on one architecture but not on another.
+
+> Differences in the size of certain data types: The size of data types like int and long can vary between architectures. If your code makes assumptions about these sizes, it could cause issues on different architectures.
+
+> Without seeing your code, it's hard to say exactly why it's causing a segmentation fault on an Intel machine but not on an M1/ARM machine. However, these are some possible explanations. To debug this, you could use a tool like Valgrind or AddressSanitizer to check for memory errors in your code.
+
+- Discussion with Copilot on memory errors and good practices (to copy in Computing Notes/C notes)
+
+- The memory problems seem to arise from using return_array[2] ``

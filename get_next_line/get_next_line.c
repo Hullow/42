@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/26 16:31:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/27 14:17:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ char	**ft_fill_line(char *buf, char **return_array, int read_ret, int fd)
 	return_array = malloc (2 * sizeof(char *));
 	if (!return_array)
 		return (NULL);
+	return_array[0] = NULL;
+	return_array[1] = NULL;
 	end_of_line = ft_locate_end_of_line(buf);
+	ft_strlen(return_array[1]);
 	while (end_of_line == 0 && ft_strlen(buf)) // infinite loop
 	{
 		return_array[1] = ft_add_string(buf, return_array[1]);
@@ -35,7 +38,7 @@ char	**ft_fill_line(char *buf, char **return_array, int read_ret, int fd)
 			read_ret = read(fd, buf, BUFFER_SIZE);
 		end_of_line = ft_locate_end_of_line(buf);
 	}
-	temp = return_array[1];
+	// temp = ft_fill_char(return_array[1]);
 	if (read_ret > 0) // >= 0 ? // seems to produce a string too long, check
 	{
 		return_array[0] = malloc ((read_ret + 1) * sizeof(char));

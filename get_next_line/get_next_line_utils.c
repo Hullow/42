@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/26 16:29:20 by fallan           ###   ########.fr       */
+/*   Updated: 2024/02/27 14:19:03 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,15 @@ char	*ft_locate_end_of_line(char *buf)
 		i++;
 	if (buf[i] == '\n')
 	{
-		output = malloc((i + 1) * sizeof(char));
-		if (output)
+		output = malloc((i + 2) * sizeof(char));
+		if (!output)
+			return (NULL);
+		while (j <= i && buf[j])
 		{
-			while (j <= i)
-			{
-				output[j] = buf[j];
-				j++;
-			}
-			output[j + 1] = '\0';
+			output[j] = buf[j];
+			j++;
 		}
+		output[j] = '\0';
 		return (output);
 	}
 	else
@@ -94,12 +93,13 @@ void	*ft_fill_char(void *s, unsigned int n, char c)
 	i = 0;
 	if (str)
 	{
-		while (i <= n)
+		while (i < n)
 		{
 			str[i] = c;
 			i++;
 		}
 	}
+	str[i] = '\0';
 	return (str);
 }
 
