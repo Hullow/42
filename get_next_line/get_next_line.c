@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/01 16:47:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/01 17:30:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,19 @@ int	ft_read(int fd, int read_ret, char *buf)
 	return (read_ret);
 }
 
-
 struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
-	char			*end_of_line;
 	struct Result	result_struct;
 
-	// printf("ft_fill_line initial:\n\tbuf:\"%s\"\n\tline:\"%s\"\n\tread_ret:\"%d\"\n", buf, line, read_ret);
-	end_of_line = ft_locate_end_of_line(buf);
-	while (end_of_line == 0 && ft_strlen(buf)) // infinite loop ?
+	while (ft_locate_end_of_line(buf) == 0 && ft_strlen(buf))
 	{
-		// printf("\nft_fill_line within the while() before ft_add_string and ft_fill_char:\n\tbuf:\"%s\"\n\tat address %p\n\n\tline:\"%s\"\n\tat address %p\n", buf, buf, line, line);
-		line = ft_add_string(buf, line); // buf: "open(), read() a�Y", line: "Using "
-		// printf("\nft_fill_line within the while() after ft_add_string and ft_fill_char:\n\tbuf:\"%s\"\n\tat address %p\n\n\tline:\"%s\"\n\tat address %p\n", buf, buf, line, line);
+		line = ft_add_string(buf, ft_locate_end_of_line(buf), line);
 		buf = ft_fill_char(buf, ft_strlen(buf), '\0'); // could cause issues if buf == next_lines ?
-		// printf("&buf {%p} - buf {%p}\n", &buf, buf);
 		read_ret = ft_read(fd, read_ret, buf);
-		end_of_line = ft_locate_end_of_line(buf);
 	}
-	free(end_of_line);
 	result_struct.read_ret = read_ret;
 	result_struct.line = line;
 	result_struct.buf = buf;
-	// printf("\nft_fill_line: result_struct.line is \"%s\"\n", result_struct.line);
 	return (result_struct);
 }
 
@@ -76,16 +66,15 @@ char    *get_next_line(int fd)
 	line = result_struct.line;
 	buf = result_struct.buf;
 	read_ret = result_struct.read_ret;
-	// printf("\nafter_ft_fill_line: line: \"%s\", buf: \"%s\", read_ret: %d\n", line, buf, read_ret);
 	if (ft_locate_end_of_line(buf)) // necessary ?
-		line = ft_add_string(ft_locate_end_of_line(buf), line);
+		line = ft_add_string(buf, ft_locate_end_of_line(buf), line);
 	next_lines = ft_next_lines(buf);
-	free(buf);
+	// free(buf);
 	return (line);
 }
 
 // adapted for str == NULL && non-null terminated strings (length < BUFFER_SIZE)
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	int	length;
 
@@ -100,7 +89,7 @@ size_t	ft_strlen(const char *str)
 	return (length);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	unsigned int	i;
 

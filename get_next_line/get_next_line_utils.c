@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/01 16:44:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/01 17:34:39 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 // if not, return 0 => usable in an if condition
 
 /* ft_strjoin with a free for both input strings */
-char	*ft_add_string(char const *addition, char const *base)
+char	*ft_add_string(char *addition, unsigned int end_of_line, char *base)
 {
 	char			*output;
 	unsigned int	i;
-	unsigned int	len1;
-	unsigned int	len2;
+	unsigned int	base_length;
 
-	len1 = ft_strlen(addition);
-	len2 = ft_strlen(base);
-	output = malloc((len1 + len2 + 2) * sizeof(char));
+	if (end_of_line == 0) //issue here
+		return (base);
+	base_length = ft_strlen(base);
+	output = malloc((base_length + end_of_line + 2) * sizeof(char));
 	if (!output)
 		return (NULL);
 	else
@@ -34,13 +34,15 @@ char	*ft_add_string(char const *addition, char const *base)
 		output[0] = '\0';
 		output = output + 1;
 		i = 0;
-		while (i++ < len2)
+		while (i++ < base_length)
 			output[i - 1] = base[i - 1];
 		i = 0;
-		while (++i <= len1)
-			output[len2 + i - 1] = addition[i - 1];
-		output[len2 + i - 1] = '\0';
+		while (++i <= end_of_line)
+			output[base_length + i - 1] = addition[i - 1];
+		output[base_length + i - 1] = '\0';
 	}
+	if (base_length)
+		free(base);
 	return (output);
 }
 
@@ -56,7 +58,7 @@ char	*ft_add_string(char const *addition, char const *base)
 	- if those characters contain an '\n', 
 	returns a string of all characters up to that point
 	- otherwise, returns 0 */
-char	*ft_locate_end_of_line(char *buf)
+unsigned int	ft_locate_end_of_line(char *buf)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -68,18 +70,7 @@ char	*ft_locate_end_of_line(char *buf)
 	while (i < BUFFER_SIZE && buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
-	{
-		output = malloc((i + 2) * sizeof(char));
-		if (!output)
-			return (NULL);
-		while (j <= i && buf[j])
-		{
-			output[j] = buf[j];
-			j++;
-		}
-		output[j] = '\0';
-		return (output);
-	}
+		return (i);
 	else
 		return (0);
 }
@@ -111,7 +102,6 @@ char	*ft_next_lines(char *buf)
 {
 	int		i;
 	int		j;
-	char	*output;
 
 	i = 0;
 	j = 0;
@@ -119,17 +109,10 @@ char	*ft_next_lines(char *buf)
 		i++;
 	if (buf[i++] == '\n')
 	{
-		if (buf[i + j] == '\0')
+		if (buf[i] == '\0')
 			return (0);
-		while (((i + j) < BUFFER_SIZE) && buf[i + j] != '\0')
-			j++;
-		output = malloc((j + 1) * sizeof(char));
-		if (!output)
-			return (NULL);
-		output[j] = '\0';
-		while (j-- > 0)
-			output[j] = buf[i + j];
-		return (output);
+		else
+			return (buf + i);
 	}
 	else
 		return (0);

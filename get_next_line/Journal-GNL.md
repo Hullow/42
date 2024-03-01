@@ -109,3 +109,12 @@ Without seeing the rest of your code, it's hard to say exactly what's causing th
 
 - Doesn't work actually; problems seem to come from my ft_fill_char with buf (see ft_fill_line comment line 29
 ft_strlen
+
+
+# 1/3/24
+- Finally made it work with the norm. Issue was ft_add_string, solution found to avoid unwanted string concatenation because of malloc was:
+```c
+	output[0] = '\0';
+	output = output + 1;
+```
+- Now, will try with array index instead of so many mallocs
