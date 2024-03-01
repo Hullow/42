@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/27 18:06:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/01 16:44:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,20 @@ char	*ft_add_string(char const *addition, char const *base)
 
 	len1 = ft_strlen(addition);
 	len2 = ft_strlen(base);
-	output = malloc((len1 + len2 + 1) * sizeof(char));
+	output = malloc((len1 + len2 + 2) * sizeof(char));
 	if (!output)
 		return (NULL);
 	else
 	{
+		output[0] = '\0';
+		output = output + 1;
 		i = 0;
 		while (i++ < len2)
 			output[i - 1] = base[i - 1];
 		i = 0;
-		while (i < len1)
-		{
-			output[len2 + i] = addition[i]; // we go to addition[len1 - 1]
-			i++;
-		}
-		output[len2 + i] = '\0';
+		while (++i <= len1)
+			output[len2 + i - 1] = addition[i - 1];
+		output[len2 + i - 1] = '\0';
 	}
 	return (output);
 }
@@ -61,10 +60,11 @@ char	*ft_locate_end_of_line(char *buf)
 {
 	unsigned int	i;
 	unsigned int	j;
-	char			*output = NULL;
+	char			*output;
 
 	i = 0;
 	j = 0;
+	output = NULL;
 	while (i < BUFFER_SIZE && buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
@@ -102,7 +102,8 @@ void	*ft_fill_char(void *s, unsigned int n, char c)
 			i++;
 		}
 	}
-	str[i] = '\0';
+	if (str[i])
+		str[i] = '\0';
 	return (str);
 }
 

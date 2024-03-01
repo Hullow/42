@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/27 18:05:32 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/01 16:47:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,39 @@
 // takes as input the buffer, the line to modify, and the return value of read (read_ret)
 // returns the read_ret value so that GNL can further evaluate if we've reached EOF of need to read() more
 // the end_of_line string contains all of the buffer up to the first '\n', or nothing if no '\n' is found
+int	ft_read(int fd, int read_ret, char *buf)
+{
+	if (read_ret == BUFFER_SIZE)
+	{
+		read_ret = read(fd, buf, BUFFER_SIZE);
+		buf[read_ret] = '\0';
+	}
+	return (read_ret);
+}
+
+
 struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
 	char			*end_of_line;
 	struct Result	result_struct;
 
+	// printf("ft_fill_line initial:\n\tbuf:\"%s\"\n\tline:\"%s\"\n\tread_ret:\"%d\"\n", buf, line, read_ret);
 	end_of_line = ft_locate_end_of_line(buf);
-	while (end_of_line == 0 && ft_strlen(buf)) // infinite loop
+	while (end_of_line == 0 && ft_strlen(buf)) // infinite loop ?
 	{
+		// printf("\nft_fill_line within the while() before ft_add_string and ft_fill_char:\n\tbuf:\"%s\"\n\tat address %p\n\n\tline:\"%s\"\n\tat address %p\n", buf, buf, line, line);
 		line = ft_add_string(buf, line); // buf: "open(), read() a�Y", line: "Using "
-		buf = ft_fill_char(buf, BUFFER_SIZE, '\0'); // could cause issues if buf == next_lines ?
-		if (read_ret == BUFFER_SIZE)
-			read_ret = read(fd, buf, BUFFER_SIZE);
+		// printf("\nft_fill_line within the while() after ft_add_string and ft_fill_char:\n\tbuf:\"%s\"\n\tat address %p\n\n\tline:\"%s\"\n\tat address %p\n", buf, buf, line, line);
+		buf = ft_fill_char(buf, ft_strlen(buf), '\0'); // could cause issues if buf == next_lines ?
+		// printf("&buf {%p} - buf {%p}\n", &buf, buf);
+		read_ret = ft_read(fd, read_ret, buf);
 		end_of_line = ft_locate_end_of_line(buf);
 	}
 	free(end_of_line);
 	result_struct.read_ret = read_ret;
 	result_struct.line = line;
-	// printf("ft_fill_line: result_struct.line is \"%s\"\n", result_struct.line);
+	result_struct.buf = buf;
+	// printf("\nft_fill_line: result_struct.line is \"%s\"\n", result_struct.line);
 	return (result_struct);
 }
 
@@ -48,19 +63,21 @@ char    *get_next_line(int fd)
 	struct Result	result_struct;
 
 	line = NULL;
-	buf = malloc(BUFFER_SIZE * sizeof(char));
+	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
 	if (ft_strlen(next_lines))
 		buf = next_lines;
 	else if (read_ret == BUFFER_SIZE)
-		read_ret = read(fd, buf, BUFFER_SIZE); // make this into a function with read() error handling
+		read_ret = ft_read(fd, read_ret, buf); // make this into a function with read() error handling
 	else
 		return (line);
 	result_struct = ft_fill_line(buf, line, read_ret, fd);
 	line = result_struct.line;
+	buf = result_struct.buf;
 	read_ret = result_struct.read_ret;
-	if (ft_locate_end_of_line(buf))
+	// printf("\nafter_ft_fill_line: line: \"%s\", buf: \"%s\", read_ret: %d\n", line, buf, read_ret);
+	if (ft_locate_end_of_line(buf)) // necessary ?
 		line = ft_add_string(ft_locate_end_of_line(buf), line);
 	next_lines = ft_next_lines(buf);
 	free(buf);
@@ -122,27 +139,28 @@ int main()
 	// if (ret_value == NULL) printf("get_next_line returned NULL");
 	// else printf("\nline from stdin:\"%s\"\n\n", ret_value);
 
-	char *buf;
-	buf = malloc(10000 * sizeof(char)); // allocate memory for the buffer
-	if (!buf)
-		return (0);
+	// char *buf;
+	// buf = malloc(10000 * sizeof(char)); // allocate memory for the buffer
+	// if (!buf)
+	// 	return (0);
+	// sleep(5);
 
 	char *path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
 
-	read(fd, buf, 10000);
-	close(fd);
-	printf("Our example file is:\n\n");
-	ft_putstr_fd(buf, 1);
-	printf("**************************\n\nNow let's check out if our get_next_line works on it:\n***********************\n");
+	// read(fd, buf, 10000);
+	// close(fd);
+	// printf("Our example file is:\n\n");
+	// ft_putstr_fd(buf, 1);
+	// printf("**************************\n\nNow let's check out if our get_next_line works on it:\n***********************\n");
 
-	buf = malloc(BUFFER_SIZE * sizeof(char)); // allocate memory for the buffer
-	if (!buf)
-		return (0);
+	// buf = malloc(BUFFER_SIZE * sizeof(char)); // allocate memory for the buffer
+	// if (!buf)
+	// 	return (0);
 
 	fd = open(path_to_example_text, O_RDONLY);
-	printf("fd is %d\n", fd);
+	// printf("fd is %d\n", fd);
 	ret_value = NULL;
 
 	ret_value = get_next_line(fd);
@@ -194,7 +212,7 @@ int main()
 	else printf("\nnext line:\"%s\"", ret_value);
 
 	close(fd);
-	free(buf);
+	// free(buf);
 	return (0);
 }
 

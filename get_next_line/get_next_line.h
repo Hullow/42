@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/27 17:06:29 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/01 14:39:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 struct	Result {
 	int		read_ret;
 	char	*line;
+	char	*buf;
 };
 
 char	*ft_add_string(char const *addition, char const *base);
