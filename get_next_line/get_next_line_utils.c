@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/03 00:02:59 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:32:40 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,11 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	unsigned int	base_length;
 
 	base_length = ft_strlen(base);
-//	if (base_length == 0) 
-//		return (base);
 	output = malloc((base_length + addition_count + 2) * sizeof(char));
 	if (!output)
 		return (NULL);
 	else
 	{
-		// output[0] = '\0';
-		// output = output + 1;
 		i = 0;
 		while (i++ < base_length)
 			output[i - 1] = base[i - 1];
@@ -41,8 +37,6 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
 	}
-	// if (base_length)
-	//	free(base);
 	return (output);
 }
 
