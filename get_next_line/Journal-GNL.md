@@ -118,3 +118,9 @@ ft_strlen
 	output = output + 1;
 ```
 - Now, will try with array index instead of so many mallocs
+
+# 2/3/24
+- Worked a bit from home in the evening, made some advances with the index approach
+
+# 4/4/23
+- Still working on leaks, rearchitecturing code, kind of annoying at this point.

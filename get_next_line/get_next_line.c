@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/04 15:40:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/04 16:35:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int				ft_read(int fd, char *buf, int read_ret);
 
 char    *get_next_line(int fd)
 {
-	char            *buf;
+	char            *buf = NULL;
 	char            *temp;
 	static char     *next_lines = NULL;
 	static int      read_ret = BUFFER_SIZE;
@@ -48,7 +48,7 @@ char    *get_next_line(int fd)
 		if (temp)
 			free(temp);
 	}
-	next_lines = ft_next_lines(result_struct.buf);
+	next_lines = ft_next_lines(buf);
 	return (result_struct.line);
 }
 
@@ -79,6 +79,31 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	return (result_struct);
 }
 
+
+/* ft_strjoin adaptation */
+char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
+{
+	char			*output;
+	unsigned int	i;
+	unsigned int	base_length;
+
+	base_length = ft_strlen(base);
+	output = malloc((base_length + addition_count + 2) * sizeof(char));
+	if (!output)
+		return (NULL);
+	else
+	{
+		i = 0;
+		while (i++ < base_length)
+			output[i - 1] = base[i - 1];
+		i = 0;
+		while (++i <= addition_count)
+			output[base_length + i - 1] = addition[i - 1];
+		output[base_length + i - 1] = '\0';
+	}
+	return (output);
+}
+
 // NEED: read() error handling
 int	ft_read(int fd, char *buf, int read_ret)
 {
@@ -90,23 +115,23 @@ int	ft_read(int fd, char *buf, int read_ret)
 	return (read_ret);
 }
 
-// adapted for str == NULL && non-null terminated strings (length < BUFFER_SIZE)
-size_t	ft_strlen(char *str)
+/* looks at #BUFFER_SIZE characters in a string: 
+	- if those characters contain an '\n', 
+	returns the index of '\n' + 1 (in case '\n' is at index 0)
+	- otherwise, returns 0 */
+unsigned int	ft_locate_end_of_line(char *buf)
 {
-	int	length;
+	unsigned int	i;
 
-	if (!str)
+	i = 0;
+	while (i < BUFFER_SIZE && buf[i] != '\n' && buf[i])
+		i++;
+	if (buf[i] == '\n')
+		return (i + 1);
+	else
 		return (0);
-	length = 0;
-	if (str)
-	{
-		while (str[length] != 0)
-			length++;
-	}
-	return (length);
 }
 
-/* 
 int main()
 {
 	char	*ret_value;
@@ -173,5 +198,3 @@ int main()
 	// free(buf);
 	return (0);
 }
-
- */
