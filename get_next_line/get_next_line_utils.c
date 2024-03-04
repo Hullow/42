@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/01 17:34:39 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/03 00:02:59 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,32 @@
 // if not, return 0 => usable in an if condition
 
 /* ft_strjoin with a free for both input strings */
-char	*ft_add_string(char *addition, unsigned int end_of_line, char *base)
+char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 {
 	char			*output;
 	unsigned int	i;
 	unsigned int	base_length;
 
-	if (end_of_line == 0) //issue here
-		return (base);
 	base_length = ft_strlen(base);
-	output = malloc((base_length + end_of_line + 2) * sizeof(char));
+//	if (base_length == 0) 
+//		return (base);
+	output = malloc((base_length + addition_count + 2) * sizeof(char));
 	if (!output)
 		return (NULL);
 	else
 	{
-		output[0] = '\0';
-		output = output + 1;
+		// output[0] = '\0';
+		// output = output + 1;
 		i = 0;
 		while (i++ < base_length)
 			output[i - 1] = base[i - 1];
 		i = 0;
-		while (++i <= end_of_line)
+		while (++i <= addition_count)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
 	}
-	if (base_length)
-		free(base);
+	// if (base_length)
+	//	free(base);
 	return (output);
 }
 
@@ -56,21 +56,17 @@ char	*ft_add_string(char *addition, unsigned int end_of_line, char *base)
 
 /* looks at #BUFFER_SIZE characters in a string: 
 	- if those characters contain an '\n', 
-	returns a string of all characters up to that point
+	returns the index of '\n' + 1 (in case '\n' is at index 0)
 	- otherwise, returns 0 */
 unsigned int	ft_locate_end_of_line(char *buf)
 {
 	unsigned int	i;
-	unsigned int	j;
-	char			*output;
 
 	i = 0;
-	j = 0;
-	output = NULL;
 	while (i < BUFFER_SIZE && buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
-		return (i);
+		return (i + 1);
 	else
 		return (0);
 }
@@ -101,10 +97,8 @@ void	*ft_fill_char(void *s, unsigned int n, char c)
 char	*ft_next_lines(char *buf)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	while (buf[i] != '\n' && buf[i] != '\0' && i < (int)ft_strlen(buf))
 		i++;
 	if (buf[i++] == '\n')
