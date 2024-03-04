@@ -2,3 +2,4 @@ program
 .a.out
 .DS_Store
 .obsidian/workspace.json
+*.dSYM
