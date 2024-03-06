@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/04 16:43:30 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/06 16:39:06 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ void	*ft_fill_char(void *s, unsigned int n, char c)
 // abcde.\n\0\n
 // abcde.\n\0ab
 
-char	*ft_next_lines(char *src)
+char	*ft_next_lines(char *dst, char *src)
 {
 	unsigned int	i;
-	char *dst;
+	unsigned int	j;
 
 	i = 0;
-	dst = NULL;
+	j = 0;
 	while (src[i] != '\n' && src[i] && i < BUFFER_SIZE)
 		i++;
 	if (!src[i] || i == BUFFER_SIZE)
@@ -67,12 +67,12 @@ char	*ft_next_lines(char *src)
 			return (0);
 		else
 		{
-			while (src[i] && i < BUFFER_SIZE)
+			while (src[i + j] && i + j < BUFFER_SIZE)
 			{
-				dst[i] = src[i];
-				i++;
+				dst[j] = src[i + j];
+				j++;
 			}
-			dst[i] = '\0';
+			dst[j] = '\0';
 		}
 		return (dst);
 	}

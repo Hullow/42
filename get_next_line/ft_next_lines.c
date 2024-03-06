@@ -37,19 +37,29 @@ char	*ft_next_lines(char *src)
 		return (0);
 }
  */
-char	*ft_next_lines(char *buf)
+char	*ft_next_lines(char *dst, char *src)
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
-	while (buf[i] != '\n' && buf[i] != '\0' && i < BUFFER_SIZE)
+	while (src[i] != '\n' && src[i] && i < BUFFER_SIZE)
 		i++;
-	if (buf[i++] == '\n')
+	if (!src[i] || i == BUFFER_SIZE)
+		return (0);
+	else if (src[i++] == '\n')
 	{
-		if (buf[i] == '\0')
+		if (src[i] == '\0')
 			return (0);
 		else
-			return (buf + i);
+		{
+			while (src[i] && i < BUFFER_SIZE)
+			{
+				dst[i] = src[i];
+				i++;
+			}
+			dst[i] = '\0';
+		}
+		return (dst);
 	}
 	else
 		return (0);
@@ -57,26 +67,28 @@ char	*ft_next_lines(char *buf)
 
 char	*next_line(char *input)
 {
-	static char     *next_lines = NULL;
+	static char     *next_lines;
 	char			*buf;
 	
+	printf("size of next_lines: %zu\n", sizeof(next_lines));
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (0);
 	printf("buf address: {%p}\n", buf);
+	printf("next_lines address: {%p}\n", next_lines);
 	strlcpy(buf, input, BUFFER_SIZE);
 	printf("buf address: {%p}\n", buf);
 
 	next_lines = ft_next_lines(buf);
-	printf("buf: \"%s\"\nnext_lines: \"%s\"\n", buf, next_lines);
-	free(buf);
-	return (next_lines);
+	// printf("buf: \"%s\"\n", buf); // next_lines: \"%s\"\n", buf); //, next_lines);
+	// free(buf);
+	return (0);
 }
 
 int main()
 {
-	char *input = "aaaaaaa\nbbbbbbb";
-	char *input2 = "ccccccc\nddddddd";
+	char *input = "aaaaaaaaa\nbbbbbbbbb";
+	char *input2 = "ccccccccc\nddddddddd";
 	printf("next_line(input) is '\"%s\"\n\n", next_line(input));
 	printf("next_line(input2) is '\"%s\"\n", next_line(input2));
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/04 16:35:00 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/06 16:43:33 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 #include <string.h>
 
 
-struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd);
-int				ft_read(int fd, char *buf, int read_ret);
+
 
 char    *get_next_line(int fd)
 {
 	char            *buf = NULL;
 	char            *temp;
-	static char     *next_lines = NULL;
+	static char     next_lines[BUFFER_SIZE + 1];
 	static int      read_ret = BUFFER_SIZE;
 	struct Result	result_struct;
 
@@ -39,16 +38,15 @@ char    *get_next_line(int fd)
 		return (result_struct.line);
 	result_struct = ft_fill_line(buf, result_struct.line, read_ret, fd);
 	read_ret = result_struct.read_ret;
-	buf = result_struct.buf;
-	if (ft_locate_end_of_line(buf))
+	if (ft_locate_end_of_line(result_struct.buf))
 	{
 		if (result_struct.line)
 			temp = result_struct.line;
-		result_struct.line = ft_add_string(buf, ft_locate_end_of_line(buf), result_struct.line);
-		if (temp)
-			free(temp);
+		result_struct.line = ft_add_string(result_struct.buf, ft_locate_end_of_line(result_struct.buf), result_struct.line);
 	}
-	next_lines = ft_next_lines(buf);
+	if (temp)
+		free(temp);
+	ft_next_lines(next_lines, buf);
 	return (result_struct.line);
 }
 
@@ -78,7 +76,6 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	// NEED: read() error handling: e.g. if (read_ret == -1)
 	return (result_struct);
 }
-
 
 /* ft_strjoin adaptation */
 char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
@@ -136,7 +133,7 @@ int main()
 {
 	char	*ret_value;
 
-	char *path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
+	char *path_to_example_text = "/Users/francis/42/get_next_line/examples/example.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
 
