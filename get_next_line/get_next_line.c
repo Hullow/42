@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/06 16:43:33 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:05:16 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,22 @@
 #include <stdio.h>
 #include <string.h>
 
-
-
-
 char    *get_next_line(int fd)
 {
 	char            *buf = NULL;
 	char            *temp;
-	static char     next_lines[BUFFER_SIZE + 1];
-	static int      read_ret = BUFFER_SIZE;
+	static char     next_lines[BUFFER_SIZE];
+	static int      read_ret = BUFFER_SIZE - 1;
 	struct Result	result_struct;
 
 	result_struct.line = NULL;
 	temp = NULL;
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	buf = malloc((BUFFER_SIZE) * sizeof(char));
 	if (!buf)
 		return (NULL);
 	if (ft_strlen(next_lines))
 		buf = next_lines;
-	else if (read_ret == BUFFER_SIZE)
+	else if (read_ret == BUFFER_SIZE - 1)
 		read_ret = ft_read(fd, buf, read_ret);
 	else
 		return (result_struct.line);
@@ -61,14 +58,23 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	temp = NULL;
 	while (ft_locate_end_of_line(buf) == 0 && ft_strlen(buf))
 	{
-		if (line) // if 
+		// printf("\nft_fill_line:\n");
+		if (line)
+		{
 			temp = line;
+			// printf("\tbefore ft_add_string: line is {%s} at address {%p} -- temp is {%s} at address {%p}\n", line, line, temp, temp);
+		}
 		line = ft_add_string(buf, ft_strlen(buf), line);
-		if (temp)
+		if (temp) // there isn't necessarily a malloc. e.g. 
+		{
+			// printf("\tafter ft_add_string: line is {%s} at address {%p} -- temp is {%s} at address {%p}\n", line, line, temp, temp);
 			free(temp);
+		}
+		// printf("\tafter free:temp address {%p}, and line: {%s}\n", temp, line);
 		temp = NULL;
-		buf = ft_fill_char(buf, ft_strlen(buf), '\0');
+		buf = ft_fill_char(buf, '\0');
 		read_ret = ft_read(fd, buf, read_ret);
+		// printf("buf is: {%s}\n", buf);
 	}
 	result_struct.read_ret = read_ret;
 	result_struct.line = line;
@@ -101,18 +107,19 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	return (output);
 }
 
+/* Only reads if read_ret == BUFFER_SIZE - 1, meaning we are not at the end of the fd */
 // NEED: read() error handling
 int	ft_read(int fd, char *buf, int read_ret)
 {
-	if (read_ret == BUFFER_SIZE)
+	if (read_ret == BUFFER_SIZE - 1)
 	{
-		read_ret = read(fd, buf, BUFFER_SIZE);
+		read_ret = read(fd, buf, BUFFER_SIZE - 1);
 		buf[read_ret] = '\0';
 	}
 	return (read_ret);
 }
 
-/* looks at #BUFFER_SIZE characters in a string: 
+/* looks at #BUFFER_SIZE - 1 characters in a string: 
 	- if those characters contain an '\n', 
 	returns the index of '\n' + 1 (in case '\n' is at index 0)
 	- otherwise, returns 0 */
@@ -121,7 +128,7 @@ unsigned int	ft_locate_end_of_line(char *buf)
 	unsigned int	i;
 
 	i = 0;
-	while (i < BUFFER_SIZE && buf[i] != '\n' && buf[i])
+	while (i < (BUFFER_SIZE - 1) && buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
 		return (i + 1);
@@ -129,11 +136,12 @@ unsigned int	ft_locate_end_of_line(char *buf)
 		return (0);
 }
 
+
 int main()
 {
 	char	*ret_value;
 
-	char *path_to_example_text = "/Users/francis/42/get_next_line/examples/example.txt";
+	char *path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
 

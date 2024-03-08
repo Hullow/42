@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/06 16:39:06 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:06:46 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 /* adapted from ft_bzero (see libft)
 takes a string s, creates a pointer str to it of length ft_strlen(s), 
 then fills that pointer with '\0', and return it */
-void	*ft_fill_char(void *s, unsigned int n, char c)
+void	*ft_fill_char(void *s, char c)
 {
 	unsigned char	*str;
 	unsigned int	i;
@@ -34,7 +34,7 @@ void	*ft_fill_char(void *s, unsigned int n, char c)
 	i = 0;
 	if (str)
 	{
-		while (i < BUFFER_SIZE && i < n && str[i])
+		while (i < (BUFFER_SIZE - 1) && str[i])
 		{
 			str[i] = c;
 			i++;
@@ -57,9 +57,9 @@ char	*ft_next_lines(char *dst, char *src)
 
 	i = 0;
 	j = 0;
-	while (src[i] != '\n' && src[i] && i < BUFFER_SIZE)
+	while (src[i] != '\n' && src[i] && i < (BUFFER_SIZE - 1))
 		i++;
-	if (!src[i] || i == BUFFER_SIZE)
+	if (!src[i] || i == (BUFFER_SIZE - 1))
 		return (0);
 	else if (src[i++] == '\n')
 	{
@@ -67,7 +67,7 @@ char	*ft_next_lines(char *dst, char *src)
 			return (0);
 		else
 		{
-			while (src[i + j] && i + j < BUFFER_SIZE)
+			while (src[i + j] && i + j < (BUFFER_SIZE - 1))
 			{
 				dst[j] = src[i + j];
 				j++;
@@ -80,7 +80,7 @@ char	*ft_next_lines(char *dst, char *src)
 		return (0);
 }
 
-// adapted for str == NULL && non-null terminated strings (length < BUFFER_SIZE)
+// adapted for str == NULL && non-null terminated strings (length < (BUFFER_SIZE - 1))
 size_t	ft_strlen(char *str)
 {
 	int	length;

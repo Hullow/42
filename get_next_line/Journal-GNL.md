@@ -122,5 +122,13 @@ ft_strlen
 # 2/3/24
 - Worked a bit from home in the evening, made some advances with the index approach
 
-# 4/4/23
+# 4/3/24
 - Still working on leaks, rearchitecturing code, kind of annoying at this point.
+
+
+# 8/3/24
+- Need to fix ft_next_lines for '\n\n' case
+- Maybe we have to read (BUFFER_SIZE - 1) characters and null-terminate ? For now, `ft_read` reads BUFFER_SIZE to a buffer buf of size BUFFER_SIZE + 1, and null-terminates
+- Sujet :
+> Votre programme doit compiler avec l’option : -D BUFFER_SIZE=n
+Cette macro définie à l’invocation du compilateur servira à spécifier la taille du buffer lors de vos appels à read() dans votre fonction get_next_line(). Cette valeur sera modifiée lors de la peer-evaluation et par la Moulinette dans le but de tester votre rendu

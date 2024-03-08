@@ -49,7 +49,7 @@ char	*ft_next_lines(char *dst, char *src)
 	else if (src[i++] == '\n')
 	{
 		if (src[i] == '\0')
-			return (0);
+			return (0); // issue if \n\n somewhere
 		else
 		{
 			while (src[i] && i < BUFFER_SIZE)
