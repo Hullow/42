@@ -127,8 +127,15 @@ ft_strlen
 
 
 # 8/3/24
-- Need to fix ft_next_lines for '\n\n' case
-- Maybe we have to read (BUFFER_SIZE - 1) characters and null-terminate ? For now, `ft_read` reads BUFFER_SIZE to a buffer buf of size BUFFER_SIZE + 1, and null-terminates
+- Need to fix ft_next_lines for '\n\n' cas
+- `ft_read`: decided to read (BUFFER_SIZE - 1) characters and null-terminate, instead of reading BUFFER_SIZE to a buffer buf of size BUFFER_SIZE + 1
 - Sujet :
 > Votre programme doit compiler avec l’option : -D BUFFER_SIZE=n
-Cette macro définie à l’invocation du compilateur servira à spécifier la taille du buffer lors de vos appels à read() dans votre fonction get_next_line(). Cette valeur sera modifiée lors de la peer-evaluation et par la Moulinette dans le but de tester votre rendu
+Cette macro définie à l’invocation du compilateur servira à spécifier la **taille du buffer** lors de vos appels à read() dans votre fonction get_next_line(). Cette valeur sera modifiée lors de la peer-evaluation et par la Moulinette dans le but de tester votre rendu
+=> taille du buffer: donc on definit un buffer de taille BUFFER_SIZE et on lit - 1 charactères dedans pour null-terminer.
+
+- `ft_next_lines`: changed return(0) to `return (ft_fill_char(next_lines, `\0`))` because there was no assignation in the function call. This solved the infinite " mo. " issue with BUFFER_SIZE=5.
+
+- `ft_strlen`: we need to fix it in case not null-terminated ?
+=> no because we use it in ft_add_string where we construct a string `line` which can be longer than BUFFER_SIZE. Need to null-terminate instead, which we do systematically in `ft_read` and `ft_next_lines`
+

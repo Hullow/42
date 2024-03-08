@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/08 23:06:46 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/08 23:55:32 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ char	*ft_next_lines(char *dst, char *src)
 	while (src[i] != '\n' && src[i] && i < (BUFFER_SIZE - 1))
 		i++;
 	if (!src[i] || i == (BUFFER_SIZE - 1))
-		return (0);
+		return (ft_fill_char(dst, '\0'));
 	else if (src[i++] == '\n')
 	{
-		if (src[i] == '\0')
-			return (0);
+		if (!src[i])
+			return (ft_fill_char(dst, '\0'));
 		else
 		{
 			while (src[i + j] && i + j < (BUFFER_SIZE - 1))
@@ -77,7 +77,7 @@ char	*ft_next_lines(char *dst, char *src)
 		return (dst);
 	}
 	else
-		return (0);
+		return (NULL);
 }
 
 // adapted for str == NULL && non-null terminated strings (length < (BUFFER_SIZE - 1))

@@ -48,7 +48,7 @@ char	*ft_next_lines(char *dst, char *src)
 		return (0);
 	else if (src[i++] == '\n')
 	{
-		if (src[i] == '\0')
+		if (!src[i])
 			return (0); // issue if \n\n somewhere
 		else
 		{
