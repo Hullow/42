@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/09 00:03:30 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/11 17:38:35 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char    *get_next_line(int fd)
 	read_ret = result_struct.read_ret;
 	if (ft_locate_end_of_line(result_struct.buf))
 	{
-		if (result_struct.line)
-			temp = result_struct.line;
+		// if (result_struct.line)
+		// 	temp = result_struct.line;
 		result_struct.line = ft_add_string(result_struct.buf, ft_locate_end_of_line(result_struct.buf), result_struct.line);
 	}
 	if (temp)
