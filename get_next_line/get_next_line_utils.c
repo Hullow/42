@@ -6,14 +6,14 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/08 23:55:32 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/11 18:59:05 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 
-
+// function:
 // int ft_clean(char *ptr)
 // {
 // 	free(ptr);
@@ -34,7 +34,7 @@ void	*ft_fill_char(void *s, char c)
 	i = 0;
 	if (str)
 	{
-		while (i < (BUFFER_SIZE - 1) && str[i])
+		while (i < (BUFFER_SIZE) && str[i])
 		{
 			str[i] = c;
 			i++;
@@ -45,11 +45,6 @@ void	*ft_fill_char(void *s, char c)
 	return (str);
 }
 
-// abcde.\n\0
-// abcde.\n\n
-// abcde.\n\0\n
-// abcde.\n\0ab
-
 char	*ft_next_lines(char *dst, char *src)
 {
 	unsigned int	i;
@@ -57,9 +52,9 @@ char	*ft_next_lines(char *dst, char *src)
 
 	i = 0;
 	j = 0;
-	while (src[i] != '\n' && src[i] && i < (BUFFER_SIZE - 1))
+	while (src[i] != '\n' && src[i] && i < (BUFFER_SIZE))
 		i++;
-	if (!src[i] || i == (BUFFER_SIZE - 1))
+	if (!src[i] || i == (BUFFER_SIZE))
 		return (ft_fill_char(dst, '\0'));
 	else if (src[i++] == '\n')
 	{
@@ -67,7 +62,7 @@ char	*ft_next_lines(char *dst, char *src)
 			return (ft_fill_char(dst, '\0'));
 		else
 		{
-			while (src[i + j] && i + j < (BUFFER_SIZE - 1))
+			while (src[i + j] && i + j < (BUFFER_SIZE))
 			{
 				dst[j] = src[i + j];
 				j++;
@@ -80,7 +75,24 @@ char	*ft_next_lines(char *dst, char *src)
 		return (NULL);
 }
 
-// adapted for str == NULL && non-null terminated strings (length < (BUFFER_SIZE - 1))
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (src[i] && i < dstsize - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+	dst[i] = '\0';
+	}
+	return (ft_strlen(src));
+}
+
+// adapted for str == NULL && non-null terminated strings (length < (BUFFER_SIZE))
 size_t	ft_strlen(char *str)
 {
 	int	length;
@@ -95,3 +107,4 @@ size_t	ft_strlen(char *str)
 	}
 	return (length);
 }
+

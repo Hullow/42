@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/11 17:38:35 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/11 19:01:32 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,18 @@ char    *get_next_line(int fd)
 {
 	char            *buf = NULL;
 	char            *temp;
-	char            *tempbuf;
 	static char     next_lines[BUFFER_SIZE];
-	static int      read_ret = BUFFER_SIZE - 1;
+	static int      read_ret = BUFFER_SIZE;
 	struct Result	result_struct;
 
-	result_struct.line = NULL;
+	result_struct.line = NULL; // to remove maybe; and later, check for ft_strlen(result_struct.line) when necessary ?
 	temp = NULL;
-	buf = malloc((BUFFER_SIZE) * sizeof(char));
+	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
-	tempbuf = buf;
 	if (ft_strlen(next_lines))
-		buf = next_lines;
-	else if (read_ret == BUFFER_SIZE - 1)
+		ft_strlcpy(buf, next_lines, BUFFER_SIZE + 1);
+	else if (read_ret == BUFFER_SIZE)
 		read_ret = ft_read(fd, buf, read_ret);
 	else
 		return (result_struct.line);
@@ -39,17 +37,14 @@ char    *get_next_line(int fd)
 	read_ret = result_struct.read_ret;
 	if (ft_locate_end_of_line(result_struct.buf))
 	{
-		// if (result_struct.line)
-		// 	temp = result_struct.line;
+		if (result_struct.line)
+			temp = result_struct.line;
 		result_struct.line = ft_add_string(result_struct.buf, ft_locate_end_of_line(result_struct.buf), result_struct.line);
 	}
 	if (temp)
 		free(temp);
-	// printf("before ft_next_lines: next_lines is {%s}\n", next_lines);
 	ft_next_lines(next_lines, buf);
-	// printf("after ft_next_lines: next_lines is {%s}\n", next_lines);
-	if(tempbuf)
-		free(tempbuf);
+	free(buf);
 	return (result_struct.line);
 }
 
@@ -64,23 +59,13 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	temp = NULL;
 	while (ft_locate_end_of_line(buf) == 0 && ft_strlen(buf))
 	{
-		// printf("\nft_fill_line:\n");
 		if (line)
-		{
 			temp = line;
-			// printf("\tbefore ft_add_string: line is {%s} at address {%p} -- temp is {%s} at address {%p}\n", line, line, temp, temp);
-		}
 		line = ft_add_string(buf, ft_strlen(buf), line);
-		if (temp) // there isn't necessarily a malloc. e.g. 
-		{
-			// printf("\tafter ft_add_string: line is {%s} at address {%p} -- temp is {%s} at address {%p}\n", line, line, temp, temp);
+		if (temp) // there isn't necessarily a malloc. e.g.: 
 			free(temp);
-		}
-		// printf("\tafter free:temp address {%p}, and line: {%s}\n", temp, line);
 		temp = NULL;
-		buf = ft_fill_char(buf, '\0');
 		read_ret = ft_read(fd, buf, read_ret);
-		// printf("buf is: {%s}\n", buf);
 	}
 	result_struct.read_ret = read_ret;
 	result_struct.line = line;
@@ -113,19 +98,20 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	return (output);
 }
 
-/* Only reads if read_ret == BUFFER_SIZE - 1, meaning we are not at the end of the fd */
+/* Only reads if read_ret == BUFFER_SIZE, meaning we are not at the end of the fd */
 // NEED: read() error handling
 int	ft_read(int fd, char *buf, int read_ret)
 {
-	if (read_ret == BUFFER_SIZE - 1)
+	ft_fill_char(buf, '\0');
+	if (read_ret == BUFFER_SIZE)
 	{
-		read_ret = read(fd, buf, BUFFER_SIZE - 1);
+		read_ret = read(fd, buf, BUFFER_SIZE);
 		buf[read_ret] = '\0';
 	}
 	return (read_ret);
 }
 
-/* looks at #BUFFER_SIZE - 1 characters in a string: 
+/* looks at #BUFFER_SIZE characters in a string: 
 	- if those characters contain an '\n', 
 	returns the index of '\n' + 1 (in case '\n' is at index 0)
 	- otherwise, returns 0 */
@@ -134,7 +120,7 @@ unsigned int	ft_locate_end_of_line(char *buf)
 	unsigned int	i;
 
 	i = 0;
-	while (i < (BUFFER_SIZE - 1) && buf[i] != '\n' && buf[i])
+	while (i < (BUFFER_SIZE) && buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
 		return (i + 1);
@@ -143,6 +129,11 @@ unsigned int	ft_locate_end_of_line(char *buf)
 }
 
 
+//strings to test:
+// abcde.\n\0
+// abcde.\n\n
+// abcde.\n\0\n
+// abcde.\n\0ab
 int main()
 {
 	char	*ret_value;

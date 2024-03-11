@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/08 22:56:12 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/11 18:59:04 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,4 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd);
 char			*ft_next_lines(char *dst, char *src);
 int				ft_read(int fd, char *buf, int read_ret);
 size_t			ft_strlen(char *str);
-size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t			ft_strlcpy(char *dst, char *src, size_t dstsize);

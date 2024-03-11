@@ -2,22 +2,10 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Launch ft_next_lines",
+			"name": "(lldb) Launch ${workspaceFolder}/a.out",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/get_next_line/ft_next_lines",
-			"args": [],
-			"stopAtEntry": false,
-			"cwd": "${fileDirname}",
-			"environment": [],
-			"externalConsole": false,
-			"MIMode": "lldb"
-		},
-		{
-			"name": "(lldb) Launch ${workspaceFolder}/GNL",
-			"type": "cppdbg",
-			"request": "launch",
-			"program": "${workspaceFolder}/get_next_line/GNL",
+			"program": "${workspaceFolder}/get_next_line/a.out",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
