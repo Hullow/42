@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/12 17:29:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/12 18:40:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*get_next_line(int fd)
 	char			*buf;
 	static char		next_lines[BUFFER_SIZE];
 	static int		read_ret = BUFFER_SIZE;
-	struct Result	result_struct;
+	struct Result	res;
 
-	result_struct.line = NULL;
+	res.line = NULL;
 	buf = NULL;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
@@ -31,24 +31,28 @@ char	*get_next_line(int fd)
 	else if (read_ret == BUFFER_SIZE)
 		read_ret = ft_read(fd, buf, read_ret);
 	else
-		return (result_struct.line);
-	result_struct = ft_fill_line(buf, result_struct.line, read_ret, fd);
-	read_ret = result_struct.read_ret;
-	if (ft_locate_end_of_line(result_struct.buf))
-		result_struct.line = ft_add_string(result_struct.buf, ft_locate_end_of_line(result_struct.buf), result_struct.line);
+	{
+		free(buf);
+		return (res.line);
+	}
+	res = ft_fill_line(buf, res.line, read_ret, fd);
+	read_ret = res.read_ret;
+	if (ft_end_of_line(res.buf))
+		res.line = ft_add_string(res.buf, ft_end_of_line(res.buf), res.line);
 	ft_next_lines(next_lines, buf);
 	free(buf);
-	return (result_struct.line);
+	return (res.line);
 }
 
-// fills the line with characters from the buffer if the buffer doesn't contain a newline character
-// then, reads again into the buffer, and repeats the operations if no newline
-// returns the line, buffer, and last read return value
+/* fills the line with characters from the buffer if the buffer 
+doesn't contain a newline character then, reads again into the buffer
+, and repeats the operations if no newline 
+returns the line, buffer, and last read return value */
 struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
 	struct Result	result_struct;
 
-	while (ft_locate_end_of_line(buf) == 0 && ft_strlen(buf))
+	while (ft_end_of_line(buf) == 0 && ft_strlen(buf))
 	{
 		line = ft_add_string(buf, ft_strlen(buf), line);
 		read_ret = ft_read(fd, buf, read_ret);
@@ -60,6 +64,22 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	return (result_struct);
 }
 
+void	ft_free(char *target, char *temp, int free_now)
+{
+	if (free_now)
+	{
+		if (target)
+			free(target);
+	}
+	else
+	{
+		if (target)
+			temp = target;
+		else
+			temp = NULL;
+	}
+}
+
 /* ft_strjoin adaptation */
 char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 {
@@ -69,14 +89,14 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	unsigned int	base_length;
 
 	temp = NULL;
+	ft_free(base, temp, 0);
 	base_length = ft_strlen(base);
-	if (base)
-		temp = base;
-	output = malloc((base_length + addition_count + 2) * sizeof(char));
+	output = malloc((base_length + addition_count + 1) * sizeof(char));
 	if (!output)
 		return (NULL);
 	else
 	{
+		ft_fill_char(output, '\0');
 		i = 0;
 		while (i++ < base_length)
 			output[i - 1] = base[i - 1];
@@ -85,12 +105,12 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
 	}
-	if (temp)
-		free(temp);
+	ft_free(temp, NULL, 1);
 	return (output);
 }
 
-/* Only reads if read_ret == BUFFER_SIZE, meaning we are not at the end of the fd */
+/* Only reads if read_ret == BUFFER_SIZE, 
+meaning we are not at the end of the fd */
 // NEED: read() error handling
 int	ft_read(int fd, char *buf, int read_ret)
 {
@@ -107,7 +127,7 @@ int	ft_read(int fd, char *buf, int read_ret)
 	- if those characters contain an '\n', 
 	returns the index of '\n' + 1 (in case '\n' is at index 0)
 	- otherwise, returns 0 */
-unsigned int	ft_locate_end_of_line(char *buf)
+unsigned int	ft_end_of_line(char *buf)
 {
 	unsigned int	i;
 
@@ -120,7 +140,6 @@ unsigned int	ft_locate_end_of_line(char *buf)
 		return (0);
 }
 
-
 //strings to test:
 // abcde.\n\0
 // abcde.\n\n
@@ -128,14 +147,13 @@ unsigned int	ft_locate_end_of_line(char *buf)
 // abcde.\n\0ab
 int main()
 {
-	char	*ret_value;
-
-	char *path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
+	char *path_to_example_text;
+	path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
-
 	fd = open(path_to_example_text, O_RDONLY);
-	
+
+	char	*ret_value;
 	ret_value = NULL;
 
 	ret_value = get_next_line(fd);
