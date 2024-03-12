@@ -139,3 +139,10 @@ Cette macro définie à l’invocation du compilateur servira à spécifier la *
 - `ft_strlen`: we need to fix it in case not null-terminated ?
 => no because we use it in ft_add_string where we construct a string `line` which can be longer than BUFFER_SIZE. Need to null-terminate instead, which we do systematically in `ft_read` and `ft_next_lines`
 
+# 11/3/24
+- Debugging, progressing on memory issues
+
+
+# 12/3/24
+- Watched [Oceano's GNL guide](https://www.youtube.com/watch?v=8E9siq7apUU), but only first part where he introduces file descriptors; because his approach uses linked lists.
+- `ps` to list processes including ttys (`tty` to return current tty) `echo hello > /dev/ttys00X` echoes "hello" to another terminal window

@@ -15,7 +15,10 @@
 - Add "*-suffix*" to all file names: ```for file in *; do
 						        mv "$file" "${file%.}-suffix"
 							done```
-- 
+- `ps`: list active processes
+- `lsof -p <PID>`: list files opened by processes
+- `tty` : return user's terminal name
+
 ## Text analysis and processing
 - `wc -c/-m/-l/-w` : count bytes, characters, lines (or all with only `wc`)
 - `head/tail` : print the first/last 10 lines of each FILE (or piped input).

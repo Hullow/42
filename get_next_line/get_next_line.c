@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/11 19:01:32 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/12 15:57:11 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 
 char    *get_next_line(int fd)
 {
-	char            *buf = NULL;
+	char            *buf;
 	char            *temp;
 	static char     next_lines[BUFFER_SIZE];
 	static int      read_ret = BUFFER_SIZE;
 	struct Result	result_struct;
 
 	result_struct.line = NULL; // to remove maybe; and later, check for ft_strlen(result_struct.line) when necessary ?
+	buf = NULL;
 	temp = NULL;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
