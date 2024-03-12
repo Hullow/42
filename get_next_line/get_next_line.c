@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/12 15:57:11 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:29:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 #include <stdio.h>
 #include <string.h>
 
-char    *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char            *buf;
-	char            *temp;
-	static char     next_lines[BUFFER_SIZE];
-	static int      read_ret = BUFFER_SIZE;
+	char			*buf;
+	static char		next_lines[BUFFER_SIZE];
+	static int		read_ret = BUFFER_SIZE;
 	struct Result	result_struct;
 
-	result_struct.line = NULL; // to remove maybe; and later, check for ft_strlen(result_struct.line) when necessary ?
+	result_struct.line = NULL;
 	buf = NULL;
-	temp = NULL;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
@@ -37,13 +35,7 @@ char    *get_next_line(int fd)
 	result_struct = ft_fill_line(buf, result_struct.line, read_ret, fd);
 	read_ret = result_struct.read_ret;
 	if (ft_locate_end_of_line(result_struct.buf))
-	{
-		if (result_struct.line)
-			temp = result_struct.line;
 		result_struct.line = ft_add_string(result_struct.buf, ft_locate_end_of_line(result_struct.buf), result_struct.line);
-	}
-	if (temp)
-		free(temp);
 	ft_next_lines(next_lines, buf);
 	free(buf);
 	return (result_struct.line);
@@ -55,17 +47,10 @@ char    *get_next_line(int fd)
 struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
 	struct Result	result_struct;
-	char			*temp;
 
-	temp = NULL;
 	while (ft_locate_end_of_line(buf) == 0 && ft_strlen(buf))
 	{
-		if (line)
-			temp = line;
 		line = ft_add_string(buf, ft_strlen(buf), line);
-		if (temp) // there isn't necessarily a malloc. e.g.: 
-			free(temp);
-		temp = NULL;
 		read_ret = ft_read(fd, buf, read_ret);
 	}
 	result_struct.read_ret = read_ret;
@@ -79,10 +64,14 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 {
 	char			*output;
+	char			*temp;
 	unsigned int	i;
 	unsigned int	base_length;
 
+	temp = NULL;
 	base_length = ft_strlen(base);
+	if (base)
+		temp = base;
 	output = malloc((base_length + addition_count + 2) * sizeof(char));
 	if (!output)
 		return (NULL);
@@ -96,6 +85,8 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
 	}
+	if (temp)
+		free(temp);
 	return (output);
 }
 
@@ -139,7 +130,7 @@ int main()
 {
 	char	*ret_value;
 
-	char *path_to_example_text = "/Users/francis/42/get_next_line/examples/example.txt";
+	char *path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
 
