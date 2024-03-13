@@ -150,3 +150,5 @@ Cette macro définie à l’invocation du compilateur servira à spécifier la *
 # 13/3/24
 - Trying to solve leaks with ft_free (not sure if that function is necessary actually)
 - Playing with malloc() (see "malloctest.c" file) to understand free() more clearly.
+- Progress made on francinette, we have a pretty much working version but still needs error handling (invalid fd and read errors) + possible heap buffer overflow and Norm violation due to error handling (longer than 25 lines) => need to rearchitecture code
+- Francinette: down to one leak

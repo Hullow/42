@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/11 18:59:05 by francis          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:22:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,19 @@ size_t	ft_strlen(char *str)
 	return (length);
 }
 
+/* looks at #BUFFER_SIZE characters in a string: 
+	- if those characters contain an '\n', 
+	returns the index of '\n' + 1 (in case '\n' is at index 0)
+	- otherwise, returns 0 */
+unsigned int	ft_end_of_line(char *buf)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < (BUFFER_SIZE) && buf[i] != '\n' && buf[i])
+		i++;
+	if (buf[i] == '\n')
+		return (i + 1);
+	else
+		return (0);
+}

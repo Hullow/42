@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/13 09:48:47 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/13 15:32:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,24 @@ char	*get_next_line(int fd)
 	static int		read_ret = BUFFER_SIZE;
 	struct Result	res;
 
+	if (ft_fd_check(fd) == -1)
+		return (NULL);
 	res.line = NULL;
-	buf = NULL;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
-	if (ft_strlen(next_lines))
-		ft_strlcpy(buf, next_lines, BUFFER_SIZE + 1);
-	else if (read_ret == BUFFER_SIZE)
+	if (!ft_strlen(next_lines))
 		read_ret = ft_read(fd, buf, read_ret);
 	else
-	{
-		free(buf);
-		return (res.line);
-	}
+		ft_strlcpy(buf, next_lines, BUFFER_SIZE + 1);
 	res = ft_fill_line(buf, res.line, read_ret, fd);
 	read_ret = res.read_ret;
 	if (ft_end_of_line(res.buf))
 		res.line = ft_add_string(res.buf, ft_end_of_line(res.buf), res.line);
 	ft_next_lines(next_lines, buf);
 	free(buf);
+	if (read_ret == -1)
+		return (NULL);
 	return (res.line);
 }
 
@@ -52,43 +50,20 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
 	struct Result	res;
 
-	while (ft_end_of_line(buf) == 0 && ft_strlen(buf))
+	if (read_ret > 0)
 	{
-		line = ft_add_string(buf, ft_strlen(buf), line);
-		read_ret = ft_read(fd, buf, read_ret);
+		while (ft_end_of_line(buf) == 0 && ft_strlen(buf))
+		{
+			line = ft_add_string(buf, ft_strlen(buf), line);
+			read_ret = ft_read(fd, buf, read_ret);
+			if (read_ret == -1)
+				break;
+		}
 	}
 	res.read_ret = read_ret;
 	res.line = line;
 	res.buf = buf;
-	// NEED: read() error handling: e.g. if (read_ret == -1)
 	return (res);
-}
-
-void	ft_free(char *target, char *temp, int free_now)
-{
-	printf("ft_free: target address is %p, temp address is %p\n", target, temp);
-	if (free_now)
-	{
-		printf("free_now = %d\n", free_now);
-		if (target)
-		{
-			printf(" \"if target:\": there is a target, it will be freed\n");
-			free(target);
-		}
-		else
-			printf(" \"if target:\": there is no target, it won't be freed\n");
-	}
-	else
-	{
-		printf("!free_now\n");
-		if (target)
-		{
-			printf(" \"if target:\": there is a target, it will be freed\n");
-			temp = target;
-		}
-		else
-			printf(" \"if target:\": there is no target, it won't be freed\n");
-	}
 }
 
 /* ft_strjoin adaptation */
@@ -121,47 +96,39 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	return (output);
 }
 
+int	ft_fd_check(int fd)
+{
+	if (fd == -1)
+		return (-1);
+	else
+		return (1);
+}
+
 /* Only reads if read_ret == BUFFER_SIZE, 
 meaning we are not at the end of the fd */
 // NEED: read() error handling
 int	ft_read(int fd, char *buf, int read_ret)
 {
-	ft_fill_char(buf, '\0');
-	if (read_ret == BUFFER_SIZE)
-	{
-		read_ret = read(fd, buf, BUFFER_SIZE);
+	read_ret = read(fd, buf, BUFFER_SIZE);
+	if (read_ret > -1)
 		buf[read_ret] = '\0';
-	}
+	if (read_ret == -1)
+		ft_fill_char(buf, '\0');
 	return (read_ret);
 }
 
-/* looks at #BUFFER_SIZE characters in a string: 
-	- if those characters contain an '\n', 
-	returns the index of '\n' + 1 (in case '\n' is at index 0)
-	- otherwise, returns 0 */
-unsigned int	ft_end_of_line(char *buf)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < (BUFFER_SIZE) && buf[i] != '\n' && buf[i])
-		i++;
-	if (buf[i] == '\n')
-		return (i + 1);
-	else
-		return (0);
-}
-
-/*
 //strings to test:
 // abcde.\n\0
 // abcde.\n\n
 // abcde.\n\0\n
 // abcde.\n\0ab
+
+/*
+#include <fcntl.h>
 int main()
 {
 	char *path_to_example_text;
-	path_to_example_text = "/Users/fallan/42/get_next_line/examples/example.txt";
+	path_to_example_text = "/Users/fallan/42/get_next_line/examples/example2.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
 	fd = open(path_to_example_text, O_RDONLY);
