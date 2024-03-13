@@ -146,3 +146,7 @@ Cette macro définie à l’invocation du compilateur servira à spécifier la *
 # 12/3/24
 - Watched [Oceano's GNL guide](https://www.youtube.com/watch?v=8E9siq7apUU), but only first part where he introduces file descriptors; because his approach uses linked lists.
 - `ps` to list processes including ttys (`tty` to return current tty) `echo hello > /dev/ttys00X` echoes "hello" to another terminal window
+
+# 13/3/24
+- Trying to solve leaks with ft_free (not sure if that function is necessary actually)
+- Playing with malloc() (see "malloctest.c" file) to understand free() more clearly.

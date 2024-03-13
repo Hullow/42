@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/12 18:40:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/13 09:48:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,44 @@ doesn't contain a newline character then, reads again into the buffer
 returns the line, buffer, and last read return value */
 struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
-	struct Result	result_struct;
+	struct Result	res;
 
 	while (ft_end_of_line(buf) == 0 && ft_strlen(buf))
 	{
 		line = ft_add_string(buf, ft_strlen(buf), line);
 		read_ret = ft_read(fd, buf, read_ret);
 	}
-	result_struct.read_ret = read_ret;
-	result_struct.line = line;
-	result_struct.buf = buf;
+	res.read_ret = read_ret;
+	res.line = line;
+	res.buf = buf;
 	// NEED: read() error handling: e.g. if (read_ret == -1)
-	return (result_struct);
+	return (res);
 }
 
 void	ft_free(char *target, char *temp, int free_now)
 {
+	printf("ft_free: target address is %p, temp address is %p\n", target, temp);
 	if (free_now)
 	{
+		printf("free_now = %d\n", free_now);
 		if (target)
+		{
+			printf(" \"if target:\": there is a target, it will be freed\n");
 			free(target);
+		}
+		else
+			printf(" \"if target:\": there is no target, it won't be freed\n");
 	}
 	else
 	{
+		printf("!free_now\n");
 		if (target)
+		{
+			printf(" \"if target:\": there is a target, it will be freed\n");
 			temp = target;
+		}
 		else
-			temp = NULL;
+			printf(" \"if target:\": there is no target, it won't be freed\n");
 	}
 }
 
@@ -89,14 +100,14 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	unsigned int	base_length;
 
 	temp = NULL;
-	ft_free(base, temp, 0);
 	base_length = ft_strlen(base);
+	if (base)
+		temp = base;
 	output = malloc((base_length + addition_count + 1) * sizeof(char));
 	if (!output)
 		return (NULL);
 	else
 	{
-		ft_fill_char(output, '\0');
 		i = 0;
 		while (i++ < base_length)
 			output[i - 1] = base[i - 1];
@@ -105,7 +116,8 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
 	}
-	ft_free(temp, NULL, 1);
+	if (temp)
+		free(temp);
 	return (output);
 }
 
@@ -140,6 +152,7 @@ unsigned int	ft_end_of_line(char *buf)
 		return (0);
 }
 
+/*
 //strings to test:
 // abcde.\n\0
 // abcde.\n\n
@@ -269,3 +282,5 @@ int main()
 	close(fd);
 	return (0);
 }
+
+*/

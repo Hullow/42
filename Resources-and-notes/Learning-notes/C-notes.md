@@ -16,6 +16,7 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 ## Memory management
 ### [Dynamic memory allocation](https://www.geeksforgeeks.org/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/)
 - A procedure in which the size of a data structure (like an array) is changed during runtime.
+- Memory allocation is implementation defined, i.e. it depends on the compiler version. Hence, there is no standard method or procedure to check if a given pointer points to dynamically allocated memory.
 
 ## Variables
 - Constant variables: in CAPITALS by convention
