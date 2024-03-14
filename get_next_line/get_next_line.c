@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/14 16:23:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/14 18:28:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 char	*get_next_line(int fd)
 {
 	char			*buf;
+	char			*temp;
 	static char		next_lines[BUFFER_SIZE];
 	static int		read_ret = BUFFER_SIZE;
 	struct Result	res;
@@ -33,11 +34,17 @@ char	*get_next_line(int fd)
 		ft_strlcpy(buf, next_lines, BUFFER_SIZE + 1);
 	res = ft_fill_line(buf, res.line, read_ret, fd);
 	read_ret = res.read_ret;
+	temp = res.line;
 	if (ft_end_of_line(res.buf))
+	{
+		temp = NULL;
 		res.line = ft_add_string(res.buf, ft_end_of_line(res.buf), res.line);
+	}
 	ft_next_lines(next_lines, buf);
 	// printf("get_next_line(int fd): res.line is {%s} at address {%p}\n", res.line, res.line);
 	free(buf);
+	if (temp)
+		free(temp);
 	if (read_ret == -1)
 		return (NULL);
 	return (res.line);
@@ -67,7 +74,12 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 	return (res);
 }
 
-/* ft_strjoin adaptation */
+/* ft_strjoin adaptation 
+* allocates enough space for our two strings and concatenates them in the new string
+* free() is done either in our ft_fill_line while() loop, or in the main if this is 
+* the last ft_add_string call by the get_next_line function
+*
+*/
 char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 {
 	char			*output;
@@ -79,7 +91,7 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	base_length = ft_strlen(base);
 	if (base)
 		temp = base;
-	output = malloc((base_length + addition_count + 1) * sizeof(char));
+	output = malloc((base_length + addition_count + 2) * sizeof(char));
 	if (!output)
 	{
 		free(output);
@@ -178,75 +190,15 @@ int	ft_read(int fd, char *buf, int read_ret)
 // 		ret_value = NULL;
 // 	}
 
-// 	// ret_value = get_next_line(fd);
-// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-// 	// else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-// 	// if (ret_value)
-// 	// {
-// 	// 	free(ret_value);
-// 	// 	ret_value = NULL;
-// 	// }
-
-// 	// ret_value = get_next_line(fd);
-// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-// 	// else printf("\nnext line:\"%s\"", ret_value);
-
-// 	// if (ret_value)
-// 	// {
-// 	// 	free(ret_value);
-// 	// 	ret_value = NULL;
-// 	// }
-
-// 	// ret_value = get_next_line(fd);
-// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-// 	// else printf("\nnext line:\"%s\"", ret_value);
-
-// 	// if (ret_value)
-// 	// {
-// 	// 	free(ret_value);
-// 	// 	ret_value = NULL;
-// 	// }
-
-// 	// ret_value = get_next_line(fd);
-// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-// 	// else printf("\nnext line:\"%s\"", ret_value);
-
-// 	// if (ret_value)
-// 	// {
-// 	// 	free(ret_value);
-// 	// 	ret_value = NULL;
-// 	// }
-
-// 	// ret_value = get_next_line(fd);
-// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-// 	// else printf("\nnext line:\"%s\"", ret_value);
-
-// 	// if (ret_value)
-// 	// {
-// 	// 	free(ret_value);
-// 	// 	ret_value = NULL;
-// 	// }
-
-// 	// ret_value = get_next_line(fd);
-// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-// 	// else printf("\nnext line:\"%s\"", ret_value);
-
-// 	// if (ret_value)
-// 	// {
-// 	// 	free(ret_value);
-// 	// 	ret_value = NULL;
-// 	// }
-
-// 	// ret_value = get_next_line(fd);
-// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-// 	// else printf("\nnext line:\"%s\"", ret_value);
-
-// 	// if (ret_value)
-// 	// {
-// 	// 	free(ret_value);
-// 	// 	ret_value = NULL;
-// 	// }
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
 // 	close(fd);
 // 	return (0);

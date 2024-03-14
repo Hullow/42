@@ -152,3 +152,8 @@ Cette macro définie à l’invocation du compilateur servira à spécifier la *
 - Playing with malloc() (see "malloctest.c" file) to understand free() more clearly.
 - Progress made on francinette, we have a pretty much working version but still needs error handling (invalid fd and read errors) + possible heap buffer overflow and Norm violation due to error handling (longer than 25 lines) => need to rearchitecture code
 - Francinette: down to one leak
+
+# 14/3/24
+- Debugging, still unable to solve or even understand this leak issue with 
+francinette - fsoares - read_error - BUFFER_SIZE=10 - input size: 10 characters + \n * 4
+- tried to return another malloc-ed string and strlcpy res.line to it + free(res.line) => same issue 
