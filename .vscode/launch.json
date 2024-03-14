@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/get_next_line/a.out",
 			"args": [],
-			"stopAtEntry": false,
+			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/13 15:22:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/14 14:05:40 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ int				ft_read(int fd, char *buf, int read_ret);
 size_t			ft_strlen(char *str);
 size_t			ft_strlcpy(char *dst, char *src, size_t dstsize);
 void			ft_free(char *target, char *temp, int free_now);
-int				ft_fd_check(int fd);

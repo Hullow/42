@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/13 15:32:59 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/14 14:12:10 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ char	*get_next_line(int fd)
 	static int		read_ret = BUFFER_SIZE;
 	struct Result	res;
 
-	if (ft_fd_check(fd) == -1)
+	if (fd == -1)
 		return (NULL);
-	res.line = NULL;
+	res.line = NULL ;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
@@ -96,14 +96,6 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	return (output);
 }
 
-int	ft_fd_check(int fd)
-{
-	if (fd == -1)
-		return (-1);
-	else
-		return (1);
-}
-
 /* Only reads if read_ret == BUFFER_SIZE, 
 meaning we are not at the end of the fd */
 // NEED: read() error handling
@@ -123,12 +115,13 @@ int	ft_read(int fd, char *buf, int read_ret)
 // abcde.\n\0\n
 // abcde.\n\0ab
 
-/*
+
 #include <fcntl.h>
 int main()
 {
 	char *path_to_example_text;
-	path_to_example_text = "/Users/fallan/42/get_next_line/examples/example2.txt";
+	// path_to_example_text = "/Users/fallan/42/get_next_line/examples/example2.txt";
+	path_to_example_text = "/Users/fallan/francinette/tests/get_next_line/fsoares/read_error.txt";
 
 	int fd = open(path_to_example_text, O_RDONLY);
 	fd = open(path_to_example_text, O_RDONLY);
@@ -249,5 +242,3 @@ int main()
 	close(fd);
 	return (0);
 }
-
-*/
