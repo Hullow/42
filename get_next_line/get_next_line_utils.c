@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/13 15:22:54 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/14 16:23:08 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ unsigned int	ft_end_of_line(char *buf)
 	while (i < (BUFFER_SIZE) && buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
-		return (i + 1);
+			return (i + 1);
 	else
 		return (0);
 }

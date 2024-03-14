@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/14 14:12:10 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/14 16:23:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 
 	if (fd == -1)
 		return (NULL);
-	res.line = NULL ;
+	res.line = NULL;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
@@ -36,6 +36,7 @@ char	*get_next_line(int fd)
 	if (ft_end_of_line(res.buf))
 		res.line = ft_add_string(res.buf, ft_end_of_line(res.buf), res.line);
 	ft_next_lines(next_lines, buf);
+	// printf("get_next_line(int fd): res.line is {%s} at address {%p}\n", res.line, res.line);
 	free(buf);
 	if (read_ret == -1)
 		return (NULL);
@@ -80,19 +81,27 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 		temp = base;
 	output = malloc((base_length + addition_count + 1) * sizeof(char));
 	if (!output)
-		return (NULL);
+	{
+		free(output);
+		output = NULL;
+		return (0);
+	}
 	else
 	{
 		i = 0;
 		while (i++ < base_length)
 			output[i - 1] = base[i - 1];
 		i = 0;
-		while (++i <= addition_count)
+		while (i++ < addition_count)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
+		// printf("\nft_add_string: output: {%s} && address: {%p}\n", output, output);
 	}
 	if (temp)
+	{
+		// printf("ft_add_string: temp is {%p} at address: {%p}\n", temp, temp);
 		free(temp);
+	}
 	return (output);
 }
 
@@ -116,129 +125,129 @@ int	ft_read(int fd, char *buf, int read_ret)
 // abcde.\n\0ab
 
 
-#include <fcntl.h>
-int main()
-{
-	char *path_to_example_text;
-	// path_to_example_text = "/Users/fallan/42/get_next_line/examples/example2.txt";
-	path_to_example_text = "/Users/fallan/francinette/tests/get_next_line/fsoares/read_error.txt";
+// #include <fcntl.h>
+// int main()
+// {
+// 	char *path_to_example_text;
+// 	// path_to_example_text = "/Users/fallan/42/get_next_line/examples/example2.txt";
+// 	path_to_example_text = "/Users/fallan/francinette/tests/get_next_line/fsoares/read_error.txt";
 
-	int fd = open(path_to_example_text, O_RDONLY);
-	fd = open(path_to_example_text, O_RDONLY);
+// 	int fd = open(path_to_example_text, O_RDONLY);
+// 	fd = open(path_to_example_text, O_RDONLY);
 
-	char	*ret_value;
-	ret_value = NULL;
+// 	char	*ret_value;
+// 	ret_value = NULL;
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	// ret_value = get_next_line(fd);
+// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	// else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	// if (ret_value)
+// 	// {
+// 	// 	free(ret_value);
+// 	// 	ret_value = NULL;
+// 	// }
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	// ret_value = get_next_line(fd);
+// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	// else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	// if (ret_value)
+// 	// {
+// 	// 	free(ret_value);
+// 	// 	ret_value = NULL;
+// 	// }
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	// ret_value = get_next_line(fd);
+// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	// else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	// if (ret_value)
+// 	// {
+// 	// 	free(ret_value);
+// 	// 	ret_value = NULL;
+// 	// }
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	// ret_value = get_next_line(fd);
+// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	// else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	// if (ret_value)
+// 	// {
+// 	// 	free(ret_value);
+// 	// 	ret_value = NULL;
+// 	// }
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	// ret_value = get_next_line(fd);
+// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	// else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	// if (ret_value)
+// 	// {
+// 	// 	free(ret_value);
+// 	// 	ret_value = NULL;
+// 	// }
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	// ret_value = get_next_line(fd);
+// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	// else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	// if (ret_value)
+// 	// {
+// 	// 	free(ret_value);
+// 	// 	ret_value = NULL;
+// 	// }
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	// ret_value = get_next_line(fd);
+// 	// if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	// else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	// if (ret_value)
+// 	// {
+// 	// 	free(ret_value);
+// 	// 	ret_value = NULL;
+// 	// }
 
-	close(fd);
-	return (0);
-}
+// 	close(fd);
+// 	return (0);
+// }
