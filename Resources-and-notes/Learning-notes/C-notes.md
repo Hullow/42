@@ -213,6 +213,9 @@ int main()
 - **Headers file location on OS X**:
 /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreFoundation.framework/Headers/CoreFoundation.h
 
+- Nested ifndef (Norm/Norminette Header syntax): see Github issue [here](https://github.com/42School/norminette/issues/94) for example
+
+
 ## [Macros](https://gcc.gnu.org/onlinedocs/cpp/Macros.html)
 A fragment of code which has been given a name. Using the name replaces it with the code. Two kinds: ***object-like***: resemble data objects and ***function-like***: resemble function calls
 

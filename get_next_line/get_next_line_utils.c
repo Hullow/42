@@ -6,11 +6,28 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/15 14:54:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:38:43 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/* looks at #BUFFER_SIZE characters in a string: 
+	- if those characters contain an '\n', 
+	returns the index of '\n' + 1 (in case '\n' is at index 0)
+	- otherwise, returns 0 */
+unsigned int	ft_end_of_line(char *buf)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < (BUFFER_SIZE) && buf[i] != '\n' && buf[i])
+		i++;
+	if (buf[i] == '\n')
+		return (i + 1);
+	else
+		return (0);
+}
 
 /* adapted from ft_bzero (see libft)
 takes a string s, creates a pointer str to it of length ft_strlen(s), 
@@ -80,10 +97,7 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-/*
-* adapted for str == NULL &&
-* non-null terminated strings (length < (BUFFER_SIZE))
-*/
+/* adapted for str == NULL*/
 size_t	ft_strlen(char *str)
 {
 	int	length;
@@ -97,21 +111,4 @@ size_t	ft_strlen(char *str)
 			length++;
 	}
 	return (length);
-}
-
-/* looks at #BUFFER_SIZE characters in a string: 
-	- if those characters contain an '\n', 
-	returns the index of '\n' + 1 (in case '\n' is at index 0)
-	- otherwise, returns 0 */
-unsigned int	ft_end_of_line(char *buf)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < (BUFFER_SIZE) && buf[i] != '\n' && buf[i])
-		i++;
-	if (buf[i] == '\n')
-		return (i + 1);
-	else
-		return (0);
 }

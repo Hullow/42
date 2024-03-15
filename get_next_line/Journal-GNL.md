@@ -162,3 +162,6 @@ francinette - fsoares - read_error - BUFFER_SIZE=10 - input size: 10 characters 
 - Put my end-of-line filling code in ft_fill_line
 - For some reason, the free() code needs to be in ft_add_string; more leaks if it is in ft_fill_line for some reason.
 - Could create a ft_free function after all. We'll see
+- FINALLY: needed a free in the particular case of read_error (read_ret == -1):
+Found this after discussing it with tfrily: for next time => what is my problem ? Try to tackle the problem conceptually instead of messing around for ever
+- Header file norminette shenanigans...

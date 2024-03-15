@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/15 14:59:21 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:45:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	char			*buf;
 	static char		next_lines[BUFFER_SIZE];
 	static int		read_ret = BUFFER_SIZE;
-	struct Result	res;
+	struct s_result	res;
 
 	if (fd == -1)
 		return (NULL);
@@ -51,9 +51,9 @@ reads again into the buffer,
 * the characters leading to that
 * newline (including the newline) are added to the line 
 * returns the line, buffer, and last read return value */
-struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
+struct s_result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
-	struct Result	res;
+	struct s_result	res;
 
 	if (read_ret > 0)
 	{
@@ -74,10 +74,10 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 }
 
 /* ft_strjoin adaptation 
-* allocates enough space for our two strings and 
-* concatenates them in the new string * free() is 
-* done either in our ft_fill_line while() loop, 
-* or in the main if this is 
+* Allocates enough space for our two strings and 
+* concatenates them in the new string.
+* free() is executed either in our ft_fill_line 
+* while() loop, or in the main if this is 
 * the last ft_add_string call by the get_next_line function */
 char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 {
