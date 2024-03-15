@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/15 14:22:34 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:59:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 char	*get_next_line(int fd)
 {
 	char			*buf;
-	// char			*temp;
 	static char		next_lines[BUFFER_SIZE];
 	static int		read_ret = BUFFER_SIZE;
 	struct Result	res;
 
 	if (fd == -1)
 		return (NULL);
+	res.line = NULL;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
@@ -31,25 +31,27 @@ char	*get_next_line(int fd)
 		read_ret = ft_read(fd, buf, read_ret);
 	else
 		ft_strlcpy(buf, next_lines, BUFFER_SIZE + 1);
-	res = ft_fill_line(buf, NULL, read_ret, NULL, fd);
+	res = ft_fill_line(buf, NULL, read_ret, fd);
 	read_ret = res.read_ret;
 	ft_next_lines(next_lines, buf);
-	// printf("get_next_line(int fd): res.line is {%s} at address {%p}\n", res.line, res.line);
 	free(buf);
-	if (res.temp)
-		free(res.temp);
 	if (read_ret == -1)
+	{
+		ft_free(res.line);
 		return (NULL);
+	}
 	return (res.line);
 }
 
-/* fills the line with characters from the buffer if the buffer 
-* doesn't contain a newline character then, reads again into the buffer,
+/* fills the line with characters from the buffer
+* if the buffer doesn't contain a newline character then, 
+reads again into the buffer,
 * and repeats the operations if no newline.
-* If a newline character is found in the buffer buf, the characters leading to that
+* If a newline character is found in the buffer buf, 
+* the characters leading to that
 * newline (including the newline) are added to the line 
 * returns the line, buffer, and last read return value */
-struct Result	ft_fill_line(char *buf, char *line, int read_ret, char *temp, int fd)
+struct Result	ft_fill_line(char *buf, char *line, int read_ret, int fd)
 {
 	struct Result	res;
 
@@ -60,30 +62,23 @@ struct Result	ft_fill_line(char *buf, char *line, int read_ret, char *temp, int 
 			line = ft_add_string(buf, ft_strlen(buf), line);
 			read_ret = ft_read(fd, buf, read_ret);
 			if (read_ret == -1)
-				break;
+				break ;
 		}
 		if (ft_end_of_line(buf))
-		{
-			if (line)
-				temp = line;
-			temp = NULL;
 			line = ft_add_string(buf, ft_end_of_line(buf), line);
-			ft_free(temp);
-		}
 	}
 	res.read_ret = read_ret;
 	res.line = line;
 	res.buf = buf;
-	res.temp = temp;
 	return (res);
 }
 
 /* ft_strjoin adaptation 
-* allocates enough space for our two strings and concatenates them in the new string
-* free() is done either in our ft_fill_line while() loop, or in the main if this is 
-* the last ft_add_string call by the get_next_line function
-*
-*/
+* allocates enough space for our two strings and 
+* concatenates them in the new string * free() is 
+* done either in our ft_fill_line while() loop, 
+* or in the main if this is 
+* the last ft_add_string call by the get_next_line function */
 char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 {
 	char			*output;
@@ -107,8 +102,6 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 		while (i++ < addition_count)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
-		// printf("\nft_add_string: output: {%s} && address: {%p}\n", output, output);
-		// printf("ft_add_string: temp is {%p} at address: {%p}\n", temp, temp);
 	}
 	ft_free(temp);
 	return (output);
@@ -136,76 +129,69 @@ int	ft_read(int fd, char *buf, int read_ret)
 	return (read_ret);
 }
 
-//strings to test:
-// abcde.\n\0
-// abcde.\n\n
-// abcde.\n\0\n
-// abcde.\n\0ab
+// #include <fcntl.h>
+// int main()
+// {
+// 	char *path;
+// 	path = "/Users/fallan/42/get_next_line/examples/example2.txt";
 
+// 	int fd = open(path, O_RDONLY);
+// 	fd = open(path, O_RDONLY);
 
-#include <fcntl.h>
-int main()
-{
-	char *path_to_example_text;
-	// path_to_example_text = "/Users/fallan/42/get_next_line/examples/example2.txt";
-	path_to_example_text = "/Users/fallan/francinette/tests/get_next_line/fsoares/read_error.txt";
+// 	char	*ret_value;
+// 	ret_value = NULL;
 
-	int fd = open(path_to_example_text, O_RDONLY);
-	fd = open(path_to_example_text, O_RDONLY);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL)
+// 		printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	char	*ret_value;
-	ret_value = NULL;
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
+// 	ret_value = get_next_line(fd);
+// 	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
+// 	else printf("\nnext line:\"%s\"", ret_value);
 
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
+// 	if (ret_value)
+// 	{
+// 		free(ret_value);
+// 		ret_value = NULL;
+// 	}
 
-	ret_value = get_next_line(fd);
-	if (ret_value == NULL) printf("\nnext line: get_next_line returned NULL");
-	else printf("\nnext line:\"%s\"", ret_value);
-
-	if (ret_value)
-	{
-		free(ret_value);
-		ret_value = NULL;
-	}
-
-	close(fd);
-	return (0);
-}
+// 	close(fd);
+// 	return (0);
+// }

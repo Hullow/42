@@ -6,21 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/14 18:09:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:54:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-
-// function:
-// int ft_clean(char *ptr)
-// {
-// 	free(ptr);
-// 	ptr = NULL;
-// 	return (NULL);
-// }
-
 
 /* adapted from ft_bzero (see libft)
 takes a string s, creates a pointer str to it of length ft_strlen(s), 
@@ -69,10 +59,8 @@ char	*ft_next_lines(char *dst, char *src)
 			}
 			dst[j] = '\0';
 		}
-		return (dst);
 	}
-	else
-		return (NULL);
+	return (dst);
 }
 
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
@@ -92,7 +80,10 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-// adapted for str == NULL && non-null terminated strings (length < (BUFFER_SIZE))
+/*
+* adapted for str == NULL &&
+* non-null terminated strings (length < (BUFFER_SIZE))
+*/
 size_t	ft_strlen(char *str)
 {
 	int	length;
@@ -120,7 +111,7 @@ unsigned int	ft_end_of_line(char *buf)
 	while (i < (BUFFER_SIZE) && buf[i] != '\n' && buf[i])
 		i++;
 	if (buf[i] == '\n')
-			return (i + 1);
+		return (i + 1);
 	else
 		return (0);
 }
