@@ -157,3 +157,8 @@ Cette macro définie à l’invocation du compilateur servira à spécifier la *
 - Debugging, still unable to solve or even understand this leak issue with 
 francinette - fsoares - read_error - BUFFER_SIZE=10 - input size: 10 characters + \n * 4
 - tried to return another malloc-ed string and strlcpy res.line to it + free(res.line) => same issue 
+
+# 15/3/24
+- Put my end-of-line filling code in ft_fill_line
+- For some reason, the free() code needs to be in ft_add_string; more leaks if it is in ft_fill_line for some reason.
+- Could create a ft_free function after all. We'll see
