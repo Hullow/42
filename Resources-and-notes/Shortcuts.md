@@ -31,9 +31,6 @@
 - `esc` : reject all code suggestions
 - `Ctrl+Enter` : open a new tab with multiple additional options, press .
 
-## Markdown
-- [title of link](#name-of-section-of-link) : to link to different section
-
 ### Obsidian
 #### Editing
 - `cmd + ;` anywhere / `---` at the very beginning of a file (under the title): add properties (aliases, tags, links, ...)
@@ -50,6 +47,7 @@
 - `Ctrl + O`: opens Quick Switcher
 - `Ctrl + E` : toggle edit/preview modes
 - `Ctrl + (+Shift) + Tab`: Next (Previous) tab
+
 ## Bash
 - `CMD+up/down` : next/previous command
 - `vim ~/.zsh_history` : see commands of current terminal session
@@ -65,6 +63,7 @@
 - go to previous directory: `cd -`
 - `find . -name “<filename>” -delete` : delete all files of a certain name
 						`2 > /dev/null` : silent (don’t print out error messages (e.g. “folder not permitted”, "permission denied"))
+						`-iname`: instead of `-name`, making it case insensitive
 - `curl -o [filename] [URL]` (nb: `-o` for output): download a file
 
 **File Information**
