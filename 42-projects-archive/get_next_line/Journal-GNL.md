@@ -165,3 +165,4 @@ francinette - fsoares - read_error - BUFFER_SIZE=10 - input size: 10 characters 
 - FINALLY: needed a free in the particular case of read_error (read_ret == -1):
 Found this after discussing it with tfrily: for next time => what is my problem ? Try to tackle the problem conceptually instead of messing around for ever
 - Header file norminette shenanigans...
+- Done, finished, validated
