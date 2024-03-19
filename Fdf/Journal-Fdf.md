@@ -21,5 +21,5 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 		No error if only mlx.h though. Added [OpenGL headers](https://stackoverflow.com/questions/3907818/opengl-headers-for-os-x-linux) to mlx.h
 - Started making a makefile based on [Minilibx guide by harm-smits/42Docs](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html)
 - N.b.: commented out "#include mlx_int.h" in mlx.h of minilibx_macos, which I use in my Makefile
-- Tested the mlx with a mlxtest.c file, successfully opened a 640*480 Window named "Hello World!"
-- N.b.: will probably have to delete the X11header files
+- Testing mlx: using the [guide](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html):
+	- successfully opened a 640*480 Window named "Hello World!"
