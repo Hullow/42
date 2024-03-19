@@ -1,0 +1,9 @@
+This is.
+an example text.
+With long lines containing a lot of text with no newline for a while, he he he ho ho ho, the line ain't got no characters no mo.
+
+Using open(), read() and printf().
+Will it work all the way ?
+We shall see.
+
+(The end)
