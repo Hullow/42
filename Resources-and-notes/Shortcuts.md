@@ -18,7 +18,7 @@
 - Duplicate tab in iterm2 : create shortcut for `CMD+Shift+T`
 - scrolling down with mouse/trackpad: `settings > advanced` > chercher “`scroll`” > Mouse > Scroll wheel sends arrow keys when in alternate screen mode : `Yes` (restart app)
 
-## VS Code
+## VSCode
 - `Shift + Alt + A` to comment and decomment a block
 - `alt opt + arrow` to move a line up or down
 - `shift + alt opt + arrow` to duplicate a line

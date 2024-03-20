@@ -103,7 +103,57 @@ typedef struct Vector2D{
 } Vector2D;
 ```
 
+#### [Naming structs](https://medium.com/@hatronix/mastering-structs-in-c-an-in-depth-guide-4a524af06fd4)
+(n.b.: not entirely sure about this whole section)
+##### Anonymous structs
+(not recommended because not directly creatable)
+```c
+struct {
+	int		a;
+	char	b;
+};
+```
+##### Named structure
+```c
+struct name_top {
+	int		a;
+	char	b;
+};
+```
+- Creating: 
+```c
+struct name_top myStruct;
+myStruct.a = 10;
+myStruct.b = 'f';
+```
 
+##### Named structure with variable declaration
+```c
+struct {
+	int 	a;
+	char	b;
+} name_bot;
+```
+- Defined anonymously but declared with the name "name_bot" (ndlr: this is confusing to me)
+- Can be initialized as so: `name_bot myStruct;`
+
+##### Structure declaration and variable declaration in a single statement
+```c
+struct name_top {
+	int		a;
+	char	b;
+}	name_bot;
+```
+
+- Usage: `name_bot myStruct`
+
+If you use a typedef, you are creating a type alias, not initializing:
+```c
+typdef struct name_top {
+	int		a;
+	char	b;
+}	name_bot;
+```
 
 ### Data structures
 #### Linked lists

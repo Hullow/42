@@ -23,3 +23,6 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 - N.b.: commented out "#include mlx_int.h" in mlx.h of minilibx_macos, which I use in my Makefile
 - Testing mlx: using the [guide](https://harm-smits.github.io/42docs/libs/minilibx/getting_started.html):
 	- successfully opened a 640*480 Window named "Hello World!"
+
+# 20/3/24
+- Testing mlx by continuing to follow the harm-smits guide
