@@ -17,7 +17,7 @@
 > - A *bitonal image* is represented by pixels consisting of 1 bit each, which can represent two tones (typically black and white), using the values 0 for black and 1 for white or vice versa.
 > - A *grayscale image* is composed of pixels represented by multiple bits of information, typically ranging from 2 to 8 bits or more.
 > - A *color image* is typically represented by a bit depth ranging from 8 to 24 or higher. With a 24-bit image, the bits are often divided into three groupings: 8 for red, 8 for green, and 8 for blue. Combinations of those bits are used to represent other colors. A 24-bit image offers 16.7 million (2^24) color values.
-### [Bits per channel](ttps://www.cambridgeincolour.com/tutorials/bit-depth.htm)
+### [Bits per channel](https://www.cambridgeincolour.com/tutorials/bit-depth.htm)
 The bit depth for each primary color. The **bits per pixel (bpp)** refers to the sum of the bits in all three color channels and represents the total colors available at each pixel. 
 ### Choosing bit depth
 > the human eye can only discern about 10 million different colors, so saving an image in any more than 24 bpp is excessive if the only intended purpose is for viewing. On the other hand, images with more than 24 bpp are still quite useful since they hold up better under post-processing.

@@ -26,3 +26,7 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 
 # 20/3/24
 - Testing mlx by continuing to follow the harm-smits guide
+
+
+# 22/3/24
+- Back to work: testing mlx
