@@ -38,6 +38,9 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 #### [Constant Pointers](https://www.javatpoint.com/const-pointer-in-c)
 - A pointer that cannot change the address of the variable to which it is pointing, i.e. the address will remain constant. The pointer is thus a read-only variable
 
+#### Function Pointers
+Can be simply referred to by using the function name without parentheses (and thus no parameters).
+
 #### Operations on pointers
 ##### Dereferencing
 Using the "**indirection** operator" `*`, or array brackets `[]`, the act of referring to where the pointer points, instead of a memory address. For instance, we might refer to the first element of an array

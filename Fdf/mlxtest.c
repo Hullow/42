@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/22 18:27:32 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/22 20:00:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	my_mlx_put_square_put(t_data *data, int x, int y, int color)
+int	my_mlx_put_square_put(t_data *data, int x, int y, int color)
 {
 	x = 500;
 	y = 500;
@@ -66,6 +66,7 @@ void	my_mlx_put_square_put(t_data *data, int x, int y, int color)
 			my_mlx_pixel_put(data, x, y, color);
 		y = 500;
 	}
+	return (0);
 }
 
 int		my_color_to_hex(char *color)
@@ -85,6 +86,14 @@ int		my_color_to_hex(char *color)
 
 }
 
+typedef struct	s_params {
+	t_data	*img;
+	int		x;
+	int		y;
+	int		color;
+}				square_params;
+
+
 int main(void)
 {
 	void	*mlx;
@@ -95,9 +104,14 @@ int main(void)
 	mlx_win = mlx_new_window(mlx, 1920, 1080, "mlx test window");
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	my_mlx_put_square_put(&img, 500, 500, my_color_to_hex("purple"));
+	
+	// int (*put_square_pointer)(t_data *data, int x, int y, int color) = &my_mlx_put_square_put;
+	square_params params = {&img, 500, 500, my_color_to_hex("yellow")};
+
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_hook(mlx_win, 4, 1L<<2, my_mlx_put_square_put, &params);
 	mlx_loop(mlx);
+	// mlx_mouse_hook(mlx, my_mlx_put_square_put, &params);
 }
 
 // Triangle
