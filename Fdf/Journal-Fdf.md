@@ -32,3 +32,7 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 - Back to work: testing mlx. Printing pixels, a square, a rectangle, in various colors !
 - @Bgolding helped me find `man ./mlx.1`
 - Reading man, tried to implement a mouse hook (to draw a yellow square), no success. Asked Copilot chat which helped me (suggested `mlx_hook(mlx_win, 4, 1L<<2, my_mlx_put_square_put, &params);`), but it segfaults when I click. Hard to find the code, looking into .m files...will read more of the guide next time.
+
+# 25/3/24
+- Gitignore: created Fdf/gitignore to ignore minilibx and added the gitignore to the main gitignore
+- Reading harm-smits documentation, finding out about X11 event types
