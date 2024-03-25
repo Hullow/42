@@ -1,23 +1,43 @@
+# Bash, Unix and Vim commands
 
 ## Command handling
-- `ctrl+A` : move cursor to start of command prompt
+- `CMD+up/down` : next/previous command
+- `ctrl` + `a` / `e` : move cursor to start/end of command prompt
 - `ctrl+R` : search past commands (tap `ctrl+R` again to search for the next occurrence, then `tab` to select)
+- `vim ~/.zsh_history` : see commands of current terminal session
+- `reset`: fixes messed up characters for instance.
 
-## System state and information
-- `man 7 file-hierarchy`: explain Linux file hierarchy
-- `uname -a` : print system information (kernel name, release, nodename, machine, processor, hardware, OS)
-- `cat /etc/os-release`: display OS version
-- [[B2Broot#^9f40d4 | lsblk]] : list storage volumes (partitions)
-- `du -h` / `df -h`: disk usage/disk free space (-h: human readable)
-- `free --mega`: show total, used and available memory in megabytes
-- `uptime`: current time, time running, users logged in, system (CPU+I/O e.g. disks) load averages for 1, 5, 15min
-- `journalctl _COMM=sudo -q` : print all sudo commands from system inception## File manipulation
-- Add "*-suffix*" to all file names: ```for file in *; do
-						        mv "$file" "${file%.}-suffix"
-							done```
-- `ps`: list active processes
-- `lsof -p <PID>`: list files opened by processes
-- `tty` : return user's terminal name
+**Wildcards**
+- `*` for any number of characters
+- `?` for a single character (e.g. `???.c`)
+- `[]` for a range or a set of characters, e.g. `[a-p0-5].c` for items containing any of the characters between a and p and 0 and 5. Or `[agkj]*.*`
+
+## Files
+### File navigation
+- `pwd` : show path to present working directory (current directory)
+- `cd -` : go to previous directory
+- `find / -name “<filename>” 2>/dev/null` : search for <filename> recursively starting from the root directory (`/`), without printing out error messages<br>
+	- `delete` : delete all files of a certain name
+	- `-iname` (instead of `-name`): make the search case insensitive
+- `file <filename>` : gives filetype
+- `whereis <command>` : shows path to an executable
+- `which [command]` : shows path to executable
+
+### File manipulation
+- `curl -o [filename] [URL]` (nb: `-o` for output): download a file
+- `mv -v <origin folder>/* <destination folder>` : move all files and folders from a folder to another
+- `rm -r <directory> <destination folder>`
+- `cp -r [directory]` (recursive)
+- `mkdir ex0{0..8}` : make directories ex00->ex08
+- `echo "$my_var" > file.log` : write contents of variable to a file
+- `cat file.txt | pbcopy` : copy contents of a file to the clipboard (“pasteboard”)
+- `var=$((expression))` : calculate and store value of numerical expressions in a variable
+- add a suffix "*-suffix*" to all file names:
+	```bash
+	for file in *; do
+ 	mv "$file" "${file%.}-suffix"
+	done
+	```
 
 ## Text analysis and processing
 - `wc -c/-m/-l/-w` : count bytes, characters, lines (or all with only `wc`)
@@ -30,11 +50,31 @@
 - `awk -F: '{print $2}'` : define a field as separated by \<separator>, here the second field after a ":"
 - CLI copy-paste: `screen` followed by `ctrl + A`followed by `[` followed by `space`, select text with arrows, `space`, to copy, then `ctrl + A` and `[` again to paste
 
+
+## System state and information
+- `tty` : returns user's terminal name
+- `ps`: list active processes
+- `lsof -p <PID>`: list files opened by processes
+- `man 7 file-hierarchy`: explain Linux file hierarchy
+- `arch`: displays machine's architecture type
+- `uname -a` : print system information (kernel name, release, nodename, machine, processor, hardware, OS)
+- `cat /etc/os-release`: display OS version
+- [[B2Broot#^9f40d4 | lsblk]] : list storage volumes (partitions)
+- `du -h` / `df -h`: show disk usage/disk free space (-h: human readable)
+- `free --mega`: show total, used and available memory in megabytes
+- `uptime`: current time, time running, users logged in, system (CPU+I/O e.g. disks) load averages for 1, 5, 15min
+- `journalctl _COMM=sudo -q` : print all sudo commands from system inception## File manipulation
+
 ## Names, users,  groups, permissions
+### User information
 - `whoami` : current user
 - `w`: display who is logged in 
-- change user: `su <username>`
+- `id`: information about specified user and its groups
+- `groups`: lists all groups one is a member of
 - `cat /etc/passwd` : lists all users
+
+### User handling
+- change user: `su <username>`
 - [[B2Broot#^77cbc1 | usermod]]: to change users' groups, home directories, etc.
 - `useradd` : new user
 - `userdel` : delete user
@@ -44,6 +84,7 @@
 - `passwd`: change password of current user
 
 ## Prompt settings
+- `PROMPT=“%~ “`: make prompt shorter
 - `setterm -foreground black -background white` : to change terminal colors (Linux)
 - `echo $PS1 && oldps1="$PS1"` to get the current prompt setting and save it
 - `export PS1="\e[0;34m$oldps1"` to change the prompt color (0;29 white , 0;30 black, 0;32 green, 0:;33 orange, 0:34 blue, ...)
@@ -77,7 +118,6 @@
 - delete every line containing "printf": `:g/printf/d`
 
 `:[line]co [destination line]`. Or just `:co [destination line]` to  ????
-
 
 ### Settings
 
