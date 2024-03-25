@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/22 20:00:47 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/25 19:06:50 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	my_mlx_put_square_put(t_data *data, int x, int y, int color)
+int	my_mlx_square_put(t_data *data, int x, int y, int color)
 {
 	x = 500;
 	y = 500;
@@ -93,25 +93,43 @@ typedef struct	s_params {
 	int		color;
 }				square_params;
 
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+}		t_vars;
+
+int close(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	return (0);
+}
+
+
 
 int main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
+	// void	*mlx;
+	// void	*mlx_win;
+	// t_data	img;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "mlx test window");
-	img.img = mlx_new_image(mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	// mlx = mlx_init();
+	// mlx_win = mlx_new_window(mlx, 1920, 1080, "mlx test window");
+	// img.img = mlx_new_image(mlx, 1920, 1080);
+	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	
 	// int (*put_square_pointer)(t_data *data, int x, int y, int color) = &my_mlx_put_square_put;
-	square_params params = {&img, 500, 500, my_color_to_hex("yellow")};
+	// square_params params = {&img, 500, 500, my_color_to_hex("yellow")};
 
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_hook(mlx_win, 4, 1L<<2, my_mlx_put_square_put, &params);
-	mlx_loop(mlx);
+	// mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	// mlx_loop(mlx);
+	// mlx_hook(mlx_win, 2, 1L<<0, my_mlx_square_put, &params);
 	// mlx_mouse_hook(mlx, my_mlx_put_square_put, &params);
+	t_vars vars;
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
+	mlx_hook(vars.win, 2, 1L<<0, close, &vars);
+	mlx_loop(vars.mlx);
 }
 
 // Triangle
