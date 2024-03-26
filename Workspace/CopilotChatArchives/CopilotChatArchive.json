@@ -1,0 +1,111 @@
+{
+  "requesterUsername": "Hullow",
+  "requesterAvatarIconUri": {
+    "$mid": 1,
+    "path": "/Hullow",
+    "scheme": "https",
+    "authority": "avatars.githubusercontent.com"
+  },
+  "responderUsername": "GitHub Copilot",
+  "welcomeMessage": [
+    "Welcome **@Hullow**, I'm your Copilot and I'm here to help you get things done faster. ",
+    "I'm powered by AI, so surprises and mistakes are possible. Make sure to verify any generated code or suggestions, and [share feedback](https://aka.ms/microsoft/vscode-copilot-release) so that we can learn and improve. Check out the [Copilot documentation](https://docs.github.com/copilot/getting-started-with-github-copilot?tool=vscode) to learn more."
+  ],
+  "requests": [
+    {
+      "providerRequestId": "83ea6c33-376b-42b1-a5b6-73cd2c993750",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 44
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 45
+            },
+            "text": "What are .vscdb files and how to read them _",
+            "kind": "text"
+          }
+        ],
+        "text": "What are .vscdb files and how to read them _"
+      },
+      "response": [
+        {
+          "value": ".vscdb files are not a standard file format and are not directly related to software development. They might be specific to a certain application or system. If they are related to Visual Studio Code, it's not a publicly documented feature. \n\nTo read or interpret any file, you need to know the format or have a program that can interpret it. If it's a binary file, you might need a hex editor or a specific reader for that file type. If it's a text-based file, you can try opening it with a text editor.\n\nIf you have more context about where these .vscdb files are coming from or what they are used for, I might be able to provide a more specific answer.",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "followups": [
+        {
+          "kind": "reply",
+          "message": "How can I open a binary file in a hex editor?",
+          "metadata": {
+            "messageId": "83ea6c33-376b-42b1-a5b6-73cd2c993750",
+            "suggestionId": "2ad63761-a100-46bc-8993-d777e385b70e",
+            "suggestionType": "Follow-up from model"
+          },
+          "title": "How can I open a binary file in a hex editor?"
+        }
+      ],
+      "isCanceled": false,
+      "agent": {
+        "id": "",
+        "metadata": {
+          "description": "",
+          "fullName": "GitHub Copilot",
+          "hasSlashCommands": true,
+          "hasFollowup": true,
+          "isDefault": true
+        }
+      },
+      "usedContext": {
+        "documents": [
+          {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "/Users/fallan/Library/Application Support/Code/User/workspaceStorage/03c16ad44c6524f60de17d2c612394a3/state.vscdb",
+              "external": "file:///Users/fallan/Library/Application%20Support/Code/User/workspaceStorage/03c16ad44c6524f60de17d2c612394a3/state.vscdb",
+              "path": "/Users/fallan/Library/Application Support/Code/User/workspaceStorage/03c16ad44c6524f60de17d2c612394a3/state.vscdb",
+              "scheme": "file"
+            },
+            "version": 1,
+            "ranges": [
+              {
+                "startLineNumber": 1,
+                "startColumn": 1,
+                "endLineNumber": 38,
+                "endColumn": 544
+              }
+            ]
+          }
+        ]
+      },
+      "contentReferences": [
+        {
+          "reference": {
+            "uri": {
+              "$mid": 1,
+              "fsPath": "/Users/fallan/Library/Application Support/Code/User/workspaceStorage/03c16ad44c6524f60de17d2c612394a3/state.vscdb",
+              "external": "file:///Users/fallan/Library/Application%20Support/Code/User/workspaceStorage/03c16ad44c6524f60de17d2c612394a3/state.vscdb",
+              "path": "/Users/fallan/Library/Application Support/Code/User/workspaceStorage/03c16ad44c6524f60de17d2c612394a3/state.vscdb",
+              "scheme": "file"
+            },
+            "range": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 38,
+              "endColumn": 544
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "providerId": "copilot"
+}

@@ -59,3 +59,4 @@ A mapping from some domain (for example, a range of integers) to bits. It is als
 > The X server can report Expose events to clients wanting information about when the contents of window regions have been lost. The circumstances in which the X server generates Expose events are not as definite as those for other events.
 
 ### Event masks
+no support with OpenGL + Cocoa (see above)

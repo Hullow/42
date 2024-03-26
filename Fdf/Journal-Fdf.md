@@ -36,3 +36,8 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 # 25/3/24
 - Gitignore: created Fdf/gitignore to ignore minilibx and added the gitignore to the main gitignore
 - Reading harm-smits documentation, finding out about X11 event types
+
+# 26/3/24
+- Kevin @kly helped me make a working hook with my square_put function, so events work now
+- Made a keycode correspondence table
+- Working on making a triangle
