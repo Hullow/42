@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/26 15:50:35 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:06:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct	s_data {
+typedef struct	s_env {
+	void	*mlx;
+	void	*win;
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}				t_env;
 
 int	ft_strncmp(char *s1, char *s2, unsigned int n)
 {
@@ -66,15 +68,15 @@ int		my_color_to_hex(char *color)
 		return (0xFFFFFFFF);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = env->addr + (y * env->line_length + x * (env->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
-int	my_mlx_square_put(int keycode, t_data *data, int x, int y)
+int	my_mlx_square_put(int keycode, t_env *env, int x, int y, int color)
 {
 	x = 100;
 	y = 100;
@@ -82,13 +84,13 @@ int	my_mlx_square_put(int keycode, t_data *data, int x, int y)
 	while (x++ < 200)
 	{
 		while (y++ < 200)
-			my_mlx_pixel_put(data, x, y, 0x00FF0000);
+			my_mlx_pixel_put(env, x, y, color);
 		y = 100;
 	}
 	return (0);
 }
 
-int	key_handler(int keycode, t_data *data)
+int	key_handler(int keycode, t_env *env)
 {
 	printf("keycode = %d\n", keycode);
 	if (keycode == 53)
@@ -98,23 +100,36 @@ int	key_handler(int keycode, t_data *data)
 	else if (keycode == 3)
 	{
 		printf("f; function called:\n");
-		my_mlx_square_put(keycode, data, 0, 0);
+		my_mlx_square_put(3, env, 500, 500, my_color_to_hex("purple"));
+		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	}
 	return (0);
 }
 
 int main(void)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
+	t_env	env;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 800, 600, "mlx test window");
-	img.img = mlx_new_image(mlx, 800, 600);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	env.mlx = mlx_init();
+	env.win = mlx_new_window(env.mlx, 800, 600, "mlx test window");
+	env.img = mlx_new_image(env.mlx, 800, 600);
+	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
 	
-	my_mlx_square_put(3, &img, 0, 0);
-	mlx_hook(mlx_win, 2, 1L<<0, key_handler, &img);
-	mlx_loop(mlx);
+	mlx_hook(env.win, 2, 1L<<0, key_handler, &env);
+	mlx_loop(env.mlx);
 }
+
+// int main(void)
+// {
+// 	void	*mlx;
+// 	void	*mlx_win;
+// 	t_data	img;
+
+// 	mlx = mlx_init();
+// 	mlx_win = mlx_new_window(mlx, 1920, 1080, "mlx test window");
+// 	img.img = mlx_new_image(mlx, 1920, 1080);
+// 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+// 	my_mlx_square_put(3, &img, 500, 500, my_color_to_hex("purple"));
+// 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+// 	mlx_loop(mlx);
+// }
