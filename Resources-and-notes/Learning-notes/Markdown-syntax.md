@@ -42,3 +42,21 @@ Align text in the columns to the left, right, or center by adding a colon : to t
 :-- means the column is left aligned.
 --: means the column is right aligned.
 :-: means the column is center aligned.
+
+
+### Obsidian
+#### Editing
+- `cmd + ;` anywhere / `---` at the very beginning of a file (under the title): add properties (aliases, tags, links, ...)
+- `[[target-note^section|text]]` : internal link (n.b.: Obsidian, not Markdown specific)
+- `Ctrl + D` : delete current line
+- `Ctrl + V` : duplicate current line
+- `Ctrl + ]`: indent
+- `Ctrl + [` : unindent
+- `Ctrl + Click` : open Note in Current Panel via Link
+- `Ctrl + Shift + Click`: open Note in New Panel via Link
+#### Navigation
+- `Cmd + home/end`: navigate to beginning/end of note
+- `Ctrl + P`: open command pallette
+- `Ctrl + O`: opens Quick Switcher
+- `Ctrl + E` : toggle edit/preview modes
+- `Ctrl + (+Shift) + Tab`: Next (Previous) tab

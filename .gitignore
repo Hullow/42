@@ -4,3 +4,4 @@ program
 .obsidian/workspace.json
 *.dSYM
 Fdf/.gitignore
+.venv/**
