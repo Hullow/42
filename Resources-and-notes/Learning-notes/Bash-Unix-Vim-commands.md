@@ -23,6 +23,10 @@
 - `whereis <command>` : shows path to an executable
 - `which [command]` : shows path to executable
 
+### Open a program
+- `open -a TextEdit` : opens the TextEdit program
+- `code main.c` : opens a main.c file in VSCode
+
 ### File manipulation
 - `curl -o [filename] [URL]` (nb: `-o` for output): download a file
 - `mv -v <origin folder>/* <destination folder>` : move all files and folders from a folder to another
@@ -49,7 +53,7 @@
 - `awk 'NR {count++} END {print count} <file>'`: print number of lines in a file
 - `awk -F: '{print $2}'` : define a field as separated by \<separator>, here the second field after a ":"
 - CLI copy-paste: `screen` followed by `ctrl + A`followed by `[` followed by `space`, select text with arrows, `space`, to copy, then `ctrl + A` and `[` again to paste
-
+- `wall` : write text to all open terminals (all ttys)
 
 ## System state and information
 - `tty` : returns user's terminal name
@@ -129,7 +133,3 @@ to disable a setting: `set no[command]`, e.g. `set noline`
 
 ### File handling
 - `:saveas [newname]` : rename
-
-### Open a program
-- `open -a TextEdit` : opens the TextEdit program
-- `code main.c` : opens a main.c file in VSCode

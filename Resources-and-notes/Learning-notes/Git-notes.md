@@ -46,9 +46,9 @@
 ### Why rebase ?
 To get a cleaner history (e.g. for collaboration, contribute a single branch to a remote to enable easier integration)
 ### Caution when collaborating
-Do not rebase commits that exist outside your repository and that people may have based work on**: “If you push commits somewhere and others pull them down and base work on them, and then you rewrite those commits with git rebase and push them up again, your collaborators will have to re-merge their work and things will get messy when you try to pull their work back into yours.”
+**Do not rebase commits that exist outside your repository and that people may have based work on**: “If you push commits somewhere and others pull them down and base work on them, and then you rewrite those commits with git rebase and push them up again, your collaborators will have to re-merge their work and things will get messy when you try to pull their work back into yours.”
 
-# .gitignore syntax
+# [.gitignore syntax](https://git-scm.com/docs/gitignore)
 - `/directory` is the same as `directory`
 - `directory/**`: directory and all subdirectories and files
 
