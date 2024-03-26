@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/26 19:00:20 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/26 19:39:01 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int		my_color_to_hex(char *color)
 		return (0x009900FF);
 	else if (!ft_strncmp(color, "yellow", 6))
 		return (0x00FFFF00);
+	else if (!ft_strncmp(color, "white", 5))
+		return (0x00FFFFFF);
 	else
 		return (0xFFFFFFFF);
 }
@@ -93,6 +95,7 @@ int	my_mlx_square_put(t_env *env, int x, int y, int color)
 	}
 	return (0);
 }
+
 int	my_mlx_triangle_put(t_env *env, int i, int color)
 {
 	printf("WINDOW_HEIGHT == %d\n", WINDOW_HEIGHT);
@@ -104,6 +107,51 @@ int	my_mlx_triangle_put(t_env *env, int i, int color)
 		my_mlx_pixel_put(env, (WINDOW_HEIGHT / 2) + i, (WINDOW_HEIGHT / 2) + i, color);
 	while (i-- > - (WINDOW_HEIGHT / 2))
 		my_mlx_pixel_put(env, (WINDOW_HEIGHT / 2) + i, WINDOW_HEIGHT - 1, color);
+	return (0);
+}
+
+int	my_mlx_hexagon_put(t_env *env, int i, int color)
+{
+	printf("WINDOW_HEIGHT == %d\n", WINDOW_HEIGHT);
+	printf("WINDOW_WIDTH) == %d\n", WINDOW_WIDTH);
+	int center[2] = {WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2};
+	int	edge_x1;
+	int	edge_x2;
+	int	edge_y1;
+	int	edge_y2;
+
+	// if (WINDOW_HEIGHT <= WINDOW_WIDTH)
+		edge_y1 = center[1] - WINDOW_HEIGHT * 1/4;
+		edge_y2 = center[1] + WINDOW_HEIGHT * 1/4;
+		edge_x1 = center[0] - WINDOW_HEIGHT * 1/4;
+		edge_x2 = center[0] + WINDOW_HEIGHT * 1/4;
+
+		int hex_edge_y1 = center[1] - WINDOW_HEIGHT * 1/12;
+		int hex_edge_y2 = center[1] + WINDOW_HEIGHT * 1/12;
+
+		int y = hex_edge_y1 - 1;
+		while (++y < hex_edge_y2)
+			my_mlx_pixel_put(env, edge_x1, y, color);
+		while (--y > hex_edge_y1 - 1)
+			my_mlx_pixel_put(env, edge_x2, y, color);
+		
+		int hex_edge_x1 = center[0] - WINDOW_HEIGHT * 1/12;
+		int hex_edge_x2 = center[0] + WINDOW_HEIGHT * 1/12;
+		
+		int x = hex_edge_x1 - 1;
+		while (++x < hex_edge_x2)
+			my_mlx_pixel_put(env, x, edge_y1, color);
+		while (--x > hex_edge_x1 - 1)
+			my_mlx_pixel_put(env, x, edge_y2, color);
+
+
+	my_mlx_pixel_put(env, center[0], center[1], color);
+	my_mlx_pixel_put(env, edge_x1, edge_y1, color);
+	my_mlx_pixel_put(env, edge_x1, edge_y2, color);
+	my_mlx_pixel_put(env, edge_x2, edge_y1, color);
+	my_mlx_pixel_put(env, edge_x2, edge_y2, color);
+	
+	i = 0;
 	return (0);
 }
 
@@ -126,6 +174,12 @@ int	key_handler(int keycode, t_env *env)
 		my_mlx_triangle_put(env, -1, my_color_to_hex(env->color));
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	}
+	else if (keycode == 4)
+	{
+		printf("key pressed: h, drawing a hexagon\n");
+		my_mlx_hexagon_put(env, -1, my_color_to_hex(env->color));
+		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+	}
 	return (0);
 }
 
@@ -138,7 +192,7 @@ int main(void)
 	env.img = mlx_new_image(env.mlx, 800, 600);
 	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
 	
-	env.color = "purple";
+	env.color = "white";
 	mlx_hook(env.win, 2, 1L<<0, key_handler, &env);
 	mlx_loop(env.mlx);
 }

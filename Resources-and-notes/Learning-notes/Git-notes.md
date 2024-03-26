@@ -2,6 +2,8 @@
 
 - stop tracking a file: `git rm --cached <file> && git commit` (CAUTION)
 - stage unstaged changes (but not changes to untracked files): `git add -u` 
+- stage all changes (modified, deleted, and new files) to the entire repository: `git add -A`
+- stages new and modified files, but not deleted ones, and only in the current directory and its subdirectories : `git add .`
 
 ## Git commit
 - automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected: `-a`/ `--all`
@@ -9,6 +11,7 @@
 ## Display information
 - Show files changed by a commit: `git diff-tree --no-commit-id --name-only <commit-id> -r`
 - Show changes of a commit: `git show <commit-id>`
+- Show changes since last commit : `git diff`
 - Show changes of multiple previous commits (incl. size of changes): `git log --stat`
 - Show tracked files: `git ls-tree -r main --name-only`
 - Show HEAD commit ID: `git rev-parse HEAD`
