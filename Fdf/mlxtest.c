@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/26 16:06:07 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/26 19:00:20 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+#define WINDOW_NAME "mlx test window"
+
 typedef struct	s_env {
 	void	*mlx;
 	void	*win;
 	void	*img;
 	char	*addr;
+	char	*color;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -76,17 +81,29 @@ void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	my_mlx_square_put(int keycode, t_env *env, int x, int y, int color)
+int	my_mlx_square_put(t_env *env, int x, int y, int color)
 {
-	x = 100;
-	y = 100;
-	printf("my_mlx_square_put: keycode %d pressed\n", keycode);
-	while (x++ < 200)
+	x = WINDOW_WIDTH / 4;
+	y = WINDOW_HEIGHT / 4;
+	while (x++ < WINDOW_WIDTH * 3/4)
 	{
-		while (y++ < 200)
+		while (y++ < WINDOW_HEIGHT * 3/4)
 			my_mlx_pixel_put(env, x, y, color);
-		y = 100;
+		y = WINDOW_HEIGHT / 4;
 	}
+	return (0);
+}
+int	my_mlx_triangle_put(t_env *env, int i, int color)
+{
+	printf("WINDOW_HEIGHT == %d\n", WINDOW_HEIGHT);
+	printf("WINDOW_WIDTH) == %d\n", WINDOW_WIDTH);
+	while (++i < WINDOW_HEIGHT / 2)
+		my_mlx_pixel_put(env, i, WINDOW_HEIGHT - i, color);
+	i = -1;
+	while (++i < WINDOW_HEIGHT / 2)
+		my_mlx_pixel_put(env, (WINDOW_HEIGHT / 2) + i, (WINDOW_HEIGHT / 2) + i, color);
+	while (i-- > - (WINDOW_HEIGHT / 2))
+		my_mlx_pixel_put(env, (WINDOW_HEIGHT / 2) + i, WINDOW_HEIGHT - 1, color);
 	return (0);
 }
 
@@ -97,10 +114,16 @@ int	key_handler(int keycode, t_env *env)
 		printf("ESCAPE\n");
 	else if (keycode == 2)
 		printf("d\n");
-	else if (keycode == 3)
+	else if (keycode == 1)
 	{
-		printf("f; function called:\n");
-		my_mlx_square_put(3, env, 500, 500, my_color_to_hex("purple"));
+		printf("key pressed: s, drawing a square\n");
+		my_mlx_square_put(env, 500, 500, my_color_to_hex(env->color));
+		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+	}
+	else if (keycode == 17)
+	{
+		printf("key pressed: t, drawing a triangle\n");
+		my_mlx_triangle_put(env, -1, my_color_to_hex(env->color));
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	}
 	return (0);
@@ -111,10 +134,11 @@ int main(void)
 	t_env	env;
 
 	env.mlx = mlx_init();
-	env.win = mlx_new_window(env.mlx, 800, 600, "mlx test window");
+	env.win = mlx_new_window(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
 	env.img = mlx_new_image(env.mlx, 800, 600);
 	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
 	
+	env.color = "purple";
 	mlx_hook(env.win, 2, 1L<<0, key_handler, &env);
 	mlx_loop(env.mlx);
 }
