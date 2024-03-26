@@ -6,11 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/25 19:06:50 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/26 15:50:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct	s_data {
 	void	*img;
@@ -48,27 +50,6 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 	return ((unsigned char) *s1 - (unsigned char) *s2);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-int	my_mlx_square_put(t_data *data, int x, int y, int color)
-{
-	x = 500;
-	y = 500;
-	while (x++ < 600)
-	{
-		while (y++ < 600)
-			my_mlx_pixel_put(data, x, y, color);
-		y = 500;
-	}
-	return (0);
-}
-
 int		my_color_to_hex(char *color)
 {
 	if (!ft_strncmp(color, "red", 3))
@@ -83,53 +64,57 @@ int		my_color_to_hex(char *color)
 		return (0x00FFFF00);
 	else
 		return (0xFFFFFFFF);
-
 }
 
-typedef struct	s_params {
-	t_data	*img;
-	int		x;
-	int		y;
-	int		color;
-}				square_params;
-
-typedef struct s_vars
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	void	*mlx;
-	void	*win;
-}		t_vars;
+	char	*dst;
 
-int close(t_vars *vars)
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+int	my_mlx_square_put(int keycode, t_data *data, int x, int y)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
+	x = 100;
+	y = 100;
+	printf("my_mlx_square_put: keycode %d pressed\n", keycode);
+	while (x++ < 200)
+	{
+		while (y++ < 200)
+			my_mlx_pixel_put(data, x, y, 0x00FF0000);
+		y = 100;
+	}
 	return (0);
 }
 
-
+int	key_handler(int keycode, t_data *data)
+{
+	printf("keycode = %d\n", keycode);
+	if (keycode == 53)
+		printf("ESCAPE\n");
+	else if (keycode == 2)
+		printf("d\n");
+	else if (keycode == 3)
+	{
+		printf("f; function called:\n");
+		my_mlx_square_put(keycode, data, 0, 0);
+	}
+	return (0);
+}
 
 int main(void)
 {
-	// void	*mlx;
-	// void	*mlx_win;
-	// t_data	img;
+	void	*mlx;
+	void	*mlx_win;
+	t_data	img;
 
-	// mlx = mlx_init();
-	// mlx_win = mlx_new_window(mlx, 1920, 1080, "mlx test window");
-	// img.img = mlx_new_image(mlx, 1920, 1080);
-	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, 800, 600, "mlx test window");
+	img.img = mlx_new_image(mlx, 800, 600);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	
-	// int (*put_square_pointer)(t_data *data, int x, int y, int color) = &my_mlx_put_square_put;
-	// square_params params = {&img, 500, 500, my_color_to_hex("yellow")};
-
-	// mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	// mlx_loop(mlx);
-	// mlx_hook(mlx_win, 2, 1L<<0, my_mlx_square_put, &params);
-	// mlx_mouse_hook(mlx, my_mlx_put_square_put, &params);
-	t_vars vars;
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "Hello world!");
-	mlx_hook(vars.win, 2, 1L<<0, close, &vars);
-	mlx_loop(vars.mlx);
+	my_mlx_square_put(3, &img, 0, 0);
+	mlx_hook(mlx_win, 2, 1L<<0, key_handler, &img);
+	mlx_loop(mlx);
 }
-
-// Triangle
