@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/26 19:39:01 by fallan           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:02:57 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,14 @@ int	my_mlx_hexagon_put(t_env *env, int i, int color)
 		while (--x > hex_edge_x1 - 1)
 			my_mlx_pixel_put(env, x, edge_y2, color);
 
+	x = edge_x1 - 1;
+	y = hex_edge_y1 + 1;
+	while (++x < hex_edge_x1 && --y > edge_y1)
+			my_mlx_pixel_put(env, x, y, color);
+
+	x = hex_edge_x2;
+	while (x++ <= edge_x2 && y++ <= hex_edge_y1)
+			my_mlx_pixel_put(env, x - 1, y - 1, color);
 
 	my_mlx_pixel_put(env, center[0], center[1], color);
 	my_mlx_pixel_put(env, edge_x1, edge_y1, color);

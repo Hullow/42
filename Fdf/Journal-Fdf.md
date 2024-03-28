@@ -40,4 +40,11 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 # 26/3/24
 - Kevin @kly helped me make a working hook with my square_put function, so events work now
 - Made a keycode correspondence table
-- Working on making a triangle
+- Working on making a triangle: made the triangle
+- Working on making a hexagon
+
+# 28/3/24
+- hexagon underway, but I need to get to work on Fdf. Not a regular hexagon it seems btw
+- Ok I need to work on the actual project. Back to reading about isometric projection
+- Octant: chose the 7th (+-+), which is what the subject seems to be asking 
+- Reading about [rotation matrices]()
