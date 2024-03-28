@@ -45,6 +45,5 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 
 # 28/3/24
 - hexagon underway, but I need to get to work on Fdf. Not a regular hexagon it seems btw
-- Ok I need to work on the actual project. Back to reading about isometric projection
-- Octant: chose the 7th (+-+), which is what the subject seems to be asking 
-- Reading about [rotation matrices]()
+- Ok I need to work on the actual project. Back to reading about [isometric projection](https://en.wikipedia.org/wiki/Isometric_projection), in particular [rotation angles](https://en.wikipedia.org/wiki/Isometric_projection#Rotation_angles), and the [mathematics](https://en.wikipedia.org/wiki/Isometric_projection#Mathematics), bringing me to [rotation matrices](https://en.wikipedia.org/wiki/Rotation_matrix)
+- Octant: think it might use the 7th (+-+), which is what the subject seems to be asking. But the isometric projection article gives matrices for the first
