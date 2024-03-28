@@ -47,3 +47,5 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 - hexagon underway, but I need to get to work on Fdf. Not a regular hexagon it seems btw
 - Ok I need to work on the actual project. Back to reading about [isometric projection](https://en.wikipedia.org/wiki/Isometric_projection), in particular [rotation angles](https://en.wikipedia.org/wiki/Isometric_projection#Rotation_angles), and the [mathematics](https://en.wikipedia.org/wiki/Isometric_projection#Mathematics), bringing me to [rotation matrices](https://en.wikipedia.org/wiki/Rotation_matrix)
 - Octant: think it might use the 7th (+-+), which is what the subject seems to be asking. But the isometric projection article gives matrices for the first
+- Took a look at the libmath (math.h) and `man float`
+- Advanced on input: wrote function to count lines, and integrated get_next_line to get all lines and store them in an array. Need to split them into individual characters and "atoi" them into a float map
