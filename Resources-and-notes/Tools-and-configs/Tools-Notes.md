@@ -3,6 +3,9 @@ Theory and practice (how-to)
 
 ## VS Code
 Files (including file history) found in `$HOME/Library/Application\ Support/Code/User/`
+- VSCode files path : `/System/Volumes/Data/Users/francis/Library/Application Support/Code`
+- Github Copilot history: likely `Code\User\workspaceStorage\<alphanumerical>\state.vscdb` (see https://github.com/orgs/community/discussions/69740)
+
 ### [Debugging](https://code.visualstudio.com/docs/editor/debugging)
 - **Launch** versus **Attach** configurations: two core debugging modes
   - **Launch** starts the app or process in debug mode before VS Code attaches to it
@@ -12,7 +15,7 @@ Files (including file history) found in `$HOME/Library/Application\ Support/Code
 - add `"editor.renderWhitespace": "all",` in settings.json (note: did so in ~/.vscode)
 
 ### Copilot Chat
-#### E[xporting chat history](https://github.com/orgs/community/discussions/57190)
+#### [Exporting chat history](https://github.com/orgs/community/discussions/57190)
 
 > You can export a Copilot Chat session in Visual Studio Code to a JSON file via Ctrl+Shift+P | Chat: Export Session... or by choosing View > Command Palette | Chat: Export Session...
 You can then import this chat.json file using Ctrl+Shift+P | Chat: Import Session... or by choosing View > Command Palette | Chat: Import Session...
