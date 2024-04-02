@@ -49,3 +49,7 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 - Octant: think it might use the 7th (+-+), which is what the subject seems to be asking. But the isometric projection article gives matrices for the first
 - Took a look at the libmath (math.h) and `man float`
 - Advanced on input: wrote function to count lines, and integrated get_next_line to get all lines and store them in an array. Need to split them into individual characters and "atoi" them into a float map
+
+# 2/4/24
+- back to work
+- Working on input: error management (line length)
