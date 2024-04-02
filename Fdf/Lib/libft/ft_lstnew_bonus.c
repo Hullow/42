@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/02 15:14:34 by fallan           ###   ########.fr       */
+/*   Created: 2023/11/21 16:23:13 by fallan            #+#    #+#             */
+/*   Updated: 2023/12/01 18:32:43 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "./lib/get_next_line.h"
-#include "./lib/libft.h"
+#include "libft.h"
 
-int		ft_printf(const char *, ...);
-char	*get_next_line(int fd);
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*new_node;
+
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
+}
+
+/* int main()
+{
+t_list	root;
+root.x = 15
+	printf("%s\n", (char *)result);
+return (0);
+} */

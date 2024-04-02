@@ -5,7 +5,7 @@
 			"name": "(lldb) Launch ${workspaceFolder}/a.out",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/get_next_line/a.out",
+			"program": "${workspaceFolder}/42-projects-archive/Libft-archive/a.out",
 			"args": [],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",

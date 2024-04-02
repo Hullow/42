@@ -52,4 +52,6 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 
 # 2/4/24
 - back to work
-- Working on input: error management (line length)
+- Working on input: error management (line length). N.b.: heavy-handed input management not needed, as from subject:
+> Rappelez-vous que le but de ce projet n’est pas de parser des cartes ! Toutefois, cela ne signifie pas que votre programme peut crasher, mais qu’on part du principe qu’une carte sera correctement formatée dans le fichier passé en paramètre.
+- Managed to split input and fit it into a array of ints, but issues at the borders. To fix

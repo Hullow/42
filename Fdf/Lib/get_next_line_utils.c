@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/15 16:38:43 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/02 15:49:34 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_next_lines(char *dst, char *src)
 	return (dst);
 }
 
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	unsigned int	i;
 
@@ -98,7 +98,7 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 }
 
 /* adapted for str == NULL*/
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	int	length;
 

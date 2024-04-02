@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/15 16:39:10 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/02 15:16:04 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GET_NEXT_LINE_H
 # include <stdlib.h>
 # include <unistd.h>
+# include "libft.h"
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE	42
 
@@ -34,7 +35,5 @@ void			ft_free(char *temp);
 unsigned int	ft_end_of_line(char *buf);
 void			*ft_fill_char(void *s, char c);
 char			*ft_next_lines(char *dst, char *src);
-size_t			ft_strlcpy(char *dst, char *src, size_t dstsize);
-size_t			ft_strlen(char *str);
 
 #endif

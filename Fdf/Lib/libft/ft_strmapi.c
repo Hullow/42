@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/02 15:14:34 by fallan           ###   ########.fr       */
+/*   Created: 2023/11/17 15:36:13 by fallan            #+#    #+#             */
+/*   Updated: 2023/12/01 18:33:49 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "./lib/get_next_line.h"
-#include "./lib/libft.h"
+#include "libft.h"
 
-int		ft_printf(const char *, ...);
-char	*get_next_line(int fd);
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char			*str;
+	unsigned int	i;
+
+	str = (char *)ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < ft_strlen(s))
+	{
+		str[i] = f(i, s[i]);
+		i++;
+	}
+	return (str);
+}

@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_tal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkashi <marvin@42lausanne.ch>              +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 11:25:56 by tkashi            #+#    #+#             */
-/*   Updated: 2023/09/21 16:49:33 by tkashi           ###   ########.fr       */
+/*   Updated: 2024/04/02 14:16:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdlib.h>
+
 #include "libft.h"
 
 int	ft_calc_size(char const *s, char c)
@@ -21,7 +21,7 @@ int	ft_calc_size(char const *s, char c)
 	prev = -1;
 	i = 0;
 	count = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
 		if (s[i] == c)
 		{

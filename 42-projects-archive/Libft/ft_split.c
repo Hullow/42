@@ -3,147 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tkashi <marvin@42lausanne.ch>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 11:04:09 by fallan            #+#    #+#             */
-/*   Updated: 2023/12/01 19:07:50 by fallan           ###   ########.fr       */
+/*   Created: 2023/09/20 11:25:56 by tkashi            #+#    #+#             */
+/*   Updated: 2023/09/21 16:49:33 by tkashi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdlib.h>
 #include "libft.h"
 
-static size_t	ft_count_words(char const *s, char c)
+int	ft_calc_size(char const *s, char c)
 {
-	size_t	count;
+	int	prev;
+	int	i;
+	int	count;
 
+	prev = -1;
+	i = 0;
 	count = 0;
-	while (*s)
+	while (s[i] != '\0')
 	{
-		if (*s == c)
-		{	
-			while (*s == c)
-				s++;
-		}
-		else
+		if (s[i] == c)
 		{
-			while (*s != c && *s)
-				s++;
-			count++;
+			if (i - prev - 1 > 0)
+				count++;
+			prev = i;
 		}
+		i++;
 	}
+	if (i - prev - 1 > 0)
+		count++;
 	return (count);
 }
 
-static size_t	ft_word_length(char *copy, char c)
+int	ft_add_splitted(char const *s, int start, int end, char **ret)
 {
-	size_t	length;
-
-	length = 0;
-	while (copy[length] != c && copy[length])
-		length++;
-	return (length);
+	*ret = ft_substr(s, start + 1, end - start - 1);
+	if (*ret == NULL)
+		return (0);
+	return (1);
 }
 
-static char	*ft_add_word(char *string, char *copy, size_t length)
+int	ft_apply_split(char const *s, char c, char **ret)
 {
-	size_t	j;
+	int	prev;
+	int	i;
 
-	string = (char *)malloc((length + 1) * sizeof(char));
-	if (string == NULL)
-		return (NULL);
-	j = 0;
-	while (j < length)
+	prev = -1;
+	i = 0;
+	while (s[i] != '\0')
 	{
-		string[j] = copy[j];
-		j++;
+		if (s[i] == c)
+		{
+			if (i - prev - 1 > 0)
+			{
+				if (!ft_add_splitted(s, prev, i, ret))
+					return (0);
+				ret++;
+			}
+			prev = i;
+		}
+		i++;
 	}
-	string[j] = '\0';
-	return (string);
-}
-
-static char	*ft_trim_string(char *copy, char *character)
-{
-	char	*substr;
-	char	*trimmed;
-	size_t	wordlength;
-	size_t	copylength;
-
-	copylength = ft_strlen(copy);
-	wordlength = ft_word_length(copy, character[0]);
-	substr = ft_substr(copy, wordlength, copylength + 1);
-	if (!substr)
+	if (i - prev - 1 > 0)
 	{
-		free(substr);
-		return (NULL);
+		if (!ft_add_splitted(s, prev, i, ret))
+			return (0);
 	}
-	trimmed = ft_strtrim(substr, character);
-	if (!trimmed)
-	{	
-		free(trimmed);
-		return (NULL);
-	}
-	ft_strlcpy(copy, trimmed, copylength);
-	free(substr);
-	free(trimmed);
-	return (copy);
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**split;
-	size_t	i;
-	size_t	count;
-	char	*copy;
-	char	character[2];
+	char	**ret;
+	size_t	size;
+	int		i;
 
-	split = ft_calloc(ft_count_words(s, c) + 1, sizeof (char *));
-	if (!split)
+	size = ft_calc_size(s, c);
+	ret = (char **)ft_calloc(size + 1, sizeof(char *));
+	if (!ret)
 		return (NULL);
-	character[0] = (char) c;
-	character[1] = '\0';
-	copy = ft_strtrim((char *) s, (char *)character);
-	if (!copy)
+	if (!ft_apply_split(s, c, ret))
+	{
+		i = 0;
+		while (ret[i] != NULL)
+		{
+			free(ret[i]);
+			i++;
+		}
+		free(ret);
 		return (NULL);
-	count = ft_count_words(copy, c);
-	i = 0;
-	while (i < count)
-	{
-		split[i] = ft_add_word(split[i], copy, ft_word_length(copy, c));
-		ft_trim_string(copy, character);
-		i++;
 	}
-	free(copy);
-	return (split);
+	return (ret);
 }
-/* 
-int	test(int test_number, char const *s, char c)
-{
-	char **split = ft_split(s, c);
-
-	unsigned int count = ft_count_words(s, c);
-	
-	printf("test %d:\n", test_number);
-	printf("count is %d\n", count);
-	char character[1];
-	character[0] = (char) c;
-	unsigned int i = 0;
-	while (i < count)
-	{
-		printf("split %d is '%s'\n", i, split[i]);
-		i++;
-	}
-	printf("split %d is '%s'\n", i, split[i]);
-	return (0);
-}
-
-int main()
-{
-	char 	*s = "hello!";
-	char	c = ' ';
-	
-	ft_split(s, c);
-	test(1, s, c);
-
-	return (0);
-}
- */

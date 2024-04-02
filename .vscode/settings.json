@@ -16,6 +16,7 @@
 		"stdlib.h": "c",
 		"memory": "c",
 		"get_next_line.h": "c",
-		"ipc.h": "c"
+		"ipc.h": "c",
+		"iosfwd": "c"
 	}
 }

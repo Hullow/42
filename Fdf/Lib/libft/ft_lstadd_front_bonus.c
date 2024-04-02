@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/02 15:14:34 by fallan           ###   ########.fr       */
+/*   Created: 2023/11/24 17:58:36 by fallan            #+#    #+#             */
+/*   Updated: 2024/02/08 16:24:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "./lib/get_next_line.h"
-#include "./lib/libft.h"
+#include "libft.h"
 
-int		ft_printf(const char *, ...);
-char	*get_next_line(int fd);
+/* typedef struct	s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list; */
+
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	new->next = *lst;
+	*lst = new;
+}
+
+/* int	main()
+{
+	t_list	root;
+	root->x = 15;
+	root->next = NULL;
+	
+	ft_lstadd_front(&root, &10);
+	root = 
+	printf("%d\n", (int) )
+} */
+
+
+
+
+
