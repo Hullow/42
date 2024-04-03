@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/02 17:12:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/03 11:45:03 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ static int	*ft_examine_lines(int fd)
 {
 	int		*line_data;
 	char	*line_read;
-	int 	i;
 
 	line_data = malloc(2 * sizeof(int));
 	if (!line_data)
 		return (NULL);
 	line_data[0] = 0;
-	i = -1;
 	line_read = get_next_line(fd);
 	line_data[1] = ft_count_columns(ft_split(line_read, ' '));
 	if (line_read)
@@ -61,7 +59,6 @@ static int	*ft_examine_lines(int fd)
 		ft_printf("no lines found\n");
 	return (line_data);
 }
-
 
 // int *ft_string_to_int_array(char *string, int column_count)
 // {
@@ -91,10 +88,10 @@ static int **ft_file_to_array(int fd, char *path)
 	if (!line_data)
 		return (NULL);
 	fd = open(path, O_RDONLY);
-	map = malloc ((line_data[0] + 1) * sizeof(int *)); // array of array of ints * number of line
+	map = malloc ((line_data[0] + 1) * sizeof(int *)); // array of array of ints *times* number of line
 	while (++i < line_data[0])
 	{
-		map[i] = malloc((line_data[1] + 1) * sizeof(int)); // array of ints * number of columns
+		map[i] = malloc((line_data[1] + 1) * sizeof(int)); // array of ints *times* number of columns
 		if (!map[i])
 			return (NULL);
 		split_string = ft_split(get_next_line(fd), ' '); // read the line, split it 
