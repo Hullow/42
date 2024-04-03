@@ -49,3 +49,50 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 - Octant: think it might use the 7th (+-+), which is what the subject seems to be asking. But the isometric projection article gives matrices for the first
 - Took a look at the libmath (math.h) and `man float`
 - Advanced on input: wrote function to count lines, and integrated get_next_line to get all lines and store them in an array. Need to split them into individual characters and "atoi" them into a float map
+
+- Next time: maybe add enum for certain variables
+
+```c
+enum e_color
+{
+    BLACK = 0x000000,
+    WHITE = 0xFFFFFF,
+    RED = 0xFF0000,
+    GREEN = 0x00FF00,
+    BLUE = 0x0000FF,
+    YELLOW = 0xFFFF00,
+    PINK = 0xFF00FF,
+    CYAN = 0x00FFFF,
+    ORANGE = 0xFFA500,
+};
+
+enum e_key
+{
+    KEY_ESC = 53,
+    KEY_ARROW_LEFT = 123,
+    KEY_ARROW_RIGHT = 124,
+    KEY_ARROW_DOWN = 125,
+    KEY_ARROW_UP = 126,
+    KEY_A = 0,
+    KEY_S = 1,
+    KEY_D = 2,
+    KEY_W = 13,
+    KEY_P = 35,
+};
+
+enum e_mouse
+{
+    MOUSE_SCROLL_DOWN = 4,
+    MOUSE_SCROLL_UP = 5
+};
+
+enum e_xcode_event
+{
+    ON_DESTROY = 17
+};
+
+enum e_xcode_mask
+{
+    KEY_PRESS_MASK = 2,
+};
+```
