@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/02 15:14:34 by fallan           ###   ########.fr       */
+/*   Created: 2023/11/28 13:13:16 by fallan            #+#    #+#             */
+/*   Updated: 2023/12/01 18:32:48 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "./lib/get_next_line.h"
-#include "./lib/libft.h"
+#include "libft.h"
 
-int		ft_printf(const char *, ...);
-char	*get_next_line(int fd);
+int	ft_lstsize(t_list *lst)
+{
+	int	lstsize;
+
+	if (lst)
+		lstsize = 1;
+	else
+		return (0);
+	while (lst->next)
+	{
+		lst = lst->next;
+		lstsize++;
+	}	
+	return (lstsize);
+}
