@@ -6,13 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/04 21:57:52 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/04 23:12:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_count_columns(char **array)
+static int	ft_count_elements_in_2d_char_array(char **array)
 {
 	int i;
 
@@ -22,7 +22,31 @@ static int	ft_count_columns(char **array)
 	return (i);
 }
 
-// counts the number of lines
+static int	ft_count_elements_in_2d_int_array(int **array, int dimension)
+{
+	int i;
+
+	i = 0;
+	if (dimension == 0)
+	{
+		while (array[i])
+			i++;
+	}
+	else if (dimension == 1)
+	{
+		while (array[0][i])
+		{
+			ft_printf("%d ", array[0][i]);
+			i++;
+		}
+		ft_printf("\n");
+	}
+	else
+		return (-1);
+	return (i);
+}
+
+// counts the number of lines from our file descriptor (array of characters)
 // and calls ft_count_columns to count the number of columns
 // line_data : [0]->line count, [1]->line length
 static int	*ft_examine_lines(int fd)
@@ -35,12 +59,12 @@ static int	*ft_examine_lines(int fd)
 		return (NULL);
 	line_data[0] = 0;
 	line_read = get_next_line(fd);
-	line_data[1] = ft_count_columns(ft_split(line_read, ' '));
+	line_data[1] = ft_count_elements_in_2d_char_array(ft_split(line_read, ' '));
 	if (line_read)
 		free(line_read);
 	while (line_read)
 	{
-		if (ft_count_columns(ft_split(line_read, ' ')) != line_data[1])
+		if (ft_count_elements_in_2d_char_array(ft_split(line_read, ' ')) != line_data[1])
 			{
 				free(line_data);
 				return (NULL);
@@ -60,21 +84,23 @@ static int	*ft_examine_lines(int fd)
 	return (line_data);
 }
 
-// int *ft_string_to_int_array(char *string, int column_count)
+// int	**ft_add_line_data_to_map(int **map, int *line_data)
 // {
-// 	char **split_string = NULL;
-// 	int *array = NULL;
-// 	int i;
+// 	map[0] = malloc((line_data[1] + 1) * sizeof(int)); // array of ints *times* number of columns
+// 	if (!map[0])
+// 		return (NULL);
+// 	map[0][0] = line_data[0];
+// 	map[0][1] = line_data[1];
 
-// 	split_string = ft_split(string);
-// 	i = -1;
-// 	while (++i < column_count)
-// 		array[i] = ft_atoi(split_string[i]);
-// 	array[i] = NULL;
-// 	return (array);
+// 	while (line_data[1] > 1)
+// 	{
+// 		map[0][line_data[1]] = 0;
+// 		line_data[1]--;
+// 	}
+// 	return (map);
 // }
 
-
+// parses the input file to produce an array of integers
 static int **ft_file_to_array(int fd, char *path)
 {
 	int		**map = NULL;
@@ -86,10 +112,10 @@ static int **ft_file_to_array(int fd, char *path)
 	i = -1;
 	line_data = ft_examine_lines(fd);
 	close(fd);
-	if (!line_data)
+	if (!line_data) // really necessary ?
 		return (NULL);
 	fd = open(path, O_RDONLY);
-	map = malloc ((line_data[0] + 1) * sizeof(int *)); // array of array of ints *times* number of line
+	map = malloc ((line_data[0] + 2) * sizeof(int *)); // array of array of ints *times* number of line
 	while (++i < line_data[0])
 	{
 		map[i] = malloc((line_data[1] + 1) * sizeof(int)); // array of ints *times* number of columns
@@ -114,6 +140,33 @@ static int **ft_file_to_array(int fd, char *path)
 }
 
 
+// adds x and y coordinates to the input map
+int	ft_coordinate_map(int **map)
+{
+	// int	***coordinate_map = NULL;
+	int 	line;
+	int 	column;
+	// int 	altitude;
+
+
+	line = ft_count_elements_in_2d_int_array(map, 0);
+	ft_printf("ft_coordinate_map: %d lines in map\n", line);
+
+	column = ft_count_elements_in_2d_int_array(map, 1);
+	ft_printf("ft_coordinate_map: %d columns in map\n", column);
+
+	ft_printf("sizeof(map): %d\n", sizeof(map));
+
+	return (0);
+}
+
+// int	**ft_isometric_projection(int **map)
+// {
+// 	int **projection = NULL;
+
+// }
+
+
 
 int main(int argc, char *argv[])
 {
@@ -127,7 +180,8 @@ int main(int argc, char *argv[])
 		else
 		{
 			ft_printf("%s seems to exist\n", argv[1]);
-			ft_file_to_array(fd, argv[1]);
+			int	**map = ft_file_to_array(fd, argv[1]);
+			ft_coordinate_map(map);
 		}
 	}
 	else

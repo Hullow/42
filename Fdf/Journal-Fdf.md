@@ -57,8 +57,8 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 - Managed to split input and fit it into a array of ints, but issues at the borders. To fix
 
 # 4/4/24
-- Makefile(s) to make underpinning libraries
-- Slow today...but with Copilot I was able to make the nested makefile
+- Summary: Makefile(s) mostly, to make underpinning libraries
+- Slow today (increasing focus at the end of the day and evening)...but with Copilot I was able to make the nested makefile
 - One thing that mattered was changing the order at line 37:
 `$(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)` instead of `$(NAME): $(OBJ) $(FT_PRINTF) $(LIBFT)`
 - For `clean`, need rule for obj files of required libraries
@@ -72,3 +72,5 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 #pragma clang diagnostic pop
 ```
 around line 364 expression `[[self openGLContext] setView:self];`
+- Added debugging and sanitizer rules to makefile
+- Fixed the "issues at the borders" mentioned last time

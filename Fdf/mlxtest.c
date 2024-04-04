@@ -6,13 +6,14 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/03/28 14:02:57 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/04 22:07:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "lib/libft/libft.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
@@ -28,34 +29,6 @@ typedef struct	s_env {
 	int		line_length;
 	int		endian;
 }				t_env;
-
-int	ft_strncmp(char *s1, char *s2, unsigned int n)
-{
-	if (n == 0)
-		return (0);
-	else if (*s1 > 0 && *s2 == 0)
-		return ((unsigned char) *s1 - (unsigned char) *s2);
-	else if (*s1 == 0 && *s2 > 0)
-		return ((unsigned char) *s1 - (unsigned char) *s2);
-	else
-	{
-		while (n > 0 && *s1 && *s2)
-		{
-			if (*s1 == *s2)
-				n--;
-			else if (*s1 > *s2)
-				return ((unsigned char) *s1 - (unsigned char) *s2);
-			else if (*s1 < *s2)
-				return ((unsigned char) *s1 - (unsigned char) *s2);
-			if (n != 0)
-			{
-				s1++;
-				s2++;
-			}
-		}
-	}
-	return ((unsigned char) *s1 - (unsigned char) *s2);
-}
 
 int		my_color_to_hex(char *color)
 {
