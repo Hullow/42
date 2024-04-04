@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 18:04:50 by fallan            #+#    #+#              #
-#    Updated: 2024/04/04 18:05:43 by fallan           ###   ########.fr        #
+#    Updated: 2024/04/04 19:29:09 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ1 = $(SRC:.c=.o)
 
 OBJ = $(OBJ1:.m=.o)
 
-CFLAGS+=-O2
+CFLAGS+=-O2 -DGL_SILENCE_DEPRECATION
 
 all: $(NOM)
 

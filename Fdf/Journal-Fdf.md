@@ -62,3 +62,13 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 - One thing that mattered was changing the order at line 37:
 `$(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)` instead of `$(NAME): $(OBJ) $(FT_PRINTF) $(LIBFT)`
 - For `clean`, need rule for obj files of required libraries
+- Silencing deprecation warnings:
+	- in mlx Makefile, added `-DGL_SILENCE_DEPRECATION` to CFLAGS
+	- in mlx_new_window.m, added:
+```c
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+[[self openGLContext] setView:self];
+#pragma clang diagnostic pop
+```
+around line 364 expression `[[self openGLContext] setView:self];`

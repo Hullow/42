@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/04/04 18:08:37 by fallan           ###   ########.fr        #
+#    Updated: 2024/04/04 19:15:31 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,19 @@ $(NAME): $(OBJ) $(MLX) $(LIBFT) $(FT_PRINTF)
 sanitize: $(OBJ)
 	$(CC) -fsanitize=address $(CFLAGS) $(OBJ) -Llib -lft -lftprintf -Lminilibx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-clean:
-	rm -f $(OBJ) $(MLX) $(LIBFT) $(FT_PRINTF)
+cleanfdf:
+	rm -f $(OBJ)
+
+cleanmlx: 
+	make clean -C ./lib/minilibx/ -f Makefile
+
+cleanlibft:
+	make clean -C ./lib/libft/ -f Makefile
+
+cleanftprintf:
+	make clean -C ./lib/ft_printf/ -f Makefile
+
+clean: cleanfdf cleanmlx cleanlibft cleanftprintf
 
 fclean: clean
 	rm -f $(NAME)

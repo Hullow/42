@@ -361,7 +361,10 @@ int get_mouse_button(NSEventType eventtype)
       //      [ctx makeCurrentContext];
 
       [[self openGLContext] makeCurrentContext];
-      [[self openGLContext] setView:self];
+		#pragma clang diagnostic push
+		#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+		[[self openGLContext] setView:self];
+		#pragma clang diagnostic pop
       [self prepareOpenGL];
 
       [self setNextKeyView:self];
