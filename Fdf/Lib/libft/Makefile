@@ -14,6 +14,8 @@ ft_memchr.c ft_memset.c ft_strjoin.c ft_strncmp.c ft_substr.c ft_bzero.c ft_isas
 ft_split.c ft_strlcat.c ft_strnstr.c ft_tolower.c ft_calloc.c ft_isdigit.c ft_memcpy.c ft_strchr.c $\
 ft_strlcpy.c ft_strrchr.c ft_toupper.c
 
+SRC = $(addprefix src/, $(SRCS))
+
 all: $(NAME)
 
 OBJ := $(SRC:%.c=%.o)

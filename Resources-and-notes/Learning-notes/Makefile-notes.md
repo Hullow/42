@@ -26,6 +26,10 @@ RULE: DEPENDENCY LINE
 #### Pattern rules
 [*pattern rules*](https://www.gnu.org/software/make/manual/make.html#Pattern-Intro) contain the character `%` in the target, which matches any nonempty string -> "a pattern for matching file names". Look exactly like ordinary rules otherwise.
 
+##### Prefixes
+`SRCS = ft_.....c ft_...c ....
+`SRC = $(addprefix src/, $(SRCS))`
+
 
 ### [Variables](https://www.gnu.org/software/make/manual/make.html#Using-Variables)
 [Two flavors](https://www.gnu.org/software/make/manual/make.html#Flavors):
