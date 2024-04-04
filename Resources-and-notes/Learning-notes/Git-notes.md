@@ -38,6 +38,11 @@
 
 - `Git rm --cached <file>` : removes files from tree but not local storage (CAUTION)
 
+## Stashing changes
+- `git stash` : stash uncommitted changes
+- `git stash pop` : pull latest set of stashed changes and merge it with the current branch
+
+
 ## [Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
 ### How it works

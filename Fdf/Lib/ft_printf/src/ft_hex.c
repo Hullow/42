@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_pointer.c                                 :+:      :+:    :+:   */
+/*   ft_hex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 15:28:25 by fallan            #+#    #+#             */
-/*   Updated: 2023/12/12 15:28:26 by fallan           ###   ########.fr       */
+/*   Created: 2023/12/12 15:28:11 by fallan            #+#    #+#             */
+/*   Updated: 2024/04/04 14:41:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
-static int	ft_ptr_write(unsigned long long decimal, char format_specifier)
+static int	ft_print_hex(unsigned int decimal, char format_specifier)
 {
 	if (decimal < 16)
 	{
@@ -40,37 +40,17 @@ static int	ft_ptr_write(unsigned long long decimal, char format_specifier)
 		return (-1);
 }
 
-static int	ft_ptr_base(unsigned long long number, char format_specifier)
+int	ft_hex(unsigned int number, char format_specifier)
 {
 	int	res;
 
 	res = 0;
 	if (number < 16)
-		res += ft_ptr_write(number, format_specifier);
+		res += ft_print_hex(number, format_specifier);
 	else
 	{
-		res += ft_ptr_base(number / 16, format_specifier);
-		res += ft_ptr_base(number % 16, format_specifier);
-	}
-	return (res);
-}
-
-int	ft_print_pointer(unsigned long long ptr)
-{
-	char	character;
-	int		res;
-
-	res = 0;
-	if (!ptr)
-	{
-		write(1, "0x0", 3);
-		return (3);
-	}
-	else
-	{
-		res += write(1, "0x", 2);
-		character = 'x';
-		res += ft_ptr_base(ptr, character);
+		res += ft_hex(number / 16, format_specifier);
+		res += ft_hex(number % 16, format_specifier);
 	}
 	return (res);
 }

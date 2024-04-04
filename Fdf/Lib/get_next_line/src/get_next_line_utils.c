@@ -6,11 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:46 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/02 15:49:34 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/04 16:31:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../get_next_line.h"
 
 /* looks at #BUFFER_SIZE characters in a string: 
 	- if those characters contain an '\n', 

@@ -17,6 +17,7 @@
 		"memory": "c",
 		"get_next_line.h": "c",
 		"ipc.h": "c",
-		"iosfwd": "c"
+		"iosfwd": "c",
+		"ft_printf.h": "c"
 	}
 }

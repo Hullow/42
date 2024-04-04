@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 15:28:43 by fallan            #+#    #+#             */
-/*   Updated: 2023/12/12 15:32:27 by fallan           ###   ########.fr       */
+/*   Created: 2023/12/12 15:28:40 by fallan            #+#    #+#             */
+/*   Updated: 2024/04/04 14:41:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
-int	ft_putnbr(int n, int res)
+int	ft_putnbr_unsigned(unsigned int n, int res)
 {
-	if (n == -2147483648)
-		return (write(1, "-2147483648", 11));
+	if (n == 2147483648)
+		return (write(1, "2147483648", 10));
 	else
 	{
 		if (n < 0)
@@ -32,8 +32,8 @@ int	ft_putnbr(int n, int res)
 		}
 		if (n > 9)
 		{
-			res = ft_putnbr(n / 10, res);
-			res = ft_putnbr(n % 10, res);
+			res = ft_putnbr_unsigned(n / 10, res);
+			res = ft_putnbr_unsigned(n % 10, res);
 		}
 	}
 	return (res);
