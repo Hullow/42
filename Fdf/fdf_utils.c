@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/03 11:45:03 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/04 21:57:52 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	*ft_examine_lines(int fd)
 // 	return (array);
 // }
 
+
 static int **ft_file_to_array(int fd, char *path)
 {
 	int		**map = NULL;
@@ -102,7 +103,7 @@ static int **ft_file_to_array(int fd, char *path)
 		{
 			j = -1;
 			while (++j < line_data[1])
-				ft_printf("\"%d\" ", map[i][j + 1]);
+				ft_printf("%d ", map[i][j]);
 		}
 		else
 			ft_printf("get_next_line returned NULL\n");

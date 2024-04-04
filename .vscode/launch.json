@@ -2,11 +2,11 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Launch ${workspaceFolder}/a.out",
+			"name": "(lldb) Launch Fdf",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/42-projects-archive/Libft-archive/a.out",
-			"args": [],
+			"program": "${workspaceFolder}/Fdf/fdf",
+			"args": ["/Users/fallan/42/Fdf/test_maps/elem.fdf"],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

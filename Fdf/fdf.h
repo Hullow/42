@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/04 16:30:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/04 19:42:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,4 @@
 #include <stdlib.h>
 #include "./lib/get_next_line/get_next_line.h"
 #include "./lib/libft/libft.h"
-
-int		ft_printf(const char *, ...);
-char	*get_next_line(int fd);
+#include "./lib/ft_printf/ft_printf.h"

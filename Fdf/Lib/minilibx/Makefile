@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 18:04:50 by fallan            #+#    #+#              #
-#    Updated: 2024/04/04 19:29:09 by fallan           ###   ########.fr        #
+#    Updated: 2024/04/04 19:44:37 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,10 @@ $(NOM):	$(OBJ)
 	ranlib $(NOM)
 
 clean:
-	rm -f $(NOM) $(OBJ) *~
+	rm -f $(OBJ) *~
 	rm -f mlx_app
+
+fclean: clean
+	rm -f $(NAME)
 
 re: clean all
