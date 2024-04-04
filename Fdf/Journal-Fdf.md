@@ -58,3 +58,7 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 
 # 4/4/24
 - Makefile(s) to make underpinning libraries
+- Slow today...but with Copilot I was able to make the nested makefile
+- One thing that mattered was changing the order at line 37:
+`$(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)` instead of `$(NAME): $(OBJ) $(FT_PRINTF) $(LIBFT)`
+- For `clean`, need rule for obj files of required libraries

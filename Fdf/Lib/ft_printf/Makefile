@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/12 15:35:22 by fallan            #+#    #+#              #
-#    Updated: 2024/04/04 15:02:36 by fallan           ###   ########.fr        #
+#    Updated: 2024/04/04 18:01:42 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = ft_printf.c  ft_print_string.c ft_hex.c ft_putnbr.c ft_putnbr_unsigned.c ft_putchar.c ft_print_pointer.c
+SRCS = ft_printf.c ft_print_string.c ft_hex.c ft_putnbr.c ft_putnbr_unsigned.c ft_putchar.c ft_print_pointer.c
 
 SRC = $(addprefix src/, $(SRCS))
 
