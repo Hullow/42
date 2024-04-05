@@ -74,3 +74,7 @@ clang: error: linker command failed with exit code 1 (use -v to see invocation)"
 around line 364 expression `[[self openGLContext] setView:self];`
 - Added debugging and sanitizer rules to makefile
 - Fixed the "issues at the borders" mentioned last time
+- Started working on making a 3d coordinate map. Problem: passing info about # of columns and lines to another function in the map array. Issues implementing that without segfaulting etc.
+
+# 5/4/24
+- Discussion avec Mathis Guyot @Mguyot sur mon projet a chill valley

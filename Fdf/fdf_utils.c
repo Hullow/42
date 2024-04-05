@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/04 23:12:00 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/05 15:32:56 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,61 +84,43 @@ static int	*ft_examine_lines(int fd)
 	return (line_data);
 }
 
-// int	**ft_add_line_data_to_map(int **map, int *line_data)
-// {
-// 	map[0] = malloc((line_data[1] + 1) * sizeof(int)); // array of ints *times* number of columns
-// 	if (!map[0])
-// 		return (NULL);
-// 	map[0][0] = line_data[0];
-// 	map[0][1] = line_data[1];
+ft_print_map(int **map)
+{
+	
+}
 
-// 	while (line_data[1] > 1)
-// 	{
-// 		map[0][line_data[1]] = 0;
-// 		line_data[1]--;
-// 	}
-// 	return (map);
-// }
 
 // parses the input file to produce an array of integers
-static int **ft_file_to_array(int fd, char *path)
+static int **ft_file_to_array(int fd, int *line_data)
 {
 	int		**map = NULL;
 	char	**split_string = NULL;
 	int 	i;
 	int 	j;
-	int 	*line_data;
 
 	i = -1;
-	line_data = ft_examine_lines(fd);
-	close(fd);
-	if (!line_data) // really necessary ?
-		return (NULL);
-	fd = open(path, O_RDONLY);
-	map = malloc ((line_data[0] + 2) * sizeof(int *)); // array of array of ints *times* number of line
+	map = malloc ((line_data[0]) * sizeof(int *)); // array of array of ints *times* number of line
 	while (++i < line_data[0])
 	{
-		map[i] = malloc((line_data[1] + 1) * sizeof(int)); // array of ints *times* number of columns
+		map[i] = malloc((line_data[1]) * sizeof(int)); // array of ints *times* number of columns
 		if (!map[i])
 			return (NULL);
 		split_string = ft_split(get_next_line(fd), ' '); // read the line, split it 
 		j = -1;
 		while (++j < line_data[1])
 			map[i][j] = ft_atoi(split_string[j]);
-		if (map[i])
-		{
-			j = -1;
-			while (++j < line_data[1])
-				ft_printf("%d ", map[i][j]);
-		}
-		else
-			ft_printf("get_next_line returned NULL\n");
-		ft_printf("\n");
 	}
-	close(fd);
 	return (map);
 }
 
+
+// t_list	s_list; {
+// 	int	x;
+// 	int	y;
+// 	int	z;
+// 	int	line_count;
+// 	int	column_count;
+// };
 
 // adds x and y coordinates to the input map
 int	ft_coordinate_map(int **map)
@@ -171,6 +153,7 @@ int	ft_coordinate_map(int **map)
 int main(int argc, char *argv[])
 {
 	int	fd;
+	int	*line_data;
 
 	if (argc == 2)
 	{
@@ -180,7 +163,10 @@ int main(int argc, char *argv[])
 		else
 		{
 			ft_printf("%s seems to exist\n", argv[1]);
-			int	**map = ft_file_to_array(fd, argv[1]);
+			line_data = ft_examine_lines(fd);
+			close(fd);
+			fd = open(argv[1], O_RDONLY);
+			int	**map = ft_file_to_array(fd, line_data);
 			ft_coordinate_map(map);
 		}
 	}
