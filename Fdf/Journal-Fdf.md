@@ -78,3 +78,4 @@ around line 364 expression `[[self openGLContext] setView:self];`
 
 # 5/4/24
 - Discussion avec Mathis Guyot @Mguyot sur mon projet a chill valley
+- Redid my map with a linked list, not finished yet, but it shortens things quite a bit
