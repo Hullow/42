@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlxtest.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/04 22:07:36 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/09 22:19:42 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,44 @@ int	my_mlx_triangle_put(t_env *env, int i, int color)
 	return (0);
 }
 
+int	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
+{
+	int line_ratio = (x2-x1) / (y2-y1);
+	int inverse_line_ratio;
+	int x_factor;
+	int y_factor;
+
+	if (line_ratio == 0)
+		inverse_line_ratio = 1;
+	else
+		inverse_line_ratio = 1/line_ratio;
+
+	// 2 cumulative variants (so 4 total):
+	// if (x2 > x1)
+	// multiply the added difference by 1
+	// if (x2 < x1)
+	// multiply the added difference by -1
+	if (x1 <= x2)
+		x_factor = 1;
+	else
+		x_factor = -1;
+	if (y2 >= y1)
+		y_factor = 1;
+	else
+		y_factor = -1;
+	while (x1 * x_factor <= x2 * x_factor && y1 <= y_factor * y2)
+	{
+		if (x1 != x2)
+			x1 += x_factor;
+		y1 += y_factor * inverse_line_ratio;
+		if (x1 != x2 && y1 != y2)
+			my_mlx_pixel_put(env, x1, y1, "white");
+	}
+	}
+
+
+}
+
 int	my_mlx_hexagon_put(t_env *env, int i, int color)
 {
 	printf("WINDOW_HEIGHT == %d\n", WINDOW_HEIGHT);
@@ -135,6 +173,8 @@ int	my_mlx_hexagon_put(t_env *env, int i, int color)
 	i = 0;
 	return (0);
 }
+
+
 
 int	key_handler(int keycode, t_env *env)
 {

@@ -79,3 +79,7 @@ around line 364 expression `[[self openGLContext] setView:self];`
 # 5/4/24
 - Discussion avec Mathis Guyot @Mguyot sur mon projet a chill valley
 - Redid my map with a linked list, not finished yet, but it shortens things quite a bit
+
+
+# 9/4/24
+- In the train: line between points (my_mlx_line_put)

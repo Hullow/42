@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/08 20:12:25 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/09 21:39:55 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,13 @@ static t_point	*ft_file_to_coordinate_list(int fd, int *line_data)
 // 	int **projection = NULL;
 
 // }
+
+t_list	*ft_draw_line_between_points(t_list point_list)
+{
+
+
+}
+
 
 int main(int argc, char *argv[])
 {
