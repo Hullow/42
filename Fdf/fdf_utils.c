@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/05 17:14:58 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/08 20:12:25 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,19 @@ typedef struct s_point{
 	int				z;
 	int				line_count;
 	int				column_count;
-	struct s_point	*next;
 } 	t_point;
 
-t_point	*ft_fill_list_element(t_point *list_element, char **split_string, int i, int j, int *line_data)
+
+t_point	ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 {
-	list_element->x = j;
-	list_element->y = i;
-	list_element->z = ft_atoi(split_string[j]);
-	list_element->line_count = line_data[0];
-	list_element->column_count = line_data[1];
+	t_point	list_element;
+
+	list_element = malloc (sizeof(t_point)); 
+	list_element.x = j;
+	list_element.y = i;
+	list_element.z = ft_atoi(split_string[j]);
+	list_element.line_count = line_data[0];
+	list_element.column_count = line_data[1];
 	return (list_element);
 }
 
@@ -98,8 +101,8 @@ t_point	*ft_fill_list_element(t_point *list_element, char **split_string, int i,
 // parses the input file to produce an array of integers
 static t_point	*ft_file_to_coordinate_list(int fd, int *line_data)
 {
-	t_point	*head = NULL;
-	t_point	*new_element = NULL;
+	t_list	*node = NULL;
+	t_list	*head = NULL;
 	char	**split_string = NULL;
 	int 	i;
 	int 	j;
@@ -111,8 +114,7 @@ static t_point	*ft_file_to_coordinate_list(int fd, int *line_data)
 		j = -1;
 		while (++j < line_data[1])
 		{
-			new_element = ft_lstnew(NULL);
-			ft_fill_list_element(new_element, split_string, i, j, line_data);
+			node = ft_lstnew(ft_fill_list_element(split_string, i, j, line_data));
 			if (head == NULL)
 				head = new_element;
 			else
@@ -147,8 +149,6 @@ static t_point	*ft_file_to_coordinate_list(int fd, int *line_data)
 
 // }
 
-
-
 int main(int argc, char *argv[])
 {
 	int	fd;
@@ -171,6 +171,10 @@ int main(int argc, char *argv[])
 		}
 	}
 	else
+	{
+		line_data[0] = 0;
+		line_data[1] = 0;
 		ft_printf("missing arguments\n");
+	}
  	return (0);
 }
