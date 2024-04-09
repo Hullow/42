@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/08 20:12:25 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/09 14:14:16 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,22 +84,21 @@ typedef struct s_point{
 } 	t_point;
 
 
-t_point	ft_fill_list_element(char **split_string, int i, int j, int *line_data)
+t_point	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 {
-	t_point	list_element;
+	t_point	*list_element;
 
 	list_element = malloc (sizeof(t_point)); 
-	list_element.x = j;
-	list_element.y = i;
-	list_element.z = ft_atoi(split_string[j]);
-	list_element.line_count = line_data[0];
-	list_element.column_count = line_data[1];
+	list_element->x = j;
+	list_element->y = i;
+	list_element->z = ft_atoi(split_string[j]);
+	list_element->line_count = line_data[0];
+	list_element->column_count = line_data[1];
 	return (list_element);
 }
 
-
 // parses the input file to produce an array of integers
-static t_point	*ft_file_to_coordinate_list(int fd, int *line_data)
+static t_list	*ft_file_to_coordinate_list(int fd, int *line_data)
 {
 	t_list	*node = NULL;
 	t_list	*head = NULL;
@@ -116,32 +115,32 @@ static t_point	*ft_file_to_coordinate_list(int fd, int *line_data)
 		{
 			node = ft_lstnew(ft_fill_list_element(split_string, i, j, line_data));
 			if (head == NULL)
-				head = new_element;
+				head = node;
 			else
-				ft_lstadd_back(&head, new_element);
+				ft_lstadd_back(&head, node);
 		}
 	}
 	return (head);
 }
 
-// void	ft_print_coordinate_map(s_list coordinate_map, int* line_data)
-// {
-// 	int	i = -1;
-// 	int	j = -1;
+void	ft_print_coordinate_list(t_list *coordinate_list)
+{
+	t_point	*point;
 
-// 	while (++i < line_data[0])
-// 	{
-// 		if (coordinate_map.x)
-// 		{
-// 			j = -1;
-// 			while (++j < line_data[1])
-// 				ft_printf("%d ", map[i][j]);
-// 		}
-// 		else
-// 			ft_printf("get_next_line returned NULL\n");
-// 		ft_printf("\n");
-// 	}
-// }
+	while (coordinate_list)
+	{
+		point = coordinate_list->content;
+		if (point->z < 10)
+			ft_printf("%d  ", point->z);
+		else if (point->z < 100)
+			ft_printf("\b%d  ", point->z);
+		else if (point->z < 1000)
+			ft_printf("\b\b%d   ", point->z);
+		if (point->x == 9)
+			ft_printf("\n");
+		coordinate_list = coordinate_list->next;
+	}
+}
 
 // int	**ft_isometric_projection(int **map)
 // {
@@ -152,7 +151,7 @@ static t_point	*ft_file_to_coordinate_list(int fd, int *line_data)
 int main(int argc, char *argv[])
 {
 	int	fd;
-	int	*line_data;
+	int	*line_data = NULL;
 
 	if (argc == 2)
 	{
@@ -165,6 +164,8 @@ int main(int argc, char *argv[])
 			line_data = ft_examine_lines(fd);
 			close(fd);
 			fd = open(argv[1], O_RDONLY);
+			t_list *coordinate_list = ft_file_to_coordinate_list(fd, line_data);
+			ft_print_coordinate_list(coordinate_list);
 			// int	**map = ft_file_to_array(fd, line_data);
 			// ft_print_map(map, line_data);
 			// ft_coordinate_map(map, line_data);

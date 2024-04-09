@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:22:27 by fallan            #+#    #+#             */
-/*   Updated: 2023/12/01 18:37:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/09 13:36:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst->next;
 	return (lst);
 }
+
 /* 
 int main()
 {
