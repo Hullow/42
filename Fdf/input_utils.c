@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_utils.c                                        :+:      :+:    :+:   */
+/*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/11 15:00:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/11 17:30:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	ft_count_elements_in_2d_char_array(char **array)
+int	ft_count_elements_in_2d_char_array(char **array)
 {
 	int i;
 
@@ -26,7 +26,7 @@ static int	ft_count_elements_in_2d_char_array(char **array)
 // counts the number of lines from our file descriptor (array of characters)
 // and calls ft_count_columns to count the number of columns
 // line_data : [0]->line count, [1]->line length
-static int	*ft_examine_lines(int fd)
+int	*ft_examine_lines(int fd)
 {
 	int		*line_data;
 	char	*line_read;
@@ -75,20 +75,11 @@ void	ft_print_map(int **map, int* line_data)
 	}
 }
 
-typedef struct s_point{
-	int				x;
-	int				y;
-	int				z;
-	int				line_count;
-	int				column_count;
-} 	t_point;
-
-
 t_point	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 {
 	t_point	*list_element;
 
-	list_element = malloc (sizeof(t_point)); 
+	list_element = malloc (sizeof(t_point));
 	list_element->x = j;
 	list_element->y = i;
 	list_element->z = ft_atoi(split_string[j]);
@@ -98,7 +89,7 @@ t_point	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 }
 
 // parses the input file to produce an array of integers
-void t_list	*ft_file_to_point_list(int fd, int *line_data)
+t_list	*ft_file_to_point_list(int fd, int *line_data)
 {
 	t_list	*node = NULL;
 	t_list	*head = NULL;
@@ -140,56 +131,4 @@ void	ft_print_point_list(t_list *point_list)
 			ft_printf("\n");
 		point_list = point_list->next;
 	}
-}
-
-int	*ft_isometric_transform(t_point *point)
-{
-	int	output_point[2];
-	output_point[0] = (1/sqrt(6)) * (sqrt(3) * point->x - sqrt(3) * point->z); // cx
-	output_point[1] = (1/sqrt(6)) * (point->x + 2 * point->y + point->z); // cy
-	// cz = (1/sqrt(6)) * (sqrt(2) * point.x - sqrt(2) * point.y + sqrt(2) * point.z);
-	return(output_point);
-}
-
-void	ft_put_isometric_projection(t_list *point_list)
-{
-	int	output_point[2];
-	while (point_list)
-	{
-		output_point = ft_isometric_transform(point_list->content);
-		
-		point_list = point_list->next;
-	}
-}
-
-int main(int argc, char *argv[])
-{
-	int	fd;
-	int	*line_data = NULL;
-
-	if (argc == 2)
-	{
-		fd = open(argv[1], O_RDONLY);
-		if (fd == -1)
-			perror(argv[1]);
-		else
-		{
-			ft_printf("%s seems to exist\n", argv[1]);
-			line_data = ft_examine_lines(fd);
-			close(fd);
-			fd = open(argv[1], O_RDONLY);
-			t_list *point_list = ft_file_to_point_list(fd, line_data);
-			ft_print_point_list(point_list);
-			// int	**map = ft_file_to_array(fd, line_data);
-			// ft_print_map(map, line_data);
-			// ft_coordinate_map(map, line_data);
-		}
-	}
-	else
-	{
-		line_data[0] = 0;
-		line_data[1] = 0;
-		ft_printf("missing arguments\n");
-	}
- 	return (0);
 }

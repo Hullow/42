@@ -19,6 +19,9 @@
 		"ipc.h": "c",
 		"iosfwd": "c",
 		"ft_printf.h": "c",
-		"complex": "c"
+		"complex": "c",
+		"fcntl.h": "c",
+		"math.h": "c",
+		"mlx.h": "c"
 	}
 }

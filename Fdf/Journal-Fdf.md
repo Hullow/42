@@ -89,3 +89,7 @@ around line 364 expression `[[self openGLContext] setView:self];`
 	- Place the origin at the center of the map: divide window_length and window_heigth by 2
 	- ...
 - In the train: line between points (my_mlx_line_put)
+
+# 11/4/24
+- Back to work at 42
+- Trying to print my isometric projection using the mlx. Not successful so far.
