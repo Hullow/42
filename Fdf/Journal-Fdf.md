@@ -87,4 +87,5 @@ around line 364 expression `[[self openGLContext] setView:self];`
 - Linked list input handling finished
 - Isometric projection: what I need to do:
 	- Place the origin at the center of the map: divide window_length and window_heigth by 2
-	- 
+	- ...
+- In the train: line between points (my_mlx_line_put)
