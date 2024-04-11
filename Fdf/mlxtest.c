@@ -6,14 +6,20 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/11 15:19:44 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/11 18:36:31 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+// gcc mlxtest.c -L./lib/minilibx/ -lmlx -framework OpenGL -framework AppKit
+
+// gcc mlxtest.c -L./lib/  -lft -lftprintf -lmlx -framework OpenGL -framework AppKit
+
+#include "lib/minilibx/mlx.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "lib/libft/libft.h"
+#include "./lib/libft/libft.h"
+#include "./lib/ft_printf/ft_printf.h"
+#include "./lib/get_next_line/get_next_line.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
@@ -29,6 +35,15 @@ typedef struct	s_env {
 	int		line_length;
 	int		endian;
 }				t_env;
+
+int		my_color_to_hex(char *color);
+void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
+int		my_mlx_square_put(t_env *env, int x, int y, int color);
+int		my_mlx_triangle_put(t_env *env, int i, int color);
+void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
+int		my_mlx_hexagon_put(t_env *env, int i, int color);
+int		key_handler(int keycode, t_env *env);
+
 
 int		my_color_to_hex(char *color)
 {
@@ -83,7 +98,7 @@ int	my_mlx_triangle_put(t_env *env, int i, int color)
 	return (0);
 }
 
-int	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
+void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
 {
 	int line_ratio = (x2-x1) / (y2-y1);
 	int inverse_line_ratio;
@@ -114,7 +129,7 @@ int	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
 			x1 += x_factor;
 		y1 += y_factor * inverse_line_ratio;
 		if (x1 != x2 && y1 != y2)
-			my_mlx_pixel_put(env, x1, y1, "white");
+			my_mlx_pixel_put(env, x1, y1, color);
 	}
 
 }
@@ -171,8 +186,6 @@ int	my_mlx_hexagon_put(t_env *env, int i, int color)
 	i = 0;
 	return (0);
 }
-
-
 
 int	key_handler(int keycode, t_env *env)
 {

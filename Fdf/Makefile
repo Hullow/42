@@ -6,13 +6,14 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/04/11 17:28:17 by fallan           ###   ########.fr        #
+#    Updated: 2024/04/11 18:23:29 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRC = fdf.c input_utils.c graph_utils.c ./lib/get_next_line/src/get_next_line.c ./lib/get_next_line/src/get_next_line_utils.c
+SRC = fdf.c input_utils.c graph_utils.c $\
+./lib/get_next_line/src/get_next_line.c ./lib/get_next_line/src/get_next_line_utils.c
 
 OBJ = $(SRC:.c=.o)
 

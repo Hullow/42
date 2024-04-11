@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/11 17:34:42 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/11 18:53:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	launch_window_and_draw(t_list **point_list)
 	env->addr = mlx_get_data_addr(env->img, &env->bits_per_pixel, &env->line_length, &env->endian);
 	env->point_list = *point_list;
 	
-	env->color = "white";
-	ft_put_isometric_projection(env);
-	// mlx_hook(env->win, 2, 1L<<0, key_handler, &env);
+	env->color = "red";
+	// ft_put_isometric_projection(env);
+	mlx_hook(env->win, 2, 1L<<0, key_handler, &env);
 	mlx_loop(env->mlx);
 }
 
@@ -49,34 +49,34 @@ int	key_handler(t_env *env, int keycode)
 	printf("keycode = %d\n", keycode);
 	if (keycode == 53)
 		printf("ESCAPE\n");
-	else if (keycode == 2)
+	else
 	{
-		ft_printf("d pressed\n");
+		ft_printf("key pressed\n");
 		ft_put_isometric_projection(env);
 	}
-	else if (keycode == 1)
-		ft_printf("key pressed: s\n");
-	else if (keycode == 17)
-		ft_printf("key pressed: t, drawing a triangle\n");
-	else if (keycode == 4)
-		ft_printf("key pressed: h, drawing a hexagon\n");
 	return (0);
 }
 
 void	ft_put_isometric_projection(t_env *env)
 {
 	t_point	*projected_point;
-	int i = 1;
+	// int i = 1;
 	ft_printf("printing isometric projection\n");
-	while (env->point_list)
-	{
+	if (env->point_list->content)
 		projected_point = ft_isometric_transform(env->point_list->content);
-		ft_printf("point %d: x: %d, y: %d\n", i, projected_point->x, projected_point->y);
-		my_mlx_pixel_put(env, projected_point->x, projected_point->y, my_color_to_hex("white"));
-		free(projected_point);
-		i++;
-		env->point_list = env->point_list->next;
-	}
+		// ft_printf("point %d: x: %d, y: %d\n", i, projected_point->x, projected_point->y);
+		// my_mlx_pixel_put(env, projected_point->x + (WINDOW_WIDTH / 2), projected_point->y + (WINDOW_HEIGHT / 2), 0x00FFFFFF);
+	
+	// while (env->point_list)
+	// {
+	// 	projected_point = ft_isometric_transform(env->point_list->content);
+	// 	ft_printf("point %d: x: %d, y: %d\n", i, projected_point->x, projected_point->y);
+	// 	my_mlx_pixel_put(env, projected_point->x + (WINDOW_WIDTH / 2), projected_point->y + (WINDOW_HEIGHT / 2), 0x00FFFFFF);
+	// 	free(projected_point);
+	// 	i++;
+	// 	env->point_list = env->point_list->next;
+	// }
+	ft_printf("my_mlx_pixel_put_passed\n");
 }
 
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color)

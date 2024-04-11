@@ -93,3 +93,4 @@ around line 364 expression `[[self openGLContext] setView:self];`
 # 11/4/24
 - Back to work at 42
 - Trying to print my isometric projection using the mlx. Not successful so far.
+- Re-using the key handler as it worked well with mlxtest.c: seg fault caused by call to ft_isometric_transform. Maybe look at the pointer being passed as param ?
