@@ -18,6 +18,7 @@
 		"get_next_line.h": "c",
 		"ipc.h": "c",
 		"iosfwd": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"complex": "c"
 	}
 }

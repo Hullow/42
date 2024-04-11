@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/09 14:14:16 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/09 16:09:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_count_elements_in_2d_char_array(char **array)
 	int i;
 
 	i = 0;
-	while (array[i])
+	while (array[i + 1])
 		i++;
 	return (i);
 }
@@ -31,7 +31,7 @@ static int	*ft_examine_lines(int fd)
 	int		*line_data;
 	char	*line_read;
 
-	line_data = malloc(2 * sizeof(int));
+	line_data = (int *)malloc(2 * sizeof(int));
 	if (!line_data)
 		return (NULL);
 	line_data[0] = 0;
@@ -52,7 +52,7 @@ static int	*ft_examine_lines(int fd)
 			free(line_read);
 	}
 	if (line_data[0] && line_data[1])
-		ft_printf("lines_count: %d\nline length: %d\n", line_data[0], line_data[1]);
+		ft_printf("line count: %d\nline length: %d\n", line_data[0], line_data[1]);
 	return (line_data);
 }
 
@@ -98,7 +98,7 @@ t_point	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 }
 
 // parses the input file to produce an array of integers
-static t_list	*ft_file_to_coordinate_list(int fd, int *line_data)
+void t_list	*ft_file_to_point_list(int fd, int *line_data)
 {
 	t_list	*node = NULL;
 	t_list	*head = NULL;
@@ -123,30 +123,44 @@ static t_list	*ft_file_to_coordinate_list(int fd, int *line_data)
 	return (head);
 }
 
-void	ft_print_coordinate_list(t_list *coordinate_list)
+void	ft_print_point_list(t_list *point_list)
 {
 	t_point	*point;
 
-	while (coordinate_list)
+	while (point_list)
 	{
-		point = coordinate_list->content;
+		point = point_list->content;
 		if (point->z < 10)
 			ft_printf("%d  ", point->z);
 		else if (point->z < 100)
 			ft_printf("\b%d  ", point->z);
 		else if (point->z < 1000)
 			ft_printf("\b\b%d   ", point->z);
-		if (point->x == 9)
+		if (point->x == point->column_count - 1)
 			ft_printf("\n");
-		coordinate_list = coordinate_list->next;
+		point_list = point_list->next;
 	}
 }
 
-// int	**ft_isometric_projection(int **map)
-// {
-// 	int **projection = NULL;
+int	*ft_isometric_transform(t_point *point)
+{
+	int	output_point[2];
+	output_point[0] = (1/sqrt(6)) * (sqrt(3) * point->x - sqrt(3) * point->z); // cx
+	output_point[1] = (1/sqrt(6)) * (point->x + 2 * point->y + point->z); // cy
+	// cz = (1/sqrt(6)) * (sqrt(2) * point.x - sqrt(2) * point.y + sqrt(2) * point.z);
+	return(output_point);
+}
 
-// }
+void	ft_put_isometric_projection(t_list *point_list)
+{
+	int	output_point[2];
+	while (point_list)
+	{
+		output_point = ft_isometric_transform(point_list->content);
+		
+		point_list = point_list->next;
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -164,8 +178,8 @@ int main(int argc, char *argv[])
 			line_data = ft_examine_lines(fd);
 			close(fd);
 			fd = open(argv[1], O_RDONLY);
-			t_list *coordinate_list = ft_file_to_coordinate_list(fd, line_data);
-			ft_print_coordinate_list(coordinate_list);
+			t_list *point_list = ft_file_to_point_list(fd, line_data);
+			ft_print_point_list(point_list);
 			// int	**map = ft_file_to_array(fd, line_data);
 			// ft_print_map(map, line_data);
 			// ft_coordinate_map(map, line_data);

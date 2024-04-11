@@ -79,3 +79,12 @@ around line 364 expression `[[self openGLContext] setView:self];`
 # 5/4/24
 - Discussion avec Mathis Guyot @Mguyot sur mon projet a chill valley
 - Redid my map with a linked list, not finished yet, but it shortens things quite a bit
+
+# 8/4/24
+- A bit of linked list programming in the train
+
+# 9/4/24
+- Linked list input handling finished
+- Isometric projection: what I need to do:
+	- Place the origin at the center of the map: divide window_length and window_heigth by 2
+	- 
