@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/11 17:31:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/12 14:24:39 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ int main(int argc, char *argv[])
 			perror(argv[1]);
 		else
 		{
-			ft_printf("%s seems to exist\n", argv[1]);
+			ft_printf("%s opened\n", argv[1]);
 			line_data = ft_examine_lines(fd);
 			close(fd);
 			fd = open(argv[1], O_RDONLY);
-			t_list *point_list = ft_file_to_point_list(fd, line_data);
-			// ft_print_point_list(point_list);
-			launch_window_and_draw(&point_list);
+			t_list **point_list;
+			t_list **temp;
+			point_list = ft_file_to_point_list(fd, -1, line_data);
+			temp = point_list;
+			// ft_print_point_list(*point_list);
+			launch_window_and_draw(temp);
 		}
 	}
 	else

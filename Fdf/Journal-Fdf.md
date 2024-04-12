@@ -94,3 +94,8 @@ around line 364 expression `[[self openGLContext] setView:self];`
 - Back to work at 42
 - Trying to print my isometric projection using the mlx. Not successful so far.
 - Re-using the key handler as it worked well with mlxtest.c: seg fault caused by call to ft_isometric_transform. Maybe look at the pointer being passed as param ?
+
+# 12/4/24
+- Working on seg faults with my list(s) passed as parameters
+- Spent hours on this, actually the issue was simply the function prototype, which had to be `int key_handler(int keycode, t_env *env)` to correctly pass on the parameter, while`int key_handler(t_env *env, int keycode)` didn't pass it on properly !!!
+- In retrospect that the order of parameters is central should have made sense...

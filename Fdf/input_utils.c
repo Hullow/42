@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/11 17:30:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/12 14:18:20 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	*ft_examine_lines(int fd)
 	line_data[0] = 0;
 	line_read = get_next_line(fd);
 	line_data[1] = ft_count_elements_in_2d_char_array(ft_split(line_read, ' '));
-	if (line_read)
-		free(line_read);
+	// if (line_read)
+	// 	free(line_read);
 	while (line_read)
 	{
 		if (ft_count_elements_in_2d_char_array(ft_split(line_read, ' ')) != line_data[1])
@@ -48,53 +48,34 @@ int	*ft_examine_lines(int fd)
 			}
 		line_data[0]++;
 		line_read = get_next_line(fd);
-		if (line_read)
-			free(line_read);
+		// if (line_read)
+		// 	free(line_read);
 	}
 	if (line_data[0] && line_data[1])
 		ft_printf("line count: %d\nline length: %d\n", line_data[0], line_data[1]);
 	return (line_data);
 }
 
-void	ft_print_map(int **map, int* line_data)
+int	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 {
-	int	i = -1;
-	int	j = -1;
+	int	*point;
 
-	while (++i < line_data[0])
-	{
-		if (map[i])
-		{
-			j = -1;
-			while (++j < line_data[1])
-				ft_printf("%d ", map[i][j]);
-		}
-		else
-			ft_printf("get_next_line returned NULL\n");
-		ft_printf("\n");
-	}
-}
-
-t_point	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
-{
-	t_point	*list_element;
-
-	list_element = malloc (sizeof(t_point));
-	list_element->x = j;
-	list_element->y = i;
-	list_element->z = ft_atoi(split_string[j]);
-	list_element->line_count = line_data[0];
-	list_element->column_count = line_data[1];
-	return (list_element);
+	point = (int *)malloc (5 * sizeof(int));
+	point[0] = j;
+	point[1] = i;
+	point[2] = ft_atoi(split_string[j]);
+	point[3] = line_data[0];
+	point[4] = line_data[1];
+	return (point);
 }
 
 // parses the input file to produce an array of integers
-t_list	*ft_file_to_point_list(int fd, int *line_data)
+t_list	**ft_file_to_point_list(int fd, int i, int *line_data)
 {
 	t_list	*node = NULL;
 	t_list	*head = NULL;
+	t_list	**ret = NULL;
 	char	**split_string = NULL;
-	int 	i;
 	int 	j;
 
 	i = -1;
@@ -111,24 +92,26 @@ t_list	*ft_file_to_point_list(int fd, int *line_data)
 				ft_lstadd_back(&head, node);
 		}
 	}
-	return (head);
+	if (head)
+		ret = &head;
+	return (ret);
 }
 
-void	ft_print_point_list(t_list *point_list)
-{
-	t_point	*point;
+// void	ft_print_point_list(t_list *point_list)
+// {
+// 	t_point	*point;
 
-	while (point_list)
-	{
-		point = point_list->content;
-		if (point->z < 10)
-			ft_printf("%d  ", point->z);
-		else if (point->z < 100)
-			ft_printf("\b%d  ", point->z);
-		else if (point->z < 1000)
-			ft_printf("\b\b%d   ", point->z);
-		if (point->x == point->column_count - 1)
-			ft_printf("\n");
-		point_list = point_list->next;
-	}
-}
+// 	while (point_list)
+// 	{
+// 		point = point_list->content;
+// 		if (point->z < 10)
+// 			ft_printf("%d  ", point->z);
+// 		else if (point->z < 100)
+// 			ft_printf("\b%d  ", point->z);
+// 		else if (point->z < 1000)
+// 			ft_printf("\b\b%d   ", point->z);
+// 		if (point->x == point->column_count - 1)
+// 			ft_printf("\n");
+// 		point_list = point_list->next;
+// 	}
+// }

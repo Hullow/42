@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/11 17:31:41 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/12 17:29:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,6 @@
 #define WINDOW_NAME "mlx test window"
 #endif
 
-typedef struct s_point{
-	int				x;
-	int				y;
-	int				z;
-	int				line_count;
-	int				column_count;
-} 	t_point;
-
 typedef struct	s_env {
 	void	*mlx;
 	void	*win;
@@ -57,16 +49,17 @@ typedef struct	s_env {
 int		ft_count_elements_in_2d_char_array(char **array);
 int		*ft_examine_lines(int fd);
 void	ft_print_map(int **map, int* line_data);
-t_point	*ft_fill_list_element(char **split_string, int i, int j, int *line_data);
-t_list	*ft_file_to_point_list(int fd, int *line_data);
+int		*ft_fill_list_element(char **split_string, int i, int j, int *line_data);
+t_list	**ft_file_to_point_list(int fd, int i, int *line_data);
 void	ft_print_point_list(t_list *point_list);
 
 // graph utils
 int		my_color_to_hex(char *color);
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
-t_point	*ft_isometric_transform(t_point *point);
+int	my_mlx_square_put(t_env *env, int x, int y, int color);
+int		*ft_isometric_transform(int *point);
 void	ft_put_isometric_projection(t_env *env);
-int		key_handler(t_env *env, int keycode);
+int		key_handler(int keycode, t_env *env);
 void	launch_window_and_draw(t_list **point_list);
 int		mlx_launch_window(void);
