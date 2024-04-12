@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/12 17:40:47 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:35:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	*ft_isometric_transform(int *point)
 	return(projected_point);
 }
 
-void	launch_window_and_draw(t_list **point_list)
+void	launch_window_and_draw(t_list *point_list)
 {
 	t_env	env;
 
@@ -35,7 +35,7 @@ void	launch_window_and_draw(t_list **point_list)
 	env.win = mlx_new_window(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
 	env.img = mlx_new_image(env.mlx, 800, 600);
 	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
-	env.point_list = *point_list;
+	env.point_list = point_list;
 	env.color = "red";
 	ft_printf("launch_window_and_draw: env address: %p, &env:%p\n", env, &env);
 	// if (env.point_list)
@@ -83,17 +83,17 @@ void	ft_put_isometric_projection(t_env *env)
 	// int	*projected_point;
 	// int i = 1;
 	
-	// int *temp = (int *)env->point_list->content;
+	int *temp = (int *)env->point_list->content;
 	// t_list *anchor = env->point_list;
 	if (env->point_list)
 	{
-		ft_printf("ft_put_isometric_projection: env address is : %p, &env is : %p\n", env, &env);
-		ft_printf("env->point_list address: %p\n", env->point_list);
-		// while (env->point_list->next)
-		// {
-		// 	ft_printf("ft_put_isometric_projection: env->point_list->content not NULL, it is %d, %d\n", temp[0], temp[1]);
-		// 	env->point_list = env->point_list->next;
-		// }
+		// ft_printf("ft_put_isometric_projection: env address is : %p, &env is : %p\n", env, &env);
+		// ft_printf("env->point_list address: %p\n", env->point_list->content);
+		while (env->point_list->next)
+		{
+			ft_printf("ft_put_isometric_projection: env->point_list->content not NULL, it is %d, %d\n", temp[0], temp[1]);
+			env->point_list = env->point_list->next;
+		}
 	}
 	// ft_printf("env->point_list->content[0] not NULL, it is %d\n", temp[0]);
 	// projected_point = ft_isometric_transform(env->point_list->content);

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/12 14:18:20 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:33:28 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ int	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 }
 
 // parses the input file to produce an array of integers
-t_list	**ft_file_to_point_list(int fd, int i, int *line_data)
+t_list	*ft_file_to_point_list(int fd, int i, int *line_data)
 {
 	t_list	*node = NULL;
 	t_list	*head = NULL;
-	t_list	**ret = NULL;
 	char	**split_string = NULL;
 	int 	j;
 
@@ -92,9 +91,7 @@ t_list	**ft_file_to_point_list(int fd, int i, int *line_data)
 				ft_lstadd_back(&head, node);
 		}
 	}
-	if (head)
-		ret = &head;
-	return (ret);
+	return (head);
 }
 
 // void	ft_print_point_list(t_list *point_list)
