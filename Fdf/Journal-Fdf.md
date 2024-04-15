@@ -106,3 +106,4 @@ around line 364 expression `[[self openGLContext] setView:self];`
 - Need to print points, then verify if coordinates are well set (or upside down)
 - Okay managed to print points with `mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);`
 - Now need to scale points a bit, space them apart
+- In train: playing with x_min, y_max, etc. but issues (see printf statements printing out the same value for each)

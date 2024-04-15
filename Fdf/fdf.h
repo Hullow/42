@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/15 16:14:38 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/15 17:17:32 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
 int	my_mlx_square_put(t_env *env, int x, int y, int color);
 int		ft_isometric_transform(char c, int x, int y, int z);
-void	ft_put_point_list(t_env *env, float zoom);
+void	ft_put_point_list(t_env *env, t_list *anchor, float zoom);
 int		key_handler(int keycode, t_env *env);
 void	launch_window_and_draw(t_list *point_list);
 int		mlx_launch_window(void);

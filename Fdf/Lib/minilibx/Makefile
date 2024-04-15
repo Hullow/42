@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
+#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 18:04:50 by fallan            #+#    #+#              #
-#    Updated: 2024/04/04 19:44:37 by fallan           ###   ########.fr        #
+#    Updated: 2024/04/15 17:19:49 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NOM = ../libmlx.a
+NAME = ../libmlx.a
 
 SRC = mlx_shaders.c mlx_new_window.m mlx_init_loop.m mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
 
@@ -20,11 +20,11 @@ OBJ = $(OBJ1:.m=.o)
 
 CFLAGS+=-O2 -DGL_SILENCE_DEPRECATION
 
-all: $(NOM)
+all: $(NAME)
 
-$(NOM):	$(OBJ)
-	ar -r $(NOM) $(OBJ)
-	ranlib $(NOM)
+$(NAME):	$(OBJ)
+	ar -r $(NAME) $(OBJ)
+	ranlib $(NAME)
 
 clean:
 	rm -f $(OBJ) *~

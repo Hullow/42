@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/15 16:19:53 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/15 17:39:16 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	launch_window_and_draw(t_list *point_list)
 	env.point_list = point_list;
 	env.color = "white";
 
-
 	mlx_hook(env.win, 2, 1L<<0, key_handler, &env);
 	mlx_loop(env.mlx);
 }
@@ -35,14 +34,14 @@ void	launch_window_and_draw(t_list *point_list)
 int	key_handler(int keycode, t_env *env)
 {
 	printf("keycode = %d\n", keycode);
-	if (keycode == 53)
-		printf("ESCAPE\n");
-	else
-	{
+	// if (keycode == 53)
+	// 	printf("ESCAPE\n");
+	// else
+	// {
 		// ft_treat_point_list(env);
-		ft_put_point_list(env, 1);
+		ft_put_point_list(env, NULL, 1);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-	}
+	// }
 	return (0);
 }
 
@@ -54,8 +53,13 @@ void	ft_put_point_list(t_env *env, t_list *anchor, float zoom)
 	int	x_min;
 	int	y_min;
 
+	x_max = 0;
+	y_max = 0;
+	x_min = 0;
+	y_min = 0;
+
 	anchor = env->point_list;
-	zoom = 1;
+	ft_printf("before: address of env->point_list: %p\nnow, the isometric transformed points:\n", env->point_list);
 	if (env->point_list)
 	{
 		while (env->point_list->next)
@@ -65,37 +69,46 @@ void	ft_put_point_list(t_env *env, t_list *anchor, float zoom)
 			temp[2] = ((int *) env->point_list->content)[2];
 			((int *) env->point_list->content)[0] = ft_isometric_transform('x', temp[0], temp[1], temp[2]);
 			((int *) env->point_list->content)[1] = ft_isometric_transform('y', temp[0], temp[1], temp[2]);
-
+			ft_printf("x : %d, y: %d\n", ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1]);
 			// finding x_max, x_min, y_max, y_min
 			if (((int *) env->point_list->content)[0] > x_max)
+			{
 				x_max = ((int *) env->point_list->content)[0];
+				ft_printf("x_max reset to %d\n", (int)x_max);
+			}
 			if (((int *) env->point_list->content)[0] < x_min)
+			{
 				x_min = ((int *) env->point_list->content)[0];
+				ft_printf("x_min reset to %d\n", (int)x_min);
+			}
 			if (((int *) env->point_list->content)[1] > y_max)
-				x_max = ((int *) env->point_list->content)[1];
-			if (((int *) env->point_list->content)[0] < y_min)
-				y_min = ((int *) env->point_list->content)[0];
-
+			{
+				y_max = ((int *) env->point_list->content)[1];
+				ft_printf("y_max reset to %d\n", (int)y_max);
+			}
+			if (((int *) env->point_list->content)[1] < y_min)
+			{
+				y_min = ((int *) env->point_list->content)[1];
+				ft_printf("y_min reset to %d\n", (int)x_min);
+			}
 			env->point_list = env->point_list->next;
 		}
 	}
 
+	ft_printf("y_min: %d, y_max: %d \n", (int)y_min, (int)y_max);
 	// defining zoom from maximum and minimum values
-	if ((x_max - x_min) > WINDOW_WIDTH)
-	
-
+	while  (((x_max - x_min) * zoom > WINDOW_WIDTH) || ((y_max - y_min) * zoom > WINDOW_HEIGHT))
+		zoom -= 0.1;
 
 	// printing our points
+	ft_printf("after: address of env->point_list: %p\n", env->point_list);
 	env->point_list = anchor;
+	ft_printf("after reset: address of env->point_list: %p\n", env->point_list);
 	if (env->point_list)
 	{
 		while (env->point_list->next)
 		{
-
-
 			my_mlx_pixel_put(env, ((int *) env->point_list->content)[0] * zoom, ((int *) env->point_list->content)[1] * zoom, my_color_to_hex(env->color));
-	
-
 			env->point_list = env->point_list->next;
 		}
 	}
