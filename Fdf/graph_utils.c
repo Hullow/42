@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/12 18:35:35 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/15 16:19:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 #define WINDOW_NAME "mlx test window"
-
-int	*ft_isometric_transform(int *point)
-{
-	int	*projected_point;
-
-	projected_point = (int *)malloc (2 * sizeof(int));
-	projected_point[0] = (1/sqrt(6)) * (sqrt(3) * point[0] - sqrt(3) * point[2]); // cx
-	projected_point[1] = (1/sqrt(6)) * (point[0] + 2 * point[1] + point[2]); // cy
-	// cz = (1/sqrt(6)) * (sqrt(2) * point.x - sqrt(2) * point.y + sqrt(2) * point.z);
-	return(projected_point);
-}
 
 void	launch_window_and_draw(t_list *point_list)
 {
@@ -36,18 +25,9 @@ void	launch_window_and_draw(t_list *point_list)
 	env.img = mlx_new_image(env.mlx, 800, 600);
 	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
 	env.point_list = point_list;
-	env.color = "red";
-	ft_printf("launch_window_and_draw: env address: %p, &env:%p\n", env, &env);
-	// if (env.point_list)
-	// {
-	// 	while (env.point_list->next)
-	// 	{
-	// 		int *temp = (int *)env.point_list->content;
-	// 		ft_printf("launch_window: env.point_list->content not NULL, it is %d, %d\n", temp[0], temp[1]);
-	// 		env.point_list = env.point_list->next;
-	// 	}
-	// }
-	// ft_put_isometric_projection(env);
+	env.color = "white";
+
+
 	mlx_hook(env.win, 2, 1L<<0, key_handler, &env);
 	mlx_loop(env.mlx);
 }
@@ -59,58 +39,96 @@ int	key_handler(int keycode, t_env *env)
 		printf("ESCAPE\n");
 	else
 	{
-		ft_printf("key_handler: env is %p and &env is %p\n", env, &env);
-		ft_put_isometric_projection(env);
+		// ft_treat_point_list(env);
+		ft_put_point_list(env, 1);
+		mlx_put_image_to_window(env->mlx, env->win, env->img, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	}
 	return (0);
 }
 
-int	my_mlx_square_put(t_env *env, int x, int y, int color)
+void	ft_put_point_list(t_env *env, t_list *anchor, float zoom)
 {
-	x = WINDOW_WIDTH / 4;
-	y = WINDOW_HEIGHT / 4;
-	while (x++ < WINDOW_WIDTH * 3/4)
-	{
-		while (y++ < WINDOW_HEIGHT * 3/4)
-			my_mlx_pixel_put(env, x, y, color);
-		y = WINDOW_HEIGHT / 4;
-	}
-	return (0);
-}
+	int temp[3];
+	int	x_max;
+	int	y_max;
+	int	x_min;
+	int	y_min;
 
-void	ft_put_isometric_projection(t_env *env)
-{
-	// int	*projected_point;
-	// int i = 1;
-	
-	int *temp = (int *)env->point_list->content;
-	// t_list *anchor = env->point_list;
+	anchor = env->point_list;
+	zoom = 1;
 	if (env->point_list)
 	{
-		// ft_printf("ft_put_isometric_projection: env address is : %p, &env is : %p\n", env, &env);
-		// ft_printf("env->point_list address: %p\n", env->point_list->content);
 		while (env->point_list->next)
 		{
-			ft_printf("ft_put_isometric_projection: env->point_list->content not NULL, it is %d, %d\n", temp[0], temp[1]);
+			temp[0] = ((int *) env->point_list->content)[0];
+			temp[1] = ((int *) env->point_list->content)[1];
+			temp[2] = ((int *) env->point_list->content)[2];
+			((int *) env->point_list->content)[0] = ft_isometric_transform('x', temp[0], temp[1], temp[2]);
+			((int *) env->point_list->content)[1] = ft_isometric_transform('y', temp[0], temp[1], temp[2]);
+
+			// finding x_max, x_min, y_max, y_min
+			if (((int *) env->point_list->content)[0] > x_max)
+				x_max = ((int *) env->point_list->content)[0];
+			if (((int *) env->point_list->content)[0] < x_min)
+				x_min = ((int *) env->point_list->content)[0];
+			if (((int *) env->point_list->content)[1] > y_max)
+				x_max = ((int *) env->point_list->content)[1];
+			if (((int *) env->point_list->content)[0] < y_min)
+				y_min = ((int *) env->point_list->content)[0];
+
 			env->point_list = env->point_list->next;
 		}
 	}
-	// ft_printf("env->point_list->content[0] not NULL, it is %d\n", temp[0]);
-	// projected_point = ft_isometric_transform(env->point_list->content);
-	// ft_printf("point %d: x: %d, y: %d\n", i, projected_point[x], projected_point[y]);
-	// my_mlx_pixel_put(env, projected_point[x] + (WINDOW_WIDTH / 2), projected_point[y] + (WINDOW_HEIGHT / 2), 0x00FFFFFF);
+
+	// defining zoom from maximum and minimum values
+	if ((x_max - x_min) > WINDOW_WIDTH)
 	
-	// while (env->point_list)
-	// {
-	// 	projected_point = ft_isometric_transform(env->point_list->content);
-	// 	ft_printf("point %d: x: %d, y: %d\n", i, projected_point[x], projected_point[y]);
-	// 	my_mlx_pixel_put(env, projected_point[x] + (WINDOW_WIDTH / 2), projected_point[y] + (WINDOW_HEIGHT / 2), 0x00FFFFFF);
-	// 	free(projected_point);
-	// 	i++;
-	// 	env->point_list = env->point_list->next;
-	// }
-	ft_printf("my_mlx_pixel_put_passed\n");
+
+
+	// printing our points
+	env->point_list = anchor;
+	if (env->point_list)
+	{
+		while (env->point_list->next)
+		{
+
+
+			my_mlx_pixel_put(env, ((int *) env->point_list->content)[0] * zoom, ((int *) env->point_list->content)[1] * zoom, my_color_to_hex(env->color));
+	
+
+			env->point_list = env->point_list->next;
+		}
+	}
 }
+
+int	ft_isometric_transform(char c, int x, int y, int z)
+{
+	int	projected_coordinate;
+
+	if (c == 'x')
+		projected_coordinate = (1/sqrt(6)) * (sqrt(3) * x - sqrt(3) * z);
+	else if (c == 'y')
+		projected_coordinate = (1/sqrt(6)) * (x + 2 * y + z);
+	else
+		return(-1);
+	return(projected_coordinate);
+}
+
+// void	ft_treat_point_list(t_env *env)
+// {
+// 	if (env->point_list)
+// 	{
+// 		while (env->point_list->next)
+// 		{
+// 			((int *) env->point_list->content)[0] = y;
+// 			ft_printf("((int *) env->point_list->content)[0] is %d\n", ((int *) env->point_list->content)[0]);
+// 			env->point_list = env->point_list->next;
+// 		}
+// 	}
+
+// int	*ft_center_in_window(int	*point)
+// {
+// }
 
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
 {
@@ -171,4 +189,17 @@ int		my_color_to_hex(char *color)
 		return (0x00FFFFFF);
 	else
 		return (0xFFFFFFFF);
+}
+
+int	my_mlx_square_put(t_env *env, int x, int y, int color)
+{
+	x = WINDOW_WIDTH / 4;
+	y = WINDOW_HEIGHT / 4;
+	while (x++ < WINDOW_WIDTH * 3/4)
+	{
+		while (y++ < WINDOW_HEIGHT * 3/4)
+			my_mlx_pixel_put(env, x, y, color);
+		y = WINDOW_HEIGHT / 4;
+	}
+	return (0);
 }

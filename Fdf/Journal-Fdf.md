@@ -99,3 +99,10 @@ around line 364 expression `[[self openGLContext] setView:self];`
 - Working on seg faults with my list(s) passed as parameters
 - Spent hours on this, actually the issue was simply the function prototype, which had to be `int key_handler(int keycode, t_env *env)` to correctly pass on the parameter, while`int key_handler(t_env *env, int keycode)` didn't pass it on properly !!!
 - In retrospect that the order of parameters is central should have made sense...
+
+# 15/4/24
+- Isometric transform modifies points (checked with print statements)
+- Issue with input handling (0's apparently, not enough lines read with elem.fdf for instance)
+- Need to print points, then verify if coordinates are well set (or upside down)
+- Okay managed to print points with `mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);`
+- Now need to scale points a bit, space them apart

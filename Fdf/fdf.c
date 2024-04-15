@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/12 18:33:50 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/15 15:24:57 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int main(int argc, char *argv[])
 			t_list *temp;
 			point_list = ft_file_to_point_list(fd, -1, line_data);
 			temp = point_list;
-			// ft_print_point_list(*point_list);
 			launch_window_and_draw(temp);
 		}
 	}
