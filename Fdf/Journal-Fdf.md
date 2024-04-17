@@ -107,3 +107,7 @@ around line 364 expression `[[self openGLContext] setView:self];`
 - Okay managed to print points with `mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);`
 - Now need to scale points a bit, space them apart
 - In train: playing with x_min, y_max, etc. but issues (see printf statements printing out the same value for each)
+
+# 17/4/24
+- Refactoring code (graph_handling_utils.c, graph_transformation_utils.c, ft_lstiter to apply the various transformations, etc.)
+- Next: test ft_lstiter on isometric transform (syntax)

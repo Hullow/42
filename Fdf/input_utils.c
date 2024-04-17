@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/15 13:44:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/17 11:48:40 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_count_elements_in_2d_char_array(char **array)
 		i++;
 	return (i);
 }
-
 
 // counts the number of lines from our file descriptor (array of characters)
 // and calls ft_count_columns to count the number of columns
@@ -93,22 +92,3 @@ t_list	*ft_file_to_point_list(int fd, int i, int *line_data)
 	}
 	return (head);
 }
-
-// void	ft_print_point_list(t_list *point_list)
-// {
-// 	t_point	*point;
-
-// 	while (point_list)
-// 	{
-// 		point = point_list->content;
-// 		if (point->z < 10)
-// 			ft_printf("%d  ", point->z);
-// 		else if (point->z < 100)
-// 			ft_printf("\b%d  ", point->z);
-// 		else if (point->z < 1000)
-// 			ft_printf("\b\b%d   ", point->z);
-// 		if (point->x == point->column_count - 1)
-// 			ft_printf("\n");
-// 		point_list = point_list->next;
-// 	}
-// }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graph_utils.c                                      :+:      :+:    :+:   */
+/*   graph_handling_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/15 19:06:55 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/17 11:49:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,6 @@ void	ft_put_point_list(t_env *env, t_list *anchor, float zoom)
 		}
 	}
 
-	ft_printf("x_min: %d ", x_min);
-	ft_printf("x_max: %d ", x_max);
-	ft_printf("y_max: %d ", y_max);
-	ft_printf("y_min: %d\n", y_max);
 	// defining zoom from maximum and minimum values
 	ft_printf("zoom: %d\n", (int)(zoom));
 	while  ((((x_max - x_min) * zoom) < (int)WINDOW_WIDTH) && (((y_max - y_min) * zoom) < (int)WINDOW_HEIGHT))
@@ -126,35 +122,6 @@ void	ft_put_point_list(t_env *env, t_list *anchor, float zoom)
 		}
 	}
 }
-
-int	ft_isometric_transform(char c, int x, int y, int z)
-{
-	int	projected_coordinate;
-
-	if (c == 'x')
-		projected_coordinate = (1/sqrt(6)) * (sqrt(3) * x - sqrt(3) * z);
-	else if (c == 'y')
-		projected_coordinate = (1/sqrt(6)) * (x + 2 * y + z);
-	else
-		return(-1);
-	return(projected_coordinate);
-}
-
-// void	ft_treat_point_list(t_env *env)
-// {
-// 	if (env->point_list)
-// 	{
-// 		while (env->point_list->next)
-// 		{
-// 			((int *) env->point_list->content)[0] = y;
-// 			ft_printf("((int *) env->point_list->content)[0] is %d\n", ((int *) env->point_list->content)[0]);
-// 			env->point_list = env->point_list->next;
-// 		}
-// 	}
-
-// int	*ft_center_in_window(int	*point)
-// {
-// }
 
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
 {
@@ -215,17 +182,4 @@ int		my_color_to_hex(char *color)
 		return (0x00FFFFFF);
 	else
 		return (0xFFFFFFFF);
-}
-
-int	my_mlx_square_put(t_env *env, int x, int y, int color)
-{
-	x = WINDOW_WIDTH / 4;
-	y = WINDOW_HEIGHT / 4;
-	while (x++ < WINDOW_WIDTH * 3/4)
-	{
-		while (y++ < WINDOW_HEIGHT * 3/4)
-			my_mlx_pixel_put(env, x, y, color);
-		y = WINDOW_HEIGHT / 4;
-	}
-	return (0);
 }
