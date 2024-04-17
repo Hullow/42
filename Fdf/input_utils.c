@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/17 11:48:40 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/17 15:18:18 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	*ft_examine_lines(int fd)
 	return (line_data);
 }
 
-int	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
+int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 {
 	int	*point;
 
@@ -65,6 +65,7 @@ int	*ft_fill_list_element(char **split_string, int i, int j, int *line_data)
 	point[2] = ft_atoi(split_string[j]);
 	point[3] = line_data[0];
 	point[4] = line_data[1];
+	point[5] = 1;
 	return (point);
 }
 
@@ -83,7 +84,7 @@ t_list	*ft_file_to_point_list(int fd, int i, int *line_data)
 		j = -1;
 		while (++j < line_data[1])
 		{
-			node = ft_lstnew(ft_fill_list_element(split_string, i, j, line_data));
+			node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
 			if (head == NULL)
 				head = node;
 			else

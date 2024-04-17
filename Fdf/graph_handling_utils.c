@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/17 11:49:29 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/17 14:38:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,85 +39,20 @@ int	key_handler(int keycode, t_env *env)
 	// else
 	// {
 		// ft_treat_point_list(env);
-		ft_put_point_list(env, NULL, 0.1);
+		ft_graph_transformation(env->point_list);
+		ft_put_point_list(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	// }
 	return (0);
 }
 
-void	ft_put_point_list(t_env *env, t_list *anchor, float zoom)
+void	ft_put_point_list(t_env *env)
 {
-	int temp[3];
-	int	x_max;
-	int	y_max;
-	int	x_min;
-	int	y_min;
-
-	x_max = 0;
-	y_max = 0;
-	x_min = 0;
-	y_min = 0;
-
-	ft_printf("zoom: %d\n", (int)zoom);
-	anchor = env->point_list;
-	ft_printf("before: address of env->point_list: %p\nnow, the isometric transformed points:\n", env->point_list);
-	if (env->point_list)
-	{
-		while (env->point_list)
-		{
-			temp[0] = ((int *) env->point_list->content)[0];
-			temp[1] = ((int *) env->point_list->content)[1];
-			temp[2] = ((int *) env->point_list->content)[2];
-			((int *) env->point_list->content)[0] = ft_isometric_transform('x', temp[0], temp[1], temp[2]);
-			((int *) env->point_list->content)[1] = ft_isometric_transform('y', temp[0], temp[1], temp[2]);
-			// ft_printf("x : %d, y: %d\n", ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1]);
-			// finding x_max, x_min, y_max, y_min
-			if ((int)((int *) env->point_list->content)[0] > (int)x_max)
-			{
-				x_max = ((int *) env->point_list->content)[0];
-				// ft_printf("x_max reset to %d\n", (int)x_max);
-			}
-			if ((int)((int *) env->point_list->content)[0] < (int)x_min)
-			{
-				x_min = ((int *) env->point_list->content)[0];
-				// ft_printf("x_min reset to %d\n", (int)x_min);
-			}
-			if ((int)((int *) env->point_list->content)[1] > (int)y_max)
-			{
-				y_max = ((int *) env->point_list->content)[1];
-				// ft_printf("y_max reset to %d\n", (int)y_max);
-			}
-			if ((int)((int *) env->point_list->content)[1] < (int)y_min)
-			{
-				y_min = ((int *) env->point_list->content)[1];
-				// ft_printf("y_min reset to %d\n", (int)x_min);
-			}
-			env->point_list = env->point_list->next;
-		}
-	}
-
-	// defining zoom from maximum and minimum values
-	ft_printf("zoom: %d\n", (int)(zoom));
-	while  ((((x_max - x_min) * zoom) < (int)WINDOW_WIDTH) && (((y_max - y_min) * zoom) < (int)WINDOW_HEIGHT))
-		zoom += 0.1;
-	printf("zoom: %f\n", zoom);
-	while  ((((x_max - x_min) * zoom) > (int)WINDOW_WIDTH) || (((y_max - y_min) * zoom) > (int)WINDOW_HEIGHT))
-		zoom -= 0.1;
-	while  (((x_max * zoom) > (int)WINDOW_WIDTH) || (((y_max) * zoom) > (int)WINDOW_HEIGHT))
-		zoom -= 0.1;
-	zoom -= 10.25;
-	printf("zoom: %f\n", zoom);
-	ft_printf("zoom: %d\n", (int)(zoom));
-
-	// printing our points
-	ft_printf("after: address of env->point_list: %p\n", env->point_list);
-	env->point_list = anchor;
-	ft_printf("after reset: address of env->point_list: %p\n", env->point_list);
 	if (env->point_list)
 	{
 		while (env->point_list->next)
 		{
-			my_mlx_pixel_put(env, ((int *) env->point_list->content)[0] * zoom, ((int *) env->point_list->content)[1] * zoom, my_color_to_hex(env->color));
+			my_mlx_pixel_put(env, ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1], my_color_to_hex(env->color));
 			env->point_list = env->point_list->next;
 		}
 	}

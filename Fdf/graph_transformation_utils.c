@@ -6,94 +6,73 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/04/17 12:02:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/17 15:27:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-t_env	*ft_graph_transformation(t_list	*point_list)
-{
-	t_list	*anchor;
+#include "fdf.h"
 
-	ft_printf("address before ft_lstiter: %p\n", point_list);
-	anchor = point_list;
-	if (env->point_list)
+void	ft_graph_transformation(t_list	*point_list)
+{
+	float	zoom;
+
+	zoom = 1;
+	if (point_list)
 	{
-		ft_lstiter((int *)(point_list->content), ft_isometric_transform);
-		ft_printf("address after ft_lstiter: %p\n", point_list);
-		point_list = anchor;
-		ft_lstiter()
+		ft_isometric_projection(point_list);
+		zoom = ft_calculate_zoom(point_list);
+		ft_apply_zoom(point_list, zoom);
 	}
 }
 
-int	ft_isometric_transform(int *content)
+float	ft_calculate_zoom(t_list *point_list)
 {
-	temp[0] = content[0];
-	temp[1] = content[1];
-	temp[2] = content[2];
+	int		x_max = 0;
+	int		y_max = 0;
+	int		x_min = 0;
+	int		y_min = 0;
+	float 	zoom = 1;
 
-	content[0] = (1/sqrt(6)) * (sqrt(3) * temp[0] - sqrt(3) * temp[2]);
-	content[1] = (1/sqrt(6)) * (temp[0] + 2 * temp[1] + temp[2]);
-
-	return (content);
-}
-
-
-void	ft_zoom(t_list *point_list, int x_max, int y_max, int x_min, int y_min, float zoom)
-{
-	t_list	*anchor;
-
-	x_max = 0;
-	y_max = 0;
-	x_min = 0;
-	y_min = 0;
-	anchor = env->point_list;
-	ft_printf("zoom: %d\n", (int)zoom);
-
-	if (env->point_list)
+	// finding our min max values
+	while (point_list)
 	{
-		while (env->point_list)
-		{
-			// finding x_max, x_min, y_max, y_min
-			if ((int)((int *) env->point_list->content)[0] > (int)x_max)
-			{
-				x_max = ((int *) env->point_list->content)[0];
-				// ft_printf("x_max reset to %d\n", (int)x_max);
-			}
-			if ((int)((int *) env->point_list->content)[0] < (int)x_min)
-			{
-				x_min = ((int *) env->point_list->content)[0];
-				// ft_printf("x_min reset to %d\n", (int)x_min);
-			}
-			if ((int)((int *) env->point_list->content)[1] > (int)y_max)
-			{
-				y_max = ((int *) env->point_list->content)[1];
-				// ft_printf("y_max reset to %d\n", (int)y_max);
-			}
-			if ((int)((int *) env->point_list->content)[1] < (int)y_min)
-			{
-				y_min = ((int *) env->point_list->content)[1];
-				// ft_printf("y_min reset to %d\n", (int)x_min);
-			}
-			env->point_list = env->point_list->next;
-		}
+		if (((int *)point_list->content)[0] > x_max)
+			x_max = ((int *)point_list->content)[0];
+		if (((int *)point_list->content)[0] < x_min)
+			x_min = ((int *)point_list->content)[0];
+		if (((int *)point_list->content)[1] > y_max)
+			y_max = ((int *)point_list->content)[1];
+		if (((int *)point_list->content)[1] < y_min)
+			y_min = ((int *)point_list->content)[1];
+		point_list = point_list->next;
 	}
 
+	// at the end : printing our min max values and setting the zoom
 	ft_printf("x_min: %d ", x_min);
 	ft_printf("x_max: %d ", x_max);
 	ft_printf("y_max: %d ", y_max);
 	ft_printf("y_min: %d\n", y_max);
+
 	// defining zoom from maximum and minimum values
-	ft_printf("zoom: %d\n", (int)(zoom));
-	while  ((((x_max - x_min) * zoom) < (int)WINDOW_WIDTH) && (((y_max - y_min) * zoom) < (int)WINDOW_HEIGHT))
+	while  ((float)(x_max - x_min) * zoom < (float)WINDOW_WIDTH && (float)(y_max - y_min) * zoom < (float)WINDOW_HEIGHT)
 		zoom += 0.1;
 	printf("zoom: %f\n", zoom);
-	while  ((((x_max - x_min) * zoom) > (int)WINDOW_WIDTH) || (((y_max - y_min) * zoom) > (int)WINDOW_HEIGHT))
+	while  ((float)(x_max - x_min) * zoom > (float)WINDOW_WIDTH || (float)(y_max - y_min) * zoom > (float)WINDOW_HEIGHT)
 		zoom -= 0.1;
-	while  (((x_max * zoom) > (int)WINDOW_WIDTH) || (((y_max) * zoom) > (int)WINDOW_HEIGHT))
-		zoom -= 0.1;
-	zoom -= 10.25;
 	printf("zoom: %f\n", zoom);
 	ft_printf("zoom: %d\n", (int)(zoom));
+	return (zoom);
+}
+
+
+void	ft_apply_zoom(t_list	*point_list, float zoom)
+{
+	while (point_list)
+	{
+		((int *)point_list->content)[0] *= zoom;
+		((int *)point_list->content)[1] *= zoom;
+		point_list = point_list->next;
+	}
 }
 
 
@@ -101,16 +80,17 @@ void	ft_zoom(t_list *point_list, int x_max, int y_max, int x_min, int y_min, flo
 // {
 // }
 
+void	ft_isometric_projection(t_list *point_list)
+{
+	int	temp[3];
 
-// void	ft_treat_point_list(t_env *env)
-// {
-// 	if (env->point_list)
-// 	{
-// 		while (env->point_list->next)
-// 		{
-// 			((int *) env->point_list->content)[0] = y;
-// 			ft_printf("((int *) env->point_list->content)[0] is %d\n", ((int *) env->point_list->content)[0]);
-// 			env->point_list = env->point_list->next;
-// 		}
-// 	}
-≈
+	while (point_list)
+	{
+		temp[0] = ((int *)point_list->content)[0];
+		temp[1] = ((int *)point_list->content)[1];
+		temp[2] = ((int *)point_list->content)[2];
+		((int *)point_list->content)[0] = (1/sqrt(6)) * (sqrt(3) * temp[0] - sqrt(3) * temp[2]);
+		((int *)point_list->content)[1] = (1/sqrt(6)) * (temp[0] + 2 * temp[1] + temp[2]);
+		point_list = point_list->next;
+	}
+}

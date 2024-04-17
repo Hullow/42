@@ -110,4 +110,4 @@ around line 364 expression `[[self openGLContext] setView:self];`
 
 # 17/4/24
 - Refactoring code (graph_handling_utils.c, graph_transformation_utils.c, ft_lstiter to apply the various transformations, etc.)
-- Next: test ft_lstiter on isometric transform (syntax)
+- Next: test ft_lstiter on isometric transform (syntax) => works but better not to use it

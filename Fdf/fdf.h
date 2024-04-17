@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/17 11:16:54 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/17 15:26:42 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,22 @@ typedef struct	s_env {
 int		ft_count_elements_in_2d_char_array(char **array);
 int		*ft_examine_lines(int fd);
 void	ft_print_map(int **map, int* line_data);
-int		*ft_fill_list_element(char **split_string, int i, int j, int *line_data);
+int		*ft_fill_point(char **split_string, int i, int j, int *line_data);
 t_list	*ft_file_to_point_list(int fd, int i, int *line_data);
 void	ft_treat_point_list(t_env *env);
 
-// graph utils
+// graph handling utils
 int		my_color_to_hex(char *color);
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
 int		my_mlx_square_put(t_env *env, int x, int y, int color);
-int		ft_isometric_transform(char c, int x, int y, int z);
-void	ft_put_point_list(t_env *env, t_list *anchor, float zoom);
-int		key_handler(int keycode, t_env *env);
 void	launch_window_and_draw(t_list *point_list);
 int		mlx_launch_window(void);
+int		key_handler(int keycode, t_env *env);
+void	ft_put_point_list(t_env *env);
+
+// graph transformation utils
+void	ft_graph_transformation(t_list	*point_list);
+void	ft_isometric_projection(t_list *point_list);
+float	ft_calculate_zoom(t_list	*point_list);
+void	ft_apply_zoom(t_list	*content, float zoom);
