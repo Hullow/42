@@ -118,6 +118,5 @@ around line 364 expression `[[self openGLContext] setView:self];`
 - Now on to line drawing : managed to write a function that draws a line between two points
 Need to test it with y1 > y2 !!
 issue with (0, 150, 0, 50)
-
-
-- Now need to collect the set of points between which a line must be drawn
+=> one approach found online: [Bresenham's line algorithm](https://classic.csunplugged.org/documents/activities/community-activities/line-drawing/line-drawing.pdf): couldn't implement it easily, decided to use the *Digital differential analyzer graphics algorithm*, copying a C++ implementation from [Wikipedia](https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)). Seems to work well; edit: no it doesn't !
+- Now need to collect the set of points between which a line must be drawn => not yet !
