@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   graph_transformation_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/04/18 11:01:57 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/18 12:13:24 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_graph_transformation(t_list	*point_list)
+void	ft_graph_transformation(t_list *point_list)
 {
 	float	zoom;
-	int		center[2];
 
 	zoom = 1;
 	if (point_list)
@@ -23,21 +22,19 @@ void	ft_graph_transformation(t_list	*point_list)
 		ft_isometric_projection(point_list);
 		zoom = ft_calculate_zoom(point_list);
 		ft_apply_zoom(point_list, zoom);
-		center = ft_calculate_center(point_list);
 		ft_center_points(point_list);
 	}
 }
 
-int	ft_calculate_center(t_list *point_list)
+void	ft_center_points(t_list *point_list)
 {
 	t_list	*anchor;
-	int		center[2];
+	int		centering_vector[2];
 	int		x_max = 0;
 	int		y_max = 0;
 	int		x_min = 0;
 	int		y_min = 0;
 
-	center = (int *)malloc (2 * sizeof(int));
 	anchor = point_list;
 	// finding our min max values
 	while (point_list)
@@ -59,29 +56,26 @@ int	ft_calculate_center(t_list *point_list)
 	ft_printf("y_max: %d ", y_max);
 	ft_printf("y_min: %d\n", y_max);
 	centering_vector[0] = 0;
+	centering_vector[1] = 0;
 	
-    // the actual center is : x_max - ((x_max - x_min) / 2);
-
-	// we want to move the actual center to the desired center, which is WINDOW_WIDTH/HEIGHT / 2
-	while (centering_vector[0] + (x_max - ((x_max - x_min) / 2) < WINDOW_WIDTH / 2)
-	{
-		WINDOW_WIDTH / 4
-	}
-	center[1] = y_max - y_min;
-
-	// if x_max - x_min 
-
+    // the initial center is : x_max - ((x_max - x_min) / 2);
+	// we want to move the initial center to the desired center, which is WINDOW_WIDTH/HEIGHT / 2
+	while (centering_vector[0] + x_max - ((x_max - x_min) / 2) < WINDOW_WIDTH / 2)
+		centering_vector[0]++;
+	while (centering_vector[1] + y_max - ((y_max - y_min) / 2) < WINDOW_HEIGHT / 2)
+		centering_vector[1]++;
+	while (centering_vector[0] + x_max - ((x_max - x_min) / 2) > WINDOW_WIDTH / 2)
+		centering_vector[0]--; 
+	while (centering_vector[1] + y_max - ((y_max - y_min) / 2) > WINDOW_HEIGHT / 2)
+		centering_vector[1]--;
 	point_list = anchor;
 	while (point_list)
 	{
-		((int *)point_list->content)[0] += WINDOW_WIDTH / 4;
-		((int *)point_list->content)[1] += WINDOW_HEIGHT / 4;
+		((int *)point_list->content)[0] += centering_vector[0];
+		((int *)point_list->content)[1] += centering_vector[1];
 		point_list = point_list->next;
 	}
-
-	return (center);
 }
-
 
 float	ft_calculate_zoom(t_list *point_list)
 {
@@ -122,8 +116,7 @@ float	ft_calculate_zoom(t_list *point_list)
 	return (zoom);
 }
 
-
-void	ft_apply_zoom(t_list	*point_list, float zoom)
+void	ft_apply_zoom(t_list *point_list, float zoom)
 {
 	while (point_list)
 	{
@@ -132,21 +125,6 @@ void	ft_apply_zoom(t_list	*point_list, float zoom)
 		point_list = point_list->next;
 	}
 }
-
-void	ft_center_points(t_list	*point_list)
-{
-	while (point_list)
-	{
-		((int *)point_list->content)[0] += WINDOW_WIDTH / 4;
-		((int *)point_list->content)[1] += WINDOW_HEIGHT / 4;
-		point_list = point_list->next;
-	}
-}
-
-
-// int	*ft_center_in_window(int	*point)
-// {
-// }
 
 void	ft_isometric_projection(t_list *point_list)
 {

@@ -112,3 +112,12 @@ around line 364 expression `[[self openGLContext] setView:self];`
 - Back to work
 - Refactoring code (graph_handling_utils.c, graph_transformation_utils.c, ft_lstiter to apply the various transformations, etc.)
 - Next: test ft_lstiter on isometric transform (syntax) => works but better not to use it
+
+# 18/4/24
+- Centering + zoom functions seems to work okay
+- Now on to line drawing : managed to write a function that draws a line between two points
+Need to test it with y1 > y2 !!
+issue with (0, 150, 0, 50)
+
+
+- Now need to collect the set of points between which a line must be drawn
