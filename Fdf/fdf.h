@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/17 15:26:42 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/17 16:10:12 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,4 @@ void	ft_graph_transformation(t_list	*point_list);
 void	ft_isometric_projection(t_list *point_list);
 float	ft_calculate_zoom(t_list	*point_list);
 void	ft_apply_zoom(t_list	*content, float zoom);
+void	ft_center_points(t_list	*point_list);
