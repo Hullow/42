@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/18 18:40:00 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/19 12:25:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,16 @@ void	launch_window_and_draw(t_list *point_list)
 	env.color = "white";
 
 	mlx_hook(env.win, 2, 1L<<0, key_handler, &env);
+	// function_handler(&env);
 	mlx_loop(env.mlx);
+}
+
+void	function_handler(t_env *env)
+{
+	ft_graph_transformation(env->point_list);
+	ft_put_point_list(env);
+	my_mlx_line_put(env, 0, 500, 700, 100, my_color_to_hex("white"));
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }
 
 void	ft_put_point_list(t_env *env)
@@ -58,10 +67,9 @@ int	key_handler(int keycode, t_env *env)
 	// 	printf("ESCAPE\n");
 	// else
 	// {
-		// ft_treat_point_list(env);
 		ft_graph_transformation(env->point_list);
 		ft_put_point_list(env);
-		my_mlx_line_put(env, 90, 150, 0, 50, my_color_to_hex("white"));
+		my_mlx_line_put(env, 33, 400, 150, 100, my_color_to_hex("white"));
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	// }
 	return (0);
@@ -74,33 +82,70 @@ int	key_handler(int keycode, t_env *env)
 
 // method: line_ratio tells us the frequency with which we increment a given axis with relation to
 // the other. e.g. line_ratio == 1 means we add one x pixel for each y pixel.
+
+// DDA algorithm
 void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
 {
+	float	x;
+	float	y;
 	float	dx;
 	float	dy;
 	float 	step;
 	int		i;
 	
-	dx = x2-x1;
-	dy = y2-y1;
+	dx = abs(x2-x1);
+	dy = abs(y2-y1);
 
-	if (fabs(dx) >= fabs(dy))
-		step = fabs(dx);
+	if (dx >= dy)
+		step = dx;
 	else
-		step = fabs(dy);
+		step = dy;
 
 	dx = dx / step;
 	dy = dy / step;
-	i = 0;
 
+	x = x1;
+	y = y1;
+
+	i = 1;
 	while (i <= step)
 	{
-		my_mlx_pixel_put(env, x1, y1, color);
-		x1 += dx;
-		y1 += dy;
+		my_mlx_pixel_put(env, x, y, color);
+		x += dx;
+		y += dy;
 		i += 1;
 	}
 }
+
+void	my_mlx_line_put_bresenham(t_env *env, int x1, int y1, int x2, int y2, int color)
+{
+	int	dx;
+	int	dy;
+	int	p;
+
+	dx = x2 - x1;
+	dy = y2 - y1;
+	p = 2 * dy - dx;
+
+	while (x1 < x2)
+	{
+		ft_printf("while loop: p is %d –>", p);
+		if (p >= 0)
+		{
+			my_mlx_pixel_put(env, x1, y1, color);
+			y1++;
+			p += 2 * dy - 2 * dx;
+		}
+		else
+		{
+			my_mlx_pixel_put(env, x1, y1, color);
+			p += 2 * dy;
+		}
+		ft_printf("p reset to %d\n", p);
+		x1++;
+	}
+}
+
 
 int		my_color_to_hex(char *color)
 {

@@ -120,3 +120,7 @@ Need to test it with y1 > y2 !!
 issue with (0, 150, 0, 50)
 => one approach found online: [Bresenham's line algorithm](https://classic.csunplugged.org/documents/activities/community-activities/line-drawing/line-drawing.pdf): couldn't implement it easily, decided to use the *Digital differential analyzer graphics algorithm*, copying a C++ implementation from [Wikipedia](https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)). Seems to work well; edit: no it doesn't ! Maybe Bresenham is indeed simpler, see [implementation](https://www.javatpoint.com/computer-graphics-bresenhams-line-algorithm)
 - Now need to collect the set of points between which a line must be drawn => not yet !
+
+# 19/4/24
+- Issue with Bresenham is that it only works in one octant. Need floating point numbers working version
+for other octants. Go with DDA !

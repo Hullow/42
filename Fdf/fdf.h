@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/18 12:07:50 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/19 12:10:37 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,6 @@ void	ft_isometric_projection(t_list *point_list);
 float	ft_calculate_zoom(t_list	*point_list);
 void	ft_apply_zoom(t_list	*content, float zoom);
 void	ft_center_points(t_list *point_list);
+
+
+void	function_handler(t_env *env);
