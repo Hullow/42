@@ -77,9 +77,26 @@ A mapping from some domain (for example, a range of integers) to bits. It is als
 > - Vector graphics are based on the mathematics of analytic or coordinate geometry, and is not related to other mathematical uses of the term vector. This can lead to some confusion in disciplines in which both meanings are used.
 > - While vector hardware has largely disappeared in favor of raster-based monitors and printers,[2] vector data and software continues to be widely used, especially when a high degree of geometric precision is required, and when complex information can be decomposed into simple geometric primitives. Thus, it is the preferred model for domains such as engineering, architecture, surveying, 3D rendering, and typography, but is entirely inappropriate for applications such as photography and remote sensing, where raster is more effective and efficient. Some application domains, such as geographic information systems (GIS) and graphic design, use both vector and raster graphics at times, depending on purpose.
 
-# [X11]
+# [Minilibx/X11]
 ## [Events](https://tronche.com/gui/x/xlib/events/)
 > [Note](https://harm-smits.github.io/42docs/libs/minilibx/events.html): On MacOS - Cocoa (AppKit) and OpenGL - version, minilibx has partial support of X11 events and doesn’t support X11 mask (x_mask argument of mlx_hook is useless, keep it at 0).
+
+### Mac OS X supported events:
+```c
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
+
+// usage:
+mlx_hook(vars.win, ON_DESTROY, 0, close, &vars);
+```
+
 ### Event types
 #### [Exposure Events](https://tronche.com/gui/x/xlib/events/exposure/)
 > The X protocol does not guarantee to preserve the contents of window regions when the windows are obscured or reconfigured. Some implementations may preserve the contents of windows. Other implementations are free to destroy the contents of windows when exposed. X expects client applications to assume the responsibility for restoring the contents of an exposed window region. (An exposed window region describes a formerly obscured window whose region becomes visible.) Therefore, the X server sends Expose events describing the window and the region of the window that has been exposed. A naive client application usually redraws the entire window. A more sophisticated client application redraws only the exposed region.
@@ -88,3 +105,23 @@ A mapping from some domain (for example, a range of integers) to bits. It is als
 
 ### Event masks
 no support with OpenGL + Cocoa (see above)
+
+## MLX functions
+`man ~/42/Fdf/lib/minilibx/man/man1/mlx_new_window.1`
+### Window handling
+SYNOPSYS
+```c
+	   void *
+       mlx_new_window ( void *mlx_ptr, int size_x, int size_y, char *title );
+
+       int
+       mlx_clear_window ( void *mlx_ptr, void *win_ptr );
+
+       int
+       mlx_destroy_window ( void *mlx_ptr, void *win_ptr );
+```
+
+DESCRIPTION
+> The `mlx_new_window  ()` function creates a new window on the screen, using the size_x and size_y parameters to determine its size, and title as the text that should be displayed in the window's title bar.  The mlx_ptr parameter is the connection identifier returned by `mlx_init ()` (see the mlx  man  page).
+`mlx_new_window  ()` returns a void * window identifier that can be used by other MiniLibX calls.  Note that the MiniLibX can handle an arbitrary number of separate windows.
+`mlx_clear_window ()` and `mlx_destroy_window ()` respectively clear (in black) and destroy the given window. They both have the same parameters: mlx_ptr is the screen connection identifier, and win_ptr is a window identifier.

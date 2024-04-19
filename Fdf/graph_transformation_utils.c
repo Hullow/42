@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/04/18 12:13:24 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/19 18:10:19 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	ft_graph_transformation(t_list *point_list)
 	zoom = 1;
 	if (point_list)
 	{
+		ft_printf("before manipulating points: point_list: {%p}\n", point_list);
 		ft_isometric_projection(point_list);
 		zoom = ft_calculate_zoom(point_list);
 		ft_apply_zoom(point_list, zoom);
 		ft_center_points(point_list);
+		ft_printf("after manipulating points: point_list: {%p}\n", point_list);
 	}
 }
 

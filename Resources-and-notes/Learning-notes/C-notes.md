@@ -198,12 +198,6 @@ typdef struct name_top {
 - In C, implicit encoding is implementation specific:
 > "The encoding used by the char is that of the environment under which it is executing, but the type also doubles as a type for working with any byte (octet) data. This is likely one of the sources of confusion that cause developers to assume that one character equals one byte. C99 defines char to have a range of either -127 to 127 or 0 to 255. That is, it is always 8 bits." (see [comparing character encoding in C, C#, Java, Python and Ruby](https://illegalargumentexception.blogspot.com/2010/04/i18n-comparing-character-encoding-in-c.html))
 
-
-### Other topics
-**scanf()**
-- Why does scanf () take a pointer?
-To store input in a variable using scanf() , you need to pass the memory address of the variable as an argument to the function using the & (address of) operator. This is because scanf() expects pointers as arguments to store input values directly in memory locations.
-
 ## Functions
 **need a return type** : `void`, `double`, `int`, `bool`, …
 
@@ -229,6 +223,15 @@ int main() {
 ### Function prototypes ###
 - Cause the compiler to flag an error if arguments are missing, as many C compilers don’t check for parameter matching, thus helping us avoid unexpected behavior.
 Advantages of using prototypes: helps navigate program with main at the top
+
+### Specific functions
+#### [exit()](https://www.javatpoint.com/exit-function-in-c)
+> Protoype: `void exit (int status);`
+> The exit() function is used to terminate a process or function calling immediately in the program. It means any open file or function belonging to the process is closed immediately as the exit() function occurred in the program. The exit() function is the standard library function of the C, which is defined in the stdlib.h header file. So, we can say it is the function that forcefully terminates the current program and transfers the control to the operating system to exit the program. The exit(0) function determines the program terminates without any error message, and then the exit(1) function determines the program forcefully terminates the execution process.
+
+#### scanf()
+- Why does scanf () take a pointer?
+To store input in a variable using scanf() , you need to pass the memory address of the variable as an argument to the function using the & (address of) operator. This is because scanf() expects pointers as arguments to store input values directly in memory locations.
 
 ## Header files
 A header file is a file containing C declarations and macro definitions to be shared between several source files. It is requested by *including* it with the C preprocessing directive `#include`

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/19 12:10:37 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/19 17:47:33 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_env {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		drawn;
 	t_list	*point_list;
 }				t_env;
 
@@ -57,10 +58,8 @@ void	ft_treat_point_list(t_env *env);
 int		my_color_to_hex(char *color);
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
+void	ft_draw_line_to_next_point(t_env *env);
 int		my_mlx_square_put(t_env *env, int x, int y, int color);
-void	launch_window_and_draw(t_list *point_list);
-int		mlx_launch_window(void);
-int		key_handler(int keycode, t_env *env);
 void	ft_put_point_list(t_env *env);
 
 // graph transformation utils
@@ -70,5 +69,8 @@ float	ft_calculate_zoom(t_list	*point_list);
 void	ft_apply_zoom(t_list	*content, float zoom);
 void	ft_center_points(t_list *point_list);
 
-
-void	function_handler(t_env *env);
+// window and event handling
+void	launch_window_and_draw(t_list *point_list);
+int		close_window(t_env *env);
+int		key_handler(int keycode, t_env *env);
+int		mouse_handler(int button, t_env *env);

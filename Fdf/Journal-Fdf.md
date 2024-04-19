@@ -124,3 +124,10 @@ issue with (0, 150, 0, 50)
 # 19/4/24
 - Issue with Bresenham is that it only works in one octant. Need floating point numbers working version
 for other octants. Go with DDA !
+- Copied [the C version from GeeksForGeeks](https://www.geeksforgeeks.org/dda-line-generation-algorithm-computer-graphics/), adapted it to respect the Norm. In some places important to use new variable float (X, Y) instead of typecasting int (x1, y1)as float.
+- Window handling: not much of an answer (for Window close event) in the mlx man, nor online mlx guide by Harm-Smits: asked Copilot chat which told me what to do => could've found it myself, in the events enum for minilibx (see Concepts-Fdf.md, Mac OS X supported events)
+- Ok for ESC key, but resizing not natively supported by the minilibx it seems, so I don't think I'll do it
+- Clearing window: works, but harder to reinitialize the env so I decided to let go this functionality
+- Mouse handling: sort of works for one "mouse up" or "mouse down" but segfaults right after
+- Key options: implemented RGB colors but cannot redraw, need to restart program
+- Wrote a function to draw a line from point to point i + #columns but it doesn't work exactly; need to fix input handling at this stage
