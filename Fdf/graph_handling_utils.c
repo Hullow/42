@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/19 12:25:35 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/19 14:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	key_handler(int keycode, t_env *env)
 	// {
 		ft_graph_transformation(env->point_list);
 		ft_put_point_list(env);
-		my_mlx_line_put(env, 33, 400, 150, 100, my_color_to_hex("white"));
+		my_mlx_line_put(env, 0, 0, 60, 100, my_color_to_hex("white"));
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	// }
 	return (0);
@@ -86,34 +86,34 @@ int	key_handler(int keycode, t_env *env)
 // DDA algorithm
 void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
 {
-	float	x;
-	float	y;
-	float	dx;
-	float	dy;
-	float 	step;
+	int		dx;
+	int		dy;
+	int 	steps;
 	int		i;
 	
-	dx = abs(x2-x1);
-	dy = abs(y2-y1);
+	i = 0;
+    dx = x2 - x1;
+    dy = y2 - y1;
 
-	if (dx >= dy)
-		step = dx;
+    // calculate steps required for generating pixels
+    if (abs(dx) > abs(dy))
+		steps = abs(dx);
 	else
-		step = dy;
-
-	dx = dx / step;
-	dy = dy / step;
-
-	x = x1;
-	y = y1;
-
-	i = 1;
-	while (i <= step)
+		steps = abs(dy); 
+  
+    // calculate increment in x & y for each steps
+    float Xinc = dx / (float)steps; 
+    float Yinc = dy / (float)steps; 
+  
+    // Put pixel for each step 
+    float X = x1;
+    float Y = y1;
+    while (i <= steps)
 	{
-		my_mlx_pixel_put(env, x, y, color);
-		x += dx;
-		y += dy;
-		i += 1;
+		my_mlx_pixel_put(env, round(X), round(Y), color);
+        X += Xinc; // increment in x at each step
+        Y += Yinc; // increment in y at each step
+		i++;
 	}
 }
 
