@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph_transformation_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/04/19 18:10:19 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/23 11:29:44 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	ft_graph_transformation(t_list *point_list)
 	}
 }
 
+// Centering our projection in the window:
+// 1. finding our min max values
+// 2. 
+// the initial center is : x_max - ((x_max - x_min) / 2);
+// we want to move the initial center to the desired center, which is WINDOW_WIDTH/HEIGHT / 2
 void	ft_center_points(t_list *point_list)
 {
 	t_list	*anchor;
@@ -37,8 +42,9 @@ void	ft_center_points(t_list *point_list)
 	int		x_min = 0;
 	int		y_min = 0;
 
+	centering_vector[0] = 0;
+	centering_vector[1] = 0;
 	anchor = point_list;
-	// finding our min max values
 	while (point_list)
 	{
 		if (((int *)point_list->content)[0] > x_max)
@@ -51,17 +57,11 @@ void	ft_center_points(t_list *point_list)
 			y_min = ((int *)point_list->content)[1];
 		point_list = point_list->next;
 	}
+	// ft_printf("x_min: %d ", x_min);
+	// ft_printf("x_max: %d ", x_max);
+	// ft_printf("y_max: %d ", y_max);
+	// ft_printf("y_min: %d\n", y_max);
 
-	// at the end : printing our min max values and setting the zoom
-	ft_printf("x_min: %d ", x_min);
-	ft_printf("x_max: %d ", x_max);
-	ft_printf("y_max: %d ", y_max);
-	ft_printf("y_min: %d\n", y_max);
-	centering_vector[0] = 0;
-	centering_vector[1] = 0;
-	
-    // the initial center is : x_max - ((x_max - x_min) / 2);
-	// we want to move the initial center to the desired center, which is WINDOW_WIDTH/HEIGHT / 2
 	while (centering_vector[0] + x_max - ((x_max - x_min) / 2) < WINDOW_WIDTH / 2)
 		centering_vector[0]++;
 	while (centering_vector[1] + y_max - ((y_max - y_min) / 2) < WINDOW_HEIGHT / 2)
