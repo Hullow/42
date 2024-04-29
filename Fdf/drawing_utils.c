@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 14:56:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/29 16:25:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	ft_draw_line_to_next_point(t_env *env)
 {
 	t_list	*anchor;
 	int		i;
-	int		j;
+	int		j = 0;
+	int 	k = 0;
+	int		l = 0;
 	int		line_coordinates[6];
+
+	i = 0;
 
 	// point[0] = j aka x;
 	// point[1] = i aka y;
@@ -30,16 +34,17 @@ void	ft_draw_line_to_next_point(t_env *env)
 	ft_printf("before printing points: env->point_list: {%p}\n", env->point_list);
 	ft_printf("line_coordinates[4] : %d, line_coordinates[5]: %d\n", line_coordinates[4], line_coordinates[5]);
 	anchor = env->point_list;
-	i = 0;
-	j = 0;
-	int k = 0;
+
 	// usleep(2000000);
+
+	// horizontal lines of the grid
+	
 	if (env->point_list)
 		{
-			ft_printf("\n\nprinting \"horizontal\" lines:\n*************\n");
+			ft_printf("\n\nprinting \"horizontal\" lines:\n**************************\n");
 			while (env->point_list->next)
 			{
-				if (i < line_coordinates[5]) // go through all columns
+				if (i < line_coordinates[5] - 1) // go through all columns
 				{
 					// ft_printf("line_coordinates[4] : %d, line_coordinates[5]: %d\n", line_coordinates[4], line_coordinates[5]);
 					i++;
@@ -50,15 +55,16 @@ void	ft_draw_line_to_next_point(t_env *env)
 					//line_coordinates[0], line_coordinates[1], env->point_list);
 					if (env->point_list->next)
 						env->point_list = env->point_list->next;
-					// if (i > 7)
-						// ft_printf("current element: address {%p}, values %d,%d\n", line_coordinates[0], line_coordinates[1]);
+					// if (i % 701 == 2)
+					// 	printf("\n");
 					line_coordinates[2] = ((int *) env->point_list->content)[0];
 					line_coordinates[3] = ((int *) env->point_list->content)[1];
 					my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
 					k++;
-					ft_printf("line %d: (%d,%d) to (%d,%d) ", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
-					if (k % 7 == 0)
-						ft_printf("\n");
+					// printf("l.%d: (%d,%d)->(%d,%d) ", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
+					k = 0;
+					// if (k % 1001 == 0)
+					// 	ft_printf(" ");
 				}
 				else
 				{
@@ -70,41 +76,51 @@ void	ft_draw_line_to_next_point(t_env *env)
 				// usleep(25000);
 			}
 		}
-	
-	
 	env->point_list = anchor;
 
-
+	// vertical lines of the grid
 	if (env->point_list)
 		{
-			ft_printf("\n\nprinting \"vertical\" lines:\n*************\n");
+			printf("\n\nprinting \"vertical\" lines:\n**************************\n");
 			while (j < line_coordinates[4] && env->point_list->next) // go through all lines
 			{
 				j++;
-				ft_printf("j: %d ", j);
-				line_coordinates[0] = ((int *) env->point_list->content)[0];
-				line_coordinates[1] = ((int *) env->point_list->content)[1];
-				anchor = env->point_list;
-				while (i < line_coordinates[5]) // go one line ahead (i.e. advance by #columns)
+				while (l < line_coordinates[5] && env->point_list->next)
 				{
-					i++;
-					if (env->point_list->next)
-						env->point_list = env->point_list->next;
+					l++;
+					// printf("j: %d ", j);
+					line_coordinates[0] = ((int *) env->point_list->content)[0];
+					line_coordinates[1] = ((int *) env->point_list->content)[1];
+					anchor = env->point_list;
+					printf("anchor address: {%p}\n", anchor);
+					while (i < line_coordinates[5]) // go one line ahead (i.e. advance by #columns)
+					{
+						i++;
+						if (env->point_list->next)
+							env->point_list = env->point_list->next;
+					}
+					// printf("i: %d ", i);
+					i = 0;
+					line_coordinates[2] = ((int *) env->point_list->content)[0];
+					line_coordinates[3] = ((int *) env->point_list->content)[1];
+					my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
+					k++;
+					printf(" line %d: (%d,%d) to (%d,%d)–", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
+					if (k % 4 == 0)
+						printf("\n");
+					if (anchor->next)
+					{
+						env->point_list = anchor->next;
+						printf("anchor->next found\n");
+					}
+					if (!(env->point_list->next))
+						printf("we've arrived at the end\n");
 				}
-				ft_printf("i: %d ", i);
-				i = 0;
-				line_coordinates[2] = ((int *) env->point_list->content)[0];
-				line_coordinates[3] = ((int *) env->point_list->content)[1];
-				my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
-				k++;
-				ft_printf("line %d: (%d,%d) to (%d,%d)", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
-				if (k % 7 == 0)
-					ft_printf("\n");
-				if (anchor->next)
-					env->point_list = anchor->next;
+				l = 0;
 			}
 				// usleep(25000);
 		}
+
 
 }
 
@@ -124,8 +140,6 @@ void	ft_put_point_list(t_env *env)
 	}
 	env->point_list = anchor;
 	ft_printf("after printing points: env->point_list: {%p}\n", env->point_list);
-
-
 	ft_printf("line_coordinates[4] : %d, line_coordinates[5]: %d\n", \
 	 ((int *) env->point_list->content)[3], ((int *) env->point_list->content)[4]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   point_transformation_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/04/29 14:25:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/29 16:49:21 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_graph_transformation(t_list *point_list)
 	{
 		ft_printf("before manipulating points: point_list: {%p}\n", point_list);
 		ft_isometric_projection(point_list);
-		zoom = ft_calculate_zoom(point_list);
+		// zoom = ft_calculate_zoom(point_list);
 		ft_apply_zoom(point_list, zoom);
 		ft_center_points(point_list);
 		ft_printf("after manipulating points: point_list: {%p}\n", point_list);
@@ -131,15 +131,22 @@ void	ft_apply_zoom(t_list *point_list, float zoom)
 
 void	ft_isometric_projection(t_list *point_list)
 {
-	int	temp[3];
+	int	temp[5];
+	int	size;
 
+	temp[3] = ((int *)point_list->content)[3]; // #lines
+	temp[4] = ((int *)point_list->content)[4]; // #columns
+	size = 1;
+	while (size * temp[4] < WINDOW_WIDTH && size * temp[3] < WINDOW_HEIGHT)
+		size++;
+	printf("size is %d\n", size);
 	while (point_list)
 	{
 		temp[0] = ((int *)point_list->content)[0];
 		temp[1] = ((int *)point_list->content)[1];
 		temp[2] = ((int *)point_list->content)[2];
-		((int *)point_list->content)[0] = (1/sqrt(6)) * (sqrt(3) * temp[0] - sqrt(3) * temp[2]);
-		((int *)point_list->content)[1] = (1/sqrt(6)) * (temp[0] + 2 * temp[1] + temp[2]);
+		((int *)point_list->content)[0] = (1/sqrt(6)) * (sqrt(3) * temp[0] - sqrt(3) * temp[2]) * (size / 2);
+		((int *)point_list->content)[1] = (1/sqrt(6)) * (temp[0] + 2 * temp[1] + temp[2]) * (size / 2);
 		point_list = point_list->next;
 	}
 }

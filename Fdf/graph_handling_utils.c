@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graph_handling_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 14:49:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/29 16:49:31 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	key_handler(int keycode, t_env *env)
 	{
 		ft_graph_transformation(env->point_list);
 		ft_put_point_list(env);
-		ft_print_point_list(env);
+		// ft_print_point_list(env);
 		ft_draw_line_to_next_point(env);
 		// my_mlx_line_put(env, 700, 500, 10, 10, my_color_to_hex(env->color));
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

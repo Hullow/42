@@ -12,6 +12,15 @@
 > Isometric projection is a method for visually representing three-dimensional objects in two dimensions in technical and engineering drawings. It is an axonometric projection in which the three coordinate axes appear equally foreshortened and the angle between any two of them is 120 degrees.
 > The term "isometric" comes from the Greek for "equal measure", reflecting that the scale along each axis of the projection is the same (unlike some other forms of graphical projection).
 
+>For a true isometric projection, where Z is up, your vectors might look like this:
+>
+>(𝑋𝑥,𝑋𝑦,𝑋𝑧) = size/2 * (√3, −1, −1/√2)<br>
+>(𝑌𝑥,𝑌𝑦,𝑌𝑧) = size/2 * (−√3, −1, −1/√2)<br>
+>(𝑍𝑥,𝑍𝑦,𝑍𝑧) = size/2 * (0, 2, −1/√2)
+>
+>Where size is the on-screen length of your worldspace unit vector (eg. the length of a tile's diagonal)
+
+
 ### Fitting the projection in the window (centering the projection and zooming in to see it properly)
 - Two constraints:
 0. Centering the grid:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 14:45:12 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/29 15:36:24 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	*ft_examine_lines(int fd)
 {
 	int		*line_data;
 	char	*line_read;
+	int i = 1;
 
 	line_data = (int *)malloc(2 * sizeof(int));
 	if (!line_data)
@@ -26,6 +27,7 @@ int	*ft_examine_lines(int fd)
 	line_data[0] = 0;
 	line_read = get_next_line(fd);
 	line_data[1] = ft_count_elements_in_2d_char_array(ft_split(line_read, ' '));
+	printf("line length: %d\n", line_data[1]);
 	// if (line_read)
 	// 	free(line_read);
 	while (line_read)
@@ -37,11 +39,14 @@ int	*ft_examine_lines(int fd)
 			}
 		line_data[0]++;
 		line_read = get_next_line(fd);
+		ft_printf("line: %d - ", i);
+		ft_printf("line read: %s\n", line_read);
+		i++;
 		// if (line_read)
 		// 	free(line_read);
 	}
 	if (line_data[0] && line_data[1])
-		ft_printf("line count: %d\nline length: %d\n", line_data[0], line_data[1]);
+		printf("line count: %d, line length: %d\n", line_data[0], line_data[1]);
 	return (line_data);
 }
 
@@ -113,7 +118,7 @@ void	ft_print_point_list(t_env *env)
 		while (env->point_list)
 		{
 			temp = (int *) env->point_list->content;
-			ft_printf("pt %d: (%d,%d), l:%d, c:%d – ", i, temp[0], temp[1], temp[3], temp[4]);
+			printf("pt %d: (%d,%d), l:%d, c:%d – ", i, temp[0], temp[1], temp[3], temp[4]);
 
 			if (i++ % 6 == 0)
 				ft_printf("\n");
