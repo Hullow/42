@@ -1,120 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graph_handling_utils.c                             :+:      :+:    :+:   */
+/*   drawing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/19 18:33:39 by fallan           ###   ########.fr       */
+/*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
+/*   Updated: 2024/04/29 11:09:41 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
-#define WINDOW_NAME "mlx test window"
-
-void	launch_window_and_draw(t_list *point_list)
-{
-	t_env	env;
-
-	env.mlx = mlx_init();
-	env.win = mlx_new_window(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
-	env.img = mlx_new_image(env.mlx, 800, 600);
-	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, &env.line_length, &env.endian);
-	env.point_list = point_list;
-	env.color = "white";
-	env.drawn = 0;
-
-	mlx_hook(env.win, 2, 1L<<0, key_handler, &env);
-	mlx_hook(env.win, 17, 0, close_window, &env);
-	mlx_loop(env.mlx);
-}
-
-int	key_handler(int keycode, t_env *env)
-{
-	printf("keycode = %d\n", keycode);
-	if (keycode == 53)
-	{
-		ft_printf("ESCAPE key pressed, program stopping\n");
-		mlx_destroy_window (env->mlx, env->win);
-		exit(1);
-	}
-	else if (!(env->drawn))
-	{
-		if (keycode == 15)
-			env->color = "red";
-		else if (keycode == 11)
-			env->color = "blue";
-		else if (keycode == 5)
-			env->color = "green";
-
-		ft_graph_transformation(env->point_list);
-		ft_put_point_list(env);
-		ft_draw_line_to_next_point(env);
-		// my_mlx_line_put(env, 700, 500, 10, 10, my_color_to_hex(env->color));
-		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
-		env->drawn = 1;
-	}
-	else if (env->drawn == 1)
-		ft_printf("image already drawn, please press ESC to stop the program, and try again\n");
-	return (0);
-}
-
 void	ft_draw_line_to_next_point(t_env *env)
 {
 	t_list	*anchor;
-	t_list	*current = NULL;
 	int		i;
-	int		start_point[6];
-	int		end_point[6];
+	int		line_coordinates[6];
 
 	// ft_memcpy(start_point, ((int *) env->point_list->content), 6);
 	// point[0] = j;
 	// point[1] = i;
 	// point[2] = ft_atoi(split_string[j]);
-	// point[3] = line_data[0];
+	// point[3] = line_data[0];ß
 	// point[4] = line_data[1];
 	// point[5] = 1;
-	start_point[3] = ((int *) env->point_list->content)[3];
-	start_point[4] = ((int *) env->point_list->content)[4];
-	ft_printf("start_point[3] : %d, start_point[4]: %d\n", start_point[3], start_point[4]);
+	line_coordinates[4] = ((int *) env->point_list->content)[3];
+	line_coordinates[5] = ((int *) env->point_list->content)[4];
+	ft_printf("line_coordinates[4] : %d, line_coordinates[5]: %d\n", line_coordinates[4], line_coordinates[5]);
 	anchor = env->point_list;
 	i = 0;
 	ft_printf("before printing points: env->point_list: {%p}\n", env->point_list);
+	// usleep(2000000);
 	if (env->point_list)
-	{
-		while (env->point_list->next)
 		{
-			start_point[0] = ((int *) env->point_list->content)[0];
-			start_point[1] = ((int *) env->point_list->content)[1];
-			current = env->point_list;
-			i = -1;
-			while (++i < start_point[4] + 1 && current->next)
-				current = current->next;
-			end_point[0] = ((int *) current->content)[0];
-			end_point[1] = ((int *) current->content)[1];
-			if (i == start_point[4] + 1)
+			while (env->point_list->next)
 			{
-				ft_printf("i: %d, printing out the line \n", i);
-				my_mlx_line_put(env, start_point[0], start_point[1], end_point[0], end_point[1], my_color_to_hex(env->color));
+				if (i < line_coordinates[4])
+				{
+					i++;
+					line_coordinates[0] = ((int *) env->point_list->content)[0];
+					line_coordinates[1] = ((int *) env->point_list->content)[1];
+					if (env->point_list->next)
+						env->point_list = env->point_list->next;
+					line_coordinates[2] = ((int *) env->point_list->content)[0];
+					line_coordinates[3] = ((int *) env->point_list->content)[1];
+					my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
+					line_coordinates[0] = ((int *) env->point_list->content)[0];
+					line_coordinates[1] = ((int *) env->point_list->content)[1];
+				}
+				else
+				{
+					i = 0;
+					if (env->point_list->next)
+						env->point_list = env->point_list->next;
+				}
+				// usleep(25000);
 			}
-			else
-				ft_printf("i: %d, not printing out the line \n", i);
-			env->point_list = env->point_list->next;
 		}
-	}
-	ft_printf("supposedly we've printed all points out\n");
 	env->point_list = anchor;
-}
-
-int	close_window(t_env *env)
-{
-	ft_printf("Window closed, program stopping\n");
-	mlx_destroy_window(env->mlx, env->win);
-	exit(1);
 }
 
 void	ft_put_point_list(t_env *env)
@@ -206,7 +150,6 @@ void	my_mlx_line_put_bresenham(t_env *env, int x1, int y1, int x2, int y2, int c
 		x1++;
 	}
 }
-
 
 int		my_color_to_hex(char *color)
 {

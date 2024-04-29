@@ -125,3 +125,10 @@ DESCRIPTION
 > The `mlx_new_window  ()` function creates a new window on the screen, using the size_x and size_y parameters to determine its size, and title as the text that should be displayed in the window's title bar.  The mlx_ptr parameter is the connection identifier returned by `mlx_init ()` (see the mlx  man  page).
 `mlx_new_window  ()` returns a void * window identifier that can be used by other MiniLibX calls.  Note that the MiniLibX can handle an arbitrary number of separate windows.
 `mlx_clear_window ()` and `mlx_destroy_window ()` respectively clear (in black) and destroy the given window. They both have the same parameters: mlx_ptr is the screen connection identifier, and win_ptr is a window identifier.
+
+
+# FDF considerations
+## Lines between points:
+	- For point (x, y): lines to (x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)
+	- For each line y: (x = 0, y) to (x + 1, y), x++ until x + 1 is #column_count
+	- For each column x: (x, y = 0) to (x, y + 1), y++ until y + 1 is #line_count

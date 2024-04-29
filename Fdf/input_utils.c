@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/17 15:18:18 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/29 10:25:55 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	ft_count_elements_in_2d_char_array(char **array)
 	int i;
 
 	i = 0;
-	while (array[i + 1])
+	while (array[i])
 		i++;
 	return (i);
 }
 
-// counts the number of lines from our file descriptor (array of characters)
-// and calls ft_count_columns to count the number of columns
-// line_data : [0]->line count, [1]->line length
+/* counts the number of lines (line_data[0]) from our 
+file descriptor (array of characters) and calls ft_count_columns 
+to count the number of columns (line_data[1]) */
 int	*ft_examine_lines(int fd)
 {
 	int		*line_data;
@@ -40,7 +40,7 @@ int	*ft_examine_lines(int fd)
 	// 	free(line_read);
 	while (line_read)
 	{
-		if (ft_count_elements_in_2d_char_array(ft_split(line_read, ' ')) != line_data[1])
+		if (ft_count_elements_in_2d_char_array(ft_split(line_read, ' ')) != line_data[1]) // what ?
 			{
 				free(line_data);
 				return (NULL);

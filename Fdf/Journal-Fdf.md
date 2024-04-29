@@ -131,3 +131,9 @@ for other octants. Go with DDA !
 - Mouse handling: sort of works for one "mouse up" or "mouse down" but segfaults right after
 - Key options: implemented RGB colors but cannot redraw, need to restart program
 - Wrote a function to draw a line from point to point i + #columns but it doesn't work exactly; need to fix input handling at this stage
+
+# 29/4/24
+- Back to work (back from Prague)
+- Fixed input handling (column length bug: `while (array[i + 1])` -> `while (array[i])`)
+- Renamed files
+- Working on line drawing

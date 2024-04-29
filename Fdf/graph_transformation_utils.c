@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   graph_transformation_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/04/23 11:29:44 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/29 10:31:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+// Applies all the graphical transforms to our point coordinates
 void	ft_graph_transformation(t_list *point_list)
 {
 	float	zoom;
