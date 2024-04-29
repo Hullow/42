@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/19 17:47:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/29 14:32:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,5 @@ void	launch_window_and_draw(t_list *point_list);
 int		close_window(t_env *env);
 int		key_handler(int keycode, t_env *env);
 int		mouse_handler(int button, t_env *env);
+
+void	ft_print_point_list(t_env *env);
