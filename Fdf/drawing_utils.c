@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 16:59:16 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/30 17:42:28 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	ft_draw_line_to_next_point(t_env *env)
 {
 	t_list	*anchor;
 	int		i;
-	int		j = 0;
+	int		j;
 	int		k = 0;
-	int		l = 0;
+	int		l;
 	int		line_coordinates[6];
 
 	i = 0;
@@ -30,62 +30,64 @@ void	ft_draw_line_to_next_point(t_env *env)
 
 	// horizontal lines of the grid
 	if (env->point_list)
+	{
+		ft_printf("\n\nprinting \"horizontal\" lines:\n**************************\n");
+		while (env->point_list->next)
 		{
-			ft_printf("\n\nprinting \"horizontal\" lines:\n**************************\n");
-			while (env->point_list->next)
+			if (i < line_coordinates[5] - 1) // go through all columns
 			{
-				if (i < line_coordinates[5] - 1) // go through all columns
-				{
-					i++;
-					line_coordinates[0] = ((int *) env->point_list->content)[0];
-					line_coordinates[1] = ((int *) env->point_list->content)[1];
-					if (env->point_list->next)
-						env->point_list = env->point_list->next;
-					line_coordinates[2] = ((int *) env->point_list->content)[0];
-					line_coordinates[3] = ((int *) env->point_list->content)[1];
-					my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
-				}
-				else
-				{
-					i = 0;
-					if (env->point_list->next)
-						env->point_list = env->point_list->next;
-				}
+				i++;
+				line_coordinates[0] = ((int *) env->point_list->content)[0];
+				line_coordinates[1] = ((int *) env->point_list->content)[1];
+				if (env->point_list->next)
+					env->point_list = env->point_list->next;
+				line_coordinates[2] = ((int *) env->point_list->content)[0];
+				line_coordinates[3] = ((int *) env->point_list->content)[1];
+				my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
+			}
+			else
+			{
+				i = 0;
+				if (env->point_list->next)
+					env->point_list = env->point_list->next;
 			}
 		}
+	}
 	env->point_list = anchor;
 
 	// vertical lines of the grid
+	j = 0;
+	l = 0;
 	if (env->point_list)
 		{
 			printf("\n\nprinting \"vertical\" lines:\n**************************\n");
 			while (j < line_coordinates[4] && env->point_list->next) // go through all lines
 			{
 				j++;
-				while (l < line_coordinates[5] && env->point_list->next)
+				while ((l < line_coordinates[5] - 1) && env->point_list->next) // go to next column
 				{
 					l++;
 					line_coordinates[0] = ((int *) env->point_list->content)[0];
 					line_coordinates[1] = ((int *) env->point_list->content)[1];
 					anchor = env->point_list;
+					i = 0;
 					while (i < line_coordinates[5]) // go one line ahead (i.e. advance by #columns)
 					{
 						i++;
 						if (env->point_list->next)
 							env->point_list = env->point_list->next;
 					}
-					i = 0;
 					line_coordinates[2] = ((int *) env->point_list->content)[0];
 					line_coordinates[3] = ((int *) env->point_list->content)[1];
 					my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
 					k++;
-			// printf(" line %d: (%d,%d) to (%d,%d)–", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
-					if (k % 4 == 0)
-			// printf("\n");
+					// printf(" line %d: (%d,%d) to (%d,%d)–", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
+					// if (k % 4 == 0)
+						// printf("\n");
 					if (anchor->next)
 						env->point_list = anchor->next;
 					if (!(env->point_list->next))
-			printf("we've arrived at the end\n");
+						printf("we've arrived at the end\n");
 				}
 				l = 0;
 			}

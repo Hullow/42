@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 16:57:53 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/30 17:21:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ int	*ft_examine_lines(int fd)
 {
 	int		*line_data;
 	char	*line_read;
-	int i = 1;
-
+	int 	i;
+	
+	i = 1;
 	line_data = (int *)malloc(2 * sizeof(int));
 	if (!line_data)
 		return (NULL);
 	line_data[0] = 0;
 	line_read = get_next_line(fd);
+	if (line_read)
+		line_data[0]++;
+	printf("line: %d - line read: %s\n", i, line_read);
 	line_data[1] = ft_count_elements_in_2d_char_array(ft_split(line_read, ' '));
 	printf("line length: %d\n", line_data[1]);
 	// if (line_read)
@@ -37,11 +41,11 @@ int	*ft_examine_lines(int fd)
 				free(line_data);
 				return (NULL);
 			}
-		line_data[0]++;
 		line_read = get_next_line(fd);
-		ft_printf("line: %d - ", i);
-		ft_printf("line read: %s\n", line_read);
+		if (line_read)
+			line_data[0]++;
 		i++;
+		printf("line: %d - line read: %s\n", i, line_read);
 		// if (line_read)
 		// 	free(line_read);
 	}
