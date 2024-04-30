@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 15:36:24 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/30 11:58:25 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,28 @@ point[2]: altitude, i.e. z
 point[3]: #lines
 point[4]: #columns
 */
+
+#include <stdlib.h>
 int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 {
-	int	*point;
+	int		*point;
+	char	**color_input = NULL;
 
-	point = (int *)malloc (5 * sizeof(int));
+	point = (int *)malloc (6 * sizeof(int));
 	point[0] = j;
 	point[1] = i;
-	point[2] = ft_atoi(split_string[j]);
+	if (ft_strchr(split_string[j], 44)) // if ',' found in our split string
+	{
+		color_input = ft_split(split_string[j], ',');
+		point[2] = ft_atoi(color_input[0]);
+		point[5] = atoi(color_input[1]);
+		printf("color detected: atoi: %d, string: %s\n", point[5], color_input[1]);
+	}
+	else
+	{
+		point[2] = ft_atoi(split_string[j]);
+		point[5] = 0x00FFFFFF;
+	}	
 	point[3] = line_data[0];
 	point[4] = line_data[1];
 	return (point);
@@ -126,4 +140,22 @@ void	ft_print_point_list(t_env *env)
 		}
 	}
 	env->point_list = anchor;
+}
+
+int	ft_hex_string_to_int(char *hex_string)
+{
+	int	i;
+	int	integer;
+	int	hex_factor;
+
+	i = 2;
+	integer = 0;
+	hex_factor = pow(16, 8 - i + 1);
+	while (hex_string[i])
+	{
+		integer += ft_atoi(hex_string[i]) / hex_factor;
+		i++;
+	}
+	printf("ft_hex_string_to_int: %d\n", integer);
+	return (integer);
 }

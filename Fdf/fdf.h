@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 14:32:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/30 11:30:46 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_list	*ft_file_to_point_list(int fd, int i, int *line_data);
 void	ft_treat_point_list(t_env *env);
 
 // graph handling utils
-int		my_color_to_hex(char *color);
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
 void	ft_draw_line_to_next_point(t_env *env);
@@ -74,5 +73,7 @@ void	launch_window_and_draw(t_list *point_list);
 int		close_window(t_env *env);
 int		key_handler(int keycode, t_env *env);
 int		mouse_handler(int button, t_env *env);
+int		my_color_to_hex(char *color);
+char	*ft_hex_to_color(int color);
 
 void	ft_print_point_list(t_env *env);

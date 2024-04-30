@@ -144,3 +144,10 @@ for other octants. Go with DDA !
 To do:
 - replace printf with ft_printf before handing in project
 - Norm
+- reduce/resize window
+
+
+
+# 30/4/24
+- Tested against sample fdf, looking good: the sample doesn't output all lines in grid systematically so I likely won't fix it
+- Working on color inputs ("0, 0x8010305" point coordinates as input), new function hex_to_color. Problem: atoi doesn't seem to work on hex values.

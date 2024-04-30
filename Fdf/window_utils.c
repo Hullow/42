@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graph_handling_utils.c                             :+:      :+:    :+:   */
+/*   window_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 16:49:31 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/30 11:46:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	key_handler(int keycode, t_env *env)
 		ft_put_point_list(env);
 		// ft_print_point_list(env);
 		ft_draw_line_to_next_point(env);
-		// my_mlx_line_put(env, 700, 500, 10, 10, my_color_to_hex(env->color));
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		env->drawn = 1;
 	}
@@ -62,4 +61,44 @@ int	close_window(t_env *env)
 	ft_printf("Window closed, program stopping\n");
 	mlx_destroy_window(env->mlx, env->win);
 	exit(1);
+}
+
+char	*ft_hex_to_color(int color)
+{
+	if (color == 0x00FF0000)
+		return ("red");
+	if (color == 0x00FFFFFF)
+		return ("white");
+	if (color == 0x00FFFF00)
+		return ("yellow");
+	if (color == 0x00FF0000)
+		return ("red");
+	if (color == 0x00FF0000)
+		return ("red");
+	if (color == 0x009900FF)
+		return ("purple");
+	if (color == 0x0000FF00)
+		return ("green");
+	if (color == 0x000000FF)
+		return ("blue");
+	else
+		return ("undefined");
+}
+
+int		my_color_to_hex(char *color)
+{
+	if (!ft_strncmp(color, "red", 3))
+		return (0x00FF0000);
+	else if (!ft_strncmp(color, "blue", 4))
+		return (0x000000FF);
+	else if (!ft_strncmp(color, "green", 5))
+		return (0x0000FF00);
+	else if (!ft_strncmp(color, "purple", 6))
+		return (0x009900FF);
+	else if (!ft_strncmp(color, "yellow", 6))
+		return (0x00FFFF00);
+	else if (!ft_strncmp(color, "white", 5))
+		return (0x00FFFFFF);
+	else
+		return (0xFFFFFFFF);
 }
