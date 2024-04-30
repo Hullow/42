@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 11:30:46 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/30 18:02:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ int		close_window(t_env *env);
 int		key_handler(int keycode, t_env *env);
 int		mouse_handler(int button, t_env *env);
 int		my_color_to_hex(char *color);
-char	*ft_hex_to_color(int color);
+int		ft_hex_string_to_int(char *hex_string);
 
 void	ft_print_point_list(t_env *env);

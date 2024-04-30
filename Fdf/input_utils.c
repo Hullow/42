@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 17:21:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/30 18:06:42 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,16 @@ int	*ft_examine_lines(int fd)
 	// 	free(line_read);
 	while (line_read)
 	{
-		if (ft_count_elements_in_2d_char_array(ft_split(line_read, ' ')) != line_data[1]) // what ?
-			{
-				free(line_data);
-				return (NULL);
-			}
 		line_read = get_next_line(fd);
 		if (line_read)
 			line_data[0]++;
 		i++;
-		printf("line: %d - line read: %s\n", i, line_read);
 		// if (line_read)
 		// 	free(line_read);
 	}
-	if (line_data[0] && line_data[1])
+	if (!line_data[0] && !line_data[1])
+		free(line_data);
+	else
 		printf("line count: %d, line length: %d\n", line_data[0], line_data[1]);
 	return (line_data);
 }
@@ -111,8 +107,8 @@ int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 	// {
 	// 	color_input = ft_split(split_string[j], ',');
 	// 	point[2] = ft_atoi(color_input[0]);
-	// 	point[5] = atoi(color_input[1]);
-	// 	printf("color detected: atoi: %d, string: %s\n", point[5], color_input[1]);
+	// 	point[5] = ft_hex_string_to_int(color_input[i]);
+	// 	// printf("color detected: ft_hex_string_to_int: %d, string: %s\n", point[5], color_input[1]);
 	// }
 	// else
 	// {
@@ -147,7 +143,8 @@ void	ft_print_point_list(t_env *env)
 	env->point_list = anchor;
 }
 
-/* 
+
+
 int	ft_hex_string_to_int(char *hex_string)
 {
 	int	i;
@@ -156,14 +153,12 @@ int	ft_hex_string_to_int(char *hex_string)
 
 	i = 2;
 	integer = 0;
-	hex_factor = pow(16, 8 - i + 1);
+	hex_factor = pow(16, (ft_strlen(hex_string) - i)); // length of string minus "0x"
 	while (hex_string[i])
 	{
-		integer += ft_atoi(hex_string[i]) / hex_factor;
+		integer += ft_atoi(ft_strjoin(&hex_string[i], " ")) * hex_factor;
 		i++;
 	}
 	printf("ft_hex_string_to_int: %d\n", integer);
 	return (integer);
 }
-
- */
