@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 11:47:37 by fallan           ###   ########.fr       */
+/*   Updated: 2024/04/30 16:59:16 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_draw_line_to_next_point(t_env *env)
 			while (j < line_coordinates[4] && env->point_list->next) // go through all lines
 			{
 				j++;
-				while (l < line_coordinates[5] - 1 && env->point_list->next)
+				while (l < line_coordinates[5] && env->point_list->next)
 				{
 					l++;
 					line_coordinates[0] = ((int *) env->point_list->content)[0];
@@ -102,9 +102,9 @@ void	ft_put_point_list(t_env *env)
 	{
 		while (env->point_list)
 		{
-			if (ft_strncmp(env->color, "undefined", 10))
-				my_mlx_pixel_put(env, ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1], ((int *) env->point_list->content)[5]);
-			else
+			// if (ft_strncmp(env->color, "undefined", 10))
+			// 	my_mlx_pixel_put(env, ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1], ((int *) env->point_list->content)[5]);
+			// else
 				my_mlx_pixel_put(env, ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1], my_color_to_hex(env->color));
 			env->point_list = env->point_list->next;
 		}
