@@ -20,6 +20,13 @@
 >
 >Where size is the on-screen length of your worldspace unit vector (eg. the length of a tile's diagonal)
 
+Used the following (produces hard to differentiate one from my previous) [from SE](https://gamedev.stackexchange.com/a/159473):
+>Suppose your 2D coordinates are x' and y', and your 3D coordinates are x , y and z.
+>To convert 3D coordinated to a 2D isometric projection you use the following formulae:<br>
+>x' = (x-z)/ sqrt(2)<br>
+>y' = (x + 2y + z) / sqrt(6)<br>
+
+
 
 ### Fitting the projection in the window (centering the projection and zooming in to see it properly)
 - Two constraints:

@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/04/29 16:49:21 by francis          ###   ########.fr       */
+/*   Updated: 2024/04/29 17:32:36 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,32 @@ void	ft_isometric_projection(t_list *point_list)
 		temp[0] = ((int *)point_list->content)[0];
 		temp[1] = ((int *)point_list->content)[1];
 		temp[2] = ((int *)point_list->content)[2];
+		((int *)point_list->content)[0] = (size / 2) * (temp[0] - temp[2]) / sqrt(2);
+		((int *)point_list->content)[1] = (size / 2) * (temp[0] + 2 * temp[1] + temp[2]) / sqrt(6);
+		point_list = point_list->next;
+	}
+}
+
+/* 
+void	ft_isometric_projection(t_list *point_list)
+{
+	int	temp[5];
+	int	size;
+
+	temp[3] = ((int *)point_list->content)[3]; // #lines
+	temp[4] = ((int *)point_list->content)[4]; // #columns
+	size = 1;
+	while (size * temp[4] < WINDOW_WIDTH && size * temp[3] < WINDOW_HEIGHT)
+		size++;
+	printf("size is %d\n", size);
+	while (point_list)
+	{
+		temp[0] = ((int *)point_list->content)[0];
+		temp[1] = ((int *)point_list->content)[1];
+		temp[2] = ((int *)point_list->content)[2];
 		((int *)point_list->content)[0] = (1/sqrt(6)) * (sqrt(3) * temp[0] - sqrt(3) * temp[2]) * (size / 2);
 		((int *)point_list->content)[1] = (1/sqrt(6)) * (temp[0] + 2 * temp[1] + temp[2]) * (size / 2);
 		point_list = point_list->next;
 	}
 }
+*/

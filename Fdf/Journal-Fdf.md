@@ -138,7 +138,8 @@ for other octants. Go with DDA !
 - Renamed files
 - Issue with ft_printf on MacOS: replace with printf (careful to replace printf with ft_printf before handing in project!)
 - Working on line drawing: blocked though. Discussion with Damian: try checking your line filling algorithm without the projection, i.e. flat from the top, just the grid with no altitude => yes !! right, I can see the algo's issues ! Damian also advises to check flood fil algo (google it with "fdf"). Idea: multiply distance between each grid point by a given factor, then use projection. Managed to fill the grid almost 100%, except for first "vertical" line on grid (0, 0) to (1, 0) in grid position notation (i.e. top left)
-- Problem: doesn't work after projection. Maybe a better approach is space points, then projection.
+- Problem: doesn't work after projection. Maybe a better approach is space points, then projection. => used the "size" approach and removed zoom => boom something works.
+- Center points works well, what I need to remove is the zoom
 
 
 To do:
