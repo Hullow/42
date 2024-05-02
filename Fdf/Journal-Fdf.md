@@ -147,7 +147,6 @@ To do:
 - reduce/resize window
 
 
-
 # 30/4/24
 - Tested against sample fdf, looking good: the sample doesn't output all lines in grid systematically so I likely won't fix it. Update: fixed it pretty much entirely (my function doesn't iterate to the end of the grid though)
 - Working on color inputs ("0, 0x8010305" point coordinates as input), new function hex_to_color. Problem: atoi doesn't seem to work on hex values. Developed a function ft_hex_string_to_int for that, but it makes everything segfault so commented it out for now.

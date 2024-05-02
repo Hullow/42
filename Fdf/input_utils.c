@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 18:06:42 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/02 16:08:18 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ int	*ft_examine_lines(int fd)
 	line_read = get_next_line(fd);
 	if (line_read)
 		line_data[0]++;
-	printf("line: %d - line read: %s\n", i, line_read);
 	line_data[1] = ft_count_elements_in_2d_char_array(ft_split(line_read, ' '));
-	printf("line length: %d\n", line_data[1]);
 	// if (line_read)
 	// 	free(line_read);
 	while (line_read)
@@ -97,24 +95,23 @@ point[4]: #columns
 int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 {
 	int		*point;
-	// char	**color_input = NULL;
+	char	**color_input = NULL;
 
 	point = (int *)malloc (5 * sizeof(int));
 	point[0] = j;
 	point[1] = i;
 	point[2] = ft_atoi(split_string[j]);
-	// if (ft_strchr(split_string[j], 44)) // if ',' found in our split string
-	// {
-	// 	color_input = ft_split(split_string[j], ',');
-	// 	point[2] = ft_atoi(color_input[0]);
-	// 	point[5] = ft_hex_string_to_int(color_input[i]);
-	// 	// printf("color detected: ft_hex_string_to_int: %d, string: %s\n", point[5], color_input[1]);
-	// }
-	// else
-	// {
-	// 	point[2] = ft_atoi(split_string[j]);
-	// 	point[5] = 0x00FFFFFF;
-	// }	
+	if (ft_strchr(split_string[j], 44)) // if ',' found in our split string
+	{
+		color_input = ft_split(split_string[j], ',');
+		point[2] = ft_atoi(color_input[0]);
+		point[5] = ft_hex_string_to_int(color_input[1]);
+	}
+	else
+	{
+		point[2] = ft_atoi(split_string[j]);
+		point[5] = 16777215;
+	}	
 	point[3] = line_data[0];
 	point[4] = line_data[1];
 	return (point);
@@ -133,32 +130,32 @@ void	ft_print_point_list(t_env *env)
 		while (env->point_list)
 		{
 			temp = (int *) env->point_list->content;
-			printf("pt %d: (%d,%d), l:%d, c:%d – ", i, temp[0], temp[1], temp[3], temp[4]);
-
-			if (i++ % 6 == 0)
-				ft_printf("\n");
+			printf("pt %d: (%d,%d), l:%d, c:%d – ", i++, temp[0], temp[1], temp[3], temp[4]);
 			env->point_list = env->point_list->next;
 		}
 	}
 	env->point_list = anchor;
 }
 
-
-
 int	ft_hex_string_to_int(char *hex_string)
 {
 	int	i;
-	int	integer;
+	int	decimal_value;
 	int	hex_factor;
 
+	decimal_value = 0;
 	i = 2;
-	integer = 0;
-	hex_factor = pow(16, (ft_strlen(hex_string) - i)); // length of string minus "0x"
+	while (hex_string[i] == '0')
+			i++;
+	hex_factor = pow(16, ft_strlen(hex_string + i) - 1);
 	while (hex_string[i])
 	{
-		integer += ft_atoi(ft_strjoin(&hex_string[i], " ")) * hex_factor;
+		if (hex_string[i] >= 65)
+			decimal_value += (hex_string[i] - 55) * hex_factor;
+		else
+			decimal_value += (hex_string[i] - 48) * hex_factor;
+		hex_factor /= 16;
 		i++;
 	}
-	printf("ft_hex_string_to_int: %d\n", integer);
-	return (integer);
+	return (decimal_value);
 }

@@ -6,26 +6,50 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 17:42:28 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/02 16:06:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+void	ft_put_point_list(t_env *env)
+{
+	t_list	*anchor;
+	int color;
+
+	anchor = env->point_list;
+	if (((int *) env->point_list->content)[5])
+	{
+		color = ((int *) env->point_list->content)[5];
+		ft_printf("color detected, set to %d  ", color);
+	}
+	else
+		color = 0x00FFFFFF;
+	if (env->point_list)
+	{
+		while (env->point_list)
+		{
+			my_mlx_pixel_put(env, ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1], color);
+			env->point_list = env->point_list->next;
+		}
+	}
+	env->point_list = anchor;
+}
+
 void	ft_draw_line_to_next_point(t_env *env)
 {
 	t_list	*anchor;
+	int color;
 	int		i;
 	int		j;
 	int		k = 0;
 	int		l;
+	int		count_to_end = 0;
 	int		line_coordinates[6];
 
 	i = 0;
 	line_coordinates[4] = ((int *) env->point_list->content)[3]; // #lines
 	line_coordinates[5] = ((int *) env->point_list->content)[4]; // #columns
-	ft_printf("before printing points: env->point_list: {%p}\n", env->point_list);
-	ft_printf("line_coordinates[4] : %d, line_coordinates[5]: %d\n", line_coordinates[4], line_coordinates[5]);
 	anchor = env->point_list;
 
 	// horizontal lines of the grid
@@ -43,7 +67,11 @@ void	ft_draw_line_to_next_point(t_env *env)
 					env->point_list = env->point_list->next;
 				line_coordinates[2] = ((int *) env->point_list->content)[0];
 				line_coordinates[3] = ((int *) env->point_list->content)[1];
-				my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
+				if (((int *) env->point_list->content)[5])
+					color = ((int *) env->point_list->content)[5];
+				else
+					color = 0x00FFFFFF;
+				my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], 0x00FFFFFF);
 			}
 			else
 			{
@@ -76,45 +104,42 @@ void	ft_draw_line_to_next_point(t_env *env)
 						i++;
 						if (env->point_list->next)
 							env->point_list = env->point_list->next;
+						else
+						{
+							ft_printf("break\n");
+							break;
+						}
 					}
 					line_coordinates[2] = ((int *) env->point_list->content)[0];
 					line_coordinates[3] = ((int *) env->point_list->content)[1];
-					my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], my_color_to_hex(env->color));
+					if (((int *) env->point_list->content)[5])
+						color = ((int *) env->point_list->content)[5];
+					else
+						color = 0x00FFFFFF;
+					my_mlx_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], color);
 					k++;
-					// printf(" line %d: (%d,%d) to (%d,%d)–", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
-					// if (k % 4 == 0)
-						// printf("\n");
+					if (k > 882)
+						printf(" line %d: (%d,%d) to (%d,%d)–", k, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
 					if (anchor->next)
+					{
+						if (k > 882)
+							printf("\nstep %d: anchor->next found\n", k);
 						env->point_list = anchor->next;
+						while (env->point_list)
+						{
+							env->point_list = env->point_list->next;
+							count_to_end++;
+						}
+						if (k > 882)
+							ft_printf("count to end: %d elements left\n", count_to_end);
+						env->point_list = anchor->next;
+					}
 					if (!(env->point_list->next))
 						printf("we've arrived at the end\n");
 				}
 				l = 0;
 			}
 		}
-}
-
-void	ft_put_point_list(t_env *env)
-{
-	t_list	*anchor;
-
-	anchor = env->point_list;
-	ft_printf("before printing points: env->point_list: {%p}\n", env->point_list);
-	if (env->point_list)
-	{
-		while (env->point_list)
-		{
-			// if (ft_strncmp(env->color, "undefined", 10))
-			// 	my_mlx_pixel_put(env, ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1], ((int *) env->point_list->content)[5]);
-			// else
-				my_mlx_pixel_put(env, ((int *) env->point_list->content)[0], ((int *) env->point_list->content)[1], my_color_to_hex(env->color));
-			env->point_list = env->point_list->next;
-		}
-	}
-	env->point_list = anchor;
-	ft_printf("after printing points: env->point_list: {%p}\n", env->point_list);
-	ft_printf("line_coordinates[4] : %d, line_coordinates[5]: %d\n", \
-	 ((int *) env->point_list->content)[3], ((int *) env->point_list->content)[4]);
 }
 
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
@@ -138,7 +163,6 @@ void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
 		steps = abs(x2 - x1);
 	else
 		steps = abs(y2 - y1);
-  
     // Put pixel for each step 
     X = x1;
 	Y = y1;

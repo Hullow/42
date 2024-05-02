@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:07:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/30 11:46:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/02 15:35:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int	key_handler(int keycode, t_env *env)
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		env->drawn = 1;
 	}
-	else if (env->drawn == 1)
-		ft_printf("image already drawn, please press ESC to stop the program, and try again\n");
+	// else if (env->drawn == 1)
+	// 	ft_printf("image already drawn, please press ESC to stop the program, and try again\n");
 	return (0);
 }
 
@@ -61,44 +61,4 @@ int	close_window(t_env *env)
 	ft_printf("Window closed, program stopping\n");
 	mlx_destroy_window(env->mlx, env->win);
 	exit(1);
-}
-
-char	*ft_hex_to_color(int color)
-{
-	if (color == 0x00FF0000)
-		return ("red");
-	if (color == 0x00FFFFFF)
-		return ("white");
-	if (color == 0x00FFFF00)
-		return ("yellow");
-	if (color == 0x00FF0000)
-		return ("red");
-	if (color == 0x00FF0000)
-		return ("red");
-	if (color == 0x009900FF)
-		return ("purple");
-	if (color == 0x0000FF00)
-		return ("green");
-	if (color == 0x000000FF)
-		return ("blue");
-	else
-		return ("undefined");
-}
-
-int		my_color_to_hex(char *color)
-{
-	if (!ft_strncmp(color, "red", 3))
-		return (0x00FF0000);
-	else if (!ft_strncmp(color, "blue", 4))
-		return (0x000000FF);
-	else if (!ft_strncmp(color, "green", 5))
-		return (0x0000FF00);
-	else if (!ft_strncmp(color, "purple", 6))
-		return (0x009900FF);
-	else if (!ft_strncmp(color, "yellow", 6))
-		return (0x00FFFF00);
-	else if (!ft_strncmp(color, "white", 5))
-		return (0x00FFFFFF);
-	else
-		return (0xFFFFFFFF);
 }
