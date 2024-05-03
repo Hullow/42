@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 11:03:16 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 13:35:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_draw_points(t_env *env)
 {
 	t_list	*anchor;
-	int color;
+	int		color;
 
 	anchor = env->point_list;
 	if (((int *) env->point_list->content)[5])
@@ -35,14 +35,16 @@ void	ft_draw_points(t_env *env)
 
 // draws lines by calling 
 // ft_draw_horizontal_lines and ft_draw_vertical_lines
+// lines_coordinates[4]: #lines
+// lines_coordinates[5]: #columns
 void	ft_draw_lines(t_env *env)
 {
 	t_list	*anchor;
 	int		*line_coordinates;
 
 	line_coordinates = (int *)malloc(sizeof(int) * 6);
-	line_coordinates[4] = ((int *) env->point_list->content)[3]; // #lines
-	line_coordinates[5] = ((int *) env->point_list->content)[4]; // #columns
+	line_coordinates[4] = ((int *) env->point_list->content)[3];
+	line_coordinates[5] = ((int *) env->point_list->content)[4];
 	anchor = env->point_list;
 	ft_draw_horizontal_lines(env, line_coordinates, 0, 16777215);
 	env->point_list = anchor;
@@ -82,8 +84,8 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i, int colo
 void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
 {
 	t_list	*anchor;
-	int	j;
-	int	l;
+	int		j;
+	int		l;
 
 	j = 0;
 	l = 0;
@@ -105,7 +107,7 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
 				else
 				{
 					ft_printf("break\n");
-					break;
+					break ;
 				}
 			}
 			line_coordinates[2] = ((int *) env->point_list->content)[0];

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 11:02:59 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 13:31:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_env {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		drawn;
 	t_list	*point_list;
 }				t_env;
 
@@ -57,18 +58,21 @@ int		*ft_min_max(t_list *point_list);
 void	ft_center_points(t_list *point_list, int *min_max);
 void	ft_isometric_projection(t_list *point_list);
 
-// drawing utils
+// mlx utils
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 void	ft_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
 
+// drawing utils
 void	ft_draw_points(t_env *env);
 void	ft_draw_lines(t_env *env);
 void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i, int color);
 void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color);
-// for debugging:
-//void	ft_print_point_list(t_env *env);
 
 // window and event handling
 void	launch_window_and_draw(t_list *point_list);
-int		close_window(t_env *env);
+int		window_closed(t_env *env);
 int		key_handler(int keycode, t_env *env);
+
+void	ft_free_list(t_list *point_list);
+// for debugging:
+//void	ft_print_point_list(t_env *env);

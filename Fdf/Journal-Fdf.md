@@ -97,7 +97,7 @@ around line 364 expression `[[self openGLContext] setView:self];`
 
 # 12/4/24
 - Working on seg faults with my list(s) passed as parameters
-- Spent hours on this, actually the issue was simply the function prototype, which had to be `int key_handler(int keycode, t_env *env)` to correctly pass on the parameter, while`int key_handler(t_env *env, int keycode)` didn't pass it on properly !!!
+- Spent hours on this, actually the issue was simply the function prototype, which had to be `int key_handler(int keycode, t_env *env)` to correctly pass on the parameter, while `int key_handler(t_env *env, int keycode)` didn't pass it on properly !!!
 - In retrospect that the order of parameters is central should have made sense...
 
 # 15/4/24
@@ -140,12 +140,10 @@ for other octants. Go with DDA !
 - Working on line drawing: blocked though. Discussion with Damian: try checking your line filling algorithm without the projection, i.e. flat from the top, just the grid with no altitude => yes !! right, I can see the algo's issues ! Damian also advises to check flood fil algo (google it with "fdf"). Idea: multiply distance between each grid point by a given factor, then use projection. Managed to fill the grid almost 100%, except for first "vertical" line on grid (0, 0) to (1, 0) in grid position notation (i.e. top left)
 - Problem: doesn't work after projection. Maybe a better approach is space points, then projection.
 
-
 To do:
 - replace printf with ft_printf before handing in project
 - Norm
 - reduce/resize window
-
 
 # 30/4/24
 - Tested against sample fdf, looking good: the sample doesn't output all lines in grid systematically so I likely won't fix it. Update: fixed it pretty much entirely (my function doesn't iterate to the end of the grid though)
@@ -163,3 +161,4 @@ To do:
 - t1, t2 looking slightly better
 - Issue with unwanted diagonal lines being drawn between grid points
 - Finally removed zoom functions + ft_graph_transformation, a few lines of code to compute `size` in ft_isometric_projection are enough.
+- env->drawn apparently necessary to prevent segfault when pressing key multiple times (could be because point->list not reset properly with anchor everywhere ?)
