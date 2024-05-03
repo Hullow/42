@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 14:42:47 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 18:07:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	key_handler(int keycode, t_env *env)
 	}
 	else if (!(env->drawn))
 	{
+		ft_z_axis_rotation(env->point_list);
 		ft_isometric_projection(env->point_list);
 		float zoom = ft_calculate_zoom(env->point_list);
 		ft_apply_zoom(env->point_list, zoom);
@@ -86,6 +87,23 @@ void	ft_free_list(t_list *point_list)
 	}
 }
 
+t_list	*ft_file_to_list(int fd, char *arg)
+{
+	int		*line_data;
+
+	line_data = malloc(sizeof(int) * 2);
+	if (!line_data)
+	{
+		ft_printf("ft_file_to_list: malloc fail\n");
+		return (NULL);
+	}
+	line_data[0] = 0;
+	line_data = ft_examine_lines(fd, line_data);
+	close(fd);
+	fd = open(arg, O_RDONLY);
+	return (ft_fill_list(fd, line_data));
+}
+
 // the main function opens the file,
 // sends it to the input handling functions,
 // then calls the window/event handling functions,
@@ -93,10 +111,8 @@ void	ft_free_list(t_list *point_list)
 int	main(int argc, char *argv[])
 {
 	int		fd;
-	int		*line_data;
-	t_list	*point_list;
 
-	line_data = NULL;
+	t_list	*point_list;
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
@@ -105,10 +121,7 @@ int	main(int argc, char *argv[])
 		else
 		{
 			ft_printf("%s opened\n", argv[1]);
-			line_data = ft_examine_lines(fd);
-			close(fd);
-			fd = open(argv[1], O_RDONLY);
-			point_list = ft_file_to_point_list(fd, -1, line_data);
+			point_list = ft_file_to_list(fd, argv[1]);
 			launch_window_and_draw(point_list);
 			ft_free_list(point_list);
 		}

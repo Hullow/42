@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 13:56:46 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 18:26:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ typedef struct	s_env {
 }				t_env;
 
 // input utils
-int		ft_count_elements_in_2d_char_array(char **array);
-int		*ft_examine_lines(int fd);
+int		ft_count_array_elements_debug(char **array);
+int		ft_count_array_elements(char **array);
+int		*ft_examine_lines(int fd, int *line_data);
 int		*ft_fill_point(char **split_string, int i, int j, int *line_data);
-t_list	*ft_file_to_point_list(int fd, int i, int *line_data);
+t_list	*ft_fill_list(int fd, int *line_data);
+t_list	*ft_file_to_list(int fd, char *input);
 int		ft_hex_string_to_int(char *hex_string);
 
 // graph transformation utils
@@ -65,8 +67,8 @@ void	ft_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
 // drawing utils
 void	ft_draw_points(t_env *env);
 void	ft_draw_lines(t_env *env);
-void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i, int color);
-void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color);
+void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i);
+void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i);
 
 // window and event handling
 void	launch_window_and_draw(t_list *point_list);
@@ -80,3 +82,4 @@ void	ft_free_list(t_list *point_list);
 
 float	ft_calculate_zoom(t_list *point_list);
 void	ft_apply_zoom(t_list *point_list, float zoom);
+void	ft_z_axis_rotation(t_list *point_list);

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 14:55:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 16:39:37 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,19 @@ void	ft_draw_lines(t_env *env)
 	t_list	*anchor;
 	int		*line_coordinates;
 
-	line_coordinates = (int *)malloc(sizeof(int) * 6);
+	line_coordinates = (int *)malloc(sizeof(int) * 7);
 	line_coordinates[4] = ((int *) env->point_list->content)[3];
 	line_coordinates[5] = ((int *) env->point_list->content)[4];
+	line_coordinates[6] = ((int *) env->point_list->content)[5];
 	anchor = env->point_list;
-	ft_draw_horizontal_lines(env, line_coordinates, 0, 16777215);
+	ft_draw_horizontal_lines(env, line_coordinates, 0);
 	env->point_list = anchor;
-	ft_draw_vertical_lines(env, line_coordinates, 0, 16777215);
+	ft_draw_vertical_lines(env, line_coordinates, 0);
 }
 
 // draws horizontal lines of the grid, iteratively over the linked list
 // go through all columns
-void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i, int color)
+void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i)
 {
 	while (env->point_list->next)
 	{
@@ -66,9 +67,7 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i, int colo
 				env->point_list = env->point_list->next;
 			line_coordinates[2] = ((int *) env->point_list->content)[0];
 			line_coordinates[3] = ((int *) env->point_list->content)[1];
-			if (((int *) env->point_list->content)[5])
-				color = ((int *) env->point_list->content)[5];
-			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], color);
+			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], 0xFFFFFF);
 		}
 		else
 		{
@@ -83,7 +82,7 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i, int colo
 // go through all lines
 // lines_coordinates[4]: #lines
 // lines_coordinates[5]: #columns
-void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
+void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i)
 {
 	t_list	*anchor;
 	int		columns;
@@ -109,7 +108,7 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
 		}
 		if (columns)
 		{
-			ft_printf("couldn't find iterate %d elements ahead, breaking\n", line_coordinates[5]);
+			ft_printf("couldn't iterate %d elements ahead, breaking\n", line_coordinates[5]);
 			ft_printf("vertical lines drawn: %d\n", lines);
 			break ;
 		}
@@ -117,8 +116,7 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
 		{
 			line_coordinates[2] = ((int *)(env->point_list->content))[0];
 			line_coordinates[3] = ((int *)(env->point_list->content))[1];
-			// color = line_coordinates[5];
-			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], color);
+			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
 			lines++;
 		}
 		columns = line_coordinates[5];

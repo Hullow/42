@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/03 13:56:27 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 16:47:52 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,8 @@ void	ft_apply_zoom(t_list *point_list, float zoom)
 	}
 }
 
-
-
-
-
-
-
 /* pt[3]: #lines
 pt[4]: #columns */
-
-
-
 
 void	ft_isometric_projection(t_list *point_list)
 {
@@ -162,17 +153,30 @@ void	ft_isometric_projection(t_list *point_list)
 		// ((int *)point_list->content)[0] = (pt[0] - pt[1]) * cos(a);
 		// ((int *)point_list->content)[1] = (int) pt[1] + ((pt[0] + pt[2]) * sin(a)) / sqrt(2);
 
-
-
 		((int *)point_list->content)[0] = (size / 2) * (pt[0] * cos(a) + pt[1] * cos(a + (4 * a)) + pt[2] * cos(a - (4 * a)));
 		((int *)point_list->content)[1] = (size / 2) * (pt[0] * sin(a) + pt[1] * sin(a + (4 * a)) + pt[2] * sin(a - (4 * a)));
-
-
-
-
-
 
 		point_list = point_list->next;
 	}
 	point_list = anchor;
+}
+
+void	ft_z_axis_rotation(t_list *point_list)
+{
+	int	pt[3];
+	int	a;
+
+	a = 0 * (M_PI / 180);
+	while (point_list)
+	{
+		pt[0] = ((int *)(point_list->content))[0];
+		pt[1] = ((int *)(point_list->content))[1];
+		pt[2] = ((int *)(point_list->content))[2];
+
+		((int *)(point_list->content))[0] = cos(a) * pt[0] - sin(a) * pt[1];
+		((int *)(point_list->content))[1] = sin(a) * pt[0] - cos(a) * pt[1];
+		// ((int *)(point_list->content))[0] = cos(a) * pt[0] - sin(a) * pt[2];
+		// ((int *)(point_list->content))[2] = -sin(a) * pt[0] + cos(a) * pt[1];
+		point_list = point_list->next;
+	}
 }

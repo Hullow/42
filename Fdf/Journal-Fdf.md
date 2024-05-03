@@ -162,3 +162,4 @@ To do:
 - Issue with unwanted diagonal lines being drawn between grid points
 - Finally removed zoom functions + ft_graph_transformation, a few lines of code to compute `size` in ft_isometric_projection are enough.
 - env->drawn apparently necessary to prevent segfault when pressing key multiple times (could be because point->list not reset properly with anchor everywhere ?)
+- Issue with the split with pyramide (see /debug/split-fail-pyramide.bash): checked split on the string, it works. Issue is before. Note: should've known split is ok, it passed moulinette..

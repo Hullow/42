@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 14:47:36 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 18:45:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,40 @@ file descriptor (array of characters) and calls ft_count_columns
 to count the number of columns (line_data[1]) */
 
 // Function too long !
-int	*ft_examine_lines(int fd)
+int	*ft_examine_lines(int fd, int *line_data)
 {
-	int		*line_data;
 	char	*line_read;
-	int		i;
+	int		columns;
 
-	i = 1;
-	line_data = (int *)malloc(2 * sizeof(int));
-	if (!line_data)
-		return (NULL);
-	line_data[0] = 0;
 	line_read = get_next_line(fd);
 	if (line_read)
+	{
+		// free(line_read);
 		line_data[0]++;
-	line_data[1] = ft_count_elements_in_2d_char_array(ft_split(line_read, ' '));
-	// if (line_read)
-	// 	free(line_read);
+	}
+	line_data[1] = ft_count_array_elements(ft_split(line_read, ' '));
+	ft_printf("line_data[1] = %d\n", line_data[1]);
 	while (line_read)
 	{
 		line_read = get_next_line(fd);
 		if (line_read)
 			line_data[0]++;
-		i++;
-		// if (line_read)
-		// 	free(line_read);
+		if (line_data[0] > 14)
+		{
+			ft_printf("line %d: %s\n", line_data[0], line_read);
+			columns = ft_count_array_elements_debug(ft_split(line_read, ' '));
+			ft_printf("columns = %d\n", columns);
+		}
+		else
+			columns = ft_count_array_elements(ft_split(line_read, ' '));
+		if (line_read)
+			free(line_read);
+		if (columns != line_data[1])
+		{
+			free(line_data);
+			ft_printf("irregular map, aborting\n");
+			exit(1);
+		}
 	}
 	if (!line_data[0] && !line_data[1])
 		free(line_data);
@@ -50,13 +59,32 @@ int	*ft_examine_lines(int fd)
 	return (line_data);
 }
 
-int	ft_count_elements_in_2d_char_array(char **array)
+int	ft_count_array_elements_debug(char **array)
 {
 	int	i;
 
 	i = 0;
 	while (array[i])
+	{
+		printf("%d: %s |", i, array[i]);
+		free(array[i]);
 		i++;
+	}
+	free(array);
+	return (i);
+}
+
+int	ft_count_array_elements(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 	return (i);
 }
 
@@ -67,21 +95,22 @@ int	ft_count_elements_in_2d_char_array(char **array)
 // i.e. through #columns (== line_data[1]),
 // and creates an linked list of points which are filled by
 // ft_fill_point
-t_list	*ft_file_to_point_list(int fd, int i, int *line_data)
+t_list	*ft_fill_list(int fd, int *line_data)
 {
 	t_list	*node;
 	t_list	*head;
 	char	**split_string;
+	int		i;
 	int		j;
 
 	node = NULL;
 	head = NULL;
 	split_string = NULL;
 	i = -1;
+	j = -1;
 	while (++i < line_data[0])
 	{
 		split_string = ft_split(get_next_line(fd), ' ');
-		j = -1;
 		while (++j < line_data[1])
 		{
 			node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
