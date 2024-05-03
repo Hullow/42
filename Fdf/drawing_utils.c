@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 22:53:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 23:57:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i)
 			i++;
 			line_coordinates[0] = ((int *) env->point_list->content)[0];
 			line_coordinates[1] = ((int *) env->point_list->content)[1];
+			line_coordinates[6] = ((int *) env->point_list->content)[5];
 			if (env->point_list->next)
 				env->point_list = env->point_list->next;
 			line_coordinates[2] = ((int *) env->point_list->content)[0];
 			line_coordinates[3] = ((int *) env->point_list->content)[1];
-			line_coordinates[6] = ((int *) env->point_list->content)[5];
 			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
 		}
 		else
@@ -110,11 +110,13 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i)
 	// for each point, we want to know that there is a point one line underneath before drawing a line
 	// the way to do this is to iterate #columns point ahead
 	anchor = env->point_list;
+	// line_coordinates[5] = ((int *) env->point_list->content)[4];
 	columns = line_coordinates[5];
 	while (env->point_list)
 	{
 		line_coordinates[0] = ((int *)(env->point_list->content))[0];
 		line_coordinates[1] = ((int *)(env->point_list->content))[1];
+		line_coordinates[6] = ((int *)(env->point_list->content))[5];
 		while (columns && env->point_list->next)
 		{
 			columns--;
@@ -130,10 +132,16 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i)
 		{
 			line_coordinates[2] = ((int *)(env->point_list->content))[0];
 			line_coordinates[3] = ((int *)(env->point_list->content))[1];
-			line_coordinates[6] = ((int *)(env->point_list->content))[5];
 			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
-			// ft_printf("printing point (%d,%d) to (%d,%d)\n", \
-			// line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
+
+			// if (line_coordinates[0] == 99)
+			// 	ft_printf("printing edge point (%d,%d) to (%d,%d)\n", \
+			// 	line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);'
+			
+			// if (line_coordinates[0] == 0)
+			// 	printf("printing edge point (%d,%d) to (%d,%d), with color %d\n", \
+			// 		line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
+
 			lines++;
 		}
 		columns = line_coordinates[5];

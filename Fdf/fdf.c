@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 23:07:00 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 23:38:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	key_handler(int keycode, t_env *env)
 		ft_max_altitude(env->point_list);
 		// ft_z_axis_rotation(env->point_list);
 		// ft_isometric_projection(env->point_list);
-		float zoom = ft_calculate_zoom(env->point_list);
-		ft_apply_zoom(env->point_list, zoom);
-		ft_center_points(env->point_list, ft_min_max(env->point_list));
+		// float zoom = ft_calculate_zoom(env->point_list);
+		ft_apply_zoom(env->point_list, 10);
+		// ft_center_points(env->point_list, ft_min_max(env->point_list));
 		// ft_draw_points(env);
 		ft_draw_lines(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);

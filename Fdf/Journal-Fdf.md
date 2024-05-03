@@ -163,3 +163,15 @@ To do:
 - Finally removed zoom functions + ft_graph_transformation, a few lines of code to compute `size` in ft_isometric_projection are enough.
 - env->drawn apparently necessary to prevent segfault when pressing key multiple times (could be because point->list not reset properly with anchor everywhere ?)
 - Issue with the split with pyramide (see /debug/split-fail-pyramide.bash): checked split on the string, it works. Issue is before. Note: should've known split is ok, it passed moulinette..
+
+- Evening: fixed hex_string_to_int function to properly handle colors, removed rotation, now my t2 is almost good. Problem: right vertical border in blue for no reason. Need to remove it/change color.
+- What I did: 
+	- `ft_apply_zoom(env->point_list, 10);` to zoom in 10x
+	-
+	```c
+	if (line_coordinates[0] == 990)
+		ft_printf("printing edge point (%d,%d) to (%d,%d), with color %d\n", line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
+	```
+	To print out right border (0-99 so x * 10, e.g. 990 to get rightmost set of vertical lines, 980 to get the penultimate, etc.). Turquoise color code does appear (int 1044442, [hex #FEFDA](https://www.color-hex.com/color/0fefda)), and some too high numbers to convert to RGB color scheme  
+
+
