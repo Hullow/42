@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/02 16:08:18 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 10:56:49 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,12 @@ t_list	*ft_file_to_point_list(int fd, int i, int *line_data)
 	return (head);
 }
 
-/*
+/* 
 point[0]: column, i.e. x
 point[1]: line, i.e. y
 point[2]: altitude, i.e. z
 point[3]: #lines
-point[4]: #columns
-*/
-
-#include <stdlib.h>
+point[4]: #columns */
 int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 {
 	int		*point;
@@ -115,26 +112,6 @@ int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 	point[3] = line_data[0];
 	point[4] = line_data[1];
 	return (point);
-}
-
-void	ft_print_point_list(t_env *env)
-{
-	int i = 0;
-	t_list	*anchor = env->point_list;
-	int	*temp;
-
-	temp = (int *)malloc (5 * sizeof(int));
-	
-	if (env->point_list)
-	{
-		while (env->point_list)
-		{
-			temp = (int *) env->point_list->content;
-			printf("pt %d: (%d,%d), l:%d, c:%d – ", i++, temp[0], temp[1], temp[3], temp[4]);
-			env->point_list = env->point_list->next;
-		}
-	}
-	env->point_list = anchor;
 }
 
 int	ft_hex_string_to_int(char *hex_string)

@@ -150,3 +150,16 @@ To do:
 # 30/4/24
 - Tested against sample fdf, looking good: the sample doesn't output all lines in grid systematically so I likely won't fix it. Update: fixed it pretty much entirely (my function doesn't iterate to the end of the grid though)
 - Working on color inputs ("0, 0x8010305" point coordinates as input), new function hex_to_color. Problem: atoi doesn't seem to work on hex values. Developed a function ft_hex_string_to_int for that, but it makes everything segfault so commented it out for now.
+
+# 2/5/24
+- Back to work (after IDIAP hackathon application and Bitcoin meetup taking a lot of time on Tuesday, Wednesday)
+- Solved hex color input, and first "vertical" line of grid.
+- Found better projection formula (on Stack Overflow)
+- However, the last few "vertical" lines don't get printed
+- Biggest problem: t1, t2 maps look like sh... compared to what the sample fdf program produces
+
+# 3/5/24
+- Refactoring (for Norm and readability, to help debug)
+- t1, t2 looking slightly better
+- Issue with unwanted diagonal lines being drawn between grid points
+- Finally removed zoom functions + ft_graph_transformation, a few lines of code to compute `size` in ft_isometric_projection are enough.
