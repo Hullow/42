@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 13:31:32 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 13:56:46 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,3 +76,7 @@ int		key_handler(int keycode, t_env *env);
 void	ft_free_list(t_list *point_list);
 // for debugging:
 //void	ft_print_point_list(t_env *env);
+
+
+float	ft_calculate_zoom(t_list *point_list);
+void	ft_apply_zoom(t_list *point_list, float zoom);

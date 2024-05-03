@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 13:35:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 14:15:55 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_draw_lines(t_env *env)
 	line_coordinates[4] = ((int *) env->point_list->content)[3];
 	line_coordinates[5] = ((int *) env->point_list->content)[4];
 	anchor = env->point_list;
-	ft_draw_horizontal_lines(env, line_coordinates, 0, 16777215);
+	// ft_draw_horizontal_lines(env, line_coordinates, 0, 16777215);
 	env->point_list = anchor;
 	ft_draw_vertical_lines(env, line_coordinates, 0, 16777215);
 }
@@ -89,10 +89,10 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
 
 	j = 0;
 	l = 0;
-	while (j < line_coordinates[4] && env->point_list->next) // go through all lines
+	while (j < line_coordinates[4] && env->point_list->next) // line_coordinates[4]: #lines
 	{
 		j++;
-		while ((l < line_coordinates[5] - 1) && env->point_list->next) // go to next column
+		while ((l < line_coordinates[5] - 1) && env->point_list->next) // line_coordinates[5]: #column
 		{
 			l++;
 			line_coordinates[0] = ((int *) env->point_list->content)[0];
@@ -112,9 +112,9 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
 			}
 			line_coordinates[2] = ((int *) env->point_list->content)[0];
 			line_coordinates[3] = ((int *) env->point_list->content)[1];
-			if (((int *) env->point_list->content)[5])
-				color = ((int *) env->point_list->content)[5];
+			color += 0x00FF00;
 			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], color);
+
 			if (anchor->next)
 			{
 				env->point_list = anchor->next;

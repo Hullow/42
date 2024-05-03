@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 13:27:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 14:10:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 	else
 	{
 		point[2] = ft_atoi(split_string[j]);
-		point[5] = 16777215;
+		point[5] = 0x0000FF;
 	}	
 	point[3] = line_data[0];
 	point[4] = line_data[1];

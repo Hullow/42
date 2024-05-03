@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 13:53:10 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 13:57:40 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	key_handler(int keycode, t_env *env)
 	else if (!(env->drawn))
 	{
 		// ft_isometric_projection(env->point_list);
+		float zoom = ft_calculate_zoom(env->point_list);
+		ft_apply_zoom(env->point_list, zoom);
 		ft_center_points(env->point_list, ft_min_max(env->point_list));
 		ft_draw_points(env);
 		ft_draw_lines(env);
