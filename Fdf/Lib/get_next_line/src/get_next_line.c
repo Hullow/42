@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/04 16:31:20 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 20:46:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 	return (output);
 }
 
-void	ft_free(char *temp)
+void	ft_free(void *temp)
 {
 	if (temp)
 	{

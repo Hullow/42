@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 18:26:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 21:54:19 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@
 #include "./lib/minilibx/mlx.h"
 
 #ifndef WINDOW_WIDTH
-#define WINDOW_WIDTH 800
+#define WINDOW_WIDTH 1200
 #endif
 
 #ifndef WINDOW_HEIGHT
-#define WINDOW_HEIGHT 600
+#define WINDOW_HEIGHT 900
 #endif
 
 #ifndef WINDOW_NAME
@@ -51,14 +51,18 @@ int		ft_count_array_elements_debug(char **array);
 int		ft_count_array_elements(char **array);
 int		*ft_examine_lines(int fd, int *line_data);
 int		*ft_fill_point(char **split_string, int i, int j, int *line_data);
-t_list	*ft_fill_list(int fd, int *line_data);
+t_list	*ft_fill_list(int fd, int *line_data, int i, int j);
 t_list	*ft_file_to_list(int fd, char *input);
 int		ft_hex_string_to_int(char *hex_string);
+char	*ft_whitespace_to_space(char *str);
 
 // graph transformation utils
 int		*ft_min_max(t_list *point_list);
 void	ft_center_points(t_list *point_list, int *min_max);
 void	ft_isometric_projection(t_list *point_list);
+float	ft_calculate_zoom(t_list *point_list);
+void	ft_apply_zoom(t_list *point_list, float zoom);
+void	ft_z_axis_rotation(t_list *point_list);
 
 // mlx utils
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
@@ -76,10 +80,7 @@ int		window_closed(t_env *env);
 int		key_handler(int keycode, t_env *env);
 
 void	ft_free_list(t_list *point_list);
+
 // for debugging:
-//void	ft_print_point_list(t_env *env);
-
-
-float	ft_calculate_zoom(t_list *point_list);
-void	ft_apply_zoom(t_list *point_list, float zoom);
-void	ft_z_axis_rotation(t_list *point_list);
+void	ft_print_point_list(t_env *env);
+void	ft_max_altitude(t_list *point_list);

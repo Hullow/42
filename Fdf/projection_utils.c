@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/03 16:47:52 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 23:04:01 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	*ft_min_max(t_list *point_list)
 	return (minmax);
 }
 
-
 float	ft_calculate_zoom(t_list *point_list)
 {
 	int		x_max = 0;
@@ -101,7 +100,7 @@ float	ft_calculate_zoom(t_list *point_list)
 	ft_printf("x_min: %d ", x_min);
 	ft_printf("x_max: %d ", x_max);
 	ft_printf("y_max: %d ", y_max);
-	ft_printf("y_min: %d\n", y_max);
+	ft_printf("y_min: %d\n", y_min);
 
 	// defining zoom from maximum and minimum values
 	while  ((float)(x_max - x_min) * zoom < (float)WINDOW_WIDTH * 3/4 && (float)(y_max - y_min) * zoom < (float)WINDOW_HEIGHT * 3/4)
@@ -166,7 +165,7 @@ void	ft_z_axis_rotation(t_list *point_list)
 	int	pt[3];
 	int	a;
 
-	a = 0 * (M_PI / 180);
+	a = -30 * (M_PI / 180);
 	while (point_list)
 	{
 		pt[0] = ((int *)(point_list->content))[0];

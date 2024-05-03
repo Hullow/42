@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:00:08 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 11:04:01 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 23:04:20 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 // draws a pixel
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
 {
+	// if (color == 255)
+	// 	return ;
 	char	*dst;
 
 	dst = env->addr + (y * env->line_length + x * (env->bits_per_pixel / 8));

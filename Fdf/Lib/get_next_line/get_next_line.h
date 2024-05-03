@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:40 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/04 16:30:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 20:47:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ struct s_result	ft_fill_line(char *buf, char *line, int read_ret, int fd);
 char			*ft_add_string(char *addition, \
 unsigned int end_of_line, char *base);
 int				ft_read(int fd, char *buf, int read_ret);
-void			ft_free(char *temp);
+void			ft_free(void *temp);
 unsigned int	ft_end_of_line(char *buf);
 void			*ft_fill_char(void *s, char c);
 char			*ft_next_lines(char *dst, char *src);

@@ -6,14 +6,14 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 18:07:21 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 23:07:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1200
+#define WINDOW_HEIGHT 900
 #define WINDOW_NAME "mlx test window"
 
 // creates a new mlx window with
@@ -26,7 +26,7 @@ void	launch_window_and_draw(t_list *point_list)
 
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME);
-	env.img = mlx_new_image(env.mlx, 800, 600);
+	env.img = mlx_new_image(env.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, \
 	&env.line_length, &env.endian);
 	env.point_list = point_list;
@@ -51,12 +51,14 @@ int	key_handler(int keycode, t_env *env)
 	}
 	else if (!(env->drawn))
 	{
-		ft_z_axis_rotation(env->point_list);
-		ft_isometric_projection(env->point_list);
+		// ft_print_point_list(env);
+		ft_max_altitude(env->point_list);
+		// ft_z_axis_rotation(env->point_list);
+		// ft_isometric_projection(env->point_list);
 		float zoom = ft_calculate_zoom(env->point_list);
 		ft_apply_zoom(env->point_list, zoom);
 		ft_center_points(env->point_list, ft_min_max(env->point_list));
-		ft_draw_points(env);
+		// ft_draw_points(env);
 		ft_draw_lines(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		env->drawn = 1;
@@ -97,11 +99,10 @@ t_list	*ft_file_to_list(int fd, char *arg)
 		ft_printf("ft_file_to_list: malloc fail\n");
 		return (NULL);
 	}
-	line_data[0] = 0;
 	line_data = ft_examine_lines(fd, line_data);
 	close(fd);
 	fd = open(arg, O_RDONLY);
-	return (ft_fill_list(fd, line_data));
+	return (ft_fill_list(fd, line_data, -1, -1));
 }
 
 // the main function opens the file,
@@ -131,11 +132,11 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-/*
-for debugging purposes
+
+// for debugging purposes
 void	ft_print_point_list(t_env *env)
 {
-	int i = 0;
+	// int i = 0;
 	t_list	*anchor = env->point_list;
 	int	*temp;
 
@@ -145,11 +146,11 @@ void	ft_print_point_list(t_env *env)
 		while (env->point_list)
 		{
 			temp = (int *) env->point_list->content;
-			printf("pt %d: (%d,%d), l:%d, c:%d – ", i++, \
-			temp[0], temp[1], temp[3], temp[4]);
+			// printf("pt %d: (%d,%d), – ", i++, \
+			// temp[0], temp[1]);
 			env->point_list = env->point_list->next;
 		}
 	}
 	env->point_list = anchor;
 }
-*/
+

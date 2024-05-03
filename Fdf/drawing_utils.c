@@ -6,11 +6,25 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 16:39:37 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 22:53:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_max_altitude(t_list *point_list)
+{
+	int	max_altitude;
+
+	max_altitude = 0;
+	while (point_list)
+	{
+		if (((int *)point_list->content)[2] > max_altitude)
+			max_altitude = ((int *)point_list->content)[2];
+		point_list = point_list->next;
+	}
+	ft_printf("final max altitude: %d\n", max_altitude);
+}
 
 void	ft_draw_points(t_env *env)
 {
@@ -21,7 +35,7 @@ void	ft_draw_points(t_env *env)
 	if (((int *) env->point_list->content)[5])
 		color = ((int *) env->point_list->content)[5];
 	else
-		color = 0x00FFFFFF;
+		color = 0xFFFFFF;
 	if (env->point_list)
 	{
 		while (env->point_list)
@@ -45,7 +59,6 @@ void	ft_draw_lines(t_env *env)
 	line_coordinates = (int *)malloc(sizeof(int) * 7);
 	line_coordinates[4] = ((int *) env->point_list->content)[3];
 	line_coordinates[5] = ((int *) env->point_list->content)[4];
-	line_coordinates[6] = ((int *) env->point_list->content)[5];
 	anchor = env->point_list;
 	ft_draw_horizontal_lines(env, line_coordinates, 0);
 	env->point_list = anchor;
@@ -67,7 +80,8 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i)
 				env->point_list = env->point_list->next;
 			line_coordinates[2] = ((int *) env->point_list->content)[0];
 			line_coordinates[3] = ((int *) env->point_list->content)[1];
-			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], 0xFFFFFF);
+			line_coordinates[6] = ((int *) env->point_list->content)[5];
+			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
 		}
 		else
 		{
@@ -116,7 +130,10 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i)
 		{
 			line_coordinates[2] = ((int *)(env->point_list->content))[0];
 			line_coordinates[3] = ((int *)(env->point_list->content))[1];
+			line_coordinates[6] = ((int *)(env->point_list->content))[5];
 			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
+			// ft_printf("printing point (%d,%d) to (%d,%d)\n", \
+			// line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
 			lines++;
 		}
 		columns = line_coordinates[5];
