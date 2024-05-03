@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 14:15:55 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/03 14:55:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_draw_lines(t_env *env)
 	line_coordinates[4] = ((int *) env->point_list->content)[3];
 	line_coordinates[5] = ((int *) env->point_list->content)[4];
 	anchor = env->point_list;
-	// ft_draw_horizontal_lines(env, line_coordinates, 0, 16777215);
+	ft_draw_horizontal_lines(env, line_coordinates, 0, 16777215);
 	env->point_list = anchor;
 	ft_draw_vertical_lines(env, line_coordinates, 0, 16777215);
 }
@@ -81,48 +81,49 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i, int colo
 
 // draws vertical lines of the grid, iteratively over the linked list
 // go through all lines
+// lines_coordinates[4]: #lines
+// lines_coordinates[5]: #columns
 void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i, int color)
 {
 	t_list	*anchor;
-	int		j;
+	int		columns;
 	int		l;
+	int		k;
 
-	j = 0;
 	l = 0;
-	while (j < line_coordinates[4] && env->point_list->next) // line_coordinates[4]: #lines
+	k = 0;
+	i = 0;
+	int lines = 0;
+	// for each point, we want to know that there is a point one line underneath before drawing a line
+	// the way to do this is to iterate #columns point ahead
+	anchor = env->point_list;
+	columns = line_coordinates[5];
+	while (env->point_list)
 	{
-		j++;
-		while ((l < line_coordinates[5] - 1) && env->point_list->next) // line_coordinates[5]: #column
+		line_coordinates[0] = ((int *)(env->point_list->content))[0];
+		line_coordinates[1] = ((int *)(env->point_list->content))[1];
+		while (columns && env->point_list->next)
 		{
-			l++;
-			line_coordinates[0] = ((int *) env->point_list->content)[0];
-			line_coordinates[1] = ((int *) env->point_list->content)[1];
-			anchor = env->point_list;
-			i = 0;
-			while (i < line_coordinates[5]) // go one line ahead (i.e. advance by #columns elements)
-			{
-				i++;
-				if (env->point_list->next)
-					env->point_list = env->point_list->next;
-				else
-				{
-					ft_printf("break\n");
-					break ;
-				}
-			}
-			line_coordinates[2] = ((int *) env->point_list->content)[0];
-			line_coordinates[3] = ((int *) env->point_list->content)[1];
-			color += 0x00FF00;
-			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], color);
-
-			if (anchor->next)
-			{
-				env->point_list = anchor->next;
-				while (env->point_list)
-					env->point_list = env->point_list->next;
-				env->point_list = anchor->next;
-			}
+			columns--;
+			env->point_list = env->point_list->next;
 		}
-		l = 0;
+		if (columns)
+		{
+			ft_printf("couldn't find iterate %d elements ahead, breaking\n", line_coordinates[5]);
+			ft_printf("vertical lines drawn: %d\n", lines);
+			break ;
+		}
+		else
+		{
+			line_coordinates[2] = ((int *)(env->point_list->content))[0];
+			line_coordinates[3] = ((int *)(env->point_list->content))[1];
+			// color = line_coordinates[5];
+			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], color);
+			lines++;
+		}
+		columns = line_coordinates[5];
+		anchor = anchor->next;
+		env->point_list = anchor;
 	}
+	printf("we've reached the end\n");
 }
