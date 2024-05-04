@@ -188,3 +188,4 @@ To do:
 
 - Then segfault causing issue => because I commented out the `line_read = ft_whitespace_to_space(line_read);` lines in ft_examine_lines, causing the #columns not to be read correctly, leading to errors down the road
 
+- pretext
