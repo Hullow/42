@@ -173,5 +173,16 @@ To do:
 		ft_printf("printing edge point (%d,%d) to (%d,%d), with color %d\n", line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
 	```
 	To print out right border (0-99 so x * 10, e.g. 990 to get rightmost set of vertical lines, 980 to get the penultimate, etc.). Turquoise color code does appear (int 1044442, [hex #FEFDA](https://www.color-hex.com/color/0fefda)), and some too high numbers to convert to RGB color scheme  
+- Stayed until midnight
+
+# 4/5/24
+- Saturday morning at 42
+- Debugging last vertical lines
+- Used `ft_draw_points` only: it looks like a problem with the input handling 
+<br>=> created `1-border.fdf`:
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
 
 
