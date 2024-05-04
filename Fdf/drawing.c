@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:50:08 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 15:37:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_draw(t_env *env)
 {
 	// ft_print_point_list(env);
 	// ft_max_altitude(env->point_list);
-	ft_z_axis_rotation(env->point_list);
+	// ft_z_axis_rotation(env->point_list);
 	ft_isometric_projection(env->point_list);
 	float zoom = ft_calculate_zoom(env->point_list);
 	ft_apply_zoom(env->point_list, zoom);
