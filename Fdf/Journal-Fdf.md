@@ -198,3 +198,5 @@ n.b.: mars.fdf works, window doesn't load immediately but when loaded, pressing 
 => write normalizer
 => try to make function more efficient to see if largest maps work:
 Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min11s
+
+- Fixed the linked list, tried it, then tried to shorten function for Norm (25lines) > seg fault, don't know why!
