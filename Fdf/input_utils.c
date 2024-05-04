@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:09:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:37:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ char	*ft_whitespace_to_space(char *str)
 		return (NULL);
 	while (str[i])
 	{
-		if (str[i] == '\t' | str[i] == '\n' | str[i] == \
-	'\v' | str[i] == '\f' | str[i] == '\r')
+		if (str[i] == '\t' || str[i] == '\n' || str[i] == \
+	'\v' || str[i] == '\f' || str[i] == '\r')
 		str[i] = ' ';
 		i++;
 	}
