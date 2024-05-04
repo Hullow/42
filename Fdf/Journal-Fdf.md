@@ -188,4 +188,13 @@ To do:
 
 - Then segfault causing issue => because I commented out the `line_read = ft_whitespace_to_space(line_read);` lines in ft_examine_lines, causing the #columns not to be read correctly, leading to errors down the road
 
-- pretext
+Testing maps:
+- elem-fract.fdf and julia (500*500 elements) don't work (2-5 secs to count lines and columns). Unclear if too slow or infinite loop. Waited 2-3 minutes and nothing more.`
+n.b.: mars.fdf works, window doesn't load immediately but when loaded, pressing a key immediately prints out the map
+- Pentenegpos.fdf doesn't really look like what's asked
+- elem2.fdf: normalized in the misc/fdf => maybe source of issue with elem-fract?
+- pylone.fdf: both my fdf and the sample fdf recognize it as an irregular map
+
+=> write normalizer
+=> try to make function more efficient to see if largest maps work:
+Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min11s

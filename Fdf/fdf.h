@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 11:26:44 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 17:10:25 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_draw(t_env *env);
 void	ft_draw_points(t_env *env);
 void	ft_draw_lines(t_env *env);
 void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i);
-void	ft_draw_vertical_lines(t_env *env, int *line_coordinates, int i);
+void	ft_draw_vertical_lines(t_env *env, int *line_coordinates);
 
 // window and event handling
 void	launch_window_and_draw(t_list *point_list);

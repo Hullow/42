@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   drawing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:00:08 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 23:04:20 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 16:13:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 // draws a pixel
+// the if checks if a pixel is outside the window,
+// and ignores it (to avoid a segfault)
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
 {
-	// if (color == 255)
-	// 	return ;
+	if (y > WINDOW_HEIGHT || x > WINDOW_WIDTH)
+		return ;
 	char	*dst;
 
 	dst = env->addr + (y * env->line_length + x * (env->bits_per_pixel / 8));
