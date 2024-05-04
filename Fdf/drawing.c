@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 19:06:45 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 19:34:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	ft_draw(t_env *env)
 {
-	ft_print_point_list(env);
+	// ft_print_point_list(env);
 	// ft_max_altitude(env->point_list);
 	// ft_z_axis_rotation(env->point_list);
-	// ft_isometric_projection(env->point_list);
-	// float zoom = ft_calculate_zoom(env->point_list);
-	// ft_apply_zoom(env->point_list, zoom);
-	// ft_center_points(env->point_list, ft_min_max(env->point_list));
+	ft_isometric_projection(env->point_list);
+	float zoom = ft_calculate_zoom(env->point_list);
+	ft_apply_zoom(env->point_list, zoom);
+	ft_center_points(env->point_list, ft_min_max(env->point_list));
 	// ft_draw_points(env);
-	// ft_draw_lines(env);
+	ft_draw_lines(env);
 }
 
 void	ft_draw_points(t_env *env)
@@ -64,7 +64,6 @@ void	ft_draw_lines(t_env *env)
 
 // draws horizontal lines of the grid, iteratively over the linked list
 // go through all columns
-#include <time.h>
 void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i)
 {
 	while (env->point_list->next)

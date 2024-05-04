@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 18:59:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 20:25:26 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,41 +75,83 @@ int	*ft_examine_lines(int fd, int *line_data)
 // the while() goes through all lines (line_data[0])
 // and splits the elements with ft_split
 // the nested while() then goes through each of these elements,
-// i.e. through #columns (== line_data[1]),
-// and creates an linked list of points which are filled by
-// ft_fill_point
+// i.e. through #columns (== line_data[1]), and creates a
+// linked list of points which are filled by ft_fill_point
+
+/* t_list	*ft_add_node(t_list *node, t_list *head, t_list *new_node)
+{
+	if (node)
+	{
+		node = node->next;
+		node->next = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+	}
+	else
+	{
+		head = node;
+		node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+	}
+	return (head);
+} */
+
+
+
 t_list	*ft_fill_list(int fd, int *line_data, int i, int j)
 {
 	t_list	*node;
 	t_list	*head;
-	t_list	*last;
 	char	**split_string;
 	char	*line_read;
 
 	node = NULL;
 	head = NULL;
-	last = NULL;
 	split_string = NULL;
-	// int k = 0;
 	while (++i < line_data[0])
 	{
 		line_read = ft_whitespace_to_space(get_next_line(fd));
-		// k++;
-		// if (k % 25 == 0)
-		// 	printf("read and whitespaced %d lines\n", k);
 		split_string = ft_split(line_read, ' ');
-		while (++j < line_data[1])
 		{
-			node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
-			last = node;
-			if (head == NULL)
+			if (node)
+			{
+				node = node->next;
+				node->next = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+			}
+			else
+			{
 				head = node;
-			node = node->next;
+				node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+			}
 		}
 		j = -1;
 	}
 	free(line_data);
-	printf("ft_fill_list: filled\n");
+	return (head);
+}
+
+t_list	*ft_fill_list_old(int fd, int *line_data, int i, int j)
+{
+	t_list	*node;
+	t_list	*head;
+	char	**split_string;
+	char	*line_read;
+
+	node = NULL;
+	head = NULL;
+	split_string = NULL;
+	while (++i < line_data[0])
+	{
+		line_read = ft_whitespace_to_space(get_next_line(fd));
+		split_string = ft_split(line_read, ' ');
+		while (++j < line_data[1])
+		{
+			node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+			if (head == NULL)
+				head = node;
+			else
+				ft_lstadd_back(&head, node);
+		}
+		j = -1;
+	}
+	free(line_data);
 	return (head);
 }
 
