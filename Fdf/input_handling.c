@@ -6,11 +6,53 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:39:28 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 15:05:34 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
+/* counts the number of lines (line_data[0]) from our 
+file descriptor (array of characters) and calls ft_count_columns 
+to count the number of columns (line_data[1]) */
+
+// Function too long !
+int	*ft_examine_lines(int fd, int *line_data)
+{
+	char	*line_read;
+	int		columns;
+
+	line_read = get_next_line(fd);
+	if (line_read)
+		line_data[0] = 1;
+	line_read = ft_whitespace_to_space(line_read);
+	line_data[1] = ft_count_array_elements(ft_split(line_read, ' '));
+	while (line_read)
+	{
+		free(line_read);
+		line_read = get_next_line(fd);
+		if (line_read)
+			line_data[0]++;
+		else
+			break ;
+		line_read = ft_whitespace_to_space(line_read);
+		columns = ft_count_array_elements(ft_split(line_read, ' '));
+		if (columns != line_data[1])
+		{
+			free(line_data);
+			free(line_read);
+			ft_printf("irregular map, aborting\n");
+			exit(1);
+		}
+	}
+	ft_free(line_read);
+	if (!line_data[0] && !line_data[1])
+		free(line_data);
+	else
+		printf("line count: %d, line length: %d\n", line_data[0], line_data[1]);
+	return (line_data);
+}
 
 t_list	*ft_file_to_list(int fd, char *arg)
 {
@@ -101,45 +143,4 @@ int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 	point[3] = line_data[0];
 	point[4] = line_data[1];
 	return (point);
-}
-
-/* counts the number of lines (line_data[0]) from our 
-file descriptor (array of characters) and calls ft_count_columns 
-to count the number of columns (line_data[1]) */
-
-// Function too long !
-int	*ft_examine_lines(int fd, int *line_data)
-{
-	char	*line_read;
-	int		columns;
-
-	line_read = get_next_line(fd);
-	if (line_read)
-		line_data[0] = 1;
-	// line_read = ft_whitespace_to_space(line_read);
-	line_data[1] = ft_count_array_elements(ft_split(line_read, ' '));
-	while (line_read)
-	{
-		free(line_read);
-		line_read = get_next_line(fd);
-		if (line_read)
-			line_data[0]++;
-		else
-			break ;
-		line_read = ft_whitespace_to_space(line_read);
-		columns = ft_count_array_elements(ft_split(line_read, ' '));
-		// if (columns != line_data[1])
-		// {
-		// 	free(line_data);
-		// 	free(line_read);
-		// 	ft_printf("irregular map, aborting\n");
-		// 	exit(1);
-		// }
-	}
-	ft_free(line_read);
-	if (!line_data[0] && !line_data[1])
-		free(line_data);
-	else
-		printf("line count: %d, line length: %d\n", line_data[0], line_data[1]);
-	return (line_data);
 }
