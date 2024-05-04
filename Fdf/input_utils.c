@@ -5,84 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 22:53:56 by fallan           ###   ########.fr       */
+/*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
+/*   Updated: 2024/05/04 12:42:02 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-char	*ft_whitespace_to_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (NULL);
-	while (str[i])
-	{
-		if (str[i] == '\t' | str[i] == \
-	'\v' | str[i] == '\f' | str[i] == '\r')
-		str[i] = ' ';
-		i++;
-	}
-	return (str);
-}
-/* counts the number of lines (line_data[0]) from our 
-file descriptor (array of characters) and calls ft_count_columns 
-to count the number of columns (line_data[1]) */
-
-// Function too long !
-int	*ft_examine_lines(int fd, int *line_data)
-{
-	char	*line_read;
-	int		columns;
-
-	line_read = get_next_line(fd);
-	if (line_read)
-		line_data[0] = 1;
-	// line_read = ft_whitespace_to_space(line_read);
-	line_data[1] = ft_count_array_elements(ft_split(line_read, ' '));
-	while (line_read)
-	{
-		free(line_read);
-		line_read = get_next_line(fd);
-		if (line_read)
-			line_data[0]++;
-		else
-			break ;
-		line_read = ft_whitespace_to_space(line_read);
-		columns = ft_count_array_elements(ft_split(line_read, ' '));
-		if (columns != line_data[1])
-		{
-			free(line_data);
-			free(line_read);
-			ft_printf("irregular map, aborting\n");
-			exit(1);
-		}
-	}
-	ft_free(line_read);
-	if (!line_data[0] && !line_data[1])
-		free(line_data);
-	else
-		printf("line count: %d, line length: %d\n", line_data[0], line_data[1]);
-	return (line_data);
-}
-
-int	ft_count_array_elements_debug(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-	{
-		printf("%d: %s |", i, array[i]);
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (i);
-}
 
 int	ft_count_array_elements(char **array)
 {
@@ -98,73 +26,19 @@ int	ft_count_array_elements(char **array)
 	return (i);
 }
 
-// parses the input file to produce an array of integers
-// the while() goes through all lines (line_data[0])
-// and splits the elements with ft_split
-// the nested while() then goes through each of these elements,
-// i.e. through #columns (== line_data[1]),
-// and creates an linked list of points which are filled by
-// ft_fill_point
-t_list	*ft_fill_list(int fd, int *line_data, int i, int j)
+int	ft_count_array_elements_debug(char **array)
 {
-	t_list	*node;
-	t_list	*head;
-	char	**split_string;
-	char	*line_read;
+	int	i;
 
-	node = NULL;
-	head = NULL;
-	split_string = NULL;
-	while (++i < line_data[0])
+	i = 0;
+	while (array[i])
 	{
-		line_read = ft_whitespace_to_space(get_next_line(fd));
-		split_string = ft_split(line_read, ' ');
-		while (++j < line_data[1])
-		{
-			node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
-			if (head == NULL)
-				head = node;
-			else
-				ft_lstadd_back(&head, node);
-		}
-		j = -1;
+		printf("%d: %s |", i, array[i]);
+		free(array[i]);
+		i++;
 	}
-	free(line_data);
-	return (head);
-}
-
-/* creates a coordinate point with data:
-point[0]: column, i.e. x
-point[1]: line, i.e. y
-point[2]: altitude, i.e. z
-point[3]: #lines
-point[4]: #columns
-point[5]: color (if ',' is found in our split_string,
-otherwise color is set to white/16777215) */
-int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
-{
-	int		*point;
-	char	**color_input;
-
-	color_input = NULL;
-	point = (int *)malloc (6 * sizeof(int));
-	point[0] = j;
-	point[1] = i;
-	point[2] = ft_atoi(split_string[j]);
-	if (ft_strchr(split_string[j], 44))
-	{
-		color_input = ft_split(split_string[j], ',');
-		point[2] = ft_atoi(color_input[0]);
-		point[5] = ft_hex_string_to_int(color_input[1]);
-	}
-	else
-	{
-		point[2] = ft_atoi(split_string[j]);
-		point[5] = 0xFFFFFF;
-	}	
-	point[3] = line_data[0];
-	point[4] = line_data[1];
-	return (point);
+	free(array);
+	return (i);
 }
 
 /* converts a hexadecimal string to an integer
@@ -192,4 +66,58 @@ int	ft_hex_string_to_int(char *hex_string)
 		i--;
 	}
 	return (decimal_value);
+}
+
+char	*ft_whitespace_to_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] == '\t' || str[i] == '\n' || str[i] == \
+	'\v' || str[i] == '\f' || str[i] == '\r')
+		str[i] = ' ';
+		i++;
+	}
+	return (str);
+}
+
+void	ft_free_list(t_list *point_list)
+{
+	t_list	*temp;
+
+	temp = NULL;
+	while (point_list)
+	{
+		temp = point_list;
+		point_list = point_list->next;
+		free(temp);
+	}
+}
+
+
+// for debugging purposes
+void	ft_print_point_list(t_env *env)
+{
+	int i = 0;
+	t_list	*anchor = env->point_list;
+	int	*temp;
+
+	temp = (int *)malloc (6 * sizeof(int));
+	if (env->point_list)
+	{
+		while (env->point_list)
+		{
+			temp = (int *) env->point_list->content;
+			printf("pt %d: (%d,%d), altitude %d, color %d   ", i++, \
+			temp[0], temp[1], temp[2], temp[5]);
+			if (i % 3 == 0)
+				printf("\n");
+			env->point_list = env->point_list->next;
+		}
+	}
+	env->point_list = anchor;
 }

@@ -1,6 +1,9 @@
 ## Markdown
 - [title of link](#name-of-section-of-link) : to link to different section
 
+### Special characters
+- Emspace (4 spaces): `&emsp;` (HTML entity)
+
 ### [Tables in markdown](https://www.codecademy.com/resources/docs/markdown/tables)
 A table is an arrangement of data in rows and columns.
 

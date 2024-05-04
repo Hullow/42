@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/03 23:38:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 11:23:34 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 900
-#define WINDOW_NAME "mlx test window"
+#define WINDOW_NAME "Fil de Fer"
 
 // creates a new mlx window with
 // hooks for key presses, launching
@@ -51,15 +51,7 @@ int	key_handler(int keycode, t_env *env)
 	}
 	else if (!(env->drawn))
 	{
-		// ft_print_point_list(env);
-		ft_max_altitude(env->point_list);
-		// ft_z_axis_rotation(env->point_list);
-		// ft_isometric_projection(env->point_list);
-		// float zoom = ft_calculate_zoom(env->point_list);
-		ft_apply_zoom(env->point_list, 10);
-		// ft_center_points(env->point_list, ft_min_max(env->point_list));
-		// ft_draw_points(env);
-		ft_draw_lines(env);
+		ft_draw(env);
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		env->drawn = 1;
 	}
@@ -74,35 +66,6 @@ int	window_closed(t_env *env)
 	ft_printf("Window closed, program stopping\n");
 	mlx_destroy_window(env->mlx, env->win);
 	exit(1);
-}
-
-void	ft_free_list(t_list *point_list)
-{
-	t_list	*temp;
-
-	temp = NULL;
-	while (point_list)
-	{
-		temp = point_list;
-		point_list = point_list->next;
-		free(temp);
-	}
-}
-
-t_list	*ft_file_to_list(int fd, char *arg)
-{
-	int		*line_data;
-
-	line_data = malloc(sizeof(int) * 2);
-	if (!line_data)
-	{
-		ft_printf("ft_file_to_list: malloc fail\n");
-		return (NULL);
-	}
-	line_data = ft_examine_lines(fd, line_data);
-	close(fd);
-	fd = open(arg, O_RDONLY);
-	return (ft_fill_list(fd, line_data, -1, -1));
 }
 
 // the main function opens the file,
@@ -131,26 +94,3 @@ int	main(int argc, char *argv[])
 		ft_printf("missing arguments\n");
 	return (0);
 }
-
-
-// for debugging purposes
-void	ft_print_point_list(t_env *env)
-{
-	// int i = 0;
-	t_list	*anchor = env->point_list;
-	int	*temp;
-
-	temp = (int *)malloc (5 * sizeof(int));
-	if (env->point_list)
-	{
-		while (env->point_list)
-		{
-			temp = (int *) env->point_list->content;
-			// printf("pt %d: (%d,%d), – ", i++, \
-			// temp[0], temp[1]);
-			env->point_list = env->point_list->next;
-		}
-	}
-	env->point_list = anchor;
-}
-
