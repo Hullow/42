@@ -184,5 +184,7 @@ To do:
 >1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
 >1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
 >1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+=> solved by adding `|| '\n'` back to my ft_whitespace_to_space function ('\n' are irrelevant in my program, no need to treat them specially)
 
+- Then segfault causing issue => because I commented out the `line_read = ft_whitespace_to_space(line_read);` lines in ft_examine_lines, causing the #columns not to be read correctly, leading to errors down the road
 
