@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 15:05:34 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:48:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,14 @@ t_list	*ft_fill_list(int fd, int *line_data, int i, int j)
 	char	**split_string;
 	char	*line_read;
 
-	int temp = -1;
 	node = NULL;
 	head = NULL;
 	split_string = NULL;
 	while (++i < line_data[0])
 	{
 		line_read = ft_whitespace_to_space(get_next_line(fd));
-		printf("line read: %s\n\tsplit_string:\n", line_read);
 		split_string = ft_split(line_read, ' ');
-		while (split_string[++temp])
-			printf("%d: %s|", temp, split_string[temp]);
-		while (++j < line_data[1] && split_string[j])
+		while (++j < line_data[1])
 		{
 			node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
 			if (head == NULL)
@@ -129,14 +125,12 @@ int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
 	point[2] = ft_atoi(split_string[j]);
 	if (ft_strchr(split_string[j], 44))
 	{
-		printf(" ',' found\n");
 		color_input = ft_split(split_string[j], ',');
 		point[2] = ft_atoi(color_input[0]);
 		point[5] = ft_hex_string_to_int(color_input[1]);
 	}
 	else
 	{
-		printf(" ',' not found\n");
 		point[2] = ft_atoi(split_string[j]);
 		point[5] = 0xFFFFFF;
 	}	
