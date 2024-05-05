@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 12:41:28 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 15:17:58 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_count_array_elements(char **array);
 int		ft_hex_string_to_int(char *hex_string);
 char	*ft_whitespace_to_space(char *str);
 void	ft_free_list(t_list *point_list);
+void	ft_free_array(char ***split, int *line_data);
 
 // for debugging:
 void	ft_print_point_list(t_env *env);
@@ -59,9 +60,10 @@ void	ft_max_altitude(t_list *point_list);
 
 // input handling
 int		*ft_examine_lines(int fd, int *line_data);
-int		*ft_fill_point(char **split_string, int i, int j, int *line_data);
-t_list	*ft_fill_list(int fd, int *line_data, int i, int j);
 t_list	*ft_file_to_list(int fd, char *input);
+char	***ft_read_lines(int fd, int *line_data);
+t_list	*ft_fill_list(char ***split, int *line_data, int i, int j);
+int		*ft_fill_pt(char **split, int i, int j, int *line_data);
 
 // graph transformation
 int		*ft_min_max(t_list *point_list);

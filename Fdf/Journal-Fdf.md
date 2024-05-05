@@ -205,3 +205,11 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 - Fixed input handling bug leading to segfault (by looking at previous commits and copying code from when it worked)
 - Fixed vertical lines not being drawn (with same method, I had deleted some necessary code)
 - Norm done: drawing.c, input_utils.c, projection_utils.c
+- Norm to do: rewrite ft_line_put (malloc likely)
+- Learning about memory management:
+	- Copilot helped me, and also this article prompted my mind: https://geeksforgeeks.org/dynamically-allocate-2d-array-c/
+	- the malloc of char ***split: it's a 3d array of size (sizeof(2d array) * #lines). Then each 2d array is malloced by ft_split
+	- freeing char ***split: since ft_split is malloc-ed in one block of memory (`ret = (char **)ft_calloc(size + 1, sizeof(char *));`),
+	we also free it as one block of memory, instead of character by character, even though the type is a 2d array, which allows us to access
+	it using a double index: ret[i][j]. So char ***split is only freed by two calls to free: for each split i.e. each split[line], and globally
+	with free(split)
