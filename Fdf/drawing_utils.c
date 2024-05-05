@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:00:08 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 12:50:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 18:00:20 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,25 @@ void	my_mlx_pixel_put(t_env *env, int x, int y, int color)
 // 2. put pixels for each step
 // 2.1 increment in x at each step
 // 2.2 increment in y at each step
-void	ft_line_put(t_env *env, int x1, int y1, int x2, int y2, int color)
+void	ft_line_put(t_env *env, int *coord)
 {
-	float	X;
-	float	Y;
+	float	x_put;
+	float	y_put;
 	int		steps;
 	int		i;
 
-	if (abs(x2 - x1) > abs(y2 - y1))
-		steps = abs(x2 - x1);
+	if (abs(coord[2] - coord[0]) > abs(coord[3] - coord[1]))
+		steps = abs(coord[2] - coord[0]);
 	else
-		steps = abs(y2 - y1);
-	X = x1;
-	Y = y1;
+		steps = abs(coord[3] - coord[1]);
+	x_put = coord[0];
+	y_put = coord[1];
 	i = 0;
 	while (i <= steps)
 	{
-		my_mlx_pixel_put(env, round(X), round(Y), color);
-		X += (x2 - x1) / (float)steps;
-		Y += (y2 - y1) / (float)steps;
+		my_mlx_pixel_put(env, round(x_put), round(y_put), coord[6]);
+		x_put += (coord[2] - coord[0]) / (float)steps;
+		y_put += (coord[3] - coord[1]) / (float)steps;
 		i++;
 	}
 }

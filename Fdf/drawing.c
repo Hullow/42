@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 12:41:20 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 18:00:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_draw_horizontal(t_env *env, int *coord, int i)
 				env->point_list = env->point_list->next;
 			coord[2] = ((int *) env->point_list->content)[0];
 			coord[3] = ((int *) env->point_list->content)[1];
-			ft_line_put(env, coord[0], coord[1], coord[2], coord[3], coord[6]);
+			ft_line_put(env, coord);
 		}
 		else
 		{
@@ -116,7 +116,7 @@ void	ft_draw_vertical(t_env *env, int *coord, int columns)
 		{
 			coord[2] = ((int *)(env->point_list->content))[0];
 			coord[3] = ((int *)(env->point_list->content))[1];
-			ft_line_put(env, coord[0], coord[1], coord[2], coord[3], coord[6]);
+			ft_line_put(env, coord);
 		}
 		columns = coord[5];
 		anchor = anchor->next;

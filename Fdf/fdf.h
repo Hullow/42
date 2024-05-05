@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 16:51:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 17:59:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_z_axis_rotation(t_list *point_list);
 
 // graph utils
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
-void	ft_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
+void	ft_line_put(t_env *env, int *coord);
 
 // drawing functions
 void	ft_draw(t_env *env);
