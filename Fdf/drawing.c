@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 11:52:08 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 12:06:49 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,41 +46,39 @@ void	ft_draw_points(t_env *env)
 
 // draws lines by calling 
 // ft_draw_horizontal_lines and ft_draw_vertical_lines
-// lines_coordinates[4]: #lines
-// lines_coordinates[5]: #columns
+// coord[4]: #lines
+// coord[5]: #columns
 void	ft_draw_lines(t_env *env)
 {
 	t_list	*anchor;
-	int		*line_coordinates;
+	int		*coord;
 
-	line_coordinates = (int *)malloc(sizeof(int) * 7);
-	line_coordinates[4] = ((int *) env->point_list->content)[3];
-	line_coordinates[5] = ((int *) env->point_list->content)[4];
+	coord = (int *)malloc(sizeof(int) * 7);
+	coord[4] = ((int *) env->point_list->content)[3];
+	coord[5] = ((int *) env->point_list->content)[4];
 	anchor = env->point_list;
-	printf("ft_draw_lines: drawing horizontal lines: point_list address {%p}\n", env->point_list);
-	ft_draw_horizontal_lines(env, line_coordinates, 0);
+	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
-	printf("ft_draw_lines: drawing vertical lines: point_list address {%p}\n", env->point_list);
-	ft_draw_vertical_lines(env, line_coordinates);
+	ft_draw_vertical(env, coord, coord[5]);
 }
 
 // draws horizontal lines of the grid, iteratively over the linked list
 // go through all columns
-void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i)
+void	ft_draw_horizontal(t_env *env, int *coord, int i)
 {
 	while (env->point_list->next)
 	{
-		if (i < line_coordinates[5] - 1)
+		if (i < coord[5] - 1)
 		{
 			i++;
-			line_coordinates[0] = ((int *) env->point_list->content)[0];
-			line_coordinates[1] = ((int *) env->point_list->content)[1];
-			line_coordinates[6] = ((int *) env->point_list->content)[5];
+			coord[0] = ((int *) env->point_list->content)[0];
+			coord[1] = ((int *) env->point_list->content)[1];
+			coord[6] = ((int *) env->point_list->content)[5];
 			if (env->point_list->next)
 				env->point_list = env->point_list->next;
-			line_coordinates[2] = ((int *) env->point_list->content)[0];
-			line_coordinates[3] = ((int *) env->point_list->content)[1];
-			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
+			coord[2] = ((int *) env->point_list->content)[0];
+			coord[3] = ((int *) env->point_list->content)[1];
+			ft_line_put(env, coord[0], coord[1], coord[2], coord[3], coord[6]);
 		}
 		else
 		{
@@ -91,24 +89,22 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i)
 	}
 }
 
-// for each point, we want to know that there is a point one line underneath before drawing a line
-// the way to do this is to iterate #columns point ahead:
 // draws vertical lines of the grid, iteratively over the linked list
-// lines_coordinates[4]: #lines
-// lines_coordinates[5]: #columns
-// lines_coordinates[6]: color
-void	ft_draw_vertical_lines(t_env *env, int *line_coordinates)
+// for each point, checks if there is a point one line underneath
+// before drawing a line, by iterating #columns point ahead:
+// coord[4]: #lines
+// coord[5]: #columns
+// coord[6]: color
+void	ft_draw_vertical(t_env *env, int *coord, int columns)
 {
 	t_list	*anchor;
-	int		columns;
 
 	anchor = env->point_list;
-	columns = line_coordinates[5];
 	while (env->point_list)
 	{
-		line_coordinates[0] = ((int *)(env->point_list->content))[0];
-		line_coordinates[1] = ((int *)(env->point_list->content))[1];
-		line_coordinates[6] = ((int *)(env->point_list->content))[5];
+		coord[0] = ((int *)(env->point_list->content))[0];
+		coord[1] = ((int *)(env->point_list->content))[1];
+		coord[6] = ((int *)(env->point_list->content))[5];
 		while (columns && env->point_list->next)
 		{
 			columns--;
@@ -118,17 +114,16 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates)
 			break ;
 		else
 		{
-			line_coordinates[2] = ((int *)(env->point_list->content))[0];
-			line_coordinates[3] = ((int *)(env->point_list->content))[1];
-			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
+			coord[2] = ((int *)(env->point_list->content))[0];
+			coord[3] = ((int *)(env->point_list->content))[1];
+			ft_line_put(env, coord[0], coord[1], coord[2], coord[3], coord[6]);
 		}
-		columns = line_coordinates[5];
+		columns = coord[5];
 		anchor = anchor->next;
 		env->point_list = anchor;
 	}
 }
-
-
+/* 
 void	ft_max_altitude(t_list *point_list)
 {
 	int	max_altitude;
@@ -142,3 +137,4 @@ void	ft_max_altitude(t_list *point_list)
 	}
 	ft_printf("final max altitude: %d\n", max_altitude);
 }
+ */
