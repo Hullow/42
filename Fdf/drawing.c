@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 19:34:13 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 11:47:40 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ void	ft_draw_lines(t_env *env)
 	line_coordinates[4] = ((int *) env->point_list->content)[3];
 	line_coordinates[5] = ((int *) env->point_list->content)[4];
 	anchor = env->point_list;
+	printf("ft_draw_lines: drawing horizontal lines: point_list address {%p}\n", env->point_list);
 	ft_draw_horizontal_lines(env, line_coordinates, 0);
 	env->point_list = anchor;
+	printf("ft_draw_lines: drawing vertical lines: point_list address {%p}\n", env->point_list);
 	ft_draw_vertical_lines(env, line_coordinates);
 }
 
@@ -94,30 +96,34 @@ void	ft_draw_horizontal_lines(t_env *env, int *line_coordinates, int i)
 // draws vertical lines of the grid, iteratively over the linked list
 // lines_coordinates[4]: #lines
 // lines_coordinates[5]: #columns
+// lines_coordinates[6]: color
 void	ft_draw_vertical_lines(t_env *env, int *line_coordinates)
 {
 	t_list	*anchor;
 	int		columns;
 
 	anchor = env->point_list;
-	columns = line_coordinates[5];
+	columns = line_coordinates[5] + 1;
+	printf("ft_draw_vertical_lines: columns: %d\n", columns);
 	while (env->point_list)
 	{
 		line_coordinates[0] = ((int *)(env->point_list->content))[0];
 		line_coordinates[1] = ((int *)(env->point_list->content))[1];
 		line_coordinates[6] = ((int *)(env->point_list->content))[5];
-		while (columns-- && env->point_list->next)
+		while (columns-- && env->point_list)
 			env->point_list = env->point_list->next;
-		if (columns)
+		printf("ft_draw_vertical_lines: went #columns forward in the list, columns now == %d\n", columns);
+		if (columns || !(env->point_list))
 			break ;
 		else
 		{
 			line_coordinates[2] = ((int *)(env->point_list->content))[0];
 			line_coordinates[3] = ((int *)(env->point_list->content))[1];
+			printf("drawing line (%d,%d)->(%d, %d) – ", line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
 			ft_line_put(env, line_coordinates[0], \
 			line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
 		}
-		columns = line_coordinates[5];
+		columns = line_coordinates[5] + 1;
 		anchor = anchor->next;
 		env->point_list = anchor;
 	}

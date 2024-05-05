@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 11:17:55 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 11:35:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,23 +103,21 @@ t_list	*ft_fill_list(int fd, int *line_data, int i, int j)
 	node = NULL;
 	head = NULL;
 	split_string = NULL;
-	while (++j < line_data[1])
+	while (++i < line_data[0])
 	{
-		while (++i < line_data[0])
+		line_read = ft_whitespace_to_space(get_next_line(fd));
+		split_string = ft_split(line_read, ' ');
+		while (++j < line_data[1])
 		{
-			line_read = ft_whitespace_to_space(get_next_line(fd));
-			split_string = ft_split(line_read, ' ');
+			if (node)
 			{
-				if (node)
-				{
-					node = node->next;
-					node->next = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
-				}
-				else
-				{
-					head = node;
-					node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
-				}
+				node->next = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+				node = node->next;
+			}
+			else
+			{
+				node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+				head = node;
 			}
 		}
 		j = -1;
