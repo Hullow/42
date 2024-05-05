@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/05 18:47:27 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 19:16:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,20 @@ void	ft_isometric_projection(t_list *point_list)
 		((int *)point_list->content)[0] = (size / 2) * (pt[0] * cos(a) + pt[1] * cos(a + (4 * a)) + pt[2] * cos(a - (4 * a)));
 		((int *)point_list->content)[1] = (size / 2) * (pt[0] * sin(a) + pt[1] * sin(a + (4 * a)) + pt[2] * sin(a - (4 * a)));
 		// printf("to (%d,%d)  –  ", ((int *)point_list->content)[0], ((int *)point_list->content)[1]);
+
+		// ((int *)point_list->content)[0] = (int)(pt[0] * cos(a + 2) + pt[1] * cos(a + 2) + pt[2] * cos(a - 2)) * (size / 2);
+		// ((int *)point_list->content)[1] = (int)(pt[0] * sin(a) + pt[1] * sin(a + 2) + pt[2] * sin(a - 2)) * (size / 2);
+
+		// ((int *)point_list->content)[0] = (pt[0] - pt[1]) * cos(a);
+		// ((int *)point_list->content)[1] = (int) pt[1] + ((pt[0] + pt[2]) * sin(a)) / sqrt(2);
+		
+		// ((int *)point_list->content)[0] = (1/sqrt(6)) * (sqrt(3) * pt[0] - sqrt(3) * pt[2]) * (size / 2);
+		// ((int *)point_list->content)[1] = (1/sqrt(6)) * (pt[0] + 2 * pt[1] + pt[2]) * (size / 2);
+
+		// https://stackoverflow.com/a/47520903
+		// ((int *)point_list->content)[0] = (pt[0] - pt[2]) / sqrt(2);
+		// ((int *)point_list->content)[1] = (pt[0] + 2 * pt[1] + pt[2]) / sqrt(6);
+
 		point_list = point_list->next;
 	}
 }
