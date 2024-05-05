@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 17:20:58 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 18:06:57 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	*ft_find_dimensions(int fd, int *line_data)
 		line_data = ft_examine_line(fd, line_read, line_data);
 		if (line_data[1] != columns)
 		{
-			ft_free_multiple(line_read, line_data);
+			ft_free(line_read);
+			ft_free(line_data);
 			ft_printf("irregular map, aborting\n");
 			exit(1);
 		}
@@ -76,7 +77,8 @@ int	*ft_examine_line(int fd, char *line_read, int *line_data)
 	}
 	temp_split = ft_split(line_read, ' ');
 	line_data[1] = ft_count_array_elements(temp_split);
-	ft_free_multiple(line_read, temp_split);
+	ft_free(line_read);
+	ft_free(temp_split);
 	return (line_data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 17:59:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 18:06:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		ft_hex_string_to_int(char *hex_string);
 char	*ft_whitespace_to_space(char *str);
 void	ft_free_list(t_list *point_list);
 void	ft_free_array(char ***split, int *line_data);
-void	ft_free_multiple(void *ptr1, void *ptr2);
 
 // for debugging:
 void	ft_print_point_list(t_env *env);

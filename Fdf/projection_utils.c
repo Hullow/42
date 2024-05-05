@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/05 12:45:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 18:47:27 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,15 +142,16 @@ void	ft_isometric_projection(t_list *point_list)
 	size = 1;
 	while (size * pt[4] < WINDOW_WIDTH && size * pt[3] < WINDOW_HEIGHT)
 		size++;
+	printf("size: %d\n", size);
 	while (point_list)
 	{
 		pt[0] = ((int *)point_list->content)[0];
 		pt[1] = ((int *)point_list->content)[1];
 		pt[2] = ((int *)point_list->content)[2];
-		((int *)point_list->content)[0] = (size / 2) * \
-		(pt[0] * cos(a) + pt[1] * cos(a + (4 * a)) + pt[2] * cos(a - (4 * a)));
-		((int *)point_list->content)[1] = (size / 2) * \
-		(pt[0] * sin(a) + pt[1] * sin(a + (4 * a)) + pt[2] * sin(a - (4 * a)));
+		// printf("projecting (%d,%d,%d) ", pt[0], pt[1], pt[2]);
+		((int *)point_list->content)[0] = (size / 2) * (pt[0] * cos(a) + pt[1] * cos(a + (4 * a)) + pt[2] * cos(a - (4 * a)));
+		((int *)point_list->content)[1] = (size / 2) * (pt[0] * sin(a) + pt[1] * sin(a + (4 * a)) + pt[2] * sin(a - (4 * a)));
+		// printf("to (%d,%d)  –  ", ((int *)point_list->content)[0], ((int *)point_list->content)[1]);
 		point_list = point_list->next;
 	}
 }
@@ -160,7 +161,7 @@ void	ft_z_axis_rotation(t_list *point_list)
 	int	pt[3];
 	int	a;
 
-	a = -30 * (M_PI / 180);
+	a = 0 * (M_PI / 180);
 	while (point_list)
 	{
 		pt[0] = ((int *)(point_list->content))[0];

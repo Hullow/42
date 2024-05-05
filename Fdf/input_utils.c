@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 16:55:09 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 18:11:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,6 @@ void	ft_free_list(t_list *point_list)
 	}
 }
 
-void	ft_free_multiple(void *ptr1, void *ptr2)
-{
-	if (ptr1)
-	{
-		free(ptr1);
-		ptr1 = NULL;
-	}
-	if (ptr2)
-	{
-		free(ptr2);
-		ptr2 = NULL;
-	}
-}
-
 void	ft_free_array(char ***split, int *line_data)
 {
 	int	i;
@@ -107,7 +93,7 @@ void	ft_free_array(char ***split, int *line_data)
 }
 
 // for debugging purposes
-/* void	ft_print_point_list(t_env *env)
+void	ft_print_point_list(t_env *env)
 {
 	int i = 0;
 	t_list	*anchor = env->point_list;
@@ -119,8 +105,10 @@ void	ft_free_array(char ***split, int *line_data)
 		while (env->point_list)
 		{
 			temp = (int *) env->point_list->content;
-			printf("pt %d: (%d,%d), altitude %d, color %d   ", i++, \
-			temp[0], temp[1], temp[2], temp[5]);
+			// printf("pt %d: (%d,%d), altitude %d, color %d   ", i++, \
+			// temp[0], temp[1], temp[2], temp[5]);
+			printf("pt %d: (%d,%d), altitude %d,   ", i++, \
+			temp[0], temp[1], temp[2]);
 			if (i % 3 == 0)
 				printf("\n");
 			env->point_list = env->point_list->next;
@@ -128,4 +116,3 @@ void	ft_free_array(char ***split, int *line_data)
 	}
 	env->point_list = anchor;
 }
- */
