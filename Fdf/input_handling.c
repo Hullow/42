@@ -6,12 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 11:35:32 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 12:10:24 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
 
 t_list	*ft_file_to_list(int fd, char *arg)
 {
@@ -70,7 +69,6 @@ int	*ft_examine_lines(int fd, int *line_data)
 	return (line_data);
 }
 
-
 // parses the input file to produce an array of integers
 // the while() goes through all lines (line_data[0])
 // and splits the elements with ft_split
@@ -111,7 +109,8 @@ t_list	*ft_fill_list(int fd, int *line_data, int i, int j)
 		{
 			if (node)
 			{
-				node->next = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+				node->next = \
+				ft_lstnew(ft_fill_point(split_string, i, j, line_data));
 				node = node->next;
 			}
 			else

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 12:07:24 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 12:41:28 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ t_list	*ft_file_to_list(int fd, char *input);
 int		*ft_min_max(t_list *point_list);
 void	ft_center_points(t_list *point_list, int *min_max);
 void	ft_isometric_projection(t_list *point_list);
-float	ft_calculate_zoom(t_list *point_list);
+int		*ft_min_max(t_list *point_list);
+float	ft_calculate_zoom(int *min_max, int WIN_W, int WIN_H);
 void	ft_apply_zoom(t_list *point_list, float zoom);
 void	ft_z_axis_rotation(t_list *point_list);
 

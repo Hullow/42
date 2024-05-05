@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:42:02 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 12:11:39 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,6 @@ int	ft_count_array_elements(char **array)
 	i = 0;
 	while (array[i])
 	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (i);
-}
-
-int	ft_count_array_elements_debug(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-	{
-		printf("%d: %s |", i, array[i]);
 		free(array[i]);
 		i++;
 	}
@@ -98,9 +83,8 @@ void	ft_free_list(t_list *point_list)
 	}
 }
 
-
 // for debugging purposes
-void	ft_print_point_list(t_env *env)
+/* void	ft_print_point_list(t_env *env)
 {
 	int i = 0;
 	t_list	*anchor = env->point_list;
@@ -121,3 +105,4 @@ void	ft_print_point_list(t_env *env)
 	}
 	env->point_list = anchor;
 }
+ */

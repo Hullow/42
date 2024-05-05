@@ -200,3 +200,8 @@ n.b.: mars.fdf works, window doesn't load immediately but when loaded, pressing 
 Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min11s
 
 - Fixed the linked list, tried it, then tried to shorten function for Norm (25lines) > seg fault, don't know why!
+
+# 5/5/24
+- Fixed input handling bug leading to segfault (by looking at previous commits and copying code from when it worked)
+- Fixed vertical lines not being drawn (with same method, I had deleted some necessary code)
+- Norm done: drawing.c, input_utils.c, projection_utils.c
