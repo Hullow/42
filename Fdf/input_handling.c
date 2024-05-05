@@ -6,94 +6,81 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 15:33:20 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 17:20:24 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/* counts the number of lines (line_data[0]) from our 
-file descriptor (array of characters) and calls ft_count_columns 
-to count the number of columns (line_data[1]) */
-
-// Function too long !
-int	*ft_examine_lines(int fd, int *line_data)
-{
-	char	*line_read;
-	int		columns;
-
-	line_read = get_next_line(fd);
-	if (line_read)
-		line_data[0] = 1;
-	line_read = ft_whitespace_to_space(line_read);
-	line_data[1] = ft_count_array_elements(ft_split(line_read, ' '));
-	while (line_read)
-	{
-		free(line_read);
-		line_read = get_next_line(fd);
-		if (line_read)
-			line_data[0]++;
-		else
-			break ;
-		line_read = ft_whitespace_to_space(line_read);
-		columns = ft_count_array_elements(ft_split(line_read, ' '));
-		if (columns != line_data[1])
-		{
-			free(line_data);
-			free(line_read);
-			ft_printf("irregular map, aborting\n");
-			exit(1);
-		}
-	}
-	ft_free(line_read);
-	if (!line_data[0] && !line_data[1])
-		free(line_data);
-	else
-		printf("line count: %d, line length: %d\n", line_data[0], line_data[1]);
-	return (line_data);
-}
-
-// parses the input file to produce an array of integers
-// the while() goes through all lines (line_data[0])
-// and splits the elements with ft_split
-// the nested while() then goes through each of these elements,
-// i.e. through #columns (== line_data[1]), and creates a
-// linked list of points which are filled by ft_fill_pt
-
-/* t_list	*ft_add_node(t_list *node, t_list *head, t_list *new_node)
-{
-	if (node)
-	{
-		node = node->next;
-		node->next = ft_lstnew(ft_fill_pt(split, i, j, line_data));
-	}
-	else
-	{
-		head = node;
-		node = ft_lstnew(ft_fill_pt(split, i, j, line_data));
-	}
-	return (head);
-} */
-
+// line_data[2] is the toggle to stop counting when set to 1
 t_list	*ft_file_to_list(int fd, char *arg)
 {
 	char	***split;
 	int		*line_data;
 
-	line_data = malloc(sizeof(int) * 2);
+	line_data = malloc(sizeof(int) * 3);
 	if (!line_data)
 	{
 		ft_printf("ft_file_to_list: malloc fail\n");
 		return (NULL);
 	}
-	line_data = ft_examine_lines(fd, line_data);
+	line_data[0] = 0;
+	line_data[1] = 0;
+	line_data[2] = 1;
+	line_data = ft_find_dimensions(fd, line_data);
 	close(fd);
 	fd = open(arg, O_RDONLY);
-	split = ft_read_lines(fd, line_data);
+	split = ft_read_to_array(fd, line_data);
 	return (ft_fill_list(split, line_data, -1, -1));
 }
 
-char	***ft_read_lines(int fd, int *line_data)
+// while line_data[2]: if set to 0, we've read an empty line => stop
+// line_data[1] != columns: irregular map handling
+int	*ft_find_dimensions(int fd, int *line_data)
+{
+	char	*line_read;
+	int		columns;
+
+	line_read = NULL;
+	line_data = ft_examine_line(fd, line_read, line_data);
+	columns = line_data[1];
+	while (line_data[2])
+	{
+		line_data = ft_examine_line(fd, line_read, line_data);
+		if (line_data[1] != columns)
+		{
+			ft_free_multiple(line_read, line_data);
+			ft_printf("irregular map, aborting\n");
+			exit(1);
+		}
+	}
+	ft_free(line_read);
+	return (line_data);
+}
+
+/* counts the number of lines (line_data[0]) from our 
+file descriptor (array of characters) and calls ft_count_columns 
+to count the number of columns (line_data[1]) */
+int	*ft_examine_line(int fd, char *line_read, int *line_data)
+{
+	char	**temp_split;
+
+	line_read = get_next_line(fd);
+	line_read = ft_whitespace_to_space(line_read);
+	if (line_read)
+		line_data[0]++;
+	else
+	{
+		line_data[2] = 0;
+		return (line_data);
+	}
+	temp_split = ft_split(line_read, ' ');
+	line_data[1] = ft_count_array_elements(temp_split);
+	ft_free_multiple(line_read, temp_split);
+	return (line_data);
+}
+
+char	***ft_read_to_array(int fd, int *line_data)
 {
 	char	***split;
 	char	*line_read;
@@ -110,6 +97,12 @@ char	***ft_read_lines(int fd, int *line_data)
 	return (split);
 }
 
+// parses the input file to produce an array of integers
+// the while() goes through all lines (line_data[0])
+// and splits the elements with ft_split
+// the nested while() then goes through each of these elements,
+// i.e. through #columns (== line_data[1]), and creates a
+// linked list of points which are filled by ft_fill_pt
 t_list	*ft_fill_list(char ***split, int *line_data, int i, int j)
 {
 	t_list	*node;
@@ -138,53 +131,6 @@ t_list	*ft_fill_list(char ***split, int *line_data, int i, int j)
 	free(line_data);
 	return (head);
 }
-
-void	ft_free_array(char ***split, int *line_data)
-{
-	int	i;
-
-	i = -1;
-	if (split)
-	{
-		while (++i < line_data[0])
-			free(split[i]);
-		free(split);
-	}
-}
-
-/* 
-t_list	*ft_fill_list_old(int fd, int *line_data, int i, int j)
-{
-	t_list	*node;
-	t_list	*head;
-	char	**split;
-	char	*line_read;
-
-	node = NULL;
-	head = NULL;
-	split = NULL;
-	while (++i < line_data[0])
-	{
-		line_read = ft_whitespace_to_space(get_next_line(fd));
-		split = ft_split(line_read, ' ');
-		while (++j < line_data[1])
-		{
-			if (node)
-			{
-				node->next = ft_lstnew(ft_fill_pt(split, i, j, line_data));
-				node = node->next;
-			}
-			else
-			{
-				node = ft_lstnew(ft_fill_pt(split, i, j, line_data));
-				head = node;
-			}
-		}
-		j = -1;
-	}
-	free(line_data);
-	return (head);
-} */
 
 /* creates a coordinate point with data:
 point[0]: column, i.e. x

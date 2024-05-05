@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 15:17:58 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 16:51:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,17 @@ int		ft_hex_string_to_int(char *hex_string);
 char	*ft_whitespace_to_space(char *str);
 void	ft_free_list(t_list *point_list);
 void	ft_free_array(char ***split, int *line_data);
+void	ft_free_multiple(void *ptr1, void *ptr2);
 
 // for debugging:
 void	ft_print_point_list(t_env *env);
 void	ft_max_altitude(t_list *point_list);
 
 // input handling
-int		*ft_examine_lines(int fd, int *line_data);
+int		*ft_find_dimensions(int fd, int *line_data);
+int		*ft_examine_line(int fd, char *line_read, int *line_data);
 t_list	*ft_file_to_list(int fd, char *input);
-char	***ft_read_lines(int fd, int *line_data);
+char	***ft_read_to_array(int fd, int *line_data);
 t_list	*ft_fill_list(char ***split, int *line_data, int i, int j);
 int		*ft_fill_pt(char **split, int i, int j, int *line_data);
 
