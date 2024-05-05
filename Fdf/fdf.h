@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 18:06:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 19:50:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	ft_isometric_projection(t_list *point_list);
 int		*ft_min_max(t_list *point_list);
 float	ft_calculate_zoom(int *min_max, int WIN_W, int WIN_H);
 void	ft_apply_zoom(t_list *point_list, float zoom);
-void	ft_z_axis_rotation(t_list *point_list);
+void	ft_z_rotation(t_list *point_list);
+void	ft_x_rotation(t_list *point_list);
+
 
 // graph utils
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);

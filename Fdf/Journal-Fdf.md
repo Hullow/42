@@ -214,3 +214,5 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 	it using a double index: ret[i][j]. So char ***split is only freed by two calls to free: for each split i.e. each split[line], and globally
 	with free(split)
 - All good, memory partly looked at (need to test systematically with leaks), but projection problem with pentenegpos....need different projection algo it seems
+
+- Implemented an x_axis rotation matrix (see https://m4nnb3ll.medium.com/fil-de-fer-fdf-the-first-graphical-project-at-42-the-network-5cce69203448 and https://en.wikipedia.org/wiki/Rotation_matrix)

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 19:14:26 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 20:39:50 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	ft_draw(t_env *env)
 	// printf("**************\ninput points:\n\n");
 	// ft_print_point_list(env);
 	// ft_max_altitude(env->point_list);
-	// ft_z_axis_rotation(env->point_list);
-	// printf("\n\n**************\nprojected points:\n\n");
+	// ft_z_rotation(env->point_list);
+	// ft_x_rotation(env->point_list);
+	// ft_print_point_list(env);
+	// printf("\n\n**************\nprojectesd points:\n\n");
 	// ft_print_point_list(env);
 	ft_isometric_projection(env->point_list);
 	float zoom = ft_calculate_zoom(ft_min_max(env->point_list), WINDOW_WIDTH, WINDOW_HEIGHT);
 	ft_apply_zoom(env->point_list, zoom);
 	ft_center_points(env->point_list, ft_min_max(env->point_list));
-	// ft_draw_points(env);
+	ft_draw_points(env);
 	ft_draw_lines(env);
 }
 
@@ -63,17 +65,17 @@ void	ft_draw_lines(t_env *env)
 	anchor = env->point_list;
 	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
-	// ft_draw_vertical(env, coord, coord[5]);
+	ft_draw_vertical(env, coord, coord[5]);
 }
 
 // draws horizontal lines of the grid, iteratively over the linked list
 // go through all columns
 void	ft_draw_horizontal(t_env *env, int *coord, int i)
 {
-	int j = 0;
+	// int j = 0;
 	int line = 0;
-	printf("\nhorizontal lines:\n**************\n");
-	while (env->point_list->next && ++j < 25)
+	// printf("\nhorizontal lines:\n**************\n");
+	while (env->point_list->next) // && ++j < 25)
 	{
 		if (i < coord[5] - 1)
 		{
@@ -85,15 +87,15 @@ void	ft_draw_horizontal(t_env *env, int *coord, int i)
 				env->point_list = env->point_list->next;
 			coord[2] = ((int *) env->point_list->content)[0];
 			coord[3] = ((int *) env->point_list->content)[1];
-			if (j < 21) // line length
-				coord[6] += 0xff00; // adding some green
-			else
-				coord[6] += 0xff00ff; // adding some red
+			// if (j < 21) // line length
+			// 	coord[6] += 0xff00; // adding some green
+			// else
+			// 	coord[6] += 0xff00ff; // adding some red
 			ft_line_put(env, coord);
 			line++;
-			if (j == 21)
-				printf("\n");
-			printf("line %d:(%d, %d)->(%d, %d)\n", line, coord[0], coord[1], coord[2], coord[3]);
+			// if (j == 21)
+			// 	printf("\n");
+			// printf("line %d:(%d, %d)->(%d, %d)\n", line, coord[0], coord[1], coord[2], coord[3]);
 		}
 		else
 		{
@@ -115,7 +117,7 @@ void	ft_draw_vertical(t_env *env, int *coord, int columns)
 	t_list	*anchor;
 
 	anchor = env->point_list;
-	printf("\nvertical now:\n**************\n");
+	// printf("\nvertical now:\n**************\n");
 	while (env->point_list)
 	{
 		coord[0] = ((int *)(env->point_list->content))[0];
@@ -133,7 +135,7 @@ void	ft_draw_vertical(t_env *env, int *coord, int columns)
 			coord[2] = ((int *)(env->point_list->content))[0];
 			coord[3] = ((int *)(env->point_list->content))[1];
 			ft_line_put(env, coord);
-			printf("line:(%d, %d)->(%d, %d)  –  ", coord[0], coord[1], coord[2], coord[3]);
+			// printf("line:(%d, %d)->(%d, %d)  –  ", coord[0], coord[1], coord[2], coord[3]);
 		}
 		columns = coord[5];
 		anchor = anchor->next;
