@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 20:25:26 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 11:17:55 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ int	*ft_examine_lines(int fd, int *line_data)
 	return (head);
 } */
 
-
-
 t_list	*ft_fill_list(int fd, int *line_data, int i, int j)
 {
 	t_list	*node;
@@ -105,20 +103,23 @@ t_list	*ft_fill_list(int fd, int *line_data, int i, int j)
 	node = NULL;
 	head = NULL;
 	split_string = NULL;
-	while (++i < line_data[0])
+	while (++j < line_data[1])
 	{
-		line_read = ft_whitespace_to_space(get_next_line(fd));
-		split_string = ft_split(line_read, ' ');
+		while (++i < line_data[0])
 		{
-			if (node)
+			line_read = ft_whitespace_to_space(get_next_line(fd));
+			split_string = ft_split(line_read, ' ');
 			{
-				node = node->next;
-				node->next = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
-			}
-			else
-			{
-				head = node;
-				node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+				if (node)
+				{
+					node = node->next;
+					node->next = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+				}
+				else
+				{
+					head = node;
+					node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
+				}
 			}
 		}
 		j = -1;
