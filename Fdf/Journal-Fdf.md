@@ -213,3 +213,4 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 	we also free it as one block of memory, instead of character by character, even though the type is a 2d array, which allows us to access
 	it using a double index: ret[i][j]. So char ***split is only freed by two calls to free: for each split i.e. each split[line], and globally
 	with free(split)
+- All good, memory partly looked at (need to test systematically with leaks), but projection problem with pentenegpos....need different projection algo it seems
