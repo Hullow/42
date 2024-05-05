@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 11:47:40 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 11:52:08 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,31 +103,31 @@ void	ft_draw_vertical_lines(t_env *env, int *line_coordinates)
 	int		columns;
 
 	anchor = env->point_list;
-	columns = line_coordinates[5] + 1;
-	printf("ft_draw_vertical_lines: columns: %d\n", columns);
+	columns = line_coordinates[5];
 	while (env->point_list)
 	{
 		line_coordinates[0] = ((int *)(env->point_list->content))[0];
 		line_coordinates[1] = ((int *)(env->point_list->content))[1];
 		line_coordinates[6] = ((int *)(env->point_list->content))[5];
-		while (columns-- && env->point_list)
+		while (columns && env->point_list->next)
+		{
+			columns--;
 			env->point_list = env->point_list->next;
-		printf("ft_draw_vertical_lines: went #columns forward in the list, columns now == %d\n", columns);
-		if (columns || !(env->point_list))
+		}
+		if (columns)
 			break ;
 		else
 		{
 			line_coordinates[2] = ((int *)(env->point_list->content))[0];
 			line_coordinates[3] = ((int *)(env->point_list->content))[1];
-			printf("drawing line (%d,%d)->(%d, %d) – ", line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3]);
-			ft_line_put(env, line_coordinates[0], \
-			line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
+			ft_line_put(env, line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
 		}
-		columns = line_coordinates[5] + 1;
+		columns = line_coordinates[5];
 		anchor = anchor->next;
 		env->point_list = anchor;
 	}
 }
+
 
 void	ft_max_altitude(t_list *point_list)
 {
