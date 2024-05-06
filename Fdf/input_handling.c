@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 18:06:57 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 14:21:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,13 @@ point[3]: #lines
 point[4]: #columns
 point[5]: color (if ',' is found in our split,
 otherwise color is set to white/16777215) */
-int	*ft_fill_pt(char **split, int i, int j, int *line_data)
+double	*ft_fill_pt(char **split, int i, int j, int *line_data)
 {
-	int		*point;
+	double	*point;
 	char	**color_input;
 
 	color_input = NULL;
-	point = (int *)malloc (6 * sizeof(int));
+	point = (double *)malloc (6 * sizeof(double));
 	point[0] = j;
 	point[1] = i;
 	point[2] = ft_atoi(split[j]);

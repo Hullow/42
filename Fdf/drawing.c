@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 12:14:04 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 14:25:49 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,29 @@
 void	ft_draw(t_env *env)
 {
 	t_list	*anchor;
-	int		*coord;
+	double	*coord;
 
 	anchor = env->point_list;
-	coord = (int *)malloc(sizeof(int) * 7);
-	coord[4] = ((int *) env->point_list->content)[3];
-	coord[5] = ((int *) env->point_list->content)[4];
+	coord = (double *)malloc(sizeof(double) * 7);
+	coord[4] = ((double *) env->point_list->content)[3];
+	coord[5] = ((double *) env->point_list->content)[4];
 
 	// ft_max_altitude(env->point_list);
 	
 	// printf("**************\ninput points:\n\n");
 	// ft_print_point_list(env);
 	
-	// ft_z_rotation(env->point_list);
-	// ft_x_rotation(env->point_list);
-	// ft_orthographic_projection(env->point_list);
-	ft_isometric_projection(env->point_list);
+	ft_z_rotation(env->point_list);
+	ft_x_rotation(env->point_list);
+	ft_orthographic_projection(env->point_list);
+	// ft_isometric_projection(env->point_list);
 
 	// ft_print_point_list(env);
 	// printf("\n\n**************\nprojectesd points:\n\n");
 	// ft_print_point_list(env);
 	
-	float zoom = ft_calculate_zoom(ft_min_max(env->point_list), WINDOW_WIDTH, WINDOW_HEIGHT);
-	ft_apply_zoom(env->point_list, zoom);
+	// float zoom = ft_calculate_zoom(ft_min_max(env->point_list), WINDOW_WIDTH, WINDOW_HEIGHT);
+	ft_apply_zoom(env->point_list, 5);
 	ft_center_points(env->point_list, ft_min_max(env->point_list));
 	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
@@ -53,18 +53,18 @@ void	ft_draw(t_env *env)
 void	ft_draw_points(t_env *env)
 {
 	t_list	*anchor;
-	int		*temp;
+	double	*temp;
 
 	anchor = env->point_list;
-	temp = (int *) malloc (sizeof(int) * 6);
+	temp = (double *) malloc (sizeof(double) * 6);
 	if (env->point_list)
 	{
 		while (env->point_list)
 		{
-			temp = ((int *) env->point_list->content);
+			temp = ((double *) env->point_list->content);
 			my_mlx_pixel_put(env, temp[0], temp[1], temp[5]);
 
-			mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+			// mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 			// mlx_do_sync(env->mlx);
 			// usleep(200000);
 
@@ -77,7 +77,7 @@ void	ft_draw_points(t_env *env)
 
 // draws horizontal lines of the grid, iteratively over the linked list
 // go through all columns
-void	ft_draw_horizontal(t_env *env, int *coord, int i)
+void	ft_draw_horizontal(t_env *env, double *coord, int i)
 {
 	// int j = 0;
 	int line = 0;
@@ -87,13 +87,13 @@ void	ft_draw_horizontal(t_env *env, int *coord, int i)
 		if (i < coord[5] - 1)
 		{
 			i++;
-			coord[0] = ((int *) env->point_list->content)[0];
-			coord[1] = ((int *) env->point_list->content)[1];
-			coord[6] = ((int *) env->point_list->content)[5];
+			coord[0] = ((double *) env->point_list->content)[0];
+			coord[1] = ((double *) env->point_list->content)[1];
+			coord[6] = ((double *) env->point_list->content)[5];
 			if (env->point_list->next)
 				env->point_list = env->point_list->next;
-			coord[2] = ((int *) env->point_list->content)[0];
-			coord[3] = ((int *) env->point_list->content)[1];
+			coord[2] = ((double *) env->point_list->content)[0];
+			coord[3] = ((double *) env->point_list->content)[1];
 			// if (j < 21) // line length
 			// 	coord[6] += 0xff00; // adding some green
 			// else
@@ -119,7 +119,7 @@ void	ft_draw_horizontal(t_env *env, int *coord, int i)
 // coord[4]: #lines
 // coord[5]: #columns
 // coord[6]: color
-void	ft_draw_vertical(t_env *env, int *coord, int columns)
+void	ft_draw_vertical(t_env *env, double *coord, int columns)
 {
 	t_list	*anchor;
 
@@ -127,9 +127,9 @@ void	ft_draw_vertical(t_env *env, int *coord, int columns)
 	// printf("\nvertical now:\n**************\n");
 	while (env->point_list)
 	{
-		coord[0] = ((int *)(env->point_list->content))[0];
-		coord[1] = ((int *)(env->point_list->content))[1];
-		coord[6] = ((int *)(env->point_list->content))[5];
+		coord[0] = ((double *)(env->point_list->content))[0];
+		coord[1] = ((double *)(env->point_list->content))[1];
+		coord[6] = ((double *)(env->point_list->content))[5];
 		while (columns && env->point_list->next)
 		{
 			columns--;
@@ -139,8 +139,8 @@ void	ft_draw_vertical(t_env *env, int *coord, int columns)
 			break ;
 		else
 		{
-			coord[2] = ((int *)(env->point_list->content))[0];
-			coord[3] = ((int *)(env->point_list->content))[1];
+			coord[2] = ((double *)(env->point_list->content))[0];
+			coord[3] = ((double *)(env->point_list->content))[1];
 			ft_line_put(env, coord);
 
 			// mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
@@ -161,8 +161,8 @@ void	ft_max_altitude(t_list *point_list)
 	max_altitude = 0;
 	while (point_list)
 	{
-		if (((int *)point_list->content)[2] > max_altitude)
-			max_altitude = ((int *)point_list->content)[2];
+		if (((double *)point_list->content)[2] > max_altitude)
+			max_altitude = ((double *)point_list->content)[2];
 		point_list = point_list->next;
 	}
 	ft_printf("final max altitude: %d\n", max_altitude);
