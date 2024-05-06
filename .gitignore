@@ -5,3 +5,4 @@ program
 *.dSYM
 Fdf/.gitignore
 .venv/**
+.vscode/

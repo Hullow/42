@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 14:32:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/05 19:50:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@
 #include "./lib/minilibx/mlx.h"
 
 #ifndef WINDOW_WIDTH
-#define WINDOW_WIDTH 800
+#define WINDOW_WIDTH 1200
 #endif
 
 #ifndef WINDOW_HEIGHT
-#define WINDOW_HEIGHT 600
+#define WINDOW_HEIGHT 900
 #endif
 
 #ifndef WINDOW_NAME
-#define WINDOW_NAME "mlx test window"
+#define WINDOW_NAME "Fil de Fer"
 #endif
 
 typedef struct	s_env {
@@ -47,32 +47,48 @@ typedef struct	s_env {
 }				t_env;
 
 // input utils
-int		ft_count_elements_in_2d_char_array(char **array);
-int		*ft_examine_lines(int fd);
-void	ft_print_map(int **map, int* line_data);
-int		*ft_fill_point(char **split_string, int i, int j, int *line_data);
-t_list	*ft_file_to_point_list(int fd, int i, int *line_data);
-void	ft_treat_point_list(t_env *env);
+int		ft_count_array_elements_debug(char **array);
+int		ft_count_array_elements(char **array);
+int		ft_hex_string_to_int(char *hex_string);
+char	*ft_whitespace_to_space(char *str);
+void	ft_free_list(t_list *point_list);
+void	ft_free_array(char ***split, int *line_data);
 
-// graph handling utils
-int		my_color_to_hex(char *color);
-void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
-void	my_mlx_line_put(t_env *env, int x1, int y1, int x2, int y2, int color);
-void	ft_draw_line_to_next_point(t_env *env);
-int		my_mlx_square_put(t_env *env, int x, int y, int color);
-void	ft_put_point_list(t_env *env);
+// for debugging:
+void	ft_print_point_list(t_env *env);
+void	ft_max_altitude(t_list *point_list);
 
-// graph transformation utils
-void	ft_graph_transformation(t_list	*point_list);
+// input handling
+int		*ft_find_dimensions(int fd, int *line_data);
+int		*ft_examine_line(int fd, char *line_read, int *line_data);
+t_list	*ft_file_to_list(int fd, char *input);
+char	***ft_read_to_array(int fd, int *line_data);
+t_list	*ft_fill_list(char ***split, int *line_data, int i, int j);
+int		*ft_fill_pt(char **split, int i, int j, int *line_data);
+
+// graph transformation
+int		*ft_min_max(t_list *point_list);
+void	ft_center_points(t_list *point_list, int *min_max);
 void	ft_isometric_projection(t_list *point_list);
-float	ft_calculate_zoom(t_list	*point_list);
-void	ft_apply_zoom(t_list	*content, float zoom);
-void	ft_center_points(t_list *point_list);
+int		*ft_min_max(t_list *point_list);
+float	ft_calculate_zoom(int *min_max, int WIN_W, int WIN_H);
+void	ft_apply_zoom(t_list *point_list, float zoom);
+void	ft_z_rotation(t_list *point_list);
+void	ft_x_rotation(t_list *point_list);
+
+
+// graph utils
+void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
+void	ft_line_put(t_env *env, int *coord);
+
+// drawing functions
+void	ft_draw(t_env *env);
+void	ft_draw_points(t_env *env);
+void	ft_draw_lines(t_env *env);
+void	ft_draw_horizontal(t_env *env, int *coord, int i);
+void	ft_draw_vertical(t_env *env, int *coord, int columns);
 
 // window and event handling
 void	launch_window_and_draw(t_list *point_list);
-int		close_window(t_env *env);
+int		window_closed(t_env *env);
 int		key_handler(int keycode, t_env *env);
-int		mouse_handler(int button, t_env *env);
-
-void	ft_print_point_list(t_env *env);

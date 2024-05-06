@@ -12,13 +12,14 @@
 > Isometric projection is a method for visually representing three-dimensional objects in two dimensions in technical and engineering drawings. It is an axonometric projection in which the three coordinate axes appear equally foreshortened and the angle between any two of them is 120 degrees.
 > The term "isometric" comes from the Greek for "equal measure", reflecting that the scale along each axis of the projection is the same (unlike some other forms of graphical projection).
 
->For a true isometric projection, where Z is up, your vectors might look like this:
->
->(𝑋𝑥,𝑋𝑦,𝑋𝑧) = size/2 * (√3, −1, −1/√2)<br>
->(𝑌𝑥,𝑌𝑦,𝑌𝑧) = size/2 * (−√3, −1, −1/√2)<br>
->(𝑍𝑥,𝑍𝑦,𝑍𝑧) = size/2 * (0, 2, −1/√2)
->
->Where size is the on-screen length of your worldspace unit vector (eg. the length of a tile's diagonal)
+[From Stack Overflow](https://stackoverflow.com/a/28614357) (a question on Fdf, clearly):
+> For isometric projection I suggest you try the following instead:
+
+```
+u = x*cos(α) + y*cos(α+120°) + z*cos(α-120°)
+v = x*sin(α) + y*sin(α+120°) + z*sin(α-120°)
+```
+> although for C you'll have to convert to radians. α will rotate your view, choose however you want to align stuff. If you choose α as a multiple of 30° you'll get fairly nice numbers involving just a simple square root.
 
 Used the following (produces hard to differentiate one from my previous) [from SE](https://gamedev.stackexchange.com/a/159473):
 >Suppose your 2D coordinates are x' and y', and your 3D coordinates are x , y and z.

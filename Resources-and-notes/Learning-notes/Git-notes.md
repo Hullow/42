@@ -21,10 +21,12 @@
 - Show a file's state n commits before the last commit: `git show HEAD~n:relative/path/to/file` (e.g. `get_next_line/get_next_line.c`)
 - View the whole git folder in a previous commit stage: `git checkout HEAD~n` (`git checkout main/master` to go back)
 
-# Git pull
+# Pulling
 - A `pull` is two operations in one:
 	- `fetch`
 	- `merge ORIGIN\$CURRENT_BRANCH`
+
+
 
 
 # Git checkout vs git switch
@@ -102,7 +104,9 @@ eval `ssh-agent -s`
 `ssh-add ~/.ssh/*_rsa`
 - change remote: git remote rm origin && git remote add origin <URL_in_appropriate_format_(eg_SSH)>
 
-- 
+### Merging
+- Abort a merge: `git merge --abort`
+- Accept all incoming changes: `git checkout --theirs .`
 
 
 

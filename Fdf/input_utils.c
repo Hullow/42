@@ -3,56 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/29 15:36:24 by francis          ###   ########.fr       */
+/*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
+/*   Updated: 2024/05/05 18:11:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/* counts the number of lines (line_data[0]) from our 
-file descriptor (array of characters) and calls ft_count_columns 
-to count the number of columns (line_data[1]) */
-int	*ft_examine_lines(int fd)
+int	ft_count_array_elements(char **array)
 {
-	int		*line_data;
-	char	*line_read;
-	int i = 1;
-
-	line_data = (int *)malloc(2 * sizeof(int));
-	if (!line_data)
-		return (NULL);
-	line_data[0] = 0;
-	line_read = get_next_line(fd);
-	line_data[1] = ft_count_elements_in_2d_char_array(ft_split(line_read, ' '));
-	printf("line length: %d\n", line_data[1]);
-	// if (line_read)
-	// 	free(line_read);
-	while (line_read)
-	{
-		if (ft_count_elements_in_2d_char_array(ft_split(line_read, ' ')) != line_data[1]) // what ?
-			{
-				free(line_data);
-				return (NULL);
-			}
-		line_data[0]++;
-		line_read = get_next_line(fd);
-		ft_printf("line: %d - ", i);
-		ft_printf("line read: %s\n", line_read);
-		i++;
-		// if (line_read)
-		// 	free(line_read);
-	}
-	if (line_data[0] && line_data[1])
-		printf("line count: %d, line length: %d\n", line_data[0], line_data[1]);
-	return (line_data);
-}
-
-int	ft_count_elements_in_2d_char_array(char **array)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
@@ -60,68 +22,95 @@ int	ft_count_elements_in_2d_char_array(char **array)
 	return (i);
 }
 
-// parses the input file to produce an array of integers
-t_list	*ft_file_to_point_list(int fd, int i, int *line_data)
+/* converts a hexadecimal string to an integer
+with the corresponding decimal value */
+int	ft_hex_string_to_int(char *hex_string)
 {
-	t_list	*node = NULL;
-	t_list	*head = NULL;
-	char	**split_string = NULL;
-	int 	j;
+	int	i;
+	int	decimal_value;
+	int	hex_factor;
+
+	i = 0;
+	decimal_value = 0;
+	hex_factor = 1;
+	while (hex_string[i + 1])
+		i++;
+	while (hex_string[i] != 'x' && hex_string[i] != 'X')
+	{
+		if (hex_string[i] >= 'A' && hex_string[i] <= 'F')
+			decimal_value += (hex_string[i] - 55) * hex_factor;
+		else if (hex_string[i] >= 'a' && hex_string[i] <= 'f')
+			decimal_value += (hex_string[i] - 87) * hex_factor;
+		else
+			decimal_value += (hex_string[i] - 48) * hex_factor;
+		hex_factor *= 16;
+		i--;
+	}
+	return (decimal_value);
+}
+
+char	*ft_whitespace_to_space(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] == '\t' || str[i] == '\n' || str[i] == \
+	'\v' || str[i] == '\f' || str[i] == '\r')
+		str[i] = ' ';
+		i++;
+	}
+	return (str);
+}
+
+void	ft_free_list(t_list *point_list)
+{
+	t_list	*temp;
+
+	temp = NULL;
+	while (point_list)
+	{
+		temp = point_list;
+		point_list = point_list->next;
+		free(temp);
+	}
+}
+
+void	ft_free_array(char ***split, int *line_data)
+{
+	int	i;
 
 	i = -1;
-	while (++i < line_data[0])
+	if (split)
 	{
-		split_string = ft_split(get_next_line(fd), ' '); // read the line, split it 
-		j = -1;
-		while (++j < line_data[1])
-		{
-			node = ft_lstnew(ft_fill_point(split_string, i, j, line_data));
-			if (head == NULL)
-				head = node;
-			else
-				ft_lstadd_back(&head, node);
-		}
+		while (++i < line_data[0])
+			free(split[i]);
+		free(split);
 	}
-	return (head);
 }
 
-/*
-point[0]: column, i.e. x
-point[1]: line, i.e. y
-point[2]: altitude, i.e. z
-point[3]: #lines
-point[4]: #columns
-*/
-int	*ft_fill_point(char **split_string, int i, int j, int *line_data)
-{
-	int	*point;
-
-	point = (int *)malloc (5 * sizeof(int));
-	point[0] = j;
-	point[1] = i;
-	point[2] = ft_atoi(split_string[j]);
-	point[3] = line_data[0];
-	point[4] = line_data[1];
-	return (point);
-}
-
+// for debugging purposes
 void	ft_print_point_list(t_env *env)
 {
 	int i = 0;
 	t_list	*anchor = env->point_list;
 	int	*temp;
 
-	temp = (int *)malloc (5 * sizeof(int));
-	
+	temp = (int *)malloc (6 * sizeof(int));
 	if (env->point_list)
 	{
 		while (env->point_list)
 		{
 			temp = (int *) env->point_list->content;
-			printf("pt %d: (%d,%d), l:%d, c:%d – ", i, temp[0], temp[1], temp[3], temp[4]);
-
-			if (i++ % 6 == 0)
-				ft_printf("\n");
+			// printf("pt %d: (%d,%d), altitude %d, color %d   ", i++, \
+			// temp[0], temp[1], temp[2], temp[5]);
+			printf("pt %d: (%d,%d), altitude %d,   ", i++, \
+			temp[0], temp[1], temp[2]);
+			if (i % 3 == 0)
+				printf("\n");
 			env->point_list = env->point_list->next;
 		}
 	}

@@ -97,7 +97,7 @@ around line 364 expression `[[self openGLContext] setView:self];`
 
 # 12/4/24
 - Working on seg faults with my list(s) passed as parameters
-- Spent hours on this, actually the issue was simply the function prototype, which had to be `int key_handler(int keycode, t_env *env)` to correctly pass on the parameter, while`int key_handler(t_env *env, int keycode)` didn't pass it on properly !!!
+- Spent hours on this, actually the issue was simply the function prototype, which had to be `int key_handler(int keycode, t_env *env)` to correctly pass on the parameter, while `int key_handler(t_env *env, int keycode)` didn't pass it on properly !!!
 - In retrospect that the order of parameters is central should have made sense...
 
 # 15/4/24
@@ -141,7 +141,79 @@ for other octants. Go with DDA !
 - Problem: doesn't work after projection. Maybe a better approach is space points, then projection. => used the "size" approach and removed zoom => boom something works.
 - Center points works well, what I need to remove is the zoom
 
-
 To do:
 - replace printf with ft_printf before handing in project
 - Norm
+- reduce/resize window
+
+# 30/4/24
+- Tested against sample fdf, looking good: the sample doesn't output all lines in grid systematically so I likely won't fix it. Update: fixed it pretty much entirely (my function doesn't iterate to the end of the grid though)
+- Working on color inputs ("0, 0x8010305" point coordinates as input), new function hex_to_color. Problem: atoi doesn't seem to work on hex values. Developed a function ft_hex_string_to_int for that, but it makes everything segfault so commented it out for now.
+
+# 2/5/24
+- Back to work (after IDIAP hackathon application and Bitcoin meetup taking a lot of time on Tuesday, Wednesday)
+- Solved hex color input, and first "vertical" line of grid.
+- Found better projection formula (on Stack Overflow)
+- However, the last few "vertical" lines don't get printed
+- Biggest problem: t1, t2 maps look like sh... compared to what the sample fdf program produces
+
+# 3/5/24
+- Refactoring (for Norm and readability, to help debug)
+- t1, t2 looking slightly better
+- Issue with unwanted diagonal lines being drawn between grid points
+- Finally removed zoom functions + ft_graph_transformation, a few lines of code to compute `size` in ft_isometric_projection are enough.
+- env->drawn apparently necessary to prevent segfault when pressing key multiple times (could be because point->list not reset properly with anchor everywhere ?)
+- Issue with the split with pyramide (see /debug/split-fail-pyramide.bash): checked split on the string, it works. Issue is before. Note: should've known split is ok, it passed moulinette..
+
+- Evening: fixed hex_string_to_int function to properly handle colors, removed rotation, now my t2 is almost good. Problem: right vertical border in blue for no reason. Need to remove it/change color.
+- What I did: 
+	- `ft_apply_zoom(env->point_list, 10);` to zoom in 10x
+	-
+	```c
+	if (line_coordinates[0] == 990)
+		ft_printf("printing edge point (%d,%d) to (%d,%d), with color %d\n", line_coordinates[0], line_coordinates[1], line_coordinates[2], line_coordinates[3], line_coordinates[6]);
+	```
+	To print out right border (0-99 so x * 10, e.g. 990 to get rightmost set of vertical lines, 980 to get the penultimate, etc.). Turquoise color code does appear (int 1044442, [hex #FEFDA](https://www.color-hex.com/color/0fefda)), and some too high numbers to convert to RGB color scheme  
+- Stayed until midnight
+
+# 4/5/24
+- Saturday morning at 42
+- Debugging last vertical lines
+- Used `ft_draw_points` only: it looks like a problem with the input handling 
+<br>=> created `1-border.fdf`:
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+>1,0xff0000	&emsp; 0 &emsp; 1,0xff0000<br>
+=> solved by adding `|| '\n'` back to my ft_whitespace_to_space function ('\n' are irrelevant in my program, no need to treat them specially)
+
+- Then segfault causing issue => because I commented out the `line_read = ft_whitespace_to_space(line_read);` lines in ft_examine_lines, causing the #columns not to be read correctly, leading to errors down the road
+
+Testing maps:
+- elem-fract.fdf and julia (500*500 elements) don't work (2-5 secs to count lines and columns). Unclear if too slow or infinite loop. Waited 2-3 minutes and nothing more.`
+n.b.: mars.fdf works, window doesn't load immediately but when loaded, pressing a key immediately prints out the map
+- Pentenegpos.fdf doesn't really look like what's asked
+- elem2.fdf: normalized in the misc/fdf => maybe source of issue with elem-fract?
+- pylone.fdf: both my fdf and the sample fdf recognize it as an irregular map
+
+=> write normalizer
+=> try to make function more efficient to see if largest maps work:
+Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min11s
+
+- Fixed the linked list, tried it, then tried to shorten function for Norm (25lines) > seg fault, don't know why!
+
+# 5/5/24
+- Fixed input handling bug leading to segfault (by looking at previous commits and copying code from when it worked)
+- Fixed vertical lines not being drawn (with same method, I had deleted some necessary code)
+- Norm done: drawing.c, input_utils.c, projection_utils.c
+- Norm to do: rewrite ft_line_put (malloc likely)
+- Learning about memory management:
+	- Copilot helped me, and also this article prompted my mind: https://geeksforgeeks.org/dynamically-allocate-2d-array-c/
+	- the malloc of char ***split: it's a 3d array of size (sizeof(2d array) * #lines). Then each 2d array is malloced by ft_split
+	- freeing char ***split: since ft_split is malloc-ed in one block of memory (`ret = (char **)ft_calloc(size + 1, sizeof(char *));`),
+	we also free it as one block of memory, instead of character by character, even though the type is a 2d array, which allows us to access
+	it using a double index: ret[i][j]. So char ***split is only freed by two calls to free: for each split i.e. each split[line], and globally
+	with free(split)
+- All good, memory partly looked at (need to test systematically with leaks), but projection problem with pentenegpos....need different projection algo it seems
+
+- Implemented an x_axis rotation matrix (see https://m4nnb3ll.medium.com/fil-de-fer-fdf-the-first-graphical-project-at-42-the-network-5cce69203448 and https://en.wikipedia.org/wiki/Rotation_matrix)
