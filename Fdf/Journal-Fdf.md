@@ -223,9 +223,11 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 # 6/5/24
 
 
-- At 42: used usleep and asked Copilot how to display line by line, => just
+- At 42: used usleep and asked Copilot how to display line by line and point by point, => just
 ```c
     mlx_put_image_to_window(mlx, win, img, 0, 0);
     mlx_do_sync(mlx);
     usleep(500000);
 ```
+
+- Also added clear window functionality upon pressing 'c' or 'del'
