@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 12:17:21 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:34:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	key_handler(int keycode, t_env *env)
 	{
 		ft_printf("ESC key pressed, program stopping\n");
 		mlx_destroy_window(env->mlx, env->win);
-		
 		exit(1);
 	}
 	else if (!(env->drawn))
@@ -80,8 +79,8 @@ int	window_closed(t_env *env)
 int	main(int argc, char *argv[])
 {
 	int		fd;
-
 	t_list	*point_list;
+
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:24:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:29:33 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	ft_free_list(t_list *point_list);
 void	ft_free_array(char ***split, int *line_data);
 
 // for debugging:
-void	ft_print_point_list(t_env *env);
 void	ft_max_altitude(t_list *point_list);
+void	ft_print_point_list(t_env *env);
 void	ft_draw_points(t_env *env);
 
 // input handling

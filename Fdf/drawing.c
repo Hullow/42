@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:25:37 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:29:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,19 +111,3 @@ void	ft_draw_vertical(t_env *env, double *coord, int columns)
 		env->point_list = anchor;
 	}
 }
-
-/* 
-void	ft_max_altitude(t_list *point_list)
-{
-	int	max_altitude;
-
-	max_altitude = 0;
-	while (point_list)
-	{
-		if (((double *)point_list->content)[2] > max_altitude)
-			max_altitude = ((double *)point_list->content)[2];
-		point_list = point_list->next;
-	}
-	ft_printf("final max altitude: %d\n", max_altitude);
-}
- */

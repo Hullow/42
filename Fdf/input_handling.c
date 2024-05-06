@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 14:21:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:32:02 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,59 +34,11 @@ t_list	*ft_file_to_list(int fd, char *arg)
 	return (ft_fill_list(split, line_data, -1, -1));
 }
 
-// while line_data[2]: if set to 0, we've read an empty line => stop
-// line_data[1] != columns: irregular map handling
-int	*ft_find_dimensions(int fd, int *line_data)
-{
-	char	*line_read;
-	int		columns;
-
-	line_read = NULL;
-	line_data = ft_examine_line(fd, line_read, line_data);
-	columns = line_data[1];
-	while (line_data[2])
-	{
-		line_data = ft_examine_line(fd, line_read, line_data);
-		if (line_data[1] != columns)
-		{
-			ft_free(line_read);
-			ft_free(line_data);
-			ft_printf("irregular map, aborting\n");
-			exit(1);
-		}
-	}
-	ft_free(line_read);
-	return (line_data);
-}
-
-/* counts the number of lines (line_data[0]) from our 
-file descriptor (array of characters) and calls ft_count_columns 
-to count the number of columns (line_data[1]) */
-int	*ft_examine_line(int fd, char *line_read, int *line_data)
-{
-	char	**temp_split;
-
-	line_read = get_next_line(fd);
-	line_read = ft_whitespace_to_space(line_read);
-	if (line_read)
-		line_data[0]++;
-	else
-	{
-		line_data[2] = 0;
-		return (line_data);
-	}
-	temp_split = ft_split(line_read, ' ');
-	line_data[1] = ft_count_array_elements(temp_split);
-	ft_free(line_read);
-	ft_free(temp_split);
-	return (line_data);
-}
-
 char	***ft_read_to_array(int fd, int *line_data)
 {
 	char	***split;
 	char	*line_read;
-	int	i;
+	int		i;
 
 	split = (char ***)malloc(sizeof(char **) * line_data[0]);
 	line_read = NULL;
