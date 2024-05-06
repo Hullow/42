@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 14:46:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:08:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,29 +90,4 @@ void	ft_free_array(char ***split, int *line_data)
 			free(split[i]);
 		free(split);
 	}
-}
-
-// for debugging purposes
-void	ft_print_point_list(t_env *env)
-{
-	int i = 0;
-	t_list	*anchor = env->point_list;
-	double	*temp;
-
-	temp = (double *)malloc (6 * sizeof(double));
-	if (env->point_list)
-	{
-		while (env->point_list)
-		{
-			temp = (double *) env->point_list->content;
-			// printf("pt %d: (%d,%d), altitude %d, color %d   ", i++, \
-			// temp[0], temp[1], temp[2], temp[5]);
-			printf("pt %d: (%f,%f), altitude %f,   ", i++, \
-			temp[0], temp[1], temp[2]);
-			if (i % 3 == 0)
-				printf("\n");
-			env->point_list = env->point_list->next;
-		}
-	}
-	env->point_list = anchor;
 }

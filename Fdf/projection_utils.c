@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/06 14:55:12 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:09:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,36 +42,6 @@ void	ft_center_points(t_list *point_list, double *min_max)
 	free(min_max);
 }
 
-/* finds the minimal and maximal x and y values 
-for the whole point list */
-/* int	*ft_calculate_min_max_old(t_list *point_list)
-{
-	t_list	*anchor;
-	int		*min_max;
-
-	anchor = point_list;
-	min_max = (double *)malloc(sizeof * 4);
-	min_max[0] = 0;
-	min_max[1] = 0;
-	min_max[2] = 0;
-	min_max[3] = 0;
-	while (point_list)
-	{
-		if (((double *)point_list->content)[0] > min_max[0])
-			min_max[0] = ((double *)point_list->content)[0];
-		if (((double *)point_list->content)[0] < min_max[2])
-			min_max[2] = ((double *)point_list->content)[0];
-		if (((double *)point_list->content)[1] > min_max[1])
-			min_max[1] = ((double *)point_list->content)[1];
-		if (((double *)point_list->content)[1] < min_max[3])
-			min_max[3] = ((double *)point_list->content)[1];
-		point_list = point_list->next;
-	}
-	point_list = anchor;
-	return (min_max);
-}
- */
-
 // iterates through list to find min max values
 // output: 
 // min_max[0]: x_max, min_max[1]: y_max
@@ -100,18 +70,18 @@ double	*ft_min_max(t_list *point_list)
 	return (min_max);
 }
 
-float	ft_calculate_zoom(double *min_max, int WIN_W, int WIN_H)
+double	ft_calculate_zoom(double *min_max, int WIN_W, int WIN_H)
 {
-	float	zoom;
+	double	zoom;
 
 	zoom = 1;
 	printf("zoom at start: %f\n", zoom);
-	while (zoom * (float)(min_max[0] - min_max[2]) < (float)WIN_W * 0.75 && \
-	zoom * (float)(min_max[1] - min_max[3]) < (float)WIN_H * 0.75)
+	while (zoom * (min_max[0] - min_max[2]) < WIN_W * 0.75 && \
+	zoom * (min_max[1] - min_max[3]) < WIN_H * 0.75)
 		zoom += 0.1;
 	printf("zoom: %f\n", zoom);
-	while (zoom * (float)(min_max[0] - min_max[2]) > (float)WIN_W * 0.75 || \
-	zoom * (float)(min_max[1] - min_max[3]) > (float)WIN_H * 0.75)
+	while (zoom * (min_max[0] - min_max[2]) > WIN_W * 0.75 || \
+	zoom * (min_max[1] - min_max[3]) > WIN_H * 0.75)
 		zoom -= 0.1;
 	ft_printf("zoom: %d\n", (int)(zoom));
 	free(min_max);
@@ -128,53 +98,6 @@ void	ft_apply_zoom(t_list *point_list, float zoom)
 	}
 }
 
-void	ft_isometric_projection(t_list *point_list)
-{
-	double	a;
-	double	pt[5];
-	double	size;
-
-	a = 30 * (M_PI / 180);
-	pt[3] = ((double *)point_list->content)[3]; // #lines
-	pt[4] = ((double *)point_list->content)[4]; // #columns
-	size = 1;
-	while (size * pt[4] < WINDOW_WIDTH && size * pt[3] < WINDOW_HEIGHT)
-		size++;
-	printf("size: %f\n", size);
-	while (point_list)
-	{
-		pt[0] = ((double *)point_list->content)[0];
-		pt[1] = ((double *)point_list->content)[1];
-		pt[2] = ((double *)point_list->content)[2];
-		// printf("projecting (%d,%d,%d) ", pt[0], pt[1], pt[2]);
-		
-		((double *)point_list->content)[0] = (size / 2) * (pt[0] * cos(a) + pt[1] * cos(a + (4 * a)) + pt[2] * cos(a - (4 * a)));
-		((double *)point_list->content)[1] = (size / 2) * (pt[0] * sin(a) + pt[1] * sin(a + (4 * a)) + pt[2] * sin(a - (4 * a)));
-		
-		// printf("to (%d,%d)  –  ", ((double *)point_list->content)[0], ((double *)point_list->content)[1]);
-
-
-		// ((double *)point_list->content)[0] = (pt[0] * cos(a + 2) + pt[1] * cos(a + 2) + pt[2] * cos(a - 2)) * (size / 2);
-		// ((double *)point_list->content)[1] = (pt[0] * sin(a) + pt[1] * sin(a + 2) + pt[2] * sin(a - 2)) * (size / 2);
-
-		// ((double *)point_list->content)[0] = (pt[0] - pt[1]) * cos(a);
-		// ((double *)point_list->content)[1] =  pt[1] + ((pt[0] + pt[2]) * sin(a)) / sqrt(2);
-		
-		// ((double *)point_list->content)[0] = (1/sqrt(6)) * (sqrt(3) * pt[0] - sqrt(3) * pt[2]) * (size / 2);
-		// ((double *)point_list->content)[1] = (1/sqrt(6)) * (pt[0] + 2 * pt[1] + pt[2]) * (size / 2);
-
-
-		// ((double *)point_list->content)[0] = (1/sqrt(6)) * (sqrt(3) * pt[0] - sqrt(3) * pt[2]);
-		// ((double *)point_list->content)[1] = (1/sqrt(6)) * (pt[0] + 2 * pt[1] + pt[2]);
-
-		// https://stackoverflow.com/a/47520903
-		// ((double *)point_list->content)[0] = (pt[0] - pt[2]) / sqrt(2);
-		// ((double *)point_list->content)[1] = (pt[0] + 2 * pt[1] + pt[2]) / sqrt(6);
-
-		point_list = point_list->next;
-	}
-}
-
 // z_rotation (try with 45 degrees)
 void	ft_z_rotation(t_list *point_list)
 {
@@ -182,34 +105,17 @@ void	ft_z_rotation(t_list *point_list)
 	float	a;
 
 	a = 45 * (M_PI / 180);
-	printf("z_rotation angle in radians: %f\n", a);
 	while (point_list)
 	{
 		pt[0] = ((double *)(point_list->content))[0];
 		pt[1] = ((double *)(point_list->content))[1];
 		pt[2] = ((double *)(point_list->content))[2];
-		// printf("(%d,%d,%d)->", pt[0], pt[1], pt[2]);
 		((double *)(point_list->content))[0] = (cos(a) * pt[0] - sin(a) * pt[1]);
 		((double *)(point_list->content))[1] = (sin(a) * pt[0] + cos(a) * pt[1]);
 		((double *)(point_list->content))[2] = pt[2];
-		// printf("(%d,%d,%d)\n", ((double *)(point_list->content))[0], ((double *)(point_list->content))[1], ((double *)(point_list->content))[2]);
 		point_list = point_list->next;
 	}
 }
-// test_maps_fallan/square.fdf:
-// input:
-// pt 9 : (4.000000,1.000000), altitude 0.000000,
-// 45 degrees = 0.785 radians
-// z rotation:
-// x' = (cos(0.785) * 4 - sin(0.785) * 1) == 2.12272789556
-// y' = (sin(0.785) * 4 + cos(0.785) * 1) == 3.53468899359
-// z' == 0
-
-// x rotation:
-// x' = x == 2.12272789556
-// y' = cos(0.615) * 3.534 == 2.88647736135
-// z' == sin(0.615) * 3.534 == 2.03897141776
-
 
 // x_rotation (try with arctan(sqrt2))
 void	ft_x_rotation(t_list *point_list)
@@ -219,17 +125,14 @@ void	ft_x_rotation(t_list *point_list)
 	double	pt[5];
 
 	a = atan(1/sqrt(2));
-	printf("x_rotation angle in radians: %f\n", a);
 	while (point_list)
 	{
 		pt[0] = ((double *)point_list->content)[0];
 		pt[1] = ((double *)point_list->content)[1];
 		pt[2] = ((double *)point_list->content)[2];
-
  		rotation[0] = pt[0];
 		rotation[1] = cos(a) * pt[1] - sin(a) * pt[2];
 		rotation[2] = sin(a) * pt[1] + cos(a) * pt[2];
-
  		((double *)point_list->content)[0] =  rotation[0];
 		((double *)point_list->content)[1] =  rotation[1];
 		((double *)point_list->content)[2] =  rotation[2];
@@ -249,25 +152,10 @@ void	ft_orthographic_projection(t_list *point_list)
 		pt[0] = (double)((double *)point_list->content)[0];
 		pt[1] = (double)((double *)point_list->content)[1];
 		pt[2] = (double)((double *)point_list->content)[2];
-
-		// printf("x projected: %f\n", (scale * (pt[0] - pt[1])));
-		if (scale * ((pt[0] + pt[1]) / (2 - pt[2])) > 3)
-			printf("y projected: %f\n", (scale * ((pt[0] + pt[1]) / (2 - pt[2]))));
-
 		projection[0] = (scale * (pt[0] - pt[1]));
 		projection[1] = (scale * ((pt[0] + pt[1]) / (2 - pt[2])));
-
-// orthographic projection:
-// x == 2.12272789556
-// y == 2.88647736135
-// z == 2.03897141776
-
-// x' = 2.122 - 2.886 == -0.764
-// y' = (2.122 + 2.886) / (2 - 2.03897141776) == -128.504434477
-
 		((double *)point_list->content)[0] =  projection[0];
 		((double *)point_list->content)[1] =  projection[1];
-
 		point_list = point_list->next;
 	}
 }

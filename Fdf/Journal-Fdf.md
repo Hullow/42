@@ -220,6 +220,7 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 
 
 
+
 # 6/5/24
 
 
@@ -231,3 +232,38 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 ```
 
 - Also added clear window functionality upon pressing 'c' or 'del'
+
+- Finally solved the issue by asking Copilot for help with the projection and it said to use double instead of int
+=> replacing all ints with doubles AND removing the orthographic projection, which was superfluous, solved the problem
+for Pentenegpos !!! Finally !! Now on to memory management (and maybe line interpolation ?)
+
+I realized the issue with orthographic projection by using the simplest map I had, my custom square.fdf:
+0 0 0 0 0
+0 1 1 1 0
+0 1 1 1 0
+0 1 1 1 0
+0 0 0 0 0
+ 
+// test_maps_fallan/square.fdf:
+// input:
+// pt 9 : (4.000000,1.000000), altitude 0.000000,
+// 45 degrees = 0.785 radians
+// z rotation:
+// x' = (cos(0.785) * 4 - sin(0.785) * 1) == 2.12272789556
+// y' = (sin(0.785) * 4 + cos(0.785) * 1) == 3.53468899359
+// z' == 0
+
+// x rotation:
+// x' = x == 2.12272789556
+// y' = cos(0.615) * 3.534 == 2.88647736135
+// z' == sin(0.615) * 3.534 == 2.03897141776
+
+// orthographic projection:
+// x == 2.12272789556
+// y == 2.88647736135
+// z == 2.03897141776
+
+// x' = 2.122 - 2.886 == -0.764
+***// y' = (2.122 + 2.886) / (2 - 2.03897141776) == -128.504434477***
+=> this made an extreme value for no reason, so I read the wiki article and saw there was no need for an ortho projection,
+so I tested my code without it and it worked !

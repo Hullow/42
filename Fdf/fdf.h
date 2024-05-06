@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 14:26:37 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 15:24:22 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_free_array(char ***split, int *line_data);
 // for debugging:
 void	ft_print_point_list(t_env *env);
 void	ft_max_altitude(t_list *point_list);
+void	ft_draw_points(t_env *env);
 
 // input handling
 int		*ft_find_dimensions(int fd, int *line_data);
@@ -70,12 +71,11 @@ double	*ft_fill_pt(char **split, int i, int j, int *line_data);
 void	ft_center_points(t_list *point_list, double *min_max);
 void	ft_isometric_projection(t_list *point_list);
 double	*ft_min_max(t_list *point_list);
-float	ft_calculate_zoom(double *min_max, int WIN_W, int WIN_H);
+double	ft_calculate_zoom(double *min_max, int WIN_W, int WIN_H);
 void	ft_apply_zoom(t_list *point_list, float zoom);
 void	ft_z_rotation(t_list *point_list);
 void	ft_x_rotation(t_list *point_list);
 void	ft_orthographic_projection(t_list *point_list);
-
 
 // graph utils
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
@@ -83,7 +83,6 @@ void	ft_line_put(t_env *env, double *coord);
 
 // drawing functions
 void	ft_draw(t_env *env);
-void	ft_draw_points(t_env *env);
 void	ft_draw_lines(t_env *env);
 void	ft_draw_horizontal(t_env *env, double *coord, int i);
 void	ft_draw_vertical(t_env *env, double *coord, int columns);
