@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/06 14:37:28 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 14:55:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ to calculate a centering vector which is used to
 center the points */
 void	ft_center_points(t_list *point_list, double *min_max)
 {
-	int		cent_vect[2];
+	double	cent_vect[2];
 
 	cent_vect[0] = 0;
 	cent_vect[1] = 0;
@@ -196,6 +196,20 @@ void	ft_z_rotation(t_list *point_list)
 		point_list = point_list->next;
 	}
 }
+// test_maps_fallan/square.fdf:
+// input:
+// pt 9 : (4.000000,1.000000), altitude 0.000000,
+// 45 degrees = 0.785 radians
+// z rotation:
+// x' = (cos(0.785) * 4 - sin(0.785) * 1) == 2.12272789556
+// y' = (sin(0.785) * 4 + cos(0.785) * 1) == 3.53468899359
+// z' == 0
+
+// x rotation:
+// x' = x == 2.12272789556
+// y' = cos(0.615) * 3.534 == 2.88647736135
+// z' == sin(0.615) * 3.534 == 2.03897141776
+
 
 // x_rotation (try with arctan(sqrt2))
 void	ft_x_rotation(t_list *point_list)
@@ -205,6 +219,7 @@ void	ft_x_rotation(t_list *point_list)
 	double	pt[5];
 
 	a = atan(1/sqrt(2));
+	printf("x_rotation angle in radians: %f\n", a);
 	while (point_list)
 	{
 		pt[0] = ((double *)point_list->content)[0];
@@ -241,7 +256,15 @@ void	ft_orthographic_projection(t_list *point_list)
 
 		projection[0] = (scale * (pt[0] - pt[1]));
 		projection[1] = (scale * ((pt[0] + pt[1]) / (2 - pt[2])));
-		
+
+// orthographic projection:
+// x == 2.12272789556
+// y == 2.88647736135
+// z == 2.03897141776
+
+// x' = 2.122 - 2.886 == -0.764
+// y' = (2.122 + 2.886) / (2 - 2.03897141776) == -128.504434477
+
 		((double *)point_list->content)[0] =  projection[0];
 		((double *)point_list->content)[1] =  projection[1];
 

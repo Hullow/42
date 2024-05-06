@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 18:11:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 14:46:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,17 @@ void	ft_print_point_list(t_env *env)
 {
 	int i = 0;
 	t_list	*anchor = env->point_list;
-	int	*temp;
+	double	*temp;
 
-	temp = (int *)malloc (6 * sizeof(int));
+	temp = (double *)malloc (6 * sizeof(double));
 	if (env->point_list)
 	{
 		while (env->point_list)
 		{
-			temp = (int *) env->point_list->content;
+			temp = (double *) env->point_list->content;
 			// printf("pt %d: (%d,%d), altitude %d, color %d   ", i++, \
 			// temp[0], temp[1], temp[2], temp[5]);
-			printf("pt %d: (%d,%d), altitude %d,   ", i++, \
+			printf("pt %d: (%f,%f), altitude %f,   ", i++, \
 			temp[0], temp[1], temp[2]);
 			if (i % 3 == 0)
 				printf("\n");

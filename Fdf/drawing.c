@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 14:25:49 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 14:55:52 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,19 @@ void	ft_draw(t_env *env)
 
 	// ft_max_altitude(env->point_list);
 	
-	// printf("**************\ninput points:\n\n");
-	// ft_print_point_list(env);
+	printf("**************\ninput points:\n\n");
+	ft_print_point_list(env);
 	
 	ft_z_rotation(env->point_list);
 	ft_x_rotation(env->point_list);
-	ft_orthographic_projection(env->point_list);
+	// ft_orthographic_projection(env->point_list);
 	// ft_isometric_projection(env->point_list);
 
-	// ft_print_point_list(env);
-	// printf("\n\n**************\nprojectesd points:\n\n");
-	// ft_print_point_list(env);
+	printf("\n\n**************\nprojectesd points:\n\n");
+	ft_print_point_list(env);
 	
-	// float zoom = ft_calculate_zoom(ft_min_max(env->point_list), WINDOW_WIDTH, WINDOW_HEIGHT);
-	ft_apply_zoom(env->point_list, 5);
+	float zoom = ft_calculate_zoom(ft_min_max(env->point_list), WINDOW_WIDTH, WINDOW_HEIGHT);
+	ft_apply_zoom(env->point_list, zoom);
 	ft_center_points(env->point_list, ft_min_max(env->point_list));
 	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
