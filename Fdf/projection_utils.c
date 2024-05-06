@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/05 20:40:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 11:40:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	ft_z_rotation(t_list *point_list)
 		pt[2] = ((int *)(point_list->content))[2];
 		// printf("(%d,%d,%d)->", pt[0], pt[1], pt[2]);
 		((int *)(point_list->content))[0] = cos(a) * pt[0] - sin(a) * pt[1];
-		((int *)(point_list->content))[1] = sin(a) * pt[0] - cos(a) * pt[1];
+		((int *)(point_list->content))[1] = sin(a) * pt[0] + cos(a) * pt[1];
 		((int *)(point_list->content))[2] = pt[2];
 		// printf("(%d,%d,%d)\n", ((int *)(point_list->content))[0], ((int *)(point_list->content))[1], ((int *)(point_list->content))[2]);
 		point_list = point_list->next;
@@ -205,7 +205,7 @@ void	ft_x_rotation(t_list *point_list)
 	double	a;
 	int		pt[5];
 
-	a = atan(sqrt(2));
+	a = atan(1/sqrt(2));
 	while (point_list)
 	{
 		pt[0] = ((int *)point_list->content)[0];
@@ -218,4 +218,3 @@ void	ft_x_rotation(t_list *point_list)
 		point_list = point_list->next;
 	}
 }
-

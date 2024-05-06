@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 17:30:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 11:51:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,21 @@ int	key_handler(int keycode, t_env *env)
 	{
 		ft_printf("ESC key pressed, program stopping\n");
 		mlx_destroy_window(env->mlx, env->win);
+		
 		exit(1);
 	}
 	else if (!(env->drawn))
 	{
 		ft_draw(env);
-		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+		// mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		env->drawn = 1;
 	}
-	else if (env->drawn)
-		ft_printf("Graph already drawn, nothing to do!\n");
+	else if (env->drawn && ((keycode == 8) || (keycode == 117)))
+	{
+		ft_printf("Graph drawn, clearing window\n");
+		mlx_clear_window(env->mlx, env->win);
+		env->drawn = 0;
+	}
 	return (0);
 }
 

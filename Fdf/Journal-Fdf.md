@@ -217,3 +217,15 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 - All good, memory partly looked at (need to test systematically with leaks), but projection problem with pentenegpos....need different projection algo it seems
 
 - Implemented an x_axis rotation matrix (see https://m4nnb3ll.medium.com/fil-de-fer-fdf-the-first-graphical-project-at-42-the-network-5cce69203448 and https://en.wikipedia.org/wiki/Rotation_matrix)
+
+
+
+# 6/5/24
+
+
+- At 42: used usleep and asked Copilot how to display line by line, => just
+```c
+    mlx_put_image_to_window(mlx, win, img, 0, 0);
+    mlx_do_sync(mlx);
+    usleep(500000);
+```
