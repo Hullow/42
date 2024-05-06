@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 18:46:45 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 19:07:16 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_draw(t_env *env)
 // go through all columns
 void	ft_draw_horizontal(t_env *env, double *coord, int i)
 {
+	printf("coord[5]: %f\n", coord[5]); 
 	while (env->point_list)
 	{
 		if (i < coord[5] - 1)
@@ -69,8 +70,7 @@ void	ft_draw_horizontal(t_env *env, double *coord, int i)
 			coord[0] = ((double *) env->point_list->content)[0];
 			coord[1] = ((double *) env->point_list->content)[1];
 			coord[6] = ((double *) env->point_list->content)[5];
-			if (env->point_list->next)
-				env->point_list = env->point_list->next;
+			env->point_list = env->point_list->next;
 			coord[2] = ((double *) env->point_list->content)[0];
 			coord[3] = ((double *) env->point_list->content)[1];
 			ft_line_put(env, coord);
@@ -78,9 +78,9 @@ void	ft_draw_horizontal(t_env *env, double *coord, int i)
 		else
 		{
 			i = 0;
-			if (env->point_list->next)
-				env->point_list = env->point_list->next;
+			env->point_list = env->point_list->next;
 		}
+		// ft_printf("horizontal: infinite loop?  -  "); 
 	}
 }
 
