@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projection_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/05 20:40:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 10:48:36 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,11 @@ void	ft_z_rotation(t_list *point_list)
 		pt[1] = ((int *)(point_list->content))[1];
 		pt[2] = ((int *)(point_list->content))[2];
 		// printf("(%d,%d,%d)->", pt[0], pt[1], pt[2]);
+
 		((int *)(point_list->content))[0] = cos(a) * pt[0] - sin(a) * pt[1];
-		((int *)(point_list->content))[1] = sin(a) * pt[0] - cos(a) * pt[1];
+		((int *)(point_list->content))[1] = sin(a) * pt[0] + cos(a) * pt[1];
 		((int *)(point_list->content))[2] = pt[2];
+
 		// printf("(%d,%d,%d)\n", ((int *)(point_list->content))[0], ((int *)(point_list->content))[1], ((int *)(point_list->content))[2]);
 		point_list = point_list->next;
 	}
@@ -205,7 +207,8 @@ void	ft_x_rotation(t_list *point_list)
 	double	a;
 	int		pt[5];
 
-	a = atan(sqrt(2));
+	a = atan(1/sqrt(2));
+	printf("x rotation angle: %f\n", a);
 	while (point_list)
 	{
 		pt[0] = ((int *)point_list->content)[0];
@@ -213,9 +216,35 @@ void	ft_x_rotation(t_list *point_list)
 		pt[2] = ((int *)point_list->content)[2];
 
 		((int *)point_list->content)[0] = pt[0];
-		((int *)point_list->content)[1] = cos(a) * pt[1] - sin(a) * pt[2];
-		((int *)point_list->content)[2] = sin(a) * pt[1] + cos(a) * pt[2];
+		((int *)point_list->content)[1] = (cos(a) * pt[1]) - (sin(a) * pt[2]);
+		((int *)point_list->content)[2] = (sin(a) * pt[1]) + (cos(a) * pt[2]);
+		
 		point_list = point_list->next;
 	}
 }
 
+void	ft_orthographic_projection(t_list *point_list)
+{
+	int		pt[5];
+	int		scale;
+
+	scale = 1;
+	while (point_list)
+	{
+		pt[0] = ((int *)point_list->content)[0];
+		pt[1] = ((int *)point_list->content)[1];
+		pt[2] = ((int *)point_list->content)[2];
+
+		((int *)point_list->content)[0] = scale * (pt[0] - pt[1]);
+		((int *)point_list->content)[1] = scale * (pt[2] - (pt[0] + pt[1]) / 2);
+		
+		point_list = point_list->next;
+	}
+}
+
+
+
+// 6/5/24: changes made to rotations:
+// angle x rotation: arctan(1/sqrt2)
+// z rotation: + instead of - (int *)(point_list->content))[1] = sin(a) * pt[0] + cos(a) * pt[1];
+//

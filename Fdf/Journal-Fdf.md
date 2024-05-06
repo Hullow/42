@@ -217,3 +217,10 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 - All good, memory partly looked at (need to test systematically with leaks), but projection problem with pentenegpos....need different projection algo it seems
 
 - Implemented an x_axis rotation matrix (see https://m4nnb3ll.medium.com/fil-de-fer-fdf-the-first-graphical-project-at-42-the-network-5cce69203448 and https://en.wikipedia.org/wiki/Rotation_matrix)
+
+# 6/5/24
+- In the train: working on rotation matrices + orthographic projection
+
+
+- Also, weird issues coming up, lines drawn diagonally between points...
+- Seg fault with old isometric projection...maybe leaks ? => heap buffer overflow

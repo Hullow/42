@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 20:39:50 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 10:53:59 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@ void	ft_draw(t_env *env)
 	// printf("**************\ninput points:\n\n");
 	// ft_print_point_list(env);
 	// ft_max_altitude(env->point_list);
+
 	// ft_z_rotation(env->point_list);
 	// ft_x_rotation(env->point_list);
+	// ft_orthographic_projection(env->point_list);
+
+	ft_isometric_projection(env->point_list);
+
 	// ft_print_point_list(env);
 	// printf("\n\n**************\nprojectesd points:\n\n");
 	// ft_print_point_list(env);
-	ft_isometric_projection(env->point_list);
-	float zoom = ft_calculate_zoom(ft_min_max(env->point_list), WINDOW_WIDTH, WINDOW_HEIGHT);
-	ft_apply_zoom(env->point_list, zoom);
+	// float zoom = ft_calculate_zoom(ft_min_max(env->point_list), WINDOW_WIDTH, WINDOW_HEIGHT);
+	// ft_apply_zoom(env->point_list, 15);
 	ft_center_points(env->point_list, ft_min_max(env->point_list));
 	ft_draw_points(env);
 	ft_draw_lines(env);
@@ -73,8 +77,9 @@ void	ft_draw_lines(t_env *env)
 void	ft_draw_horizontal(t_env *env, int *coord, int i)
 {
 	// int j = 0;
-	int line = 0;
-	// printf("\nhorizontal lines:\n**************\n");
+	int line;
+	line = 0;
+	printf("\nhorizontal lines: %d so far\n**************\n", line);
 	while (env->point_list->next) // && ++j < 25)
 	{
 		if (i < coord[5] - 1)
@@ -123,7 +128,7 @@ void	ft_draw_vertical(t_env *env, int *coord, int columns)
 		coord[0] = ((int *)(env->point_list->content))[0];
 		coord[1] = ((int *)(env->point_list->content))[1];
 		coord[6] = ((int *)(env->point_list->content))[5];
-		while (columns && env->point_list->next)
+		while (columns && env->point_list)
 		{
 			columns--;
 			env->point_list = env->point_list->next;
