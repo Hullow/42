@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:53 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:38:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 17:46:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_center_points(t_list *point_list, double *min_max)
 		((double *)point_list->content)[1] += cent_vect[1];
 		point_list = point_list->next;
 	}
-	free(min_max);
 }
 
 // iterates through list to find min max values
@@ -84,7 +83,6 @@ double	ft_calculate_zoom(double *min_max, int WIN_W, int WIN_H)
 	zoom * (min_max[1] - min_max[3]) > WIN_H * 0.75)
 		zoom -= 0.1;
 	ft_printf("zoom: %d\n", (int)(zoom));
-	free(min_max);
 	return (zoom);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:29:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 18:05:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		ft_hex_string_to_int(char *hex_string);
 char	*ft_whitespace_to_space(char *str);
 void	ft_free_list(t_list *point_list);
 void	ft_free_array(char ***split, int *line_data);
+int		ft_count_columns(char *line);
 
 // for debugging:
 void	ft_max_altitude(t_list *point_list);

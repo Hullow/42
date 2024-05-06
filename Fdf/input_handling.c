@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:32:02 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 18:53:38 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_list	*ft_file_to_list(int fd, char *arg)
 	char	***split;
 	int		*line_data;
 
-	line_data = malloc(sizeof(int) * 3);
+	line_data = malloc(sizeof(int) * 3); // this is free in the function ft_fill_list, after having filled the list
 	if (!line_data)
 	{
 		ft_printf("ft_file_to_list: malloc fail\n");
@@ -47,6 +47,7 @@ char	***ft_read_to_array(int fd, int *line_data)
 	{
 		line_read = ft_whitespace_to_space(get_next_line(fd));
 		split[i] = ft_split(line_read, ' ');
+		ft_free(line_read);
 	}
 	return (split);
 }
@@ -82,7 +83,7 @@ t_list	*ft_fill_list(char ***split, int *line_data, int i, int j)
 		j = -1;
 	}
 	ft_free_array(split, line_data);
-	free(line_data);
+	// ft_free(line_data);
 	return (head);
 }
 
@@ -109,6 +110,9 @@ double	*ft_fill_pt(char **split, int i, int j, int *line_data)
 		color_input = ft_split(split[j], ',');
 		point[2] = ft_atoi(color_input[0]);
 		point[5] = ft_hex_string_to_int(color_input[1]);
+		ft_free(color_input[0]);
+		ft_free(color_input[1]);
+		ft_free(color_input);
 	}
 	else
 	{

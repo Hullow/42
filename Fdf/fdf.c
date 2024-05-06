@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:34:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 18:33:03 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,14 @@ void	launch_window_and_draw(t_list *point_list)
 // and displays the output in a mlx-handled window
 int	key_handler(int keycode, t_env *env)
 {
-	printf("keycode = %d\n", keycode);
+	ft_printf("keycode = %d\n", keycode);
 	if (keycode == 53)
 	{
 		ft_printf("ESC key pressed, program stopping\n");
+		ft_printf("env->point_list address before free: {%p}", env->point_list);
+		ft_free_list(env->point_list);
 		mlx_destroy_window(env->mlx, env->win);
+		ft_printf("freeing list:\n");
 		exit(1);
 	}
 	else if (!(env->drawn))
@@ -58,7 +61,10 @@ int	key_handler(int keycode, t_env *env)
 	else if (env->drawn && ((keycode == 8) || (keycode == 117)))
 	{
 		ft_printf("Graph drawn, clearing window\n");
+		ft_printf("env->point_list address before free: {%p}", env->point_list);
+		ft_free_list(env->point_list);
 		mlx_clear_window(env->mlx, env->win);
+		ft_printf("freeing list :\n");
 		env->drawn = 0;
 	}
 	return (0);
@@ -68,7 +74,9 @@ int	key_handler(int keycode, t_env *env)
 int	window_closed(t_env *env)
 {
 	ft_printf("Window closed, program stopping\n");
+	ft_free_list(env->point_list);
 	mlx_destroy_window(env->mlx, env->win);
+	printf("freeing list:\n");
 	exit(1);
 }
 
@@ -80,6 +88,7 @@ int	main(int argc, char *argv[])
 {
 	int		fd;
 	t_list	*point_list;
+	t_list	*anchor;
 
 	if (argc == 2)
 	{
@@ -90,11 +99,16 @@ int	main(int argc, char *argv[])
 		{
 			ft_printf("%s opened\n", argv[1]);
 			point_list = ft_file_to_list(fd, argv[1]);
+			ft_printf("main: point list address after input handling:{%p}\n", point_list);
+			anchor = point_list;
 			launch_window_and_draw(point_list);
-			ft_free_list(point_list);
+			printf("freeing list:\n");
+			ft_printf("env->point_list address before free: {%p}", point_list);
+			ft_free_list(anchor);
 		}
 	}
 	else
 		ft_printf("missing arguments\n");
+	exit(1);
 	return (0);
 }

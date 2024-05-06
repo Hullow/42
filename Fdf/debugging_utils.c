@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:08:11 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:38:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 17:44:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	ft_print_point_list(t_env *env)
 			env->point_list = env->point_list->next;
 		}
 	}
+	ft_free(temp);
 	env->point_list = anchor;
 }
 
@@ -69,6 +70,6 @@ void	ft_draw_points(t_env *env)
 			env->point_list = env->point_list->next;
 		}
 	}
-	free(temp);
+	ft_free(temp);
 	env->point_list = anchor;
 }

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:29:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 18:46:45 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,34 @@ void	ft_draw(t_env *env)
 {
 	t_list	*anchor;
 	double	*coord;
+	double	*minmax;
 	double	zoom;
 
+	ft_printf("env->point_list address at beginning of ft_draw: {%p}\n", env->point_list);
 	anchor = env->point_list;
 	coord = (double *)malloc(sizeof(double) * 7);
 	coord[5] = ((double *) env->point_list->content)[4];
 	ft_z_rotation(env->point_list);
 	ft_x_rotation(env->point_list);
-	zoom = ft_calculate_zoom(ft_min_max(env->point_list), \
-	WINDOW_WIDTH, WINDOW_HEIGHT);
+	minmax = ft_min_max(env->point_list);
+	zoom = ft_calculate_zoom(minmax, WINDOW_WIDTH, WINDOW_HEIGHT);
 	ft_apply_zoom(env->point_list, zoom);
-	ft_center_points(env->point_list, ft_min_max(env->point_list));
+	ft_center_points(env->point_list, minmax);
 	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
 	ft_draw_vertical(env, coord, coord[5]);
+	ft_free(coord);
+	ft_free(minmax);
+	env->point_list = anchor;
+	ft_printf("env->point_list address at end of ft_draw: {%p}", env->point_list);
+	printf("\n*************\nft_draw completed\n*************\n");
 }
 
 // draws horizontal lines of the grid, iteratively over the linked list
 // go through all columns
 void	ft_draw_horizontal(t_env *env, double *coord, int i)
 {
-	while (env->point_list->next)
+	while (env->point_list)
 	{
 		if (i < coord[5] - 1)
 		{

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 15:34:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 17:56:08 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,23 @@ int	*ft_find_dimensions(int fd, int *line_data)
 
 	line_read = NULL;
 	line_data = ft_examine_line(fd, line_read, line_data);
+	if (!line_data[2])
+	{
+		ft_printf("no line found\n");
+		ft_free(line_data);
+		exit(1);
+	}
 	columns = line_data[1];
 	while (line_data[2])
 	{
 		line_data = ft_examine_line(fd, line_read, line_data);
 		if (line_data[1] != columns)
 		{
-			ft_free(line_read);
-			ft_free(line_data);
 			ft_printf("irregular map, aborting\n");
+			ft_free(line_data);
 			exit(1);
 		}
 	}
-	ft_free(line_read);
 	return (line_data);
 }
 
@@ -47,22 +51,41 @@ file descriptor (array of characters) and calls ft_count_columns
 to count the number of columns (line_data[1]) */
 int	*ft_examine_line(int fd, char *line_read, int *line_data)
 {
-	char	**temp_split;
-
 	line_read = get_next_line(fd);
-	line_read = ft_whitespace_to_space(line_read);
 	if (line_read)
-		line_data[0]++;
-	else
 	{
-		line_data[2] = 0;
-		return (line_data);
+		line_data[0]++;
+		line_read = ft_whitespace_to_space(line_read);
+		line_data[1] = ft_count_columns(line_read);
 	}
-	temp_split = ft_split(line_read, ' ');
-	line_data[1] = ft_count_array_elements(temp_split);
+	else
+		line_data[2] = 0;
 	ft_free(line_read);
-	ft_free(temp_split);
 	return (line_data);
+}
+
+int	ft_count_columns(char *line)
+{
+	int	i;
+	int	columns;
+
+	columns = 0;
+	if (!line)
+		return (-1);
+	i = 0;
+	columns = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ')
+			i++;
+		else
+		{
+			columns++;
+			while (line[i] != ' ' && line[i])
+				i++;
+		}
+	}
+	return (columns);
 }
 
 int	ft_count_array_elements(char **array)
