@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/05 19:50:32 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 12:06:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ float	ft_calculate_zoom(int *min_max, int WIN_W, int WIN_H);
 void	ft_apply_zoom(t_list *point_list, float zoom);
 void	ft_z_rotation(t_list *point_list);
 void	ft_x_rotation(t_list *point_list);
+void	ft_orthographic_projection(t_list *point_list);
 
 
 // graph utils

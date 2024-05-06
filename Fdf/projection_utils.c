@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/06 11:40:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/06 12:06:39 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,25 @@ void	ft_x_rotation(t_list *point_list)
 		((int *)point_list->content)[0] = pt[0];
 		((int *)point_list->content)[1] = cos(a) * pt[1] - sin(a) * pt[2];
 		((int *)point_list->content)[2] = sin(a) * pt[1] + cos(a) * pt[2];
+		point_list = point_list->next;
+	}
+}
+
+void	ft_orthographic_projection(t_list *point_list)
+{
+	int		pt[5];
+	int		scale;
+
+	scale = 1;
+	while (point_list)
+	{
+		pt[0] = ((int *)point_list->content)[0];
+		pt[1] = ((int *)point_list->content)[1];
+		pt[2] = ((int *)point_list->content)[2];
+
+		((int *)point_list->content)[0] = scale * (pt[0] - pt[1]);
+		((int *)point_list->content)[1] = scale * (pt[2] - (pt[0] + pt[1]) / 2);
+		
 		point_list = point_list->next;
 	}
 }
