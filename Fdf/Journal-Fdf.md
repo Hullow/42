@@ -271,7 +271,7 @@ so I tested my code without it and it worked !
 
 # 7/5/24
 - Looked at code with Filipo:
-	- ft_free (from GNL): useless because pointer passed as parameter
+	- ft_free (from GNL): useless because pointer parameter is passed as value, need to pass by reference!
 	- Understand your code ! What input does it take, structure, etc. !
 	- Rename line_data to dimensions
 	- #
@@ -285,3 +285,10 @@ so I tested my code without it and it worked !
 	- Notes:
 		- add -g3 flags to sanitizer
 		- set freed pointers to NULL (security reasons, see [how2heap on github](https://github.com/shellphish/how2heap) for exploits)
+
+- To do Fdf:
+	- Check leaks intel Macs
+	- Center graph again
+	- Norm
+	- Interpolation ?
+	- Zoom ?
