@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 10:24:47 by francis           #+#    #+#             */
-/*   Updated: 2024/05/06 15:37:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 12:36:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_z_rotation(t_list *point_list)
 	double	pt[3];
 	float	a;
 
-	a = 45 * (M_PI / 180);
+	a = -45 * (M_PI / 180);
 	while (point_list)
 	{
 		pt[0] = ((double *)(point_list->content))[0];
@@ -40,7 +40,7 @@ void	ft_x_rotation(t_list *point_list)
 	double	rotation[3];
 	double	pt[5];
 
-	a = atan(1 / sqrt(2));
+	a = atan(1 / sqrt(2)) * 1.7;
 	while (point_list)
 	{
 		pt[0] = ((double *)point_list->content)[0];
