@@ -267,3 +267,21 @@ I realized the issue with orthographic projection by using the simplest map I ha
 ***// y' = (2.122 + 2.886) / (2 - 2.03897141776) == -128.504434477***
 => this made an extreme value for no reason, so I read the wiki article and saw there was no need for an ortho projection,
 so I tested my code without it and it worked !
+
+
+# 7/5/24
+- Looked at code with Filipo:
+	- ft_free (from GNL): useless because pointer passed as parameter
+	- Understand your code ! What input does it take, structure, etc. !
+	- Rename line_data to dimensions
+	- #
+
+- Looked at leaks with Hajar:
+	- 0 leaks !!
+	- Issues were:
+		- in ft_free_array, j not reset to 0 when looping through i
+		- didn't free dimensions (ex line_data)
+
+	- Notes:
+		- add -g3 flags to sanitizer
+		- set freed pointers to NULL (security reasons, see [how2heap on github](https://github.com/shellphish/how2heap) for exploits)

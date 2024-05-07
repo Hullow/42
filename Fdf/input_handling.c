@@ -3,87 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 18:53:38 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 11:28:40 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// line_data[2] is the toggle to stop counting when set to 1
+// dimensions[2] is the toggle to stop counting when set to 1
 t_list	*ft_file_to_list(int fd, char *arg)
 {
 	char	***split;
-	int		*line_data;
+	int		*dimensions;
 
-	line_data = malloc(sizeof(int) * 3); // this is free in the function ft_fill_list, after having filled the list
-	if (!line_data)
+	dimensions = malloc(sizeof(int) * 3); // this is free in the function ft_fill_list, after having filled the list
+	printf("ft_file_to_list: dimension address: %p\n", dimensions);
+	if (!dimensions)
 	{
 		ft_printf("ft_file_to_list: malloc fail\n");
 		return (NULL);
 	}
-	line_data[0] = 0;
-	line_data[1] = 0;
-	line_data[2] = 1;
-	line_data = ft_find_dimensions(fd, line_data);
+	dimensions[0] = 0;
+	dimensions[1] = 0;
+	dimensions[2] = 1;
+	dimensions = ft_find_dimensions(fd, dimensions);
+	printf("ft_file_to_list after ft_find_dimensions: dimension address: %p\n", dimensions);
 	close(fd);
 	fd = open(arg, O_RDONLY);
-	split = ft_read_to_array(fd, line_data);
-	return (ft_fill_list(split, line_data, -1, -1));
+	split = ft_read_to_array(fd, dimensions);
+	return (ft_fill_list(split, dimensions, -1, -1));
 }
 
-char	***ft_read_to_array(int fd, int *line_data)
+char	***ft_read_to_array(int fd, int *dimensions)
 {
 	char	***split;
 	char	*line_read;
 	int		i;
 
-	split = (char ***)malloc(sizeof(char **) * line_data[0]);
+	split = (char ***)malloc(sizeof(char **) * dimensions[0]);
 	line_read = NULL;
 	i = -1;
-	while (++i < line_data[0])
+	while (++i < dimensions[0])
 	{
 		line_read = ft_whitespace_to_space(get_next_line(fd));
 		split[i] = ft_split(line_read, ' ');
+
+		printf("reading: split[i][0] address: %p\n", split[i][0]);
 		ft_free(line_read);
 	}
 	return (split);
 }
 
 // parses the input file to produce an array of integers
-// the while() goes through all lines (line_data[0])
+// the while() goes through all lines (dimensions[0])
 // and splits the elements with ft_split
 // the nested while() then goes through each of these elements,
-// i.e. through #columns (== line_data[1]), and creates a
+// i.e. through #columns (== dimensions[1]), and creates a
 // linked list of points which are filled by ft_fill_pt
-t_list	*ft_fill_list(char ***split, int *line_data, int i, int j)
+t_list	*ft_fill_list(char ***split, int *dimensions, int i, int j)
 {
 	t_list	*node;
 	t_list	*head;
 
 	node = NULL;
 	head = NULL;
-	while (++i < line_data[0])
+	while (++i < dimensions[0])
 	{
-		while (++j < line_data[1])
+		while (++j < dimensions[1])
 		{
 			if (node)
 			{
-				node->next = ft_lstnew(ft_fill_pt(split[i], i, j, line_data));
+				node->next = ft_lstnew(ft_fill_pt(split[i], i, j, dimensions));
 				node = node->next;
 			}
 			else
 			{
-				node = ft_lstnew(ft_fill_pt(split[i], i, j, line_data));
+				node = ft_lstnew(ft_fill_pt(split[i], i, j, dimensions));
 				head = node;
 			}
 		}
 		j = -1;
 	}
-	ft_free_array(split, line_data);
-	// ft_free(line_data);
+	ft_free_array(split, dimensions);
+	printf("split[i] address: %p\n", split[i]);
+	ft_free(&dimensions);
 	return (head);
 }
 
@@ -95,7 +100,7 @@ point[3]: #lines
 point[4]: #columns
 point[5]: color (if ',' is found in our split,
 otherwise color is set to white/16777215) */
-double	*ft_fill_pt(char **split, int i, int j, int *line_data)
+double	*ft_fill_pt(char **split, int i, int j, int *dimensions)
 {
 	double	*point;
 	char	**color_input;
@@ -105,7 +110,7 @@ double	*ft_fill_pt(char **split, int i, int j, int *line_data)
 	point[0] = j;
 	point[1] = i;
 	point[2] = ft_atoi(split[j]);
-	if (ft_strchr(split[j], 44))
+	if (ft_strchr(split[j], ','))
 	{
 		color_input = ft_split(split[j], ',');
 		point[2] = ft_atoi(color_input[0]);
@@ -119,7 +124,7 @@ double	*ft_fill_pt(char **split, int i, int j, int *line_data)
 		point[2] = ft_atoi(split[j]);
 		point[5] = 0xFFFFFF;
 	}	
-	point[3] = line_data[0];
-	point[4] = line_data[1];
+	point[3] = dimensions[0];
+	point[4] = dimensions[1];
 	return (point);
 }

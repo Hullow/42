@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:34:13 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 19:16:01 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 11:19:07 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,26 @@ void	ft_free_array(char ***split, int *line_data)
 	int	i;
 	int	j;
 
-	i = -1;
-	j = -1;
+	i = 0;
+	j = 0;
 	if (split)
 	{
-		while (++i < line_data[0])
+		while (i < line_data[0])
 		{
-			while (++j < line_data[1])
-				ft_free(split[i][j]);
-			ft_free(split[i]);
+			while (split[i][j])
+			{
+					// printf("freeing: split[i][j[] address: %p\n", split[i][j]);
+				free(split[i][j]);
+				j++;
+			}
+			// printf("freeing: split[i] address: %p\n", split[i]);
+			free(split[i]);
+			i++;
+			j = 0;
 		}
-		ft_free(split);
+		free(split);
 	}
-	ft_printf("\nft_free_array: end of function\n");
+	// ft_printf("\nft_free_array: end of function\n");
 }
 
 void	ft_free_list(t_list *point_list)

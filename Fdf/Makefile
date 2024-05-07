@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
+#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/05/06 15:38:06 by fallan           ###   ########.fr        #
+#    Updated: 2024/05/07 10:59:53 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-sanitize: CFLAGS += -fsanitize=address
+sanitize: CFLAGS += -fsanitize=address -g3
 sanitize: re
 
 debug: CFLAGS += -g

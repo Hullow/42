@@ -48,6 +48,7 @@ int	key_handler(int keycode, t_env *env)
 		ft_printf("ESC key pressed, program stopping\n");
 		ft_printf("env->point_list address before free: {%p}", env->point_list);
 		ft_free_list(env->point_list);
+		mlx_destroy_image(env->mlx, env->img);
 		mlx_destroy_window(env->mlx, env->win);
 		ft_printf("freeing list:\n");
 		exit(1);
