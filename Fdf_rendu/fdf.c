@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 15:25:27 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:31:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int	key_handler(int keycode, t_env *env)
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		env->drawn = 1;
 	}
-	else if (env->drawn && ((keycode == 8) || (keycode == 117)))
-	{
-		ft_printf("Graph drawn, clearing window\n");
-		mlx_clear_window(env->mlx, env->win);
-	}
-	else if ((env->drawn))
-		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+	// else if (env->drawn && ((keycode == 8) || (keycode == 117)))
+	// {
+	// 	ft_printf("Graph drawn, clearing window\n");
+	// 	mlx_clear_window(env->mlx, env->win);
+	// }
+	// else if ((env->drawn))
+	// 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (0);
 }
 
