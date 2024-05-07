@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 19:10:26 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 12:07:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	ft_draw(t_env *env)
 	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
 	ft_draw_vertical(env, coord, coord[5]);
-	ft_free(coord);
-	ft_free(minmax);
+	ft_free((void **)&coord);
+	ft_free((void **)&minmax);
 	env->point_list = anchor;
 	ft_printf("env->point_list address at end of ft_draw: {%p}\n", env->point_list);
 }

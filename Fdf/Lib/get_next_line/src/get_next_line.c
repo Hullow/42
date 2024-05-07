@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:08:39 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 11:36:42 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/07 12:07:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_next_line(int fd)
 	free(buf);
 	if (read_ret == -1)
 	{
-		ft_free(res.line);
+		ft_free((void **)&res.line);
 		return (NULL);
 	}
 	return (res.line);
@@ -103,16 +103,16 @@ char	*ft_add_string(char *addition, unsigned int addition_count, char *base)
 			output[base_length + i - 1] = addition[i - 1];
 		output[base_length + i - 1] = '\0';
 	}
-	ft_free(temp);
+	ft_free((void **)&temp);
 	return (output);
 }
 
-void	ft_free(void *temp)
+void	ft_free(void **temp)
 {
-	if (temp)
+	if (*temp)
 	{
-		free(temp);
-		temp = NULL;
+		free(*temp);
+		*temp = NULL;
 	}
 }
 

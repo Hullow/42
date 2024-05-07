@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 11:16:18 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 11:02:59 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/07 12:07:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	*ft_find_dimensions(int fd, int *dimensions)
 	if (!dimensions[2])
 	{
 		ft_printf("no line found\n");
-		ft_free(dimensions);
+		ft_free((void **)&dimensions);
 		exit(1);
 	}
 	columns = dimensions[1];
@@ -39,7 +39,7 @@ int	*ft_find_dimensions(int fd, int *dimensions)
 		if (dimensions[1] != columns)
 		{
 			ft_printf("irregular map, aborting\n");
-			ft_free(dimensions);
+			ft_free((void **)&dimensions);
 			exit(1);
 		}
 	}
@@ -60,7 +60,7 @@ int	*ft_examine_line(int fd, char *line_read, int *dimensions)
 	}
 	else
 		dimensions[2] = 0;
-	ft_free(line_read);
+	ft_free((void **)&line_read);
 	return (dimensions);
 }
 

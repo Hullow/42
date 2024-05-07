@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 11:28:40 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/07 12:07:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	***ft_read_to_array(int fd, int *dimensions)
 		split[i] = ft_split(line_read, ' ');
 
 		printf("reading: split[i][0] address: %p\n", split[i][0]);
-		ft_free(line_read);
+		ft_free((void **)&line_read);
 	}
 	return (split);
 }
@@ -88,7 +88,7 @@ t_list	*ft_fill_list(char ***split, int *dimensions, int i, int j)
 	}
 	ft_free_array(split, dimensions);
 	printf("split[i] address: %p\n", split[i]);
-	ft_free(&dimensions);
+	ft_free((void **)&dimensions);
 	return (head);
 }
 
@@ -115,9 +115,9 @@ double	*ft_fill_pt(char **split, int i, int j, int *dimensions)
 		color_input = ft_split(split[j], ',');
 		point[2] = ft_atoi(color_input[0]);
 		point[5] = ft_hex_string_to_int(color_input[1]);
-		ft_free(color_input[0]);
-		ft_free(color_input[1]);
-		ft_free(color_input);
+		ft_free((void **)&color_input[0]);
+		ft_free((void **)&color_input[1]);
+		ft_free((void **)&color_input);
 	}
 	else
 	{
