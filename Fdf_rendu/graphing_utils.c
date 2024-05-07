@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:53 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 16:30:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:21:48 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 /* uses the minimal and maximal values of x and y
 to calculate a centering vector which is used to
 center the points */
+// To adjust:
+// e.g. cent_vect[0] *= 1.2;
+// e.g. cent_vect[1] *= 0.8;
+
 void	ft_center_points(t_list *point_list, double *min_max)
 {
 	double	cent_vect[2];
@@ -22,7 +26,7 @@ void	ft_center_points(t_list *point_list, double *min_max)
 	cent_vect[0] = 0;
 	cent_vect[1] = 0;
 	while (cent_vect[0] + min_max[0] - ((min_max[0] - min_max[2]) / 2) \
-	< WINDOW_WIDTH / 2)
+	< (WINDOW_WIDTH / 2))
 		cent_vect[0]++;
 	while (cent_vect[1] + min_max[1] - ((min_max[1] - min_max[3]) / 2) \
 	< WINDOW_HEIGHT / 2)
@@ -33,8 +37,6 @@ void	ft_center_points(t_list *point_list, double *min_max)
 	while (cent_vect[1] + min_max[1] - ((min_max[1] - min_max[3]) / 2) \
 	> WINDOW_HEIGHT / 2)
 		cent_vect[1]--;
-	cent_vect[0] *= 0.4;
-	cent_vect[1] *= 1.2;
 	while (point_list)
 	{
 		((double *)point_list->content)[0] += cent_vect[0];
@@ -76,15 +78,12 @@ double	ft_calculate_zoom(double *min_max, int WIN_W, int WIN_H)
 	double	zoom;
 
 	zoom = 1;
-	printf("zoom at start: %f\n", zoom);
-	while (zoom * (min_max[0] - min_max[2]) < WIN_W * 0.75 && \
-	zoom * (min_max[1] - min_max[3]) < WIN_H * 0.75)
+	while (zoom * (min_max[0] - min_max[2]) < WIN_W && \
+	zoom * (min_max[1] - min_max[3]) < WIN_H)
 		zoom += 0.1;
-	printf("zoom: %f\n", zoom);
-	while (zoom * (min_max[0] - min_max[2]) > WIN_W * 0.75 || \
-	zoom * (min_max[1] - min_max[3]) > WIN_H * 0.75)
+	while (zoom * (min_max[0] - min_max[2]) > WIN_W || \
+	zoom * (min_max[1] - min_max[3]) > WIN_H)
 		zoom -= 0.1;
-	ft_printf("zoom: %d\n", (int)(zoom));
 	return (zoom);
 }
 
