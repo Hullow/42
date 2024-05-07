@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:45 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 12:07:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 12:12:39 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ t_list	*ft_file_to_list(int fd, char *arg)
 	char	***split;
 	int		*dimensions;
 
-	dimensions = malloc(sizeof(int) * 3); // this is free in the function ft_fill_list, after having filled the list
-	printf("ft_file_to_list: dimension address: %p\n", dimensions);
+	dimensions = malloc(sizeof(int) * 3);
 	if (!dimensions)
 	{
 		ft_printf("ft_file_to_list: malloc fail\n");
@@ -29,7 +28,6 @@ t_list	*ft_file_to_list(int fd, char *arg)
 	dimensions[1] = 0;
 	dimensions[2] = 1;
 	dimensions = ft_find_dimensions(fd, dimensions);
-	printf("ft_file_to_list after ft_find_dimensions: dimension address: %p\n", dimensions);
 	close(fd);
 	fd = open(arg, O_RDONLY);
 	split = ft_read_to_array(fd, dimensions);
@@ -49,8 +47,6 @@ char	***ft_read_to_array(int fd, int *dimensions)
 	{
 		line_read = ft_whitespace_to_space(get_next_line(fd));
 		split[i] = ft_split(line_read, ' ');
-
-		printf("reading: split[i][0] address: %p\n", split[i][0]);
 		ft_free((void **)&line_read);
 	}
 	return (split);
@@ -87,7 +83,6 @@ t_list	*ft_fill_list(char ***split, int *dimensions, int i, int j)
 		j = -1;
 	}
 	ft_free_array(split, dimensions);
-	printf("split[i] address: %p\n", split[i]);
 	ft_free((void **)&dimensions);
 	return (head);
 }
