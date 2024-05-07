@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 15:25:04 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:48:55 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@
 void	ft_draw(t_env *env)
 {
 	t_list	*anchor;
-	double	*coord;
 	double	*minmax;
+	double	*translation_vector;	translation_vector = (double *)malloc(sizeof(double) * 2);	ft_free((void **)&translation_vector);
+	double	*coord;
 	double	zoom;
 
 	anchor = env->point_list;
+	translation_vector = (double *)malloc(sizeof(double) * 2);
 	coord = (double *)malloc(sizeof(double) * 7);
 	coord[5] = ((double *) env->point_list->content)[4];
 	ft_z_rotation(env->point_list);
@@ -45,11 +47,17 @@ void	ft_draw(t_env *env)
 	minmax = ft_min_max(env->point_list);
 	zoom = ft_calculate_zoom(minmax, WINDOW_WIDTH, WINDOW_HEIGHT);
 	ft_apply_zoom(env->point_list, zoom);
-	ft_center_points(env->point_list, minmax);
+	
+	// ft_center_points(env->point_list, minmax);
+	translation_vector = ft_calculate_center(minmax, translation_vector);
+	ft_translate(env->point_list, translation_vector);
+
 	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
 	ft_draw_vertical(env, coord, coord[5]);
+	
 	ft_free((void **)&coord);
+	ft_free((void **)&translation_vector);
 	ft_free((void **)&minmax);
 }
 

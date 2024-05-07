@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 15:25:27 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:46:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,29 @@ int	key_handler(int keycode, t_env *env)
 		mlx_destroy_image(env->mlx, env->img);
 		mlx_destroy_window(env->mlx, env->win);
 		exit(1);
+	}
+	else if (keycode >= 123 && keycode <= 126)
+	{
+		ft_draw(env);
+		ft_translation(env->point_list)
+		ft_translation(int keycode, t_env *env)
+		{
+			double	cent_vect[2];
+			double	*minmax;
+			
+			minmax = ft_min_max(env->point_list);
+			ft_center_points(env->point_list, minmax);
+			while (point_list)
+			{
+				((double *)point_list->content)[0] += cent_vect[0];
+				((double *)point_list->content)[1] += cent_vect[1];
+				point_list = point_list->next;
+			}
+			mlx_clear_window(env->mlx, env->win);
+
+
+			mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+		}
 	}
 	else if (!(env->drawn))
 	{

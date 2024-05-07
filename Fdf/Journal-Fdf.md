@@ -289,6 +289,6 @@ so I tested my code without it and it worked !
 - To do Fdf:
 	- Check leaks intel Macs: ok
 	- Center graph again: ok (done manually)
-	- Norm
+	- Norm: Floriano helped me with header (and Makefile) Norm
 	- Interpolation ?
 	- Zoom ?

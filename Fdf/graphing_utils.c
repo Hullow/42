@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:53 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 15:24:00 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:48:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,33 @@
 /* uses the minimal and maximal values of x and y
 to calculate a centering vector which is used to
 center the points */
-void	ft_center_points(t_list *point_list, double *min_max)
+double	*ft_calculate_center(double *min_max, double *translation_vector)
 {
-	double	cent_vect[2];
-
-	cent_vect[0] = 0;
-	cent_vect[1] = 0;
-	while (cent_vect[0] + min_max[0] - ((min_max[0] - min_max[2]) / 2) \
-	< WINDOW_WIDTH / 2)
-		cent_vect[0]++;
-	while (cent_vect[1] + min_max[1] - ((min_max[1] - min_max[3]) / 2) \
+	translation_vector[0] = 0;
+	translation_vector[1] = 0;
+	while (translation_vector[0] + min_max[0] - \
+	((min_max[0] - min_max[2]) / 2) < WINDOW_WIDTH / 2)
+		translation_vector[0]++;
+	while (translation_vector[1] + min_max[1] - ((min_max[1] - min_max[3]) / 2) \
 	< WINDOW_HEIGHT / 2)
-		cent_vect[1]++;
-	while (cent_vect[0] + min_max[0] - ((min_max[0] - min_max[2]) / 2) \
+		translation_vector[1]++;
+	while (translation_vector[0] + min_max[0] - ((min_max[0] - min_max[2]) / 2) \
 	> WINDOW_WIDTH / 2)
-		cent_vect[0]--;
-	while (cent_vect[1] + min_max[1] - ((min_max[1] - min_max[3]) / 2) \
+		translation_vector[0]--;
+	while (translation_vector[1] + min_max[1] - ((min_max[1] - min_max[3]) / 2) \
 	> WINDOW_HEIGHT / 2)
-		cent_vect[1]--;
-	cent_vect[0] *= 0.4;
-	cent_vect[1] *= 1.2;
+		translation_vector[1]--;
+	translation_vector[0] *= 0.4;
+	translation_vector[1] *= 1.2;
+	return (translation_vector);
+}
+
+void	ft_translation(t_list *point_list, double *translation_vector)
+{
 	while (point_list)
 	{
-		((double *)point_list->content)[0] += cent_vect[0];
-		((double *)point_list->content)[1] += cent_vect[1];
+		((double *)point_list->content)[0] += translation_vector[0];
+		((double *)point_list->content)[1] += translation_vector[1];
 		point_list = point_list->next;
 	}
 }

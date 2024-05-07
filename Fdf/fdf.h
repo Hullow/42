@@ -6,34 +6,37 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 14:19:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:46:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "./lib/libft/libft.h"
-#include "./lib/ft_printf/ft_printf.h"
-#include "./lib/get_next_line/get_next_line.h"
-#include "./lib/minilibx/mlx.h"
+#ifndef FDF_H
+# define FDF_H 
 
-#ifndef WINDOW_WIDTH
-#define WINDOW_WIDTH 1200
-#endif
+# ifndef WINDOW_WIDTH
+#  define WINDOW_WIDTH 1200
+# endif
 
-#ifndef WINDOW_HEIGHT
-#define WINDOW_HEIGHT 900
-#endif
+# ifndef WINDOW_HEIGHT
+#  define WINDOW_HEIGHT 900
+# endif
 
-#ifndef WINDOW_NAME
-#define WINDOW_NAME "Fil de Fer"
-#endif
+# ifndef WINDOW_NAME
+#  define WINDOW_NAME "Fil de Fer"
+# endif
 
-typedef struct	s_env {
+# include <math.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include "./lib/libft/libft.h"
+# include "./lib/ft_printf/ft_printf.h"
+# include "./lib/get_next_line/get_next_line.h"
+# include "./lib/minilibx/mlx.h"
+
+typedef struct s_env {
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -70,6 +73,10 @@ double	*ft_fill_pt(char **split, int i, int j, int *dimensions);
 
 // graph transformation
 void	ft_center_points(t_list *point_list, double *min_max);
+
+double	*ft_calculate_center(double *min_max, double *translation_vector);
+void	ft_translation(t_list *point_list, double *translation_vector);
+
 void	ft_isometric_projection(t_list *point_list);
 double	*ft_min_max(t_list *point_list);
 double	ft_calculate_zoom(double *min_max, int WIN_W, int WIN_H);
@@ -93,3 +100,5 @@ void	ft_draw_vertical(t_env *env, double *coord, int columns);
 void	launch_window_and_draw(t_list *point_list);
 int		window_closed(t_env *env);
 int		key_handler(int keycode, t_env *env);
+
+#endif
