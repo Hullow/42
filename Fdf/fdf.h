@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 10:34:29 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/07 14:19:33 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_orthographic_projection(t_list *point_list);
 // graph utils
 void	my_mlx_pixel_put(t_env *env, int x, int y, int color);
 void	ft_line_put(t_env *env, double *coord);
+void	ft_clear_pixels(t_env *env);
 
 // drawing functions
 void	ft_draw(t_env *env);

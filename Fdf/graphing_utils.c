@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:53 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 17:46:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 15:24:00 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_center_points(t_list *point_list, double *min_max)
 	while (cent_vect[1] + min_max[1] - ((min_max[1] - min_max[3]) / 2) \
 	> WINDOW_HEIGHT / 2)
 		cent_vect[1]--;
+	cent_vect[0] *= 0.4;
+	cent_vect[1] *= 1.2;
 	while (point_list)
 	{
 		((double *)point_list->content)[0] += cent_vect[0];

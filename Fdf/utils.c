@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:34:13 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 12:07:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 15:26:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_free_list(t_list *point_list)
 {
 	void	*node;
 	void	*content;
-	// int 	i = 0;
 
 	node = NULL;
 	content = NULL;

@@ -287,8 +287,8 @@ so I tested my code without it and it worked !
 		- set freed pointers to NULL (security reasons, see [how2heap on github](https://github.com/shellphish/how2heap) for exploits)
 
 - To do Fdf:
-	- Check leaks intel Macs
-	- Center graph again
+	- Check leaks intel Macs: ok
+	- Center graph again: ok (done manually)
 	- Norm
 	- Interpolation ?
 	- Zoom ?

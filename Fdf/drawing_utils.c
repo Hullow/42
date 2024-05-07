@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:00:08 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/06 19:05:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 15:25:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,27 @@ void	ft_line_put(t_env *env, double *coord)
 		x_put += (coord[2] - coord[0]) / steps;
 		y_put += (coord[3] - coord[1]) / steps;
 		i++;
+	}
+}
+
+void	ft_clear_pixels(t_env *env)
+{
+	int	x;
+	int	y;
+	int	lines;
+	int	columns;
+
+	x = -1;
+	y = -1;
+	lines = ((int *)env->point_list->content)[3];
+	columns = ((int *)env->point_list->content)[4];
+	while (env->point_list && ++x < lines)
+	{
+		while (env->point_list && ++y < columns)
+		{
+			my_mlx_pixel_put(env, x, y, 0);
+			env->point_list = env->point_list->next;
+		}
+		y = 0;
 	}
 }

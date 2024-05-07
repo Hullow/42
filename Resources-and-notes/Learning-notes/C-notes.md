@@ -303,8 +303,17 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 - `-fsanitize` : [AddressSanitizer](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html). With `=address`, `=leak`, ...
 - adding compile instructions (e.g. `-L. -lft`) to the VSCode C/C++ debugger: in `tasks.json`
 
-### CLI debugging
-- `lldb a.out`, `b 21` or `b main` (sets a breakpoint), `r` (== `run` ?), `gui`, `s` to go to next step, esc. process restart to restart debugging. Others: `n`, `v`
+### LLDB
+- `lldb a.out args` (args: arguments, no specific syntax needed)
+- `help <command>`, e.g. `help b`: details for a command
+- `b 21`,`b main`,  : set a breakpoint
+- `r`/`run`: launch
+- `expression`: evaluate an expression on the current thread
+- `gui`: GUI mode
+- `s`: go to next step
+- esc. process restart to restart debugging. 
+- `n`/ `next`: source level single step, stepping over calls, (defaults to current thread unless specified)
+- `v`: show variables for current stack frame
 
 ## Common errors
 initializing `char *` with an expression of type `const char *` discards qualifiers `[-Werror,-Wincompatible-pointer-types-discards-qualifiers]` => typecast the new pointer. E.g. `const char *s`, `char *search = (char *) s`; error without the `(char *)`. 
