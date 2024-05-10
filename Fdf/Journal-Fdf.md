@@ -292,3 +292,6 @@ so I tested my code without it and it worked !
 	- Norm: Floriano helped me with header (and Makefile) Norm
 	- Interpolation ?
 	- Zoom ?
+
+# 10/5/24
+- Note for future housekeeping: project pushed from "fixing_projection" branch, then worked some more on my Macbook main branch, I think.

@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 20:28:21 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/10 16:34:32 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	launch_window_and_draw(t_list *point_list)
 	env.addr = mlx_get_data_addr(env.img, &env.bits_per_pixel, \
 	&env.line_length, &env.endian);
 	env.point_list = point_list;
-	env.drawn = 0;
+	ft_draw(&env);
+	mlx_put_image_to_window(env.mlx, env.win, env.img, 0, 0);
 	mlx_hook(env.win, 2, 1L << 0, key_handler, &env);
 	mlx_hook(env.win, 17, 0, window_closed, &env);
 	mlx_loop(env.mlx);
@@ -42,28 +43,14 @@ void	launch_window_and_draw(t_list *point_list)
 // and displays the output in a mlx-handled window
 int	key_handler(int keycode, t_env *env)
 {
-	ft_printf("keycode = %d\n", keycode);
 	if (keycode == 53)
 	{
 		ft_printf("ESC key pressed, program stopping\n");
 		ft_free_list(env->point_list);
 		mlx_destroy_image(env->mlx, env->img);
 		mlx_destroy_window(env->mlx, env->win);
-		exit(1);
+		// exit(1);
 	}
-	else if (!(env->drawn))
-	{
-		ft_draw(env);
-		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
-		env->drawn = 1;
-	}
-	else if (env->drawn && ((keycode == 8) || (keycode == 117)))
-	{
-		ft_printf("Graph drawn, clearing window\n");
-		mlx_clear_window(env->mlx, env->win);
-	}
-	else if ((env->drawn))
-		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (0);
 }
 
@@ -73,7 +60,8 @@ int	window_closed(t_env *env)
 	ft_printf("Window closed, program stopping\n");
 	ft_free_list(env->point_list);
 	mlx_destroy_window(env->mlx, env->win);
-	exit(1);
+	// exit(1);
+	return (0);
 }
 
 // the main function opens the file,
@@ -102,6 +90,6 @@ int	main(int argc, char *argv[])
 	}
 	else
 		ft_printf("missing arguments\n");
-	exit(1);
+	// exit(1);
 	return (0);
 }

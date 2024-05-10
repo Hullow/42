@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:53 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 17:21:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:36:18 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ center the points */
 // To adjust:
 // e.g. cent_vect[0] *= 1.2;
 // e.g. cent_vect[1] *= 0.8;
-
 void	ft_center_points(t_list *point_list, double *min_max)
 {
 	double	cent_vect[2];

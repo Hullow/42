@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 10:33:23 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 17:11:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:37:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_draw(t_env *env)
 	t_list	*anchor;
 	double	*coord;
 	double	*minmax;
+	double	*minmax2;
 	double	zoom;
 
 	anchor = env->point_list;
@@ -41,13 +42,14 @@ void	ft_draw(t_env *env)
 	minmax = ft_min_max(env->point_list);
 	zoom = ft_calculate_zoom(minmax, WINDOW_WIDTH, WINDOW_HEIGHT);
 	ft_apply_zoom(env->point_list, zoom);
-	minmax = ft_min_max(env->point_list);
-	ft_center_points(env->point_list, minmax);
+	minmax2 = ft_min_max(env->point_list);
+	ft_center_points(env->point_list, minmax2);
 	ft_draw_horizontal(env, coord, 0);
 	env->point_list = anchor;
 	ft_draw_vertical(env, coord, coord[5]);
 	ft_free((void **)&coord);
 	ft_free((void **)&minmax);
+	ft_free((void **)&minmax2);
 }
 
 // draws horizontal lines of the grid, iteratively over the linked list
