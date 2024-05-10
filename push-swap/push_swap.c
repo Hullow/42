@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/10 16:08:28 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/10 17:10:26 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ char	*ft_check_input(char *str)
 	return (str);
 }
 
+int	*ft_string_to_int(char **argv, int i)
+{
+	int	*a_stack;
+	// int	*b_stack;
+
+	a_stack = (int *) malloc (sizeof(int) * (i - 1));
+	// b_stack = (int *) malloc (sizeof(int) * (i - 1));
+	while (--i >= 1)
+	{
+		a_stack[i - 1] = ft_atoi(argv[i]);
+		printf("\na_stack[%d]: %d\n", i - 1, a_stack[i - 1]);
+	}
+	return (a_stack);
+}
+
 int main(int argc, char **argv)
 {
 	int	i;
@@ -42,22 +57,15 @@ int main(int argc, char **argv)
 		i = 0;
 		while (argv[++i])
 		{
-			ft_printf("%s ", argv[i]);
+			printf("%d: %s ", i, argv[i]);
 			if (ft_check_input(argv[i]) == NULL)
 			{
 				write(2, "Error\n", 7);
 				return (-1);
 			}
 		}
-		int	*a_stack = (int *) malloc (sizeof(int) * (i - 1));
-		i = 0;
-		while (argv[i++])
-			a_stack[i - 1] = ft_atoi(argv[i - 1]);
-		while (--i > 0)
-			ft_printf("a_stack[%d]: %d\n", i, a_stack[i]);
+		ft_string_to_int(argv, i);
 	}
 	ft_printf("\ninput okay\n");
 	return (0);
 }
-
-// ft_string_to_int(char *)
