@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 17:58:36 by fallan            #+#    #+#             */
-/*   Updated: 2024/02/08 16:24:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:07:38 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,3 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 	root = 
 	printf("%d\n", (int) )
 } */
-
-
-
-
-

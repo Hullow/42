@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/04 17:30:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:46:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,37 @@ void	launch_window_and_draw(t_list *point_list)
 // and displays the output in a mlx-handled window
 int	key_handler(int keycode, t_env *env)
 {
-	printf("keycode = %d\n", keycode);
+	ft_printf("keycode = %d\n", keycode);
 	if (keycode == 53)
 	{
 		ft_printf("ESC key pressed, program stopping\n");
+		ft_free_list(env->point_list);
+		mlx_destroy_image(env->mlx, env->img);
 		mlx_destroy_window(env->mlx, env->win);
 		exit(1);
+	}
+	else if (keycode >= 123 && keycode <= 126)
+	{
+		ft_draw(env);
+		ft_translation(env->point_list)
+		ft_translation(int keycode, t_env *env)
+		{
+			double	cent_vect[2];
+			double	*minmax;
+			
+			minmax = ft_min_max(env->point_list);
+			ft_center_points(env->point_list, minmax);
+			while (point_list)
+			{
+				((double *)point_list->content)[0] += cent_vect[0];
+				((double *)point_list->content)[1] += cent_vect[1];
+				point_list = point_list->next;
+			}
+			mlx_clear_window(env->mlx, env->win);
+
+
+			mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
+		}
 	}
 	else if (!(env->drawn))
 	{
@@ -55,8 +80,13 @@ int	key_handler(int keycode, t_env *env)
 		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 		env->drawn = 1;
 	}
-	else if (env->drawn)
-		ft_printf("Graph already drawn, nothing to do!\n");
+	else if (env->drawn && ((keycode == 8) || (keycode == 117)))
+	{
+		ft_printf("Graph drawn, clearing window\n");
+		mlx_clear_window(env->mlx, env->win);
+	}
+	else if ((env->drawn))
+		mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 	return (0);
 }
 
@@ -64,6 +94,7 @@ int	key_handler(int keycode, t_env *env)
 int	window_closed(t_env *env)
 {
 	ft_printf("Window closed, program stopping\n");
+	ft_free_list(env->point_list);
 	mlx_destroy_window(env->mlx, env->win);
 	exit(1);
 }
@@ -75,8 +106,9 @@ int	window_closed(t_env *env)
 int	main(int argc, char *argv[])
 {
 	int		fd;
-
 	t_list	*point_list;
+	t_list	*anchor;
+
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
@@ -86,11 +118,13 @@ int	main(int argc, char *argv[])
 		{
 			ft_printf("%s opened\n", argv[1]);
 			point_list = ft_file_to_list(fd, argv[1]);
+			anchor = point_list;
 			launch_window_and_draw(point_list);
-			ft_free_list(point_list);
+			ft_free_list(anchor);
 		}
 	}
 	else
 		ft_printf("missing arguments\n");
+	exit(1);
 	return (0);
 }

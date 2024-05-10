@@ -218,9 +218,82 @@ Instruments shows it is the call by ft_lstadd_back to ft_lstlast that takes 5min
 
 - Implemented an x_axis rotation matrix (see https://m4nnb3ll.medium.com/fil-de-fer-fdf-the-first-graphical-project-at-42-the-network-5cce69203448 and https://en.wikipedia.org/wiki/Rotation_matrix)
 
+
 # 6/5/24
 - In the train: working on rotation matrices + orthographic projection
 
 
 - Also, weird issues coming up, lines drawn diagonally between points...
 - Seg fault with old isometric projection...maybe leaks ? => heap buffer overflow
+
+- At 42: used usleep and asked Copilot how to display line by line and point by point, => just
+```c
+    mlx_put_image_to_window(mlx, win, img, 0, 0);
+    mlx_do_sync(mlx);
+    usleep(500000);
+```
+
+- Also added clear window functionality upon pressing 'c' or 'del'
+
+- Finally solved the issue by asking Copilot for help with the projection and it said to use double instead of int
+=> replacing all ints with doubles AND removing the orthographic projection, which was superfluous, solved the problem
+for Pentenegpos !!! Finally !! Now on to memory management (and maybe line interpolation ?)
+
+I realized the issue with orthographic projection by using the simplest map I had, my custom square.fdf:
+0 0 0 0 0
+0 1 1 1 0
+0 1 1 1 0
+0 1 1 1 0
+0 0 0 0 0
+ 
+// test_maps_fallan/square.fdf:
+// input:
+// pt 9 : (4.000000,1.000000), altitude 0.000000,
+// 45 degrees = 0.785 radians
+// z rotation:
+// x' = (cos(0.785) * 4 - sin(0.785) * 1) == 2.12272789556
+// y' = (sin(0.785) * 4 + cos(0.785) * 1) == 3.53468899359
+// z' == 0
+
+// x rotation:
+// x' = x == 2.12272789556
+// y' = cos(0.615) * 3.534 == 2.88647736135
+// z' == sin(0.615) * 3.534 == 2.03897141776
+
+// orthographic projection:
+// x == 2.12272789556
+// y == 2.88647736135
+// z == 2.03897141776
+
+// x' = 2.122 - 2.886 == -0.764
+***// y' = (2.122 + 2.886) / (2 - 2.03897141776) == -128.504434477***
+=> this made an extreme value for no reason, so I read the wiki article and saw there was no need for an ortho projection,
+so I tested my code without it and it worked !
+
+
+# 7/5/24
+- Looked at code with Filipo:
+	- ft_free (from GNL): useless because pointer parameter is passed as value, need to pass by reference!
+	- Understand your code ! What input does it take, structure, etc. !
+	- Rename line_data to dimensions
+	- #
+
+- Looked at leaks with Hajar:
+	- 0 leaks !!
+	- Issues were:
+		- in ft_free_array, j not reset to 0 when looping through i
+		- didn't free dimensions (ex line_data)
+
+	- Notes:
+		- add -g3 flags to sanitizer
+		- set freed pointers to NULL (security reasons, see [how2heap on github](https://github.com/shellphish/how2heap) for exploits)
+
+- To do Fdf:
+	- Check leaks intel Macs: ok
+	- Center graph again: ok (done manually)
+	- Norm: Floriano helped me with header (and Makefile) Norm
+	- Interpolation ?
+	- Zoom ?
+
+# 10/5/24
+- Note for future housekeeping: project pushed from "fixing_projection" branch, then worked some more on my Macbook main branch, I think.

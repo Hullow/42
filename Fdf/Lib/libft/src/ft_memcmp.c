@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:21:44 by fallan            #+#    #+#             */
-/*   Updated: 2023/12/01 20:39:55 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 16:09:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 		return ((unsigned char) *string1 - (unsigned char) *string2);
 }
 
-
+/* 
 #include <string.h>
 int	test(const void *s1, const void *s2, size_t n)
 {
@@ -68,3 +68,4 @@ int	main()
 	test(s2, s3, 4);
 	return (0);
 }
+ */
