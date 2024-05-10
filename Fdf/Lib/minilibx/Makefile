@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/04 18:04:50 by fallan            #+#    #+#              #
-#    Updated: 2024/04/15 17:19:49 by francis          ###   ########.fr        #
+#    Updated: 2024/05/09 16:30:43 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ OBJ1 = $(SRC:.c=.o)
 
 OBJ = $(OBJ1:.m=.o)
 
-CFLAGS+=-O2 -DGL_SILENCE_DEPRECATION
+SRC_SPECIAL
+
+CFLAGS+=-O2 -DGL_SILENCE_DEPRECATION -Wno-strict-prototypes
 
 all: $(NAME)
 

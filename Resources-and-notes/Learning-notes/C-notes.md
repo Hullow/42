@@ -299,7 +299,7 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 - lldb: low-level debugger, part of the LLVM project
 
 ### Debugging flags
-- `-g` (or `-g3`) : generate debug information => n.b.; necessary to set breakpoints in source code !
+- `-g` (or `-g3` for maximum level of information, `g2` and `g1` for less) : generate debug information => n.b.; necessary to set breakpoints in source code !
 - `-fsanitize` : [AddressSanitizer](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html). With `=address`, `=leak`, ...
 - adding compile instructions (e.g. `-L. -lft`) to the VSCode C/C++ debugger: in `tasks.json`
 

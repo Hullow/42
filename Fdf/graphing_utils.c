@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphing_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:35:53 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 16:48:29 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 23:46:20 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ double	*ft_calculate_center(double *min_max, double *translation_vector)
 	> WINDOW_HEIGHT / 2)
 		translation_vector[1]--;
 	translation_vector[0] *= 0.4;
-	translation_vector[1] *= 1.2;
+	translation_vector[1] *= 1.5;
 	return (translation_vector);
 }
 

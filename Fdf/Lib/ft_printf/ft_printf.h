@@ -28,3 +28,4 @@ int	ft_putnbr_unsigned(unsigned int n, int res);
 int	ft_hex(unsigned int number, char format_specifier);
 
 #endif
+
