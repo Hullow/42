@@ -6,13 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:08:11 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 12:07:39 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:47:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// for debugging purposes
+for debugging purposes
 void	ft_max_altitude(t_list *point_list)
 {
 	int	max_altitude;
@@ -27,6 +27,7 @@ void	ft_max_altitude(t_list *point_list)
 	ft_printf("final max altitude: %d\n", max_altitude);
 }
 
+/* 
 void	ft_print_point_list(t_env *env)
 {
 	int		i;
@@ -53,6 +54,7 @@ void	ft_print_point_list(t_env *env)
 	ft_free((void **)&temp);
 	env->point_list = anchor;
 }
+ */
 
 void	ft_draw_points(t_env *env)
 {

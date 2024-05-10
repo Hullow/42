@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 17:32:42 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 15:40:42 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:42:31 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_env {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		drawn;
 	t_list	*point_list;
 }				t_env;
 
