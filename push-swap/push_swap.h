@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 15:30:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 17:25:18 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_stack {
 	int	first;
 	int	*in_between;
 	int	last;
+	int	count;
 } 	t_stack;
 
 typedef struct	s_full_stack {

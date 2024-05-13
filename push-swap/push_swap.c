@@ -6,11 +6,35 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 16:08:28 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 17:25:31 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	ft_do_action(char *action, t_full_stack *full_stack)
+{
+	if (action == "pb" && full_stack->a_stack->first)
+		ft_push(full_stack->a_stack, full_stack->b_stack);
+	else if (action == "pa" && full_stack->b_stack->first)
+		ft_push(full_stack->b_stack, full_stack->a_stack);
+}
+
+void	ft_push(t_stack *origin_stack, t_stack *destination_stack)
+{
+	int	i;
+	
+	i = 0;
+	destination_stack->first = origin_stack->first;
+	if (origin_stack->in_between)
+	{
+		origin_stack->first = origin_stack->in_between[0];
+		while (origin_stack->in_between[++i])
+			origin_stack->in_between[i - 1] = origin_stack->in_between[i];
+	}
+	// if (!destination_stack->last)
+	// 	destination_stack->last = destination_stack->first;
+}
 
 char	*ft_check_input(char *str)
 {
