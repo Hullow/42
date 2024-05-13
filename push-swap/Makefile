@@ -6,13 +6,13 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/05/10 11:51:37 by fallan           ###   ########.fr        #
+#    Updated: 2024/05/13 21:24:57 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRC = push_swap.c
+SRC = push_swap.c debug_utils.c list_utils.c
 
 OBJ = $(SRC:.c=.o)
 

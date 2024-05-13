@@ -12,3 +12,4 @@
 	- struct full_stack
 	- do_action(func action, overarching_stack)
 - Did structs and input handling
+- ft_push_b: need to simplify it, moving an element in a linked list is simple.<br>

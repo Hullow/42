@@ -6,12 +6,15 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 17:25:18 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 23:05:18 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #ifndef INT_MAX
 // #define INT_MAX __INT_MAX__
+
+# define PA 1
+# define PB 2
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -19,17 +22,34 @@
 #include "./lib/libft/libft.h"
 #include "./lib/ft_printf/ft_printf.h"
 
-typedef struct	s_stack {
-	int	first;
-	int	*in_between;
-	int	last;
-	int	count;
-} 	t_stack;
+typedef	struct	s_stack_list {
+	int					value;
+	int					position;
+	struct s_stack_list	*next;
+}	t_stack_list;
 
-typedef struct	s_full_stack {
-	t_stack	*a_stack;
-	t_stack	*b_stack;
-} 	t_full_stack;
+typedef	struct	s_stacks {
+	t_stack_list	*a_head;
+	t_stack_list	*a_tail;
+	t_stack_list	*b_head;
+	t_stack_list	*b_tail;
+} 	t_stacks;
 
-char	*ft_check_input(char *str);
-t_stack	*ft_string_to_stack(char **argv, int i);
+// input handling
+char		*ft_check_input(char *str);
+t_stacks	*ft_string_to_stack(char **argv, int i);
+int			*ft_atoi_to_pointer(char *string);
+
+// list handling
+t_stack_list	*ft_new_stack_node(int value);
+void			ft_stackadd_front(t_stack_list **stack_head, t_stack_list *new);
+void			ft_free(void **temp);
+void			ft_free_full_stack(t_stacks **full_stack);
+
+// stack actions
+void	ft_do_action(int action, t_stacks *full_stack);
+void	ft_push_a(t_stacks *full_stack);
+void	ft_push_b(t_stacks *full_stack);
+
+// debugging
+void	ft_print_list(t_stack_list *list);

@@ -6,34 +6,96 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 17:25:31 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 23:06:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_do_action(char *action, t_full_stack *full_stack)
+void	ft_do_action(int action, t_stacks *full_stack)
 {
-	if (action == "pb" && full_stack->a_stack->first)
-		ft_push(full_stack->a_stack, full_stack->b_stack);
-	else if (action == "pa" && full_stack->b_stack->first)
-		ft_push(full_stack->b_stack, full_stack->a_stack);
+	if (action == 1)
+		ft_push_a(full_stack);
+	else if (action == 2)
+		ft_push_b(full_stack);
 }
 
-void	ft_push(t_stack *origin_stack, t_stack *destination_stack)
+// adds the first element (== head) of the b stack
+// to the beginning (== head) of the a stack
+// and removes the element from the b stack
+void	ft_push_a(t_stacks *full_stack)
 {
-	int	i;
+	t_stack_list	*temp_b_new_head;
 	
-	i = 0;
-	destination_stack->first = origin_stack->first;
-	if (origin_stack->in_between)
+	temp_b_new_head = full_stack->b_head->next;
+	if (full_stack->a_head)
 	{
-		origin_stack->first = origin_stack->in_between[0];
-		while (origin_stack->in_between[++i])
-			origin_stack->in_between[i - 1] = origin_stack->in_between[i];
+		full_stack->b_head->next = full_stack->a_head; // point the head of a to the head of b
+		full_stack->a_head = full_stack->b_head; // set the new head of b to the head of a, which
+		full_stack->b_head = temp_b_new_head;
 	}
-	// if (!destination_stack->last)
-	// 	destination_stack->last = destination_stack->first;
+	else
+	{
+		full_stack->a_head = full_stack->b_head; // set the new head of b to the head of a
+		full_stack->a_head->next = NULL; // set the head of b (aka ex head of a) to point to NULL
+		full_stack->a_tail = full_stack->a_head; // set the tail of b to be the same as the head of b 
+		full_stack->b_head = temp_b_new_head; // set the new head of a
+	}
+}
+// adds the first element (== head) of the a stack
+// to the beginning (== head) of the b stack
+// and removes the element from the a stack
+void	ft_push_b(t_stacks *full_stack)
+{
+	t_stack_list	*temp_a_new_head;
+	
+	temp_a_new_head = full_stack->a_head->next;
+	if (full_stack->b_head)
+	{
+		full_stack->a_head->next = full_stack->b_head; // point the head of a to the head of b
+		full_stack->b_head = full_stack->a_head; // set the new head of b to the head of a, which
+		full_stack->a_head = temp_a_new_head;
+	}
+	else
+	{
+		full_stack->b_head = full_stack->a_head; // set the new head of b to the head of a
+		full_stack->b_head->next = NULL; // set the head of b (aka ex head of a) to point to NULL
+		full_stack->b_tail = full_stack->b_head; // set the tail of b to be the same as the head of b 
+		full_stack->a_head = temp_a_new_head; // set the new head of a
+	}
+}
+
+int	*ft_atoi_to_pointer(char *string)
+{
+	int	*ptr;
+
+	ptr = malloc (sizeof(int));
+	*ptr = ft_atoi(string);
+	return (ptr);
+}
+
+t_stacks	*ft_string_to_stack(char **argv, int i)
+{
+	t_stack_list	*a_stack;
+	t_stack_list	*a_head;
+	t_stacks		*full_stack;
+	int				count;
+
+	count = i;
+	i = 1;
+	a_stack = ft_new_stack_node(ft_atoi(argv[i]));
+	full_stack = (t_stacks *) malloc(sizeof(t_stacks)); // correct ?
+	a_head = a_stack;
+	printf("\n\n%d\n", a_stack->value);
+	while (++i < count)
+	{
+		a_stack->next = ft_new_stack_node(ft_atoi(argv[i]));
+		a_stack = a_stack->next;
+		printf("%d\n", a_stack->value);
+	}
+	printf("_             _\n");
+	full_stack->a_head = a_head;
+	return (full_stack);
 }
 
 char	*ft_check_input(char *str)
@@ -55,38 +117,6 @@ char	*ft_check_input(char *str)
 	return (str);
 }
 
-t_stack	*ft_string_to_stack(char **argv, int i)
-{
-	t_stack			*a_stack;
-	t_stack			*b_stack;
-	t_full_stack	*full_stack;
-
-	a_stack = (t_stack *) malloc (sizeof(t_stack));
-	b_stack = (t_stack *) malloc (sizeof(t_stack));
-	if (i - 1 > 2)
-	{
-		a_stack->in_between = (int *) malloc (sizeof(int) * (i - 3));
-		b_stack->in_between = (int *) malloc (sizeof(int) * (i - 3));
-	}
-	full_stack = (t_full_stack *) malloc (sizeof(t_full_stack));
-	full_stack->a_stack = a_stack;
-	full_stack->b_stack = b_stack;
-	printf("\n\n");
-	a_stack->last = ft_atoi(argv[--i]);
-	printf("%d\n", a_stack->last);
-	while (--i > 1)
-	{
-		a_stack->in_between[i - 2] = ft_atoi(argv[i]);
-		printf("%d\n", a_stack->in_between[i - 2]);
-	}
-	a_stack->first = ft_atoi(argv[i]);
-	printf("%d\n", a_stack->first);
-	printf("_             _\n");
-	printf("%d, %d, %d, %d\n", b_stack->first, b_stack->in_between[0], b_stack->in_between[1], b_stack->last);
-	printf("%d, %d, %d, %d\n", full_stack->a_stack->first, full_stack->a_stack->in_between[0], full_stack->a_stack->in_between[1], full_stack->a_stack->last);
-	return (a_stack);
-}
-
 int main(int argc, char **argv)
 {
 	int	i;
@@ -105,8 +135,23 @@ int main(int argc, char **argv)
 				return (-1);
 			}
 		}
-		ft_string_to_stack(argv, i);
+		t_stacks *full_stack = ft_string_to_stack(argv, i);
+		ft_do_action(PB, full_stack);
+		ft_do_action(PB, full_stack);
+		ft_do_action(PB, full_stack);
+		ft_do_action(PB, full_stack);
+		ft_print_list(full_stack->a_head);
+		ft_print_list(full_stack->b_head);
+
+		ft_do_action(PA, full_stack);
+		ft_do_action(PA, full_stack);
+		ft_do_action(PA, full_stack);
+		ft_do_action(PA, full_stack);
+		ft_print_list(full_stack->a_head);
+		ft_print_list(full_stack->b_head);
+		ft_free_full_stack(&full_stack);
 	}
 	ft_printf("\ninput okay\n");
 	return (0);
+
 }
