@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 23:20:09 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/14 00:24:39 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ void	ft_do_action(int action, t_stacks *full_stack)
 		ft_push_a(full_stack);
 	else if (action == 2)
 		ft_push_b(full_stack);
+	else if (action == 3)
+		ft_rotate(&(full_stack->a_head), &(full_stack->a_tail));
+	else if (action == 4)
+		ft_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+	else if (action == 5)
+		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
+	else if (action == 6)
+		ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
 }
 
 // adds the first element (== head) of the b stack
@@ -64,4 +72,33 @@ void	ft_push_b(t_stacks *full_stack)
 		full_stack->b_tail = full_stack->b_head; // set the tail of b to be the same as the head of b 
 		full_stack->a_head = temp_a_new_head; // set the new head of a
 	}
+}
+
+void	ft_rotate(t_stack_list **head, t_stack_list **tail)
+{
+	t_stack_list	*temp_new_head;
+
+	temp_new_head = (*head)->next;
+	(*head)->next = NULL;
+	(*tail)->next = *head;
+	*tail = *head;
+	(*tail)->next = NULL;
+	*head = temp_new_head;
+}
+
+void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
+{
+	t_stack_list	*temp_old_head;
+	t_stack_list	*penultimate;
+
+	temp_old_head = *head;
+	penultimate = *head;
+	while (penultimate->next != *tail)
+		penultimate = penultimate->next;
+	(*tail)->next = temp_old_head;
+	*head = *tail;
+	(*tail)->next = NULL;
+	*tail = penultimate;
+	(*tail)->next = NULL;
+	(*head)->next = temp_old_head;
 }

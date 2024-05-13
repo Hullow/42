@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 23:20:36 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/14 00:10:41 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # define PA 1
 # define PB 2
+# define RA 3
+# define RB 4
+# define RRA 5
+# define RRB 6
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -30,8 +34,10 @@ typedef	struct	s_stack_list {
 
 typedef	struct	s_stacks {
 	t_stack_list	*a_head;
+	t_stack_list	*a_penultimate;
 	t_stack_list	*a_tail;
 	t_stack_list	*b_head;
+	t_stack_list	*b_penultimate;
 	t_stack_list	*b_tail;
 } 	t_stacks;
 
@@ -48,6 +54,8 @@ void			ft_free_full_stack(t_stacks **full_stack);
 void	ft_do_action(int action, t_stacks *full_stack);
 void	ft_push_a(t_stacks *full_stack);
 void	ft_push_b(t_stacks *full_stack);
+void	ft_rotate(t_stack_list **head, t_stack_list **tail);
+void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail);
 
 // debugging
 void	ft_print_list(t_stack_list *list);

@@ -11,5 +11,6 @@
 	- struct for each stack
 	- struct full_stack
 	- do_action(func action, overarching_stack)
-- Did structs and input handling
-- ft_push_b: need to simplify it, moving an element in a linked list is simple.<br>
+- Did structs for lists and input handling
+- ft_push_b, ft_push_a: done by reorienting `->next` .<br>
+- ft_rotate, ft_reverse_rotate: done
