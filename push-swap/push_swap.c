@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/10 17:10:26 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/12 23:47:23 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ int	*ft_string_to_int(char **argv, int i)
 
 	a_stack = (int *) malloc (sizeof(int) * (i - 1));
 	// b_stack = (int *) malloc (sizeof(int) * (i - 1));
+	printf("\n\n");
 	while (--i >= 1)
 	{
 		a_stack[i - 1] = ft_atoi(argv[i]);
-		printf("\na_stack[%d]: %d\n", i - 1, a_stack[i - 1]);
+		printf("%d\n", a_stack[i - 1]);
 	}
+	printf("_             _\n");
 	return (a_stack);
 }
 
