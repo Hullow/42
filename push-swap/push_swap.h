@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 23:08:25 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 23:20:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ typedef	struct	s_stacks {
 // input handling
 char		*ft_check_input(char *str);
 t_stacks	*ft_string_to_stack(char **argv, int i);
-int			*ft_atoi_to_pointer(char *string);
 
 // list handling
 t_stack_list	*ft_new_stack_node(int value);
-// void			ft_stackadd_front(t_stack_list **stack_head, t_stack_list *new);
 void			ft_free(void **temp);
 void			ft_free_full_stack(t_stacks **full_stack);
 

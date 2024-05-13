@@ -6,12 +6,12 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 23:13:29 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 23:20:09 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
+// 
 void	ft_do_action(int action, t_stacks *full_stack)
 {
 	if (action == 1)
