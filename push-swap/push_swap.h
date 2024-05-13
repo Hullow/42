@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 23:05:18 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 23:08:25 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			*ft_atoi_to_pointer(char *string);
 
 // list handling
 t_stack_list	*ft_new_stack_node(int value);
-void			ft_stackadd_front(t_stack_list **stack_head, t_stack_list *new);
+// void			ft_stackadd_front(t_stack_list **stack_head, t_stack_list *new);
 void			ft_free(void **temp);
 void			ft_free_full_stack(t_stacks **full_stack);
 

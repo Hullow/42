@@ -6,13 +6,14 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 23:06:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/13 23:09:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 #include <stdio.h>
+
 void	ft_print_list(t_stack_list *list)
 {
 	int		i;
