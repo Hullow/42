@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/12 23:47:23 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/13 16:08:28 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,35 @@ char	*ft_check_input(char *str)
 	return (str);
 }
 
-int	*ft_string_to_int(char **argv, int i)
+t_stack	*ft_string_to_stack(char **argv, int i)
 {
-	int	*a_stack;
-	// int	*b_stack;
+	t_stack			*a_stack;
+	t_stack			*b_stack;
+	t_full_stack	*full_stack;
 
-	a_stack = (int *) malloc (sizeof(int) * (i - 1));
-	// b_stack = (int *) malloc (sizeof(int) * (i - 1));
-	printf("\n\n");
-	while (--i >= 1)
+	a_stack = (t_stack *) malloc (sizeof(t_stack));
+	b_stack = (t_stack *) malloc (sizeof(t_stack));
+	if (i - 1 > 2)
 	{
-		a_stack[i - 1] = ft_atoi(argv[i]);
-		printf("%d\n", a_stack[i - 1]);
+		a_stack->in_between = (int *) malloc (sizeof(int) * (i - 3));
+		b_stack->in_between = (int *) malloc (sizeof(int) * (i - 3));
 	}
+	full_stack = (t_full_stack *) malloc (sizeof(t_full_stack));
+	full_stack->a_stack = a_stack;
+	full_stack->b_stack = b_stack;
+	printf("\n\n");
+	a_stack->last = ft_atoi(argv[--i]);
+	printf("%d\n", a_stack->last);
+	while (--i > 1)
+	{
+		a_stack->in_between[i - 2] = ft_atoi(argv[i]);
+		printf("%d\n", a_stack->in_between[i - 2]);
+	}
+	a_stack->first = ft_atoi(argv[i]);
+	printf("%d\n", a_stack->first);
 	printf("_             _\n");
+	printf("%d, %d, %d, %d\n", b_stack->first, b_stack->in_between[0], b_stack->in_between[1], b_stack->last);
+	printf("%d, %d, %d, %d\n", full_stack->a_stack->first, full_stack->a_stack->in_between[0], full_stack->a_stack->in_between[1], full_stack->a_stack->last);
 	return (a_stack);
 }
 
@@ -66,7 +81,7 @@ int main(int argc, char **argv)
 				return (-1);
 			}
 		}
-		ft_string_to_int(argv, i);
+		ft_string_to_stack(argv, i);
 	}
 	ft_printf("\ninput okay\n");
 	return (0);

@@ -8,4 +8,7 @@
 # 12/5/24
 - Looked at algorithms: [quicksort](https://en.wikipedia.org/wiki/Quicksort) (see also [here](https://www.kirupa.com/sorts/quicksort.htm)), [turk](https://medium.com/@ayogun/push-swap-c1f5d2d41e97)
 - Lucas writes to me to ask how it's going and suggest a few things:
-	- struct
+	- struct for each stack
+	- struct full_stack
+	- do_action(func action, overarching_stack)
+- Did structs and input handling

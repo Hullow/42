@@ -16,4 +16,4 @@
 		10. add elements to the array: for each new element (element i), check if equal to any previous element.
 			=> if a repetition is found, write "Error\n" to **stderr**
 		11. malloc another array of same size
-	- 
+	- problem: handling 0s (e.g. b_stack is initalized with no elements, thus filled with 0)
