@@ -6,13 +6,13 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/05/13 23:15:11 by fallan           ###   ########.fr        #
+#    Updated: 2024/05/14 20:47:55 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRC = push_swap.c input_handling.c stack_actions.c list_utils.c debug_utils.c
+SRC = push_swap.c input_handling.c sort.c stack_actions.c list_utils.c debug_utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -24,7 +24,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME)
+all: $(NAME) clean
 
 sanitize: CFLAGS += -fsanitize=address -g3
 sanitize: re

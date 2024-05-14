@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:14:20 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/13 23:50:29 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/14 21:23:46 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_stacks	*ft_string_to_stack(char **argv, int i)
 		a_node = a_node->next;
 		printf("%d\n", a_node->value);
 	}
-	full_stack->a_penultimate = a_node;
 	a_node->next = ft_new_stack_node(ft_atoi(argv[i]));
 	full_stack->a_tail = a_node->next;
 	full_stack->a_tail->next = NULL;
@@ -58,4 +57,23 @@ char	*ft_check_input(char *str)
 	if ((str[0] == '-' && input > 0) || (str[0] != '-' && input < 0))
 		return (NULL);
 	return (str);
+}
+
+int	*ft_calculate_min_max(t_stack_list *input_stack)
+{
+	int	*min_max;
+
+	min_max = malloc (sizeof(int) * 3);
+	min_max[0] = input_stack->value;
+	min_max[1] = input_stack->value;
+	while (input_stack)
+	{
+		if (input_stack->value > min_max[1])
+			min_max[1] = input_stack->value;
+		else if (input_stack->value < min_max[0])
+			min_max[0] = input_stack->value;
+		input_stack = input_stack->next;
+	}
+	ft_printf("minimum: %d, maximum: %d\n", min_max[1], min_max[0]);
+	return (min_max);
 }

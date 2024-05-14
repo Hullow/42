@@ -6,12 +6,16 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/14 00:24:39 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/14 20:47:26 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-// 
+
+// using a define set in push_swap.h, calls the various actions:
+// PA (push to stack A), PB (push to stack B),
+// RA (rotate stack A), RB (rotate stack B),
+// RRA (reverse rotate stack A), RB (reverse rotate stack B)
 void	ft_do_action(int action, t_stacks *full_stack)
 {
 	if (action == 1)
@@ -74,6 +78,8 @@ void	ft_push_b(t_stacks *full_stack)
 	}
 }
 
+// sends the first element (head) to the end of the list (tail)
+// the second element of the list becomes the new head
 void	ft_rotate(t_stack_list **head, t_stack_list **tail)
 {
 	t_stack_list	*temp_new_head;
@@ -86,6 +92,8 @@ void	ft_rotate(t_stack_list **head, t_stack_list **tail)
 	*head = temp_new_head;
 }
 
+// sends the last element of the list (tail) to the beginning (head)
+// the penultimate element becomes the last (tail)
 void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
 {
 	t_stack_list	*temp_old_head;
