@@ -6,31 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/14 20:47:26 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/15 02:50:04 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// using a define set in push_swap.h, calls the various actions:
-// PA (push to stack A), PB (push to stack B),
-// RA (rotate stack A), RB (rotate stack B),
-// RRA (reverse rotate stack A), RB (reverse rotate stack B)
-void	ft_do_action(int action, t_stacks *full_stack)
-{
-	if (action == 1)
-		ft_push_a(full_stack);
-	else if (action == 2)
-		ft_push_b(full_stack);
-	else if (action == 3)
-		ft_rotate(&(full_stack->a_head), &(full_stack->a_tail));
-	else if (action == 4)
-		ft_rotate(&(full_stack->b_head), &(full_stack->b_tail));
-	else if (action == 5)
-		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
-	else if (action == 6)
-		ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
-}
 
 // adds the first element (== head) of the b stack
 // to the beginning (== head) of the a stack

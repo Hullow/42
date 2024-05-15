@@ -38,3 +38,6 @@ to figure out between which two values of stack b I must place my element from s
 - ft_set_position: sets the position (order of appearance) of each element of a stack 
 - ft_calculates_sizes: calculates size of each stack
 - ft_calculate_cost (ongoing): to find the minimum number of moves to place an element from its current position in a to its optimal position in b. 
+- created a struct `t_element_solution` to store the best solution for the sorting of an element. Unclear how to efficiently code it to calculate the best sequence of actions and return both the total number of moves (for comparison with other elements) and the corresponding set of actions and #moves for each action
+- ft_do_multiple_actions: to help orchestrate sequences, to be called by **ft_do_sort** (using information from elem_sort where the optimal solution was stored, by ft_outline_sort and ft_optimal_insertion If w)
+=> see sort.c
