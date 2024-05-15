@@ -6,33 +6,33 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/15 02:58:07 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/15 19:58:46 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_do_insertion(int action, t_stacks *full_stack, t_element_sort elem_sort)
+void	ft_do_insertion(int action, t_stacks *full_stack, t_elem_insert elem_insert)
 {
 	if (action == RA_RB)
 	{
-		ft_do_multiple_actions(RA, full_stack, elem_sort.moves_a);
-		ft_do_multiple_actions(RB, full_stack, elem_sort.moves_b);
+		ft_do_multiple_actions(RA, full_stack, elem_insert.moves_1);
+		ft_do_multiple_actions(RB, full_stack, elem_insert.moves_2);
 	}
 	else if (action == RRA_RRB)
 	{
-		ft_do_multiple_actions(RRA, full_stack, elem_sort.moves_a);
-		ft_do_multiple_actions(RRB, full_stack, elem_sort.moves_b);
+		ft_do_multiple_actions(RRA, full_stack, elem_insert.moves_1);
+		ft_do_multiple_actions(RRB, full_stack, elem_insert.moves_2);
 	}
 	else if (action == RRA_RB)
 	{
-		ft_do_multiple_actions(RRA, full_stack, elem_sort.moves_a);
-		ft_do_multiple_actions(RB, full_stack, elem_sort.moves_b);
+		ft_do_multiple_actions(RRA, full_stack, elem_insert.moves_1);
+		ft_do_multiple_actions(RB, full_stack, elem_insert.moves_2);
 	}
 	else if (action == RA_RRB)
 	{
-		ft_do_multiple_actions(RA, full_stack, elem_sort.moves_a);
-		ft_do_multiple_actions(RRB, full_stack, elem_sort.moves_b);
+		ft_do_multiple_actions(RA, full_stack, elem_insert.moves_1);
+		ft_do_multiple_actions(RRB, full_stack, elem_insert.moves_2);
 	}
 }
 
@@ -56,6 +56,10 @@ void	ft_do_action(int action, t_stacks *full_stack)
 		ft_rotate(&(full_stack->a_head), &(full_stack->a_tail));
 	else if (action == RB)
 		ft_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+
+	// else if (action == RR)
+	// 	ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+
 	else if (action == RRA)
 		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
 	else if (action == RRB)

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/15 02:54:23 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/15 20:53:48 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 		ft_printf("\nb:\n");
 		ft_print_list(full_stack->b_head);
 		ft_calculate_sizes(full_stack);
+		ft_optimal_insertion
+
 		// int *min_max_size= ft_calculate_min_max(full_stack->a_head);
 		// ft_optimal_position(full_stack->a_head->value, full_stack->b_head, min_max_size);
 		// ft_set_position(full_stack->a_head);
