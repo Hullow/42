@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insertion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:21:16 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/15 20:52:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/18 19:20:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ t_elem_insert	*ft_optimal_insertion(t_stack_list *a_element, int optimal_positio
 
 	elem_insert_set = malloc (sizeof(t_elem_insert_set));
 
+	ft_opti
 	ft_count_required_moves(a_element, full_stack, optimal_position, elem_insert_set);
 	ft_minimise_moves(elem_insert_set);
 	// ft_aggregate_moves_RA_RB(&(elem_insert_set->insert_RA_RB));

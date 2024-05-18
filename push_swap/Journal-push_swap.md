@@ -47,3 +47,6 @@ to figure out between which two values of stack b I must place my element from s
 - Refactored (more source files, changed references to "insertion" from "sort" for clarity)
 - Not sure if it works, didn't test components.
 - How to test: call `ft_optimal_insertion` from main and print out result.
+
+# 18/5/24
+- Back to work (in Monthey)
