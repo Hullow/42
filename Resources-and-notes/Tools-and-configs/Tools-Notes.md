@@ -6,6 +6,9 @@ Files (including file history) found in `$HOME/Library/Application\ Support/Code
 - VSCode files path : `/System/Volumes/Data/Users/francis/Library/Application Support/Code`
 - Github Copilot history: likely `Code\User\workspaceStorage\<alphanumerical>\state.vscdb` (see https://github.com/orgs/community/discussions/69740)
 
+### Disabling sounds
+- Command palette: `> audio`, select "Help: List Signal Sounds" and disable/enable relevant audio cues
+
 ### [Debugging](https://code.visualstudio.com/docs/editor/debugging)
 - **Launch** versus **Attach** configurations: two core debugging modes
   - **Launch** starts the app or process in debug mode before VS Code attaches to it

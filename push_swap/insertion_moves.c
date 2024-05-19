@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_orchestration.c                              :+:      :+:    :+:   */
+/*   insertion_moves.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/15 19:58:46 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/19 11:36:24 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ void	ft_do_action(int action, t_stacks *full_stack)
 		ft_rotate(&(full_stack->a_head), &(full_stack->a_tail));
 	else if (action == RB)
 		ft_rotate(&(full_stack->b_head), &(full_stack->b_tail));
-
-	// else if (action == RR)
-	// 	ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
-
+	else if (action == RR)
+	{
+		ft_rotate(&(full_stack->a_head), &(full_stack->a_tail));
+		ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+	}
 	else if (action == RRA)
 		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
 	else if (action == RRB)

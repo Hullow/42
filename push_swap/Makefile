@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/05/18 19:14:10 by francis          ###   ########.fr        #
+#    Updated: 2024/05/19 12:37:02 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,12 @@ FT_PRINTF = ./lib/libftprintf.a
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror  # -ferror-limit=1
+CFLAGS = -Wall -Wextra -Werror -g3 -ferror-limit=1
 
 all: $(NAME) clean
 
 sanitize: CFLAGS += -fsanitize=address -g3
-sanitize: re
+sanitize: re clean
 
 debug: CFLAGS += -g
 debug: re
@@ -53,6 +53,6 @@ clean:
 fclean: clean
 	rm -f $(NAME) $(LIBFT) $(FT_PRINTF) $(MLX)
 
-re: fclean all
+re: fclean all clean
 
 .PHONY: all sanitize clean fclean re

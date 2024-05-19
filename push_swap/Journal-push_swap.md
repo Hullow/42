@@ -50,3 +50,9 @@ to figure out between which two values of stack b I must place my element from s
 
 # 18/5/24
 - Back to work (in Monthey)
+- Debugging to enable calls to `ft_optimal_insertion` from main and printing the result
+
+# 19/5/24
+- Continued (in Monthey): okay, we're printing out stuff (still ft_printf shenanigans making me lose another 30-40min, need to fix it)
+- Learned the (void) casting of a variable to tell compiler to ignore it
+- Fixing `ft_optimal_position`. Positions need to start at 0, not 1, because we use position to calculate rotations.

@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/18 19:20:16 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/19 18:47:46 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,23 @@ int	main(int argc, char **argv)
 		ft_printf("input okay\n");
 		full_stack = ft_string_to_stack(argv, i);
 		ft_do_multiple_actions(PB, full_stack, 4);
-		ft_do_multiple_actions(RRB, full_stack, 2);
+		// ft_do_multiple_actions(RRB, full_stack, 1);
 		ft_printf("\nafter a few manips:\na:\n");
 		ft_print_list(full_stack->a_head);
 		ft_printf("\nb:\n");
 		ft_print_list(full_stack->b_head);
+		ft_calculate_sizes(full_stack);
+		ft_optimal_insertion(full_stack->a_head, full_stack);
+		// printf("result of those moves:\n");
+		// ft_do_multiple_actions(RA, full_stack, 1);
+		// ft_do_multiple_actions(RB, full_stack, 4);
+		// ft_print_list(full_stack->a_head);
+		// ft_printf("\nb:\n");
+		// ft_print_list(full_stack->b_head);
 
-		ft_optimal_insertion(full_stack->a_head, 
-
-		ft_optimal_position(full_stack->a_head->value, full_stack->b_head, min_max_size);
 		// ft_set_position(full_stack->a_head);
-		
 		// ft_free_full_stack(&full_stack);
+
 	}
 	return (0);
 }
