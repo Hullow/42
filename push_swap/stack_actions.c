@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/15 02:50:04 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/19 11:53:48 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,24 @@ void	ft_push_a(t_stacks *full_stack)
 // and removes the element from the a stack
 void	ft_push_b(t_stacks *full_stack)
 {
-	t_stack_list	*temp_a_new_head;
-	
-	temp_a_new_head = full_stack->a_head->next;
+	t_stack_list	*a_second_element;
+
+	a_second_element = full_stack->a_head->next;
 	if (full_stack->b_head)
 	{
+		printf("b_head address is : %p\n", full_stack->b_head);
+		// printf("b_tail is : %d\n", full_stack->b_tail->value);
 		full_stack->a_head->next = full_stack->b_head; // point the head of a to the head of b
-		full_stack->b_head = full_stack->a_head; // set the new head of b to the head of a, which
-		full_stack->a_head = temp_a_new_head;
+		full_stack->b_head = full_stack->a_head; // set the new head of b to the head of a
+		full_stack->a_head = a_second_element; // set the head of a to the second element
 	}
 	else
 	{
 		full_stack->b_head = full_stack->a_head; // set the new head of b to the head of a
 		full_stack->b_head->next = NULL; // set the head of b (aka ex head of a) to point to NULL
 		full_stack->b_tail = full_stack->b_head; // set the tail of b to be the same as the head of b 
-		full_stack->a_head = temp_a_new_head; // set the new head of a
+		full_stack->a_head = a_second_element; // set the new head of a
+		printf("b_tail is : %d\n", full_stack->b_tail->value);
 	}
 }
 

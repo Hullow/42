@@ -13,7 +13,8 @@
 #include "push_swap.h"
 
 // finds where an element from stack a must be placed in stack b
-// return the position it must be in (i-th element of b)
+// returns the position it must be in (i-th element of b)
+// inputs: the value of the element in a, the stack b, the min_max for b
 int	ft_optimal_position(int a_value, t_stack_list *b_stack, int *min_max)
 {
 	t_stack_list *anchor;
@@ -21,13 +22,15 @@ int	ft_optimal_position(int a_value, t_stack_list *b_stack, int *min_max)
 	int	smallest_difference;
 	int	difference;
 
+	if (!b_stack)
+		return (0);
 	anchor = b_stack;
-	i = 0;
+	i = -1;
 	difference = 0;
 	smallest_difference = min_max[1] - min_max[0];
 	if (!b_stack)
 	{
-		ft_printf("the optimal position for \"%d\" in stack b is %d)\n", a_value, i);
+		printf("the optimal position for \"%d\" in stack b is %d)\n", a_value, i); // printf
 		return (i);
 	}
 	while (b_stack)
@@ -38,8 +41,11 @@ int	ft_optimal_position(int a_value, t_stack_list *b_stack, int *min_max)
 		b_stack = b_stack->next;
 	}
 	b_stack = anchor;
-	while (b_stack && smallest_difference != a_value - b_stack->value && i++)
+	while (b_stack && smallest_difference != a_value - b_stack->value)
+	{
+		i++;
 		b_stack = b_stack->next;
-	ft_printf("the optimal position for \"%d\" in stack b is %d), before \"%d\"\n", a_value, i, b_stack->value);
+	}
+	printf("the optimal position for \"%d\" in stack b is %d), above \"%d\"\n", a_value, ++i, b_stack->value); // printf
 	return (i);
 }

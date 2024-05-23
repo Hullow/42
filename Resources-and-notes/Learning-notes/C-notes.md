@@ -303,6 +303,10 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 - `-fsanitize` : [AddressSanitizer](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html). With `=address`, `=leak`, ...
 - adding compile instructions (e.g. `-L. -lft`) to the VSCode C/C++ debugger: in `tasks.json`
 
+### [AddressSanitizer (ASan)](https://github.com/google/sanitizers/wiki/AddressSanitizer)
+A tool to detect memory errors for C/C++
+- Disable `0xbe...` memory fill-in: ASan, by default, writes 0xbe to newly allocated memory. Use `export $ASAN_OPTIONS="$ASAN_OPTIONS:malloc_fill_byte=0"` to change the ASAN_OPTIONS environment variable to disable this
+
 ### LLDB
 - `lldb a.out args` (args: arguments, no specific syntax needed)
 - `help <command>`, e.g. `help b`: details for a command

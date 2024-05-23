@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 17:22:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/07 19:33:33 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/15 17:55:06 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	launch_window_and_draw(t_list *point_list)
 // and displays the output in a mlx-handled window
 int	key_handler(int keycode, t_env *env)
 {
+	ft_printf("keycode: %d\n", keycode);
 	if (keycode == 53)
 	{
 		ft_printf("ESC key pressed, program stopping\n");
