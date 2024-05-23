@@ -6,3 +6,5 @@ program
 Fdf/.gitignore
 .venv/**
 .vscode/
+Screenshots/**
+Resources-and-notes/42-specific/Cleaner_42.sh
