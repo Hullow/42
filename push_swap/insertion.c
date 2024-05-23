@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:21:16 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/19 18:43:24 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:13:51 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ t_elem_insert	*ft_optimal_insertion(t_stack_list *a_element, t_stacks *full_stac
 	int					optimal_position;
 
 	elem_insert_set = malloc (sizeof(t_elem_insert_set));
-	optimal_position = ft_optimal_position(full_stack->a_head->value, full_stack->b_head, ft_calculate_min_max(full_stack->b_head));
+	if (full_stack->b_head)
+		optimal_position = ft_optimal_position(full_stack->a_head->value, full_stack->b_head, ft_calculate_min_max(full_stack->b_head));
+	else
+		optimal_position = 0;
 	(void)optimal_position;
 	(void)a_element;
-	// ft_count_required_moves(a_element, full_stack, optimal_position, elem_insert_set);
+	ft_count_required_moves(a_element, full_stack, optimal_position, elem_insert_set);
 
 	// ft_minimise_moves(elem_insert_set);
 	// ft_aggregate_moves_RA_RB(&(elem_insert_set->insert_RA_RB));
 	// ft_count_total_set_moves(elem_insert_set);
 	// t_elem_insert	*best_insert;
-	// best_insert = ft_select_best_insert(elem_insert_set);
+	// best_insert = ft_select_best_insert(elem_insert_set);4
 	// printf("the best insert has actions: %d, with (%d, %d) moves\n", best_insert->actions, best_insert->moves_1, best_insert->moves_2);
 	return (ft_select_best_insert(elem_insert_set));
 

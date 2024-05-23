@@ -17,3 +17,9 @@
 			=> if a repetition is found, write "Error\n" to **stderr**
 		11. malloc another array of same size
 	- problem: handling 0s (e.g. b_stack is initalized with no elements, thus filled with 0)
+
+- ft_optimal_position: find where a given element of stack a should be inserted in b
+	Tests:
+		- empty stack b, empty stack a: ok (if a empty, we shouldn't call function any way => to recheck later)
+		- same values ?
+		- 

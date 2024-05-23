@@ -56,3 +56,9 @@ to figure out between which two values of stack b I must place my element from s
 - Continued (in Monthey): okay, we're printing out stuff (still ft_printf shenanigans making me lose another 30-40min, need to fix it)
 - Learned the (void) casting of a variable to tell compiler to ignore it
 - Fixing `ft_optimal_position`. Positions need to start at 0, not 1, because we use position to calculate rotations.
+
+# 22/5/24
+- Back to work (Unimail)
+- Trying to fix segfault in ft_calculate_sizes: segfault moves around, even for list `list = list->next;`don't understand why, maybe the sanitizer's Oxbebe which changes the value ?
+- Fixing segfaults from ft_optimal_insertion/ft_optimal_position when a_stack is empty: actually useless, only call ft_optimal_insertion if there is an element to insert. Now maybe, add checks in case b_stack doesn't exist yet
+- Segfault in ft_calculate_sizes due to `full_stack->b_head = full_stack->b_head->next;` in while even though there was a check

@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/19 18:46:38 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:48:15 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ void	ft_print_list(t_stack_list *list)
 
 	i = -1;
 	// ft_printf("ft_print_list: list address %p\n", list);
-	while (list)
+	if (!list)
+		ft_printf("(empty)\n");
+	if (list && list->next != NULL)
 	{
-		printf("%d) %d\n", ++i, list->value); // printf
-		list = list->next;
+		while (list)
+		{
+			if (list != NULL) // if (list->value)
+				printf("%d) %d\n", ++i, list->value); // printf
+			list = list->next;
+		}
 	}
 }
