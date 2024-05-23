@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/19 12:37:21 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/23 21:00:38 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_rotate(t_stack_list **head, t_stack_list **tail);
 void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail);
 
 // stack utils
-void	ft_set_position(t_stack_list *a_stack);
+void	ft_set_positions(t_stacks *full_stack);
 int		ft_min(int a, int b);
 int		*ft_calculate_min_max(t_stack_list *input_stack);
 void	ft_calculate_sizes(t_stacks *full_stack);
@@ -104,10 +104,10 @@ void	ft_calculate_sizes(t_stacks *full_stack);
 int	ft_optimal_position(int a_value, t_stack_list *b_stack, int *min_max);
 t_elem_insert	*ft_optimal_insertion(t_stack_list *a_element, t_stacks *full_stack);
 void	ft_minimise_moves(t_elem_insert_set *elem_insert_set);
-void	ft_count_total_moves(t_elem_insert **elem_insert);
+void	ft_count_total_moves(t_elem_insert *elem_insert);
 void	ft_count_total_set_moves(t_elem_insert_set *elem_insert_set);
 void	ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, int optimal_position, t_elem_insert_set *elem_insert_set);
-void	ft_aggregate_moves_RA_RB(t_elem_insert **elem_insert);
+void	ft_aggregate_moves_RA_RB(t_elem_insert *elem_insert);
 void	ft_aggregate_moves_RRA_RRB(t_elem_insert **elem_insert);
 t_elem_insert	*ft_select_best_insert(t_elem_insert_set *elem_insert_set);
 

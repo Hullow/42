@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insertion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:21:16 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/23 15:13:51 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/23 21:27:33 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ t_elem_insert	*ft_optimal_insertion(t_stack_list *a_element, t_stacks *full_stac
 	int					optimal_position;
 
 	elem_insert_set = malloc (sizeof(t_elem_insert_set));
+	if (!a_element)
+		return (NULL);
 	if (full_stack->b_head)
-		optimal_position = ft_optimal_position(full_stack->a_head->value, full_stack->b_head, ft_calculate_min_max(full_stack->b_head));
+		optimal_position = ft_optimal_position(a_element->value, full_stack->b_head, ft_calculate_min_max(full_stack->b_head));
 	else
 		optimal_position = 0;
-	(void)optimal_position;
-	(void)a_element;
 	ft_count_required_moves(a_element, full_stack, optimal_position, elem_insert_set);
 
 	// ft_minimise_moves(elem_insert_set);
@@ -50,28 +50,54 @@ t_elem_insert	*ft_optimal_insertion(t_stack_list *a_element, t_stacks *full_stac
 // RRB_to_optimal = full_stack->size_b - optimal_position;
 void	ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, int optimal_position, t_elem_insert_set *elem_insert_set)
 {
-	printf("\nft_count_required_moves:\n");
+	printf("\nft_count_required_moves:\n************************\n");
+	printf("a_element->value: %d, a_element->position: %d\n\n", a_element->value, a_element->position);
 	printf("RA_RB actions:\n");
 	elem_insert_set->insert_RA_RB.actions = RA_RB;
 	elem_insert_set->insert_RA_RB.moves_1 = a_element->position; // if in position 0, 0 moves. if position 1, 1 move. etc.
 	elem_insert_set->insert_RA_RB.moves_2 = optimal_position; // if optimal position is 0, 0 moves. if position 1, 1 move. etc.
-	printf("insert_RA_RB.moves_1 == a_element->position == %d; insert_RA_RB.moves_2 == optimal_position == %d\n", elem_insert_set->insert_RA_RB.moves_1, elem_insert_set->insert_RA_RB.moves_2);
-	
+	// for optimal_position == 0: 0
+	// for optimal_position == size (tail): 1
+	// for optimal_position == tail - 1: 2
+	printf("\tinsert_RA_RB.moves_1 == a_element->position == %d\n\
+	insert_RA_RB.moves_2 == optimal_position == %d\n", elem_insert_set->insert_RA_RB.moves_1, elem_insert_set->insert_RA_RB.moves_2);
+
+	printf("RRA_RRB actions:\n");
 	elem_insert_set->insert_RRA_RRB.actions = RRA_RRB;
 	elem_insert_set->insert_RRA_RRB.moves_1 = full_stack->size_a - a_element->position;
 	elem_insert_set->insert_RRA_RRB.moves_2 = full_stack->size_b - optimal_position;
+	printf("\tinsert_RRA_RRB.moves_1 == %d\n\
+	insert_RRA_RRB.moves_2 ==  %d\n", elem_insert_set->insert_RRA_RRB.moves_1, elem_insert_set->insert_RRA_RRB.moves_2);
 
+	printf("RA_RRB actions:\n");
 	elem_insert_set->insert_RA_RRB.actions = RA_RRB;
 	elem_insert_set->insert_RA_RRB.moves_1 = a_element->position;
 	elem_insert_set->insert_RA_RRB.moves_2 = full_stack->size_b - optimal_position;
+	printf("\tinsert_RA_RRB.moves_1 == %d\n\
+	insert_RA_RRB.moves_2 ==  %d\n", elem_insert_set->insert_RA_RRB.moves_1, elem_insert_set->insert_RA_RRB.moves_2);
 
+	printf("RRA_RB actions:\n");
 	elem_insert_set->insert_RRA_RB.actions = RRA_RB;
 	elem_insert_set->insert_RRA_RB.moves_1 = full_stack->size_a - a_element->position;
 	elem_insert_set->insert_RRA_RB.moves_2 = optimal_position;
+	printf("\tinsert_RRA_RB.moves_1 == %d\n\
+	insert_RRA_RB.moves_2 ==  %d\n", elem_insert_set->insert_RRA_RB.moves_1, elem_insert_set->insert_RRA_RB.moves_2);
 }
 
-/*
-// calculates the total moves required for a given insertion
+// simplifies each path of insertion, by looking at if both stacks
+// can be rotated or reverse rotated together (RR, RRR)
+// returns the set of element sorts
+void	ft_minimise_moves(t_elem_insert_set *elem_insert_set)
+{
+	ft_aggregate_moves_RA_RB(&(elem_insert_set->insert_RA_RB));
+	printf("move optimisation found: %d\n", elem_insert_set->insert_RA_RB.actions);
+	// ft_aggregate_moves_RRA_RRB(elem_insert_set->insert_RRA_RRB);
+
+	// RRA && RB – simplifier: n/a
+	// RRB && RA – simplifier: n/a
+}
+
+/* // calculates the total moves required for a given insertion
 // returns the set of element sorts
 void	ft_count_total_set_moves(t_elem_insert_set *elem_insert_set)
 {
@@ -82,60 +108,47 @@ void	ft_count_total_set_moves(t_elem_insert_set *elem_insert_set)
 }
  */
 
-/* 
-void	ft_count_total_moves(t_elem_insert **elem_insert)
+
+void	ft_count_total_moves(t_elem_insert *elem_insert)
 {
-	(*elem_insert)->total_moves = (*elem_insert)->moves_1 + (*elem_insert)->moves_2;
+	elem_insert->total_moves = elem_insert->moves_1 + elem_insert->moves_2;
 }
- */
 
-/*
-// simplifies each path of insertion, by looking at if both stacks
-// can be rotated or reverse rotated together (RR, RRR)
-// returns the set of element sorts
-void	ft_minimise_moves(t_elem_insert_set *elem_insert_set)
-{
-	ft_aggregate_moves_RA_RB(&(elem_insert_set->insert_RA_RB));
-	// ft_aggregate_moves_RRA_RRB(elem_insert_set->insert_RRA_RRB);
 
-	// RRA && RB – simplifier: n/a
-	// RRB && RA – simplifier: n/a
-}
-*/
 
-/* 
+
 // aggregates common rotations with RR
-void	ft_aggregate_moves_RA_RB(t_elem_insert **elem_insert)
+void	ft_aggregate_moves_RA_RB(t_elem_insert *elem_insert)
 {
 	int	temp_1;
 	int	temp_2;
 
-	temp_1 = (*elem_insert)->moves_1;
-	temp_2 = (*elem_insert)->moves_2;
+	temp_1 = elem_insert->moves_1;
+	temp_2 = elem_insert->moves_2;
 	// RA && RB
 	// RR simplifier: if x* RA && y* RB, min(x, y)RR, max(x,y)-min(x,y) * RA or RB
 	// if (elem_insert->action = RA_RB) {
-	if ((*elem_insert)->moves_1 < (*elem_insert)->moves_2) // if #RA < #RB, we do all RR for all the RA, then RB for the rest
+	if (elem_insert->moves_1 < elem_insert->moves_2) // if #RA < #RB, we do all RR for all the RA, then RB for the rest
 	{
-		(*elem_insert)->actions = RR_RB;
-		(*elem_insert)->moves_1 = temp_1; // #RR moves
-		(*elem_insert)->moves_2 = temp_2 - temp_1; // #RB moves
+		elem_insert->actions = RR_RB;
+		elem_insert->moves_1 = temp_1; // #RR moves
+		elem_insert->moves_2 = temp_2 - temp_1; // #RB moves
 	}
-	else if ((*elem_insert)->moves_1 > (*elem_insert)->moves_2)
+	else if (elem_insert->moves_1 > elem_insert->moves_2)
 	{
-		(*elem_insert)->actions = RR_RA;
-		(*elem_insert)->moves_1 = temp_2; // #RR moves
-		(*elem_insert)->moves_2 = temp_1 - temp_2; // #RA moves
+		elem_insert->actions = RR_RA;
+		elem_insert->moves_1 = temp_2; // #RR moves
+		elem_insert->moves_2 = temp_1 - temp_2; // #RA moves
 	}
-	else if ((*elem_insert)->moves_1 == (*elem_insert)->moves_2)
+	else if (elem_insert->moves_1 == elem_insert->moves_2)
 	{
-		(*elem_insert)->actions = RR;
-		(*elem_insert)->moves_1 = temp_2; // #RR moves
-		(*elem_insert)->moves_2 = 0; // (n/a) moves
+		elem_insert->actions = RR;
+		elem_insert->moves_1 = temp_2; // #RR moves
+		elem_insert->moves_2 = 0; // (n/a) moves
 	}
 	ft_count_total_moves(elem_insert);
 }
- */
+
 
 /*
 // aggregates common reverse rotations with RRR 

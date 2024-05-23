@@ -54,6 +54,8 @@
 - `awk -F: '{print $2}'` : define a field as separated by \<separator>, here the second field after a ":"
 - CLI copy-paste: `screen` followed by `ctrl + A`followed by `[` followed by `space`, select text with arrows, `space`, to copy, then `ctrl + A` and `[` again to paste
 - `wall` : write text to all open terminals (all ttys)
+- `grep` <expression> : print lines from an input (e.g. piped from another command) where an expression appears
+	- `-A x -B y`: print x lines after, y lines before
 
 ## System state and information
 - `tty` : returns user's terminal name

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insertion_moves.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/19 11:36:24 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/23 20:37:43 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves)
 // RRA (reverse rotate stack A), RB (reverse rotate stack B)
 void	ft_do_action(int action, t_stacks *full_stack)
 {
+	if ((!full_stack->a_head && (action == RA || action == RRA || action == PB))\
+|| (!full_stack->b_head && (action == RB || action == RRB || action == PA))) // checks if action can be done
+		return;
 	if (action == PA)
 		ft_push_a(full_stack);
 	else if (action == PB)

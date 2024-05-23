@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/19 11:53:48 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/23 19:58:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_push_b(t_stacks *full_stack)
 	a_second_element = full_stack->a_head->next;
 	if (full_stack->b_head)
 	{
-		printf("b_head address is : %p\n", full_stack->b_head);
+		// printf("b_head address is : %p\n", full_stack->b_head);
 		// printf("b_tail is : %d\n", full_stack->b_tail->value);
 		full_stack->a_head->next = full_stack->b_head; // point the head of a to the head of b
 		full_stack->b_head = full_stack->a_head; // set the new head of b to the head of a

@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/22 17:50:30 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/23 21:02:09 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+// for a list, sets the position (in order of appearance)
+// for each element of the list
+void	ft_set_positions(t_stacks *full_stack)
+{
+	int				position;
+	t_stack_list	*anchor;
+
+	position = 0;
+	anchor = full_stack->a_head;
+	while (full_stack->a_head)
+	{
+		full_stack->a_head->position = position++;
+		// printf("full_stack->a_head->value: %d, full_stack->a_head->position: %d\n", full_stack->a_head->value, full_stack->a_head->position);
+		full_stack->a_head = full_stack->a_head->next;
+	}
+	position = 0;
+	full_stack->a_head = anchor;
+	anchor = full_stack->b_head;
+	while (full_stack->b_head)
+	{
+		// printf("full_stack->b_head->value: %d, full_stack->b_head->position: %d\n", full_stack->b_head->value, full_stack->b_head->position);
+		full_stack->b_head->position = position++;
+		full_stack->b_head = full_stack->b_head->next;
+	}
+	full_stack->b_head = anchor;
+}
 
 // returns the minimum between two integer values
 int	ft_min(int a, int b)

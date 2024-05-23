@@ -62,3 +62,34 @@ to figure out between which two values of stack b I must place my element from s
 - Trying to fix segfault in ft_calculate_sizes: segfault moves around, even for list `list = list->next;`don't understand why, maybe the sanitizer's Oxbebe which changes the value ?
 - Fixing segfaults from ft_optimal_insertion/ft_optimal_position when a_stack is empty: actually useless, only call ft_optimal_insertion if there is an element to insert. Now maybe, add checks in case b_stack doesn't exist yet
 - Segfault in ft_calculate_sizes due to `full_stack->b_head = full_stack->b_head->next;` in while even though there was a check
+
+# 23/5/24
+- Back to work (at school)
+- Added back ft_set_positions which was missing
+- Until now, used ft_optimal_position to determine where to place a value from stack a above a value from stack b that is smaller.
+Problem is, with `./push_swap 1 2 3 4 5 6 7 8 9` and moves :
+```c
+ft_do_multiple_actions(PB, full_stack, 5);
+ft_do_multiple_actions(RRA, full_stack, 3);
+ft_do_multiple_actions(PA, full_stack, 1);
+ft_do_multiple_actions(RRB, full_stack, 1);
+ft_do_multiple_actions(PA, full_stack, 1);
+```
+, I get :
+a:
+0) 1
+1) 5
+2) 7
+3) 8
+4) 9
+5) 6
+
+b:
+0) 4
+1) 3
+2) 2
+
+Thus "1" from a is smaller than all values from b, and should be placed at the tail of stack b, i.e. in place 3), beneath "2".
+
+Need to recheck ft_count_required_moves because instructions are wrong insertion functions
+for that, or maybe rethink the whole thing.
