@@ -6,34 +6,41 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/23 20:37:43 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/24 20:32:10 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_do_insertion(int action, t_stacks *full_stack, t_elem_insert elem_insert)
+void	ft_do_insertion(t_stacks *full_stack, t_elem_insert *elem_insert)
 {
+	int	action = elem_insert->actions_aggregated;
+	int	moves_1 = elem_insert->moves_1_aggregated;
+	int	moves_2 = elem_insert->moves_2_aggregated;
+	if (action == RR)
+		ft_do_multiple_actions(RR, full_stack, moves_1);
 	if (action == RA_RB)
 	{
-		ft_do_multiple_actions(RA, full_stack, elem_insert.moves_1);
-		ft_do_multiple_actions(RB, full_stack, elem_insert.moves_2);
+		ft_do_multiple_actions(RA, full_stack, moves_1);
+		ft_do_multiple_actions(RB, full_stack, moves_2);
 	}
 	else if (action == RRA_RRB)
 	{
-		ft_do_multiple_actions(RRA, full_stack, elem_insert.moves_1);
-		ft_do_multiple_actions(RRB, full_stack, elem_insert.moves_2);
+		ft_do_multiple_actions(RRA, full_stack, moves_1);
+		ft_do_multiple_actions(RRB, full_stack, moves_2);
 	}
 	else if (action == RRA_RB)
 	{
-		ft_do_multiple_actions(RRA, full_stack, elem_insert.moves_1);
-		ft_do_multiple_actions(RB, full_stack, elem_insert.moves_2);
+		ft_do_multiple_actions(RRA, full_stack, moves_1);
+		ft_do_multiple_actions(RB, full_stack, moves_2);
 	}
 	else if (action == RA_RRB)
 	{
-		ft_do_multiple_actions(RA, full_stack, elem_insert.moves_1);
-		ft_do_multiple_actions(RRB, full_stack, elem_insert.moves_2);
+		ft_do_multiple_actions(RA, full_stack, moves_1);
+		ft_do_multiple_actions(RRB, full_stack, moves_2);
 	}
+	/// RRR
+	ft_do_action(PB, full_stack);
 }
 
 void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves)

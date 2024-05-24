@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/24 20:21:31 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/24 20:32:50 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ int	main(int argc, char **argv)
 		best_element_insertion = ft_optimised_insertion(best_element_to_insert, full_stack);
 		printf("the best element to insert is \"%d\" – %d) in stack a, with moves:\n", best_element_to_insert->value, best_element_to_insert->position);
 		ft_print_moves(best_element_insertion);
+		ft_do_insertion(full_stack, best_element_insertion);
+		
+		ft_printf("\nafter insertion:\na:\n");
+		ft_print_list(full_stack->a_head);
+		ft_printf("\nb:\n");
+		ft_print_list(full_stack->b_head);
 		// ft_free_full_stack(&full_stack);
 	}
 	return (0);

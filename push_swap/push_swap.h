@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/24 19:43:03 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/24 20:32:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	ft_aggregate_moves_RRA_RRB(t_elem_insert *elem_insert);
 t_elem_insert	*ft_select_optimised_insert(t_elem_insert_set *elem_insert_set);
 
 	// moves
-void	ft_do_insertion(int action, t_stacks *full_stack, t_elem_insert elem_insert);
+void	ft_do_insertion(t_stacks *full_stack, t_elem_insert *elem_insert);
 void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves);
 void	ft_do_action(int action, t_stacks *full_stack);
 
