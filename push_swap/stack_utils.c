@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/23 21:02:09 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/24 18:42:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,6 @@ int	ft_min(int a, int b)
 		return (a);
 	else
 		return (b);
-}
-
-// calculates and returns the minimum and maximum value of a stack
-int	*ft_calculate_min_max(t_stack_list *input_stack)
-{
-	int     *min_max;
-
-	min_max = malloc (sizeof(int) * 2);
-	min_max[0] = input_stack->value;
-	min_max[1] = input_stack->value;
-	while (input_stack)
-	{
-		if (input_stack->value > min_max[1])
-				min_max[1] = input_stack->value;
-		else if (input_stack->value < min_max[0])
-				min_max[0] = input_stack->value;
-		input_stack = input_stack->next;
-	}
-	printf("minimum: %d, maximum: %d\n\n", min_max[0], min_max[1]); // printf
-	return (min_max);
 }
 
 // calculates and sets the size of each stack

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/23 21:00:38 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/24 18:45:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,13 @@ typedef	struct	s_stacks {
 // 2. set of actions to sort an element (for use if chosen)
 // nb: actions are a sequence "RA_RB" which is defined to
 typedef struct s_element_insertion {
-	int	total_moves;
 	int	moves_1;
 	int	moves_2;
 	int	actions;
+	int	moves_1_aggregated;
+	int	moves_2_aggregated;
+	int	actions_aggregated;
+	int	total_moves_aggregated;
 }			t_elem_insert;
 
 typedef	struct	s_element_insertion_set
@@ -75,6 +78,7 @@ typedef	struct	s_element_insertion_set
 	t_elem_insert	insert_RRA_RRB;
 	t_elem_insert	insert_RA_RRB;
 	t_elem_insert	insert_RRA_RB;
+	t_elem_insert	optimal_insertion;
 }			t_elem_insert_set;
 
 // input handling
@@ -94,17 +98,18 @@ void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail);
 
 // stack utils
 void	ft_set_positions(t_stacks *full_stack);
-int		ft_min(int a, int b);
-int		*ft_calculate_min_max(t_stack_list *input_stack);
 void	ft_calculate_sizes(t_stacks *full_stack);
+
+// general utils
+int		ft_min(int a, int b);
+int		ft_abs(int number);
 
 // insertion
 // calculation
-
-int	ft_optimal_position(int a_value, t_stack_list *b_stack, int *min_max);
+int	ft_optimal_position(int a_value, t_stack_list *b_stack);
 t_elem_insert	*ft_optimal_insertion(t_stack_list *a_element, t_stacks *full_stack);
 void	ft_minimise_moves(t_elem_insert_set *elem_insert_set);
-void	ft_count_total_moves(t_elem_insert *elem_insert);
+void	ft_count_total_insertion_moves(t_elem_insert *elem_insert);
 void	ft_count_total_set_moves(t_elem_insert_set *elem_insert_set);
 void	ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, int optimal_position, t_elem_insert_set *elem_insert_set);
 void	ft_aggregate_moves_RA_RB(t_elem_insert *elem_insert);

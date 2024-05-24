@@ -12,49 +12,51 @@
 
 #include "push_swap.h"
 
+// int	ft_smallest_difference(t_stack_list *b_stack, int *min_max)
+// {
+
+// }
+
 // finds where an element from stack a must be placed in stack b
 // returns the position it must be in (i-th element of b)
 // inputs: the value of the element in a, the stack b, the min_max for b
-int	ft_optimal_position(int a_value, t_stack_list *b_stack, int *min_max)
+int	ft_optimal_position(int a_value, t_stack_list *b_stack)
 {
-	t_stack_list *anchor;
-	int	i;
-	int	sign;
-	int	smallest_difference;
-	int	difference;
+	t_stack_list	*anchor;
+	int				optimal_position;
+	int				difference;
+	int				smallest_difference;
 
 	if (!b_stack)
 		return (0);
+	optimal_position = 0;
 	anchor = b_stack;
-	i = 0;
-	sign = 1;
-	difference = 0;
-	smallest_difference = min_max[1] - min_max[0];
-	if (!b_stack)
-	{
-		printf("the optimal position for \"%d\" in stack b is %d)\n", a_value, i); // printf
-		return (i);
-	}
+	smallest_difference = INT_MAX;
 	while (b_stack)
 	{
 		difference = a_value - b_stack->value; // if a is bigger than the value pointed to in b, a can take its place in the stack
-		if (difference < 0)
-			sign = -1;
-		else
-			sign = 1;
-		if (difference * sign < smallest_difference)
-			smallest_difference = difference;
+		if (ft_abs(difference) < smallest_difference)
+			smallest_difference = ft_abs(difference); 			printf("smallest_difference set to %d\n", smallest_difference);
 		b_stack = b_stack->next;
 	}
-		printf("difference: %d, smallest_difference: %d, the optimal position for \"%d\" in stack b is %d)\n", difference, smallest_difference, a_value, i); // printf
 	b_stack = anchor;
-	if (smallest_difference < 0)
-		i++;
-	while (b_stack && smallest_difference != a_value - b_stack->value) // set i to point to the element of b with the smallest difference
+	while (b_stack && smallest_difference != ft_abs(a_value - b_stack->value)) // set i to point to the element of b with the smallest difference
 	{
-		i++;
+		printf("smallest_difference: %d; a_value - b_stack->value: %d\n", smallest_difference, a_value - b_stack->value);
+		optimal_position++;
+		printf("\nstep %d:\nb_stack->value: %d, b_stack->next->value: %d\n", optimal_position, b_stack->value, b_stack->next->value);
 		b_stack = b_stack->next;
 	}
-	printf("the optimal position for \"%d\" in stack b is %d), next to \"%d\"\n", a_value, i, b_stack->value); // printf
-	return (i);
+	if (smallest_difference == a_value - b_stack->value)	printf("\n\t**************\n\t*** equal! ***\n\t**************\n\n");
+	if (a_value	< b_stack->value)
+		optimal_position++;
+	printf("optimal position for a_element \"%d\" is %d), next to \"%d\"\n", a_value, optimal_position, b_stack->value);
+	return (optimal_position);
+}
+
+int	ft_abs(int number)
+{
+	if (number < 0)
+		number *= -1;
+	return (number);
 }

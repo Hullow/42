@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/23 21:27:44 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/24 18:38:33 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,19 @@ int	main(int argc, char **argv)
 		}
 		ft_printf("input okay\n");
 		full_stack = ft_string_to_stack(argv, i);
+		ft_do_multiple_actions(RRA, full_stack, 4);
 		ft_do_multiple_actions(PB, full_stack, 5);
-		ft_do_multiple_actions(RRA, full_stack, 3);
-		ft_do_multiple_actions(PA, full_stack, 1);
-		ft_do_multiple_actions(RRB, full_stack, 1);
-		ft_do_multiple_actions(PA, full_stack, 1);
+		ft_do_multiple_actions(RB, full_stack, 3);
+		ft_do_multiple_actions(PA, full_stack, 3);
+		ft_do_multiple_actions(RA, full_stack, 2);
+		ft_do_multiple_actions(PB, full_stack, 1);
+		ft_do_multiple_actions(RB, full_stack, 2);
+		// ft_do_multiple_actions(RRA, full_stack, 5);
+		// ft_do_multiple_actions(RRB, full_stack, 2);
+		// ft_do_multiple_actions(RB, full_stack, 1);
+		// ft_do_multiple_actions(PA, full_stack, 1);
+		// ft_do_multiple_actions(RA, full_stack, 1);
+
 		ft_printf("\nafter a few manips:\na:\n");
 		ft_print_list(full_stack->a_head);
 		ft_printf("\nb:\n");
