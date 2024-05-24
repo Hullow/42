@@ -100,3 +100,4 @@ for that, or maybe rethink the whole thing.
 	- Removed `ft_calculate_min_max` use as input in ft_optimal_position, replaced with INT_MAX, so deleted the function
 	- in `ft_count_required_moves`, added exceptions for optimal_position == 0 and == size_b (size of stack b)
 	- Decided not to put b stack in final order before the end. E.g. if an element from a must be put at the end of b, put it at the top of the stack, then reorder the whole at the end
+- Wrote an iteration over the stack a to select the best element to insert and print out along with the insertion moves

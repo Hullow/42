@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/22 14:48:15 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:19:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,42 @@ void	ft_print_list(t_stack_list *list)
 			list = list->next;
 		}
 	}
+}
+
+void	ft_print_moves(t_elem_insert *insertion)
+{
+	int	actions;
+	int	moves_1;
+	int	moves_2;
+
+	actions = insertion->actions;
+	moves_1 = insertion->moves_1;
+	moves_2 = insertion->moves_2;
+	if (insertion->actions_aggregated)
+	{
+		// printf("actions_aggregated found; insertion->actions: %d, insertion->actions_aggregated: %d\n", insertion->actions, insertion->actions_aggregated);
+		actions = insertion->actions_aggregated;
+		moves_1 = insertion->moves_1_aggregated;
+		moves_2 = insertion->moves_2_aggregated;
+	}
+	if (actions == 9)
+		printf(" RR (10) (%d) == %d moves\n", moves_1, moves_1 + moves_2);
+	if (actions == 10)
+		printf(" RA_RB (10) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	else if (actions == 11)
+		printf(" RRA_RB (11) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	else if (actions == 12)
+		printf(" RRA_RRB (12) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	else if (actions == 13)
+		printf(" RA_RRB (13) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	if (actions == 14)
+		printf(" RR_RB (14) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	else if (actions == 15)
+		printf(" RR_RA (15) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	else if (actions == 16)
+		printf(" RRR_RRB (16) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	else if (actions == 17)
+		printf(" RRR_RRA (17) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
+	else if (actions == 18)
+		printf(" RRR (18) (%d, %d) == %d moves\n", moves_1, moves_2, moves_1 + moves_2);
 }

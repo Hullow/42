@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/24 18:45:23 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/24 19:43:03 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_element_insertion {
 	int	moves_1_aggregated;
 	int	moves_2_aggregated;
 	int	actions_aggregated;
-	int	total_moves_aggregated;
+	int	total_moves_final;
 }			t_elem_insert;
 
 typedef	struct	s_element_insertion_set
@@ -107,14 +107,13 @@ int		ft_abs(int number);
 // insertion
 // calculation
 int	ft_optimal_position(int a_value, t_stack_list *b_stack);
-t_elem_insert	*ft_optimal_insertion(t_stack_list *a_element, t_stacks *full_stack);
+t_elem_insert	*ft_optimised_insertion(t_stack_list *a_element, t_stacks *full_stack);
 void	ft_minimise_moves(t_elem_insert_set *elem_insert_set);
-void	ft_count_total_insertion_moves(t_elem_insert *elem_insert);
-void	ft_count_total_set_moves(t_elem_insert_set *elem_insert_set);
+void	ft_count_total_insertion_moves(t_elem_insert_set *elem_insert_set);
 void	ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, int optimal_position, t_elem_insert_set *elem_insert_set);
 void	ft_aggregate_moves_RA_RB(t_elem_insert *elem_insert);
-void	ft_aggregate_moves_RRA_RRB(t_elem_insert **elem_insert);
-t_elem_insert	*ft_select_best_insert(t_elem_insert_set *elem_insert_set);
+void	ft_aggregate_moves_RRA_RRB(t_elem_insert *elem_insert);
+t_elem_insert	*ft_select_optimised_insert(t_elem_insert_set *elem_insert_set);
 
 	// moves
 void	ft_do_insertion(int action, t_stacks *full_stack, t_elem_insert elem_insert);
@@ -123,3 +122,4 @@ void	ft_do_action(int action, t_stacks *full_stack);
 
 // debugging
 void	ft_print_list(t_stack_list *list);
+void	ft_print_moves(t_elem_insert *insertion);
