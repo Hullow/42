@@ -42,7 +42,7 @@ int	ft_optimal_position(int a_value, t_stack_list *b_stack)
 	}
 	if (a_value	< b_stack->value)
 		optimal_position++;
-	printf("optimal position for a_element \"%d\" is %d), next to \"%d\"\n", a_value, optimal_position, b_stack->value);
+	//printf("optimal position for a_element \"%d\" is %d), next to \"%d\"\n", a_value, optimal_position, b_stack->value);
 	return (optimal_position);
 }
 

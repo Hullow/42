@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 16:20:30 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 19:28:25 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,18 @@
 # define RB 6
 # define RRA 7
 # define RRB 8
-
 # define RR 9
+# define RRR 10
 
-# define RA_RB 10
 # define RRA_RRB 11
 # define RRA_RB 12
 # define RA_RRB 13
-
 # define RR_RB 14
 # define RR_RA 15
 # define RRR_RRB 16
 # define RRR_RRA 17
 
-# define RRR 18
+# define RA_RB 18
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -47,10 +45,10 @@ typedef struct s_cost {
 	int xRB;
 	int xRRA;
 	int xRRB;
-	int xRA_;
-	int xRB_;
-	int xRRA_;
-	int xRRB_;
+	int xRA_aggregated;
+	int xRB_aggregated;
+	int xRRA_aggregated;
+	int xRRB_aggregated;
 	int xRR;
 	int xRRR;
 	int	total;
@@ -86,9 +84,6 @@ typedef struct s_element_insertion {
 	int	total_moves_final;
 }			t_elem_insert;
 
-
-
-
 typedef	struct	s_element_insertion_set
 {
 	t_elem_insert	insert_RA_RB;
@@ -123,7 +118,7 @@ int		ft_max(int a, int b);
 int		ft_abs(int number);
 
 // insertion
-void ft_calculate_cost(t_stack_list *a_element, t_stacks *full_stack, t_cost *cost);
+void	ft_calculate_cost(t_stack_list *a_element, t_stacks *full_stack, t_cost *cost);
 
 // calculation
 void			ft_do_optimal_insertion(t_stacks *full_stack);

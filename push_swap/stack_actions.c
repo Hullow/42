@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/23 19:58:53 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 18:49:49 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	ft_push_a(t_stacks *full_stack)
 {
 	t_stack_list	*temp_b_new_head;
 
+	if (!full_stack->b_head)
+	{
+		ft_printf("stack b empty, cannot push to a\n");
+		return;
+	}
 	temp_b_new_head = full_stack->b_head->next;
 	if (full_stack->a_head)
 	{
@@ -43,6 +48,11 @@ void	ft_push_b(t_stacks *full_stack)
 	t_stack_list	*a_second_element;
 
 	a_second_element = full_stack->a_head->next;
+	if (!full_stack->a_head)
+	{
+		ft_printf("stack a empty, cannot push to b\n");
+		return;
+	}
 	if (full_stack->b_head)
 	{
 		// printf("b_head address is : %p\n", full_stack->b_head);
@@ -57,7 +67,7 @@ void	ft_push_b(t_stacks *full_stack)
 		full_stack->b_head->next = NULL; // set the head of b (aka ex head of a) to point to NULL
 		full_stack->b_tail = full_stack->b_head; // set the tail of b to be the same as the head of b 
 		full_stack->a_head = a_second_element; // set the new head of a
-		printf("b_tail is : %d\n", full_stack->b_tail->value);
+		//printf("b_tail is : %d\n", full_stack->b_tail->value);
 	}
 }
 
@@ -67,6 +77,11 @@ void	ft_rotate(t_stack_list **head, t_stack_list **tail)
 {
 	t_stack_list	*temp_new_head;
 
+	if (!head)
+	{
+		ft_printf("no element found, could not rotate\n");
+		return;
+	}
 	temp_new_head = (*head)->next;
 	(*head)->next = NULL;
 	(*tail)->next = *head;
@@ -82,6 +97,11 @@ void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
 	t_stack_list	*temp_old_head;
 	t_stack_list	*penultimate;
 
+	if (!head || !tail)
+	{
+		ft_printf("head/tail not found, can not reverse rotate\n");
+		return;
+	}
 	temp_old_head = *head;
 	penultimate = *head;
 	while (penultimate->next != *tail)

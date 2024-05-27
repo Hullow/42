@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 15:29:13 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 18:49:09 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,15 @@ void	ft_do_insertion(t_stacks *full_stack, t_elem_insert *elem_insert)
 
 void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves)
 {
+	char *table[] = {"sa","sb","pa","pb","ra","rb","rra","rrb", "rr","rrr"};
+
+	if (!full_stack->size_a || !full_stack->size_b)
+		ft_calculate_sizes(full_stack);
 	while (moves--)
+	{
 		ft_do_action(action, full_stack);
+		ft_printf("%s\n",table[action - 1]);
+	}
 	ft_calculate_sizes(full_stack);
 }
 
@@ -76,4 +83,9 @@ void	ft_do_action(int action, t_stacks *full_stack)
 		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
 	else if (action == RRB)
 		ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+	else if (action == RRR)
+	{
+		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
+		ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+	}
 }

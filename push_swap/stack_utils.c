@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 15:41:13 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 18:54:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,23 @@ void	ft_calculate_sizes(t_stacks *full_stack)
 	full_stack->size_a = 0;
 	full_stack->size_b = 0;
 	anchor = full_stack->a_head;
-	while (full_stack->a_head)
+	if (full_stack->a_head)
 	{
-		full_stack->size_a++;
-		full_stack->a_head = full_stack->a_head->next;
+		while (full_stack->a_head)
+		{
+			full_stack->size_a++;
+			full_stack->a_head = full_stack->a_head->next;
+		}
 	}
 	full_stack->a_head = anchor;
 	if (full_stack->b_head)
 	{
 		anchor = full_stack->b_head;
-		while (full_stack->b_head && ++full_stack->size_b)
+		while (full_stack->b_head)
+		{
+			full_stack->size_b++;
 			full_stack->b_head = full_stack->b_head->next;
+		} 
 		full_stack->b_head = anchor;
 	}
 }
