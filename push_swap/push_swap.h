@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 14:26:19 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 16:20:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,24 @@
 #include "./lib/libft/libft.h"
 #include "./lib/ft_printf/ft_printf.h"
 
+typedef struct s_cost {
+	int xRA;
+	int xRB;
+	int xRRA;
+	int xRRB;
+	int xRA_;
+	int xRB_;
+	int xRRA_;
+	int xRRB_;
+	int xRR;
+	int xRRR;
+	int	total;
+}			t_cost;
 typedef	struct	s_stack_list {
 	int					value;
 	int					position;
 	struct s_stack_list	*next;
+	struct s_cost cost;
 }	t_stack_list;
 
 typedef	struct	s_stacks {
@@ -71,6 +85,9 @@ typedef struct s_element_insertion {
 	int	actions_aggregated;
 	int	total_moves_final;
 }			t_elem_insert;
+
+
+
 
 typedef	struct	s_element_insertion_set
 {
@@ -102,16 +119,19 @@ void	ft_calculate_sizes(t_stacks *full_stack);
 
 // general utils
 int		ft_min(int a, int b);
+int		ft_max(int a, int b);
 int		ft_abs(int number);
 
 // insertion
+void ft_calculate_cost(t_stack_list *a_element, t_stacks *full_stack, t_cost *cost);
+
 // calculation
 void			ft_do_optimal_insertion(t_stacks *full_stack);
 t_elem_insert	*ft_find_optimal_insertion(t_stack_list *a_element, t_stacks *full_stack);
 int				ft_optimal_position(int a_value, t_stack_list *b_stack);
 void			ft_minimise_moves(t_elem_insert_set *elem_insert_set);
 void			ft_count_total_insertion_moves(t_elem_insert_set *elem_insert_set);
-void			ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, int optimal_position, t_elem_insert_set *elem_insert_set);
+void			ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, t_elem_insert_set *elem_insert_set);
 void			ft_aggregate_moves_RA_RB(t_elem_insert *elem_insert);
 void			ft_aggregate_moves_RRA_RRB(t_elem_insert *elem_insert);
 t_elem_insert	*ft_select_optimised_insert(t_elem_insert_set *elem_insert_set);

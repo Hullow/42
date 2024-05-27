@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:21:16 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 14:30:35 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 16:16:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_elem_insert	*ft_find_optimal_insertion(t_stack_list *a_element, t_stacks *full
 		optimal_position = ft_optimal_position(a_element->value, full_stack->b_head);
 	else
 		optimal_position = 0;
-	ft_count_required_moves(a_element, full_stack, optimal_position, elem_insert_set);
+	ft_count_required_moves(a_element, full_stack, elem_insert_set);
 
 	ft_count_total_insertion_moves(elem_insert_set);
 	ft_minimise_moves(elem_insert_set);
@@ -75,8 +75,68 @@ t_elem_insert	*ft_find_optimal_insertion(t_stack_list *a_element, t_stacks *full
 	// RRA_to_top = full_stack->size_a - a_element->position;
 	// RB_to_optimal = optimal_position; 			// if optimal position is 0, 0 moves. if position 1, 1 move. etc.
 	// RRB_to_optimal = full_stack->size_b - optimal_position;
-void	ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, int optimal_position, t_elem_insert_set *elem_insert_set)
+void ft_calculate_cost(t_stack_list *a_element, t_stacks *full_stack, t_cost *cost)
 {
+	int optimal_position = ft_optimal_position(a_element->value, full_stack->b_head);
+	cost->xRB = optimal_position;
+	cost->xRRB = full_stack->size_b - cost->xRB;
+	cost->xRA = a_element->position;
+	cost->xRRA = full_stack->size_a - cost->xRA;
+
+	cost->xRR = ft_min(cost->xRA, cost->xRB);
+	cost->xRRR = ft_min(cost->xRRA, cost->xRRB);
+
+	cost->xRB_ = cost->xRB - cost->xRR;
+	cost->xRRB_ = cost->xRRB - cost->xRRR;
+	cost->xRA_ = cost->xRA - cost->xRR;
+	cost->xRRA_ = cost->xRRA - cost->xRRR;
+
+	int costt[4];
+	costt[0] = cost->xRR + ft_max(cost->xRA,cost->xRB) - ft_min(cost->xRA, cost->xRB);
+	costt[1] = cost->xRRR + ft_max(cost->xRRA,cost->xRRB) - ft_min(cost->xRRA, cost->xRRB);
+	costt[2] = cost->xRA + cost->xRRB;
+	costt[3] = cost->xRB + cost->xRRA;
+
+	int i = -1;
+	int min_cost = ft_min(ft_min(costt[0], costt[1]), ft_min(costt[2], costt[3]));
+	while (++i < 4)
+		if (min_cost == costt[i])
+			break;
+	if (i == 0)
+	{
+		cost->xRRR = 0;
+		cost->xRRA = 0;
+		cost->xRRB = 0;
+		cost->xRA = cost->xRA_;
+		cost->xRB = cost->xRB_;
+	}
+	if (i == 1)
+	{
+		cost->xRR = 0;
+		cost->xRA = 0;
+		cost->xRB = 0;
+		cost->xRRA = cost->xRRA_;
+		cost->xRRB = cost->xRRB_;
+	}
+	if (i == 2)
+	{
+		cost->xRR = 0;
+		cost->xRB = 0;
+		cost->xRRR = 0;
+		cost->xRRA = 0;
+	}
+	if (i == 3)
+	{
+		cost->xRR = 0;
+		cost->xRA = 0;
+		cost->xRRR = 0;
+		cost->xRRB = 0;
+	}
+
+}
+void	ft_count_required_moves(t_stack_list *a_element, t_stacks *full_stack, t_elem_insert_set *elem_insert_set)
+{
+	int optimal_position = ft_optimal_position(a_element->value, full_stack->b_head);
 	elem_insert_set->insert_RA_RB.actions = RA_RB;
 	elem_insert_set->insert_RA_RB.moves_1 = a_element->position;
 	elem_insert_set->insert_RA_RB.moves_2 = optimal_position;

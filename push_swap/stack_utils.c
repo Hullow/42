@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/24 18:42:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 15:41:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void	ft_set_positions(t_stacks *full_stack)
 int	ft_min(int a, int b)
 {
 	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
+
+int	ft_max(int a, int b)
+{
+	if (a >= b)
 		return (a);
 	else
 		return (b);
