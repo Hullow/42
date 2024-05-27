@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/24 20:32:50 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 12:59:32 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,12 @@ int	main(int argc, char **argv)
 		ft_printf("\nb:\n");
 		ft_print_list(full_stack->b_head);
 
-		ft_calculate_sizes(full_stack);
-		ft_set_positions(full_stack);
+		ft_calculate_sizes(full_stack); // calculates the size of each stack
+		ft_set_positions(full_stack); // sets the positions of each element in the stack
 	
-	
-		t_stack_list	*a_iterator = full_stack->a_head;
-		t_stack_list	*best_element_to_insert;
-		t_elem_insert	*insertion;
-		t_elem_insert	*best_element_insertion;
-		insertion = ft_optimised_insertion(full_stack->a_head, full_stack);
-		int				minimal_insertion_moves;
-		minimal_insertion_moves = insertion->total_moves_final;
-		best_element_to_insert = full_stack->a_head;
-		while (a_iterator->next)
-		{
-			a_iterator = a_iterator->next;
-			insertion = ft_optimised_insertion(a_iterator, full_stack);
-			// printf("\nthe optimised insert has actions:\n");
-			// ft_print_moves(insertion);
-			if (insertion->total_moves_final < minimal_insertion_moves)
-			{
-				best_element_to_insert = a_iterator;
-				printf("new best element to insert found: %d – %d) in stack a\n", a_iterator->value, a_iterator->position);
-			}
-		}
-		best_element_insertion = ft_optimised_insertion(best_element_to_insert, full_stack);
-		printf("the best element to insert is \"%d\" – %d) in stack a, with moves:\n", best_element_to_insert->value, best_element_to_insert->position);
-		ft_print_moves(best_element_insertion);
-		ft_do_insertion(full_stack, best_element_insertion);
+		// calculates the optimal element to insert
+		ft_optimal_insertion(full_stack);
+
 		
 		ft_printf("\nafter insertion:\na:\n");
 		ft_print_list(full_stack->a_head);
