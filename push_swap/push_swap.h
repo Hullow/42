@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 13:00:02 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/27 14:26:19 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		ft_abs(int number);
 
 // insertion
 // calculation
-void			ft_optimal_insertion(t_stacks *full_stack);
+void			ft_do_optimal_insertion(t_stacks *full_stack);
 t_elem_insert	*ft_find_optimal_insertion(t_stack_list *a_element, t_stacks *full_stack);
 int				ft_optimal_position(int a_value, t_stack_list *b_stack);
 void			ft_minimise_moves(t_elem_insert_set *elem_insert_set);
@@ -122,5 +122,6 @@ void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves);
 void	ft_do_action(int action, t_stacks *full_stack);
 
 // debugging
-void	ft_print_list(t_stack_list *list);
+void	ft_print_both_stacks(t_stacks *full_stack);
+void	ft_print_stack(t_stack_list *list);
 void	ft_print_moves(t_elem_insert *insertion);

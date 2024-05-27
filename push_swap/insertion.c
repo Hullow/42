@@ -3,24 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   insertion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:21:16 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 12:59:50 by francis          ###   ########.fr       */
+/*   Updated: 2024/05/27 14:30:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 
-void	ft_optimal_insertion(t_stacks *full_stack)
+void	ft_do_optimal_insertion(t_stacks *full_stack)
 {
 	t_stack_list	*a_iterator = full_stack->a_head;
 	t_stack_list	*best_element_to_insert;
 	t_elem_insert	*insertion;
 	t_elem_insert	*best_element_insertion;
-	insertion = ft_find_optimal_insertion(full_stack->a_head, full_stack);
 	int				minimal_insertion_moves;
+
+	ft_calculate_sizes(full_stack); // calculates the size of each stack
+	ft_set_positions(full_stack); // sets the positions of each element in the stack
+	insertion = ft_find_optimal_insertion(full_stack->a_head, full_stack);
 	minimal_insertion_moves = insertion->total_moves_final;
 	best_element_to_insert = full_stack->a_head;
 	while (a_iterator->next)

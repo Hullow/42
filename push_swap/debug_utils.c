@@ -6,15 +6,22 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/24 20:19:30 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/27 14:26:10 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 #include <stdio.h> // to remove or comment out
+void	ft_print_both_stacks(t_stacks *full_stack)
+{
+	ft_printf("\na:\n");
+	ft_print_stack(full_stack->a_head);
+	ft_printf("\nb:\n");
+	ft_print_stack(full_stack->b_head);
+}
 
-void	ft_print_list(t_stack_list *list)
+void	ft_print_stack(t_stack_list *list)
 {
 	int		i;
 
