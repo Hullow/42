@@ -104,3 +104,12 @@ for that, or maybe rethink the whole thing.
 
 # 27/4/24
 - How do I want to use my optimal insertion calculator ?
+- Help from Lucas (ft_calculate_cost)
+- To do :
+	-  problems with `./push_swap 42 61 8 14 12 13 15 67 -23 191 1 | grep "size: a"`, we get
+	```c
+size: a 9, b 2, optimal_position: 2
+size: a 8, b 2, optimal_position: 2
+size: a 7, b 2, optimal_position: 2
+```
+=> it looks like our stack handling functions have issues. Test them systematically before anything else
