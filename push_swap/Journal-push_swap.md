@@ -107,9 +107,16 @@ for that, or maybe rethink the whole thing.
 - Help from Lucas (ft_calculate_cost)
 - To do :
 	-  problems with `./push_swap 42 61 8 14 12 13 15 67 -23 191 1 | grep "size: a"`, we get
-	```c
+```c
 size: a 9, b 2, optimal_position: 2
 size: a 8, b 2, optimal_position: 2
 size: a 7, b 2, optimal_position: 2
 ```
 => it looks like our stack handling functions have issues. Test them systematically before anything else
+
+# 28/5/24
+- Fixed size calculation: it was because we were calculating size based on `full_stack->a_head`, which moves in the while() in our main. Replaced it with a variable `stack_iterator` so size can be calculated with an untouched `full_stack->a_head`
+- Looks like I debugged a few things, and now can see a stack be rearranged !
+- Need a function to do the final stack arrangement (e.g. ft_stack_max to calculate maximum value, then rotate or reverse_rotate until found)
+=> done !
+- Now let's check and optimise

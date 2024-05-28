@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 18:49:49 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/28 18:29:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
 	t_stack_list	*temp_old_head;
 	t_stack_list	*penultimate;
 
+	// ft_printf("\nft_reverse_rotate:\n");
 	if (!head || !tail)
 	{
 		ft_printf("head/tail not found, can not reverse rotate\n");
@@ -106,10 +107,12 @@ void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
 	penultimate = *head;
 	while (penultimate->next != *tail)
 		penultimate = penultimate->next;
+	// ft_printf("\tinitial: head %d, tail %d, penultimate %d\n", (*head)->value, (*tail)->value, penultimate->value);
 	(*tail)->next = temp_old_head;
 	*head = *tail;
 	(*tail)->next = NULL;
 	*tail = penultimate;
 	(*tail)->next = NULL;
 	(*head)->next = temp_old_head;
+	// ft_printf("\tfinal: head %d, tail %d\n", (*head)->value, (*tail)->value);
 }

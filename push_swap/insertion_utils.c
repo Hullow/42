@@ -46,9 +46,28 @@ int	ft_optimal_position(int a_value, t_stack_list *b_stack)
 	return (optimal_position);
 }
 
+// returns the absolute value of an int
 int	ft_abs(int number)
 {
 	if (number < 0)
 		number *= -1;
 	return (number);
+}
+
+// returns the minimum between two integer values
+int	ft_min(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
+
+// returns the maximum between two integer values
+int	ft_max(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	else
+		return (b);
 }

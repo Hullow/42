@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 16:36:23 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:00:34 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_print_stack(t_stack_list *list)
 	// ft_printf("ft_print_list: list address %p\n", list);
 	if (!list)
 		ft_printf("(empty)\n");
-	if (list && list->next != NULL)
+	if (list)
 	{
 		while (list)
 		{

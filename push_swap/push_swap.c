@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 20:06:19 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:19:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,30 @@ int	main(int argc, char **argv)
 		//ft_printf("input okay\n");
 		full_stack = ft_string_to_stack(argv, i);
 
-		ft_do_multiple_actions(PB, full_stack, 2);
- 
-		t_cost	*cost = malloc (sizeof(t_cost));
-		t_cost	*min_cost_insert = malloc (sizeof(t_cost));
-		min_cost_insert->total = INT_MAX - 1;
+		ft_calculate_sizes(full_stack);
+		// printf("size: a %d, b %d\n", full_stack->size_a, full_stack->size_b);
 
-		t_stack_list	*anchor;
-		ft_print_both_stacks(full_stack);
-		int	loop = 0;
-		while(full_stack->a_head)
+		ft_do_multiple_actions(PB, full_stack, 2);
+		ft_calculate_sizes(full_stack);
+		// printf("size: a %d, b %d\n", full_stack->size_a, full_stack->size_b);
+
+		t_cost	*cost = malloc (sizeof(t_cost));
+ 		t_cost	*min_cost_insert = malloc (sizeof(t_cost));
+		min_cost_insert->total = INT_MAX;
+
+		t_stack_list	*stack_iterator;
+		stack_iterator = full_stack->a_head;
+		// ft_print_both_stacks(full_stack);
+		// int	loop = 0;
+		// ft_print_both_stacks(full_stack);
+		while(stack_iterator)
 		{
-			ft_printf("\n***loop %d***\n", ++loop);
-			anchor = full_stack->a_head;
+			// ft_printf("\n***loop %d***\n", ++loop);
 			// compute cheapest element
-			while(full_stack->a_head)
+			while (stack_iterator)
 			{
-				ft_calculate_cost(full_stack->a_head, full_stack, cost);
-				printf("\nin the loop: cost total: %d\n", cost->total);
+				ft_calculate_cost(stack_iterator, full_stack, cost);
+				// printf("\nmain function: in the loop: cost total: %d\n", cost->total);
 				if (cost->total < min_cost_insert->total)
 				{
 					min_cost_insert->xRA = cost->xRA;
@@ -60,13 +66,13 @@ int	main(int argc, char **argv)
 					min_cost_insert->xRRA = cost->xRRA;
 					min_cost_insert->xRRB = cost->xRRB;
 					min_cost_insert->xRRR = cost->xRRR;
-					printf("minimum cost reset:\n\tcost: xRA: %d, xRB: %d, xRR: %d, xRRA: %d, xRRB: %d, xRRR: %d\n", cost->xRA, cost->xRB, cost->xRR, cost->xRRA, cost->xRRB, cost->xRRR);
-					printf("\t********insertion selected: xRA: %d, xRB: %d, xRR: %d, xRRA: %d, xRRB: %d, xRRR: %d\n", min_cost_insert->xRA, min_cost_insert->xRB, min_cost_insert->xRR, min_cost_insert->xRRA, min_cost_insert->xRRB, min_cost_insert->xRRR);
+					min_cost_insert->total = cost->total;
+				// 	printf("minimum cost reset:\n\tcost: xRA: %d, xRB: %d, xRR: %d, xRRA: %d, xRRB: %d, xRRR: %d\n", cost->xRA, cost->xRB, cost->xRR, cost->xRRA, cost->xRRB, cost->xRRR);
+				// 	printf("\t********insertion selected: xRA: %d, xRB: %d, xRR: %d, xRRA: %d, xRRB: %d, xRRR: %d\n", min_cost_insert->xRA, min_cost_insert->xRB, min_cost_insert->xRR, min_cost_insert->xRRA, min_cost_insert->xRRB, min_cost_insert->xRRR);
 				}
-				if (full_stack->a_head)
-					full_stack->a_head = full_stack->a_head->next;
+				if (stack_iterator)
+					stack_iterator = stack_iterator->next;
 			}
-			full_stack->a_head = anchor;
 			// printf("insertion selected: xRA: %d, xRB: %d, xRR: %d, xRRA: %d, xRRB: %d, xRRR: %d\n", min_cost_insert->xRA, min_cost_insert->xRB, min_cost_insert->xRR, min_cost_insert->xRRA, min_cost_insert->xRRB, min_cost_insert->xRRR);
 			ft_do_multiple_actions(RA, full_stack, min_cost_insert->xRA);
 			ft_do_multiple_actions(RB, full_stack, min_cost_insert->xRB);
@@ -75,10 +81,21 @@ int	main(int argc, char **argv)
 			ft_do_multiple_actions(RRB, full_stack, min_cost_insert->xRRB);
 			ft_do_multiple_actions(RRR, full_stack, min_cost_insert->xRRR);
 			ft_do_multiple_actions(PB, full_stack, 1);
-			ft_print_both_stacks(full_stack);
-			if (full_stack->a_head)
-				full_stack->a_head = full_stack->a_head->next;
+			stack_iterator = full_stack->a_head;
+			min_cost_insert->total = INT_MAX;
+			// ft_print_both_stacks(full_stack);
 		}
+
+		// rearrange b_stack to put maximum value at the top
+		// and push everything to a_stack
+		t_stack_list *max = ft_stack_max_value(full_stack->b_head);
+		while (full_stack->b_head != max)
+			ft_do_multiple_actions(RB, full_stack, 1);
+		// ft_print_both_stacks(full_stack);
+		while (full_stack->b_head)
+			ft_do_multiple_actions(PA, full_stack, 1);
+		// ft_print_both_stacks(full_stack);
+
 		// int max = 0;
 		// int max_position = 0;
 		// t_stack_list *tmp;
@@ -96,7 +113,6 @@ int	main(int argc, char **argv)
 		// printf("size b: %i\n", full_stack->size_b);
 		// ft_do_multiple_actions(PA,full_stack, full_stack->size_b);
 		// ft_print_both_stacks(full_stack);
-
 
 		ft_free_full_stack(&full_stack);
 	}

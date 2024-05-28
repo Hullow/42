@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/27 19:28:25 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/28 19:13:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,9 @@ void	ft_rotate(t_stack_list **head, t_stack_list **tail);
 void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail);
 
 // stack utils
-void	ft_set_positions(t_stacks *full_stack);
-void	ft_calculate_sizes(t_stacks *full_stack);
+void			ft_set_positions(t_stacks *full_stack);
+void			ft_calculate_sizes(t_stacks *full_stack);
+t_stack_list	*ft_stack_max_value(t_stack_list *stack_element);
 
 // general utils
 int		ft_min(int a, int b);
