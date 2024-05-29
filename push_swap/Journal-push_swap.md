@@ -120,3 +120,6 @@ size: a 7, b 2, optimal_position: 2
 - Need a function to do the final stack arrangement (e.g. ft_stack_max to calculate maximum value, then rotate or reverse_rotate until found)
 => done !
 - Now let's check and optimise
+
+# 29/5/24
+- Working on checker (also spent some time setting up everything on Ubuntu): but how to do it without strcmp ?
