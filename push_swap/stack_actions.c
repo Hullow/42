@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/28 18:29:13 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/29 18:46:19 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	ft_rotate(t_stack_list **head, t_stack_list **tail)
 {
 	t_stack_list	*temp_new_head;
 
-	if (!head)
+	if (!head || !tail || !(*head) || !(*tail) || (*head == *tail))
 	{
-		ft_printf("no element found, could not rotate\n");
+		ft_printf("no element or a single element found, could not rotate\n");
 		return;
 	}
 	temp_new_head = (*head)->next;
@@ -98,9 +98,9 @@ void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
 	t_stack_list	*penultimate;
 
 	// ft_printf("\nft_reverse_rotate:\n");
-	if (!head || !tail)
+	if (!head || !tail || !(*head) || !(*tail) || (*head == *tail))
 	{
-		ft_printf("head/tail not found, can not reverse rotate\n");
+		ft_printf("reverse rotation: head/tail not found, nothing done\n");
 		return;
 	}
 	temp_old_head = *head;

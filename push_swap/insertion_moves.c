@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/28 19:19:47 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/29 18:53:52 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves)
 	while (moves--)
 	{
 		ft_do_action(action, full_stack);
-		ft_printf("%s\n",table[action - 1]);
+		ft_printf("action %d: %s\n",action, table[action - 1]);
 	}
 	ft_calculate_sizes(full_stack);
 }

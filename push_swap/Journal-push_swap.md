@@ -123,3 +123,8 @@ size: a 7, b 2, optimal_position: 2
 
 # 29/5/24
 - Working on checker (also spent some time setting up everything on Ubuntu): but how to do it without strcmp ?
+	- had to modify ft_atoi and ft_putnbr_unsigned due to gcc warnings
+	- Checker quite useful to test actions on stacks in real time. Fouixed segfault in reverse rotate if empty stack, also need to fix this (if a single element in stack, rr makes it disappear, but not rrb/rra)
+		- bug to fix: rr doesn't work if one stack is empty, but rrr does ! => **still not fixed**
+		- otherwise checker seems to work
+
