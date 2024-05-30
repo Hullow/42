@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/05/30 15:14:23 by fallan           ###   ########.fr        #
+#    Updated: 2024/05/30 16:50:27 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FT_PRINTF = ./lib/libftprintf.a
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3 -fmax-errors=1
+CFLAGS = -Wall -Wextra -Werror -g3 -fmax-errors=5
 
 all: $(NAME) clean
 

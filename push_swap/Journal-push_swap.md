@@ -130,3 +130,8 @@ size: a 7, b 2, optimal_position: 2
 
 # 30/5/24
 - Using tester.sh, mostly red so far
+- Fixed: the prints to only print the moves (and not "action N: pa") => works for 100 and 500-length stacks !!!
+- Finished writing checker, also added ft_find_duplicates for the input handling
+- Error handling: ok
+- Problems: basic input, small stacks (size 5). Larger stacks okay (a few 4/5 yellow though)
+- Norm : to be done

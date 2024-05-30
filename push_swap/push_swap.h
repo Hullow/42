@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/28 19:13:36 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/30 19:40:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef	struct	s_element_insertion_set
 // input handling
 char		*ft_check_input(char *str);
 t_stacks	*ft_string_to_stack(char **argv, int i);
+void		ft_find_duplicates(t_stacks *full_stack);
 
 // list handling
 t_stack_list	*ft_new_stack_node(int value);
