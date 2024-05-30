@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/28 19:19:36 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/30 16:48:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int	main(int argc, char **argv)
 		// printf("size b: %i\n", full_stack->size_b);
 		// ft_do_multiple_actions(PA,full_stack, full_stack->size_b);
 		// ft_print_both_stacks(full_stack);
-
+		ft_free(&max);
+		ft_free(&cost);
 		ft_free_full_stack(&full_stack);
 	}
 	return (0);

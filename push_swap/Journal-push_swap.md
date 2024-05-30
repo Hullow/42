@@ -128,3 +128,5 @@ size: a 7, b 2, optimal_position: 2
 		- bug to fix: rr doesn't work if one stack is empty, but rrr does ! => **still not fixed**
 		- otherwise checker seems to work
 
+# 30/5/24
+- Using tester.sh, mostly red so far

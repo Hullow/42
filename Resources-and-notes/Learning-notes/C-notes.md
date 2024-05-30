@@ -293,6 +293,7 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 - `-I` : specifies to look in the current directory (.) for header files. Alternative: `INC_DIR = .`
 - `-c`: generate the object file, i.e. compile and assemble, but do not link
 - `-o` : write output to file
+- `fmax-errors=N` (gcc) / `-ferror-limit=N` (clang): limit number of errors displayed
 
 ## Debugging
 - GDB: GNU debugger

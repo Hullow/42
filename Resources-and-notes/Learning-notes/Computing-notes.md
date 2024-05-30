@@ -253,9 +253,13 @@ Organised in segments, from lower to higher addresses in memory:
 - Heap: used for dynamic memory allocation during program execution. Grows upward toward higher memory addresses.
 - Stack: used for automatic memory allocation and deallocation as functions are called and return during the program execution. Stores local (automatic) variables, function parameters, return addresses, and is managed in LIFO (Last-In-First-Out). Grows downward toward lower memory addresses.
 
+### Core dump
+- Also known as **memory dump**, **crash dump**, **storage dump**, **system dump**, or **ABEND dump**, consists of te recorded state of the working memory of a computer program at a specific time, generally when the program has crashed or otherwise terminated abnormally. In practice, other key pieces of program state are usually dumped at the same time, including the process registers, which may include the program counter and stack pointer.
+The name comes from **magnetic-core memory**, the principal form of random-access memory from the 1950s to the 1970s
 
-#### Call stack
+### Call stack
 A structure that tracks function calls and returns, ensuring that each function call leads back to the point from which it was called, in the correct order. Each time a function is called, a new frame is added to the call stack, which contains the function's parameters, local variables, and the return address.
+
 
 ## [Signal](https://en.wikipedia.org/wiki/Signal_(computing))
 

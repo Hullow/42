@@ -58,6 +58,7 @@
 	- `-A x -B y`: print x lines after, y lines before
 
 ## System state and information
+- `echo $0`: return terminal in use (bash, zsh, sh, ..) (n.b. `$0` is the name of the running process)
 - `tty` : returns user's terminal name
 - `ps`: list active processes
 - `lsof -p <PID>`: list files opened by processes
