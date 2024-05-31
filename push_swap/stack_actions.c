@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/29 18:46:19 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:56:45 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,23 @@ void	ft_push_b(t_stacks *full_stack)
 		full_stack->b_tail = full_stack->b_head; // set the tail of b to be the same as the head of b 
 		full_stack->a_head = a_second_element; // set the new head of a
 		//printf("b_tail is : %d\n", full_stack->b_tail->value);
+	}
+}
+
+void	ft_swap(t_stack_list **head, t_stack_list **tail, int stack_size)
+{
+	t_stack_list	*temp_new_head;
+	
+	if (!head || !(*head) || stack_size == 1)
+		return;
+	if (stack_size == 2)
+		ft_rotate(head, tail);
+	else
+	{
+		temp_new_head = (*head)->next;
+		(*head)->next = (*head)->next->next; //old head points to 3rd element
+		(*head)->next->next = *head; // old 2nd element point to old head
+		*head = temp_new_head;	// new head is old 2nd element
 	}
 }
 

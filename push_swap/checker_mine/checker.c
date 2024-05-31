@@ -6,15 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/30 19:40:03 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/31 19:03:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
 int		ft_execute_move(char *move, t_stacks *full_stack);
-void	ft_check_stack(t_stacks	*full_stack);
-void	ft_duplicate_finder(t_stacks *full_stack);
 
 int main(int argc, char **argv)
 {
@@ -38,7 +36,7 @@ int main(int argc, char **argv)
 		}
 		//ft_printf("input okay\n");
 		full_stack = ft_string_to_stack(argv, i);
-		ft_find_duplicates()
+		ft_find_duplicates(full_stack);
 
 		char	*move = malloc(sizeof(char) * 4);
 		char	*temp = malloc(sizeof(char) * 40);
@@ -69,6 +67,9 @@ int main(int argc, char **argv)
 	return (0);
 }
 
+// matches the input (char *move) to an action on the stack,
+// and executes the action
+// returns the value of found to indicate whether there was a match
 int	ft_execute_move(char *move, t_stacks *full_stack)
 {
 	char *table[] = {"sa", "sb", "pa", "pb", "ra", "rb", "rra", "rrb", "rr", "rrr", "end"};
@@ -107,24 +108,4 @@ int	ft_execute_move(char *move, t_stacks *full_stack)
 		}
 	}
 	return (found);
-}
-
-void	ft_check_stack(t_stacks	*full_stack)
-{
-	if (full_stack->b_head || full_stack->size_b)
-	{
-		printf("full_stack->b_head: %p, full_stack->b_tail: %p, full_stack->size_b: %d\n", full_stack->b_head, full_stack->b_tail, full_stack->size_b);
-		ft_printf("stack b not empty, KO\n");
-		return;
-	}
-	while (full_stack->a_head->next)
-	{
-		if (full_stack->a_head->value >= full_stack->a_head->next->value)
-		{
-			ft_printf("KO\n");
-			return;
-		}
-		full_stack->a_head = full_stack->a_head->next;
-	}
-	ft_printf("OK\n");
 }

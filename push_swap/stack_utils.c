@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/28 19:19:26 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/31 19:07:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,38 @@ t_stack_list	*ft_stack_max_value(t_stack_list *stack_element)
 		ft_printf("ft_stack_max_value: error\n");
 	// ft_printf("ft_stack_max_value: maximum found: %d\n", max->value);
 	return (max);
+}
+
+// checks if the stack a is ordered
+int	ft_check_stack(t_stacks	*full_stack)
+{
+	if (full_stack->b_head || full_stack->size_b)
+	{
+		printf("full_stack->b_head: %p, full_stack->b_tail: %p, full_stack->size_b: %d\n", full_stack->b_head, full_stack->b_tail, full_stack->size_b);
+		ft_printf("stack b not empty, KO\n");
+		return (-1);
+	}
+	while (full_stack->a_head->next)
+	{
+		if (full_stack->a_head->value >= full_stack->a_head->next->value)
+		{
+			// ft_printf("KO\n");
+			return (-1);
+		}
+		full_stack->a_head = full_stack->a_head->next;
+	}
+	// ft_printf("OK\n");
+	return (0);
+}
+
+void	ft_sort_small_stack(t_stacks *full_stack)
+{
+	if (full_stack->size_a == 3 && ft_check_stack(full_stack) != 0)
+	{
+		ft_do_multiple_actions(PB, full_stack, 1);
+		ft_do_multiple_actions(RA, full_stack, 1);
+		ft_do_multiple_actions(PA, full_stack, 1);
+		while (ft_check_stack(full_stack) == -1)
+			ft_do_multiple_actions(RA, full_stack, 1);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:21:16 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/28 18:47:57 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:43:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,33 +102,4 @@ void ft_calculate_cost(t_stack_list *a_element, t_stacks *full_stack, t_cost *co
 /* 	printf("\t- total cost AFTER adjustments: %d (from: %d (xRA) + %d (xRA_aggregated) + %d (xRRA) + %d (xRRA_aggregated) + %d (xRB) \
 + %d (xRB_aggregated) + %d (xRRB_aggregated) + %d (xRR) + %d (xRRR))\n", cost->total, cost->xRA, \
 	cost->xRA_aggregated, cost->xRRA, cost->xRRA_aggregated, cost->xRB, cost->xRB_aggregated, cost->xRRB_aggregated, cost->xRR, cost->xRRR); */
-}
-
-// aggregates common rotations with RR
-void	ft_aggregate_moves_RA_RB(t_elem_insert *elem_insert)
-{
-	// RA && RB
-	// RR simplifier: if x* RA && y* RB, min(x, y)RR, max(x,y)-min(x,y) * RA or RB
-	// if (elem_insert->action = RA_RB) {
-	if (elem_insert->moves_1 < elem_insert->moves_2) // if #RA < #RB, we do all RR for all the RA, then RB for the rest
-	{
-		elem_insert->actions_aggregated = RR_RB;
-		elem_insert->moves_1_aggregated = elem_insert->moves_1; // #RR moves
-		elem_insert->moves_2_aggregated = elem_insert->moves_2 - elem_insert->moves_1; // #RB moves
-		elem_insert->total_moves_final = elem_insert->moves_1 + elem_insert->moves_2;
-	}
-	else if (elem_insert->moves_1 > elem_insert->moves_2)
-	{
-		elem_insert->actions_aggregated = RR_RA;
-		elem_insert->moves_1_aggregated = elem_insert->moves_2; // #RR moves
-		elem_insert->moves_2_aggregated = elem_insert->moves_1 - elem_insert->moves_2; // #RA moves
-		elem_insert->total_moves_final = elem_insert->moves_1 + elem_insert->moves_2;
-	}
-	else if (elem_insert->moves_1 == elem_insert->moves_2)
-	{
-		elem_insert->actions_aggregated = RR;
-		elem_insert->moves_1_aggregated = elem_insert->moves_2; // #RR moves
-		elem_insert->moves_2_aggregated = 0; // (n/a) moves
-		elem_insert->total_moves_final = elem_insert->moves_1 + elem_insert->moves_2;
-	}
 }

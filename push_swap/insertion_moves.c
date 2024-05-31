@@ -6,42 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/30 17:17:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/05/31 19:00:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ft_do_insertion(t_stacks *full_stack, t_elem_insert *elem_insert)
-{
-	int	action = elem_insert->actions_aggregated;
-	int	moves_1 = elem_insert->moves_1_aggregated;
-	int	moves_2 = elem_insert->moves_2_aggregated;
-	if (action == RR)
-		ft_do_multiple_actions(RR, full_stack, moves_1);
-	if (action == RA_RB)
-	{
-		ft_do_multiple_actions(RA, full_stack, moves_1);
-		ft_do_multiple_actions(RB, full_stack, moves_2);
-	}
-	else if (action == RRA_RRB)
-	{
-		ft_do_multiple_actions(RRA, full_stack, moves_1);
-		ft_do_multiple_actions(RRB, full_stack, moves_2);
-	}
-	else if (action == RRA_RB)
-	{
-		ft_do_multiple_actions(RRA, full_stack, moves_1);
-		ft_do_multiple_actions(RB, full_stack, moves_2);
-	}
-	else if (action == RA_RRB)
-	{
-		ft_do_multiple_actions(RA, full_stack, moves_1);
-		ft_do_multiple_actions(RRB, full_stack, moves_2);
-	}
-	/// RRR
-	ft_do_action(PB, full_stack);
-}
 
 void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves)
 {
@@ -66,7 +35,11 @@ void	ft_do_action(int action, t_stacks *full_stack)
 	if ((!full_stack->a_head && (action == RA || action == RRA || action == RR || action == PB))\
 || (!full_stack->b_head && (action == RB || action == RRB || action == RR || action == PA))) // checks if action can be done
 		return;
-	if (action == PA)
+	if (action == SA)
+		ft_swap(&(full_stack->a_head), &(full_stack->a_tail), full_stack->size_a);
+	else if (action == SB)
+		ft_swap(&(full_stack->b_head), &(full_stack->b_tail), full_stack->size_b);
+	else if (action == PA)
 		ft_push_a(full_stack);
 	else if (action == PB)
 		ft_push_b(full_stack);
