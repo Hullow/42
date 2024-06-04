@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/31 19:06:52 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:54:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ int	main(int argc, char **argv)
 		}
 		full_stack = ft_string_to_stack(argv, i);
 		ft_find_duplicates(full_stack);
-
 		ft_calculate_sizes(full_stack);
+		ft_set_positions(full_stack);
 
-		if (full_stack->size_a < 4)
+		if (full_stack->size_a < 5)
 		{
 			ft_sort_small_stack(full_stack);
+			if (ft_check_stack(full_stack) != 0)
+				ft_printf("KO\n");
 			return (0);
 		}
 

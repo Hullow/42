@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/03 16:27:30 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:44:49 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
 	t_stack_list	*temp_old_head;
 	t_stack_list	*penultimate;
 
-	// ft_printf("\nft_reverse_rotate:\n");
 	if (!head || !tail || !(*head) || !(*tail) || (*head == *tail))
 	{
 		ft_printf("reverse rotation: head/tail not found, nothing done\n");
@@ -128,12 +127,10 @@ void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
 	penultimate = *head;
 	while (penultimate->next != *tail)
 		penultimate = penultimate->next;
-	// ft_printf("\tinitial: head %d, tail %d, penultimate %d\n", (*head)->value, (*tail)->value, penultimate->value);
 	(*tail)->next = temp_old_head;
 	*head = *tail;
 	(*tail)->next = NULL;
 	*tail = penultimate;
 	(*tail)->next = NULL;
 	(*head)->next = temp_old_head;
-	// ft_printf("\tfinal: head %d, tail %d\n", (*head)->value, (*tail)->value);
 }

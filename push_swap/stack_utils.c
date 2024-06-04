@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/03 17:34:57 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:55:41 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,33 +86,56 @@ t_stack_list	*ft_stack_max_value(t_stack_list *stack_element)
 // checks if the stack a is ordered
 int	ft_check_stack(t_stacks	*full_stack)
 {
-	if (full_stack->b_head || full_stack->size_b)
-	{
-		printf("full_stack->b_head: %p, full_stack->b_tail: %p, full_stack->size_b: %d\n", full_stack->b_head, full_stack->b_tail, full_stack->size_b);
-		ft_printf("stack b not empty, KO\n");
-		return (-1);
-	}
 	while (full_stack->a_head->next)
 	{
 		if (full_stack->a_head->value >= full_stack->a_head->next->value)
-		{
-			ft_printf("KO\n");
 			return (-1);
-		}
 		full_stack->a_head = full_stack->a_head->next;
+	}
+	if (full_stack->b_head || full_stack->size_b)
+	{
+		// printf("full_stack->b_head: %p, full_stack->b_tail: %p, full_stack->size_b: %d\n", full_stack->b_head, full_stack->b_tail, full_stack->size_b);
+		// ft_printf("stack b not empty, KO\n");
+		return (1);
 	}
 	ft_printf("OK\n");
 	return (0);
 }
 
+// hardcoded sorting of small stacks (size < 6)
 void	ft_sort_small_stack(t_stacks *full_stack)
 {
 	if (full_stack->size_a == 3 && ft_check_stack(full_stack) != 0)
+		ft_sort_three_elements(full_stack);
+	else if (full_stack->size_a == 4 && ft_check_stack(full_stack) != 0)
 	{
-		ft_do_multiple_actions(PB, full_stack, 1);
-		ft_do_multiple_actions(RA, full_stack, 1);
+		printf("sorting stack size == 4\n");
+		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
+		if (max->position < 2)
+		{
+			ft_do_multiple_actions(RA, full_stack, max->position);
+			ft_do_multiple_actions(PB, full_stack, 1);
+		}
+		else
+		{
+			ft_do_multiple_actions(RRA, full_stack, 4 - max->position);
+			ft_do_multiple_actions(PB, full_stack, 1);
+		}
+		ft_print_both_stacks(full_stack);
+		ft_sort_three_elements(full_stack);
+		ft_print_both_stacks(full_stack);
 		ft_do_multiple_actions(PA, full_stack, 1);
-		while (ft_check_stack(full_stack) == -1)
-			ft_do_multiple_actions(RA, full_stack, 1);
+		ft_do_multiple_actions(RA, full_stack, 1);
 	}
+}
+
+void	ft_sort_three_elements(t_stacks *full_stack)
+{
+	printf("sorting stack size == 3\n");
+	// ft_print_both_stacks(full_stack);
+	ft_do_multiple_actions(PB, full_stack, 1);
+	ft_do_multiple_actions(RA, full_stack, 1);
+	ft_do_multiple_actions(PA, full_stack, 1);
+	while (ft_check_stack(full_stack) == -1)
+		ft_do_multiple_actions(RA, full_stack, 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/03 17:38:40 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/04 15:35:08 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int main(int argc, char **argv)
 				ft_print_both_stacks(full_stack);
 			else if (found == 0) // typed "end"
 			{
-				ft_check_stack(full_stack);
+				if (ft_check_stack(full_stack) != 0);
+					ft_printf("KO\n");
 				free(move);
 				exit(0);
 			}				

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
+#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/06/03 16:00:35 by francis          ###   ########.fr        #
+#    Updated: 2024/06/04 13:42:10 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ FT_PRINTF = ./lib/libftprintf.a
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3 -ferror-limit=5 # gcc: -fmax-errors=5 /// clang: -ferror-limit=1
+CFLAGS = -Wall -Wextra -Werror -g3 -fmax-errors=5 # gcc: -fmax-errors=5 /// clang: -ferror-limit=1
 
 all: $(NAME) clean
 
