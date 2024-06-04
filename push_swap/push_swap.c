@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/04 16:54:32 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/04 17:18:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char **argv)
 			ft_sort_small_stack(full_stack);
 			if (ft_check_stack(full_stack) != 0)
 				ft_printf("KO\n");
+			ft_print_stack(full_stack->a_head);
 			return (0);
 		}
 

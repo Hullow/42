@@ -142,3 +142,9 @@ size: a 7, b 2, optimal_position: 2
 # 3/6/24
 - Fixed swapping function
 - Checker: fixed seg faults, bad input
+
+# 4/6/24
+- Worked on swap, seems to work ok
+- Checker seems to work too
+- Problem: small stacks => don't print out the whole stack after ft_sort_small_stack (or some component thereof)
+- Also, not sure if ft_sort_three_elements doesn't sort upside down => test!

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/04 16:55:41 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/04 17:20:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	ft_check_stack(t_stacks	*full_stack)
 {
 	while (full_stack->a_head->next)
 	{
+		ft_print_stack(full_stack->a_head);
+		ft_printf("ft_check_stack: checking if %d > %d\n", full_stack->a_head->value, full_stack->a_head->next->value);
 		if (full_stack->a_head->value >= full_stack->a_head->next->value)
 			return (-1);
 		full_stack->a_head = full_stack->a_head->next;
@@ -108,7 +110,11 @@ void	ft_sort_small_stack(t_stacks *full_stack)
 	if (full_stack->size_a == 3 && ft_check_stack(full_stack) != 0)
 		ft_sort_three_elements(full_stack);
 	else if (full_stack->size_a == 4 && ft_check_stack(full_stack) != 0)
-	{
+		ft_sort_four_elements(full_stack);
+}
+
+void	ft_sort_four_elements(t_stacks *full_stack)
+{
 		printf("sorting stack size == 4\n");
 		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
 		if (max->position < 2)
@@ -126,7 +132,6 @@ void	ft_sort_small_stack(t_stacks *full_stack)
 		ft_print_both_stacks(full_stack);
 		ft_do_multiple_actions(PA, full_stack, 1);
 		ft_do_multiple_actions(RA, full_stack, 1);
-	}
 }
 
 void	ft_sort_three_elements(t_stacks *full_stack)
@@ -137,5 +142,9 @@ void	ft_sort_three_elements(t_stacks *full_stack)
 	ft_do_multiple_actions(RA, full_stack, 1);
 	ft_do_multiple_actions(PA, full_stack, 1);
 	while (ft_check_stack(full_stack) == -1)
+	{
+		ft_printf("ft_sort_three_elements: ft_check_stack == -1\n");
 		ft_do_multiple_actions(RA, full_stack, 1);
+	}
+		ft_printf("ft_sort_three_elements: ft_check_stack is now %d\n", ft_check_stack(full_stack));
 }

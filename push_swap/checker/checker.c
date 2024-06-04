@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/04 15:35:08 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/04 17:25:42 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int main(int argc, char **argv)
 		//ft_printf("input okay\n");
 		full_stack = ft_string_to_stack(argv, i);
 		ft_find_duplicates(full_stack);
-
 		char	*move = malloc(sizeof(char) * 4);
 		char	*temp = malloc(sizeof(char) * 40);
 		while (1)
@@ -53,7 +52,7 @@ int main(int argc, char **argv)
 				ft_print_both_stacks(full_stack);
 			else if (found == 0) // typed "end"
 			{
-				if (ft_check_stack(full_stack) != 0);
+				if (ft_check_stack(full_stack) != 0)
 					ft_printf("KO\n");
 				free(move);
 				exit(0);
