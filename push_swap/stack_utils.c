@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/31 19:07:07 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/03 17:34:57 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ int	ft_check_stack(t_stacks	*full_stack)
 	{
 		if (full_stack->a_head->value >= full_stack->a_head->next->value)
 		{
-			// ft_printf("KO\n");
+			ft_printf("KO\n");
 			return (-1);
 		}
 		full_stack->a_head = full_stack->a_head->next;
 	}
-	// ft_printf("OK\n");
+	ft_printf("OK\n");
 	return (0);
 }
 

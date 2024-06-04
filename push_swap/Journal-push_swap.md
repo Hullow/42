@@ -135,3 +135,10 @@ size: a 7, b 2, optimal_position: 2
 - Error handling: ok
 - Problems: basic input, small stacks (size 5). Larger stacks okay (a few 4/5 yellow though)
 - Norm : to be done
+
+# 31/5/24
+- Advanced on checker, swapping functions
+
+# 3/6/24
+- Fixed swapping function
+- Checker: fixed seg faults, bad input

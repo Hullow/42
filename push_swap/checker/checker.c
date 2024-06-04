@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/31 19:03:06 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/03 17:38:40 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 			}
 			if (found == 1)
 				ft_print_both_stacks(full_stack);
-			else if (found == 0)
+			else if (found == 0) // typed "end"
 			{
 				ft_check_stack(full_stack);
 				free(move);
@@ -60,7 +60,8 @@ int main(int argc, char **argv)
 			else
 			{
 				ft_printf("Error: move not recognised, please enter move\n");
-				read(0, temp, 40); // to clear the buffer
+				read(0, temp, found + 47); // found is ft_strlen(move), 47 is the print we just entered to clear the buffer
+				ft_print_both_stacks(full_stack);
 			}
 		}
 	}
@@ -72,7 +73,7 @@ int main(int argc, char **argv)
 // returns the value of found to indicate whether there was a match
 int	ft_execute_move(char *move, t_stacks *full_stack)
 {
-	char *table[] = {"sa", "sb", "pa", "pb", "ra", "rb", "rra", "rrb", "rr", "rrr", "end"};
+	char *table[] = {"sa", "sb", "pa", "pb", "ra", "rb", "rra", "rrb", "rr", "rrr", "end", NULL};
 	int	i;
 	int	found;
 
@@ -84,28 +85,25 @@ int	ft_execute_move(char *move, t_stacks *full_stack)
 		{
 			move[i] = '\0';
 			found = 1;
-			ft_printf("ft_execute_move: replaced \\n with \\0\n");
 			break;
 		}
 	}
 	if (found == -1)
 		return (found);
 	i = -1;
+	found = -1;
 	while (table[++i])
 	{
 		if (!ft_strncmp(move, table[i], 4))
 		{
-			printf("ft_execute_move: move is %s, table[%d] is %s\n", move, i, table[i]);
 			if (i == 10)
-			{
-				found = 0;
-				ft_printf("ending\n");
-				break;
-			}
+				return (0);
 			ft_do_multiple_actions(i + 1, full_stack, 1);
 			found = 1;
 			break;
 		}
 	}
+	if (found == -1)
+		found = ft_strlen(move);
 	return (found);
 }
