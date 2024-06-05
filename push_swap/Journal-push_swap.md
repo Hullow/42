@@ -149,3 +149,6 @@ size: a 7, b 2, optimal_position: 2
 - Problem: small stacks => don't print out the whole stack after ft_sort_small_stack (or some component thereof)
 - Also, not sure if ft_sort_three_elements doesn't sort upside down => test!
 
+# 5/6/24
+- All right, focused in silence (thank you !) and redid the 3-element-stack hardcoding. Also added an anchor to ft_check_stack,
+which was the source of the issue with only part of a stack being printed out
