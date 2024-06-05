@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/04 17:20:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/05 11:58:09 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,25 @@ t_stack_list	*ft_stack_max_value(t_stack_list *stack_element)
 // checks if the stack a is ordered
 int	ft_check_stack(t_stacks	*full_stack)
 {
+	t_stack_list	*anchor;
+
+	anchor = full_stack->a_head;
 	while (full_stack->a_head->next)
 	{
-		ft_print_stack(full_stack->a_head);
-		ft_printf("ft_check_stack: checking if %d > %d\n", full_stack->a_head->value, full_stack->a_head->next->value);
 		if (full_stack->a_head->value >= full_stack->a_head->next->value)
+		{
+			full_stack->a_head = anchor;
 			return (-1);
+		}
 		full_stack->a_head = full_stack->a_head->next;
 	}
 	if (full_stack->b_head || full_stack->size_b)
 	{
-		// printf("full_stack->b_head: %p, full_stack->b_tail: %p, full_stack->size_b: %d\n", full_stack->b_head, full_stack->b_tail, full_stack->size_b);
-		// ft_printf("stack b not empty, KO\n");
+		full_stack->a_head = anchor;
 		return (1);
 	}
-	ft_printf("OK\n");
+	full_stack->a_head = anchor;
+	// ft_printf("OK\n");
 	return (0);
 }
 
@@ -115,7 +119,7 @@ void	ft_sort_small_stack(t_stacks *full_stack)
 
 void	ft_sort_four_elements(t_stacks *full_stack)
 {
-		printf("sorting stack size == 4\n");
+		// printf("sorting stack size == 4\n");
 		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
 		if (max->position < 2)
 		{
@@ -127,24 +131,59 @@ void	ft_sort_four_elements(t_stacks *full_stack)
 			ft_do_multiple_actions(RRA, full_stack, 4 - max->position);
 			ft_do_multiple_actions(PB, full_stack, 1);
 		}
-		ft_print_both_stacks(full_stack);
+		// ft_print_both_stacks(full_stack);
 		ft_sort_three_elements(full_stack);
-		ft_print_both_stacks(full_stack);
+		// ft_print_both_stacks(full_stack);
 		ft_do_multiple_actions(PA, full_stack, 1);
 		ft_do_multiple_actions(RA, full_stack, 1);
 }
 
+// identifies the precise order of a three element stack
+// outputs a number corresponding to the order:
+// e.g. 132 : stack order is smallest, largest, in-between value
+int	ft_three_stack_order(t_stack_list *a_head)
+{
+	// ft_print_stack(a_head);
+	if (a_head->value < a_head->next->value && a_head->value < a_head->next->next->value) // if head is 1 (smallest)
+    {
+		if (a_head->next->value < a_head->next->next->value)
+			return (123);
+		else
+			return (132);
+    }
+	else if (a_head->value > a_head->next->value && a_head->value > a_head->next->next->value) // if head is 3 (largest)
+    {
+    	if (a_head->next->value > a_head->next->next->value)
+			return (321);
+		else
+			return (312);
+    }
+	else if (a_head->next->value > a_head->next->next->value) // if head is in-between value
+		return (231);
+	else
+		return (213);
+}
+
+// hardcoded sort of stacks of three elements
+// stack_order must be calculated
 void	ft_sort_three_elements(t_stacks *full_stack)
 {
-	printf("sorting stack size == 3\n");
-	// ft_print_both_stacks(full_stack);
-	ft_do_multiple_actions(PB, full_stack, 1);
-	ft_do_multiple_actions(RA, full_stack, 1);
-	ft_do_multiple_actions(PA, full_stack, 1);
-	while (ft_check_stack(full_stack) == -1)
+	int	stack_order;
+	stack_order = ft_three_stack_order(full_stack->a_head);
+	if (stack_order == 132)
 	{
-		ft_printf("ft_sort_three_elements: ft_check_stack == -1\n");
-		ft_do_multiple_actions(RA, full_stack, 1);
+		ft_do_multiple_actions(RRA, full_stack, 1);
+		ft_do_multiple_actions(SA, full_stack, 1);
 	}
-		ft_printf("ft_sort_three_elements: ft_check_stack is now %d\n", ft_check_stack(full_stack));
+	else if (stack_order == 213)
+		ft_do_multiple_actions(SA, full_stack, 1);
+	else if (stack_order == 231)
+		ft_do_multiple_actions(RRA, full_stack, 1);
+	else if (stack_order == 312)
+		ft_do_multiple_actions(RA, full_stack, 1);
+	else if (stack_order == 321)
+	{
+		ft_do_multiple_actions(RA, full_stack, 1);
+		ft_do_multiple_actions(SA, full_stack, 1);
+	}
 }

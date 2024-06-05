@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/04 16:44:49 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/05 11:54:48 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_swap(t_stack_list **head, t_stack_list **tail, int stack_size)
 		temp_new_head->next = *head; // 2nd element points to old head
 		*head = temp_new_head;	// new head is old 2nd element
 	}
-	printf("after swapping head is %d, head->next is %d, head->next->next is %d, tail is %d\n", (*head)->value, (*head)->next->value, (*head)->next->next->value, (*tail)->value);
+	// printf("after swapping head is %d, head->next is %d, head->next->next is %d, tail is %d\n", (*head)->value, (*head)->next->value, (*head)->next->next->value, (*tail)->value);
 }
 
 // sends the first element (head) to the end of the list (tail)

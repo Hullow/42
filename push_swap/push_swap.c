@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/04 17:18:11 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/05 11:58:03 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,12 @@ int	main(int argc, char **argv)
 		ft_find_duplicates(full_stack);
 		ft_calculate_sizes(full_stack);
 		ft_set_positions(full_stack);
-
 		if (full_stack->size_a < 5)
 		{
 			ft_sort_small_stack(full_stack);
 			if (ft_check_stack(full_stack) != 0)
 				ft_printf("KO\n");
-			ft_print_stack(full_stack->a_head);
+			// ft_print_stack(full_stack->a_head);
 			return (0);
 		}
 
@@ -58,7 +57,7 @@ int	main(int argc, char **argv)
 
 		t_stack_list	*stack_iterator;
 		stack_iterator = full_stack->a_head;
-		while(stack_iterator)
+		while (stack_iterator)
 		{
 			// compute cheapest element
 			while (stack_iterator)
