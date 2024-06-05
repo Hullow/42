@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   insertion_moves.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/03 17:31:36 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/05 13:48:03 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves)
+// run an action on our stacks multiple times (#moves)
+// checker: if != 0, stops printing out the action
+// (set to 1 when called from the checker, 0 otherwise)
+void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves, int checker)
 {
 	char *table[] = {"sa", "sb", "pa", "pb", "ra", "rb", "rra", "rrb", "rr", "rrr"};
 
@@ -20,7 +23,8 @@ void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves)
 	while (moves--)
 	{
 		ft_do_action(action, full_stack);
-		ft_printf("%s\n", table[action - 1]);
+		if (!checker)
+			ft_printf("%s\n", table[action - 1]);
 	}
 	ft_calculate_sizes(full_stack);
 }

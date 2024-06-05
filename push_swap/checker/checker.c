@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 11:09:12 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/05 13:44:18 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ int main(int argc, char **argv)
 				exit(0);
 			}
 			// if (found == 1)
-				// ft_print_both_stacks(full_stack);
-			else if (found == 0) // typed "end"
+			// 	ft_print_both_stacks(full_stack);
+			if (found == 0) // typed "end"
 			{
 				if (ft_check_stack(full_stack) != 0)
 					ft_printf("KO\n");
 				free(move);
 				exit(0);
 			}				
-			else
+			else if (found != 1)
 			{
 				ft_printf("Error: move not recognised, please enter move\n");
 				read(0, temp, found + 47); // found is ft_strlen(move), 47 is the print we just entered to clear the buffer

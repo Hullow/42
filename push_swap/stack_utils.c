@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 11:58:09 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/05 13:42:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,27 +115,8 @@ void	ft_sort_small_stack(t_stacks *full_stack)
 		ft_sort_three_elements(full_stack);
 	else if (full_stack->size_a == 4 && ft_check_stack(full_stack) != 0)
 		ft_sort_four_elements(full_stack);
-}
-
-void	ft_sort_four_elements(t_stacks *full_stack)
-{
-		// printf("sorting stack size == 4\n");
-		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
-		if (max->position < 2)
-		{
-			ft_do_multiple_actions(RA, full_stack, max->position);
-			ft_do_multiple_actions(PB, full_stack, 1);
-		}
-		else
-		{
-			ft_do_multiple_actions(RRA, full_stack, 4 - max->position);
-			ft_do_multiple_actions(PB, full_stack, 1);
-		}
-		// ft_print_both_stacks(full_stack);
-		ft_sort_three_elements(full_stack);
-		// ft_print_both_stacks(full_stack);
-		ft_do_multiple_actions(PA, full_stack, 1);
-		ft_do_multiple_actions(RA, full_stack, 1);
+	else if (full_stack->size_a == 5 && ft_check_stack(full_stack) != 0)
+		ft_sort_five_elements(full_stack);
 }
 
 // identifies the precise order of a three element stack
@@ -164,6 +145,7 @@ int	ft_three_stack_order(t_stack_list *a_head)
 		return (213);
 }
 
+
 // hardcoded sort of stacks of three elements
 // stack_order must be calculated
 void	ft_sort_three_elements(t_stacks *full_stack)
@@ -186,4 +168,49 @@ void	ft_sort_three_elements(t_stacks *full_stack)
 		ft_do_multiple_actions(RA, full_stack, 1);
 		ft_do_multiple_actions(SA, full_stack, 1);
 	}
+}
+
+
+// hardcoded sort of four element stacks
+void	ft_sort_four_elements(t_stacks *full_stack)
+{
+		// printf("sorting stack size == 4\n");
+		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
+		if (max->position < 2)
+		{
+			ft_do_multiple_actions(RA, full_stack, max->position);
+			ft_do_multiple_actions(PB, full_stack, 1);
+		}
+		else
+		{
+			ft_do_multiple_actions(RRA, full_stack, 4 - max->position);
+			ft_do_multiple_actions(PB, full_stack, 1);
+		}
+		// ft_print_both_stacks(full_stack);
+		ft_sort_three_elements(full_stack);
+		// ft_print_both_stacks(full_stack);
+		ft_do_multiple_actions(PA, full_stack, 1);
+		ft_do_multiple_actions(RA, full_stack, 1);
+}
+
+// hardcoded sort of five element stacks
+void	ft_sort_five_elements(t_stacks *full_stack)
+{
+		// printf("sorting stack size == 4\n");
+		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
+		if (max->position < 3)
+		{
+			ft_do_multiple_actions(RA, full_stack, max->position);
+			ft_do_multiple_actions(PB, full_stack, 1);
+		}
+		else
+		{
+			ft_do_multiple_actions(RRA, full_stack, 5 - max->position);
+			ft_do_multiple_actions(PB, full_stack, 1);
+		}
+		// ft_print_both_stacks(full_stack);
+		ft_sort_four_elements(full_stack);
+		// ft_print_both_stacks(full_stack);
+		ft_do_multiple_actions(PA, full_stack, 1);
+		ft_do_multiple_actions(RA, full_stack, 1);
 }

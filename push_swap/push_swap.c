@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 11:58:03 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/05 13:48:56 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 		ft_find_duplicates(full_stack);
 		ft_calculate_sizes(full_stack);
 		ft_set_positions(full_stack);
-		if (full_stack->size_a < 5)
+		if (full_stack->size_a < 6)
 		{
 			ft_sort_small_stack(full_stack);
 			if (ft_check_stack(full_stack) != 0)
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 
-		ft_do_multiple_actions(PB, full_stack, 2);
+		ft_do_multiple_actions(PB, full_stack, 2, 0);
 		ft_calculate_sizes(full_stack);
 
 		t_cost	*cost = malloc (sizeof(t_cost));
