@@ -25,6 +25,7 @@
 - ``CTRL + ` `` to toggle between editor and terminal
 - `ALT + CMD + H` to add 42 header
 - `CMD + +`  to zoom in
+- `CTRL + D` to select occurrences of an expression, combined with e.g. `end` to go to the end of the line
 
 ### Github Copilot in VS Code
 - `tab` : accept a code suggestion

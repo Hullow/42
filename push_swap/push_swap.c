@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 13:48:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:03:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ int	main(int argc, char **argv)
 				if (stack_iterator)
 					stack_iterator = stack_iterator->next;
 			}
-			ft_do_multiple_actions(RA, full_stack, min_cost_insert->xRA);
-			ft_do_multiple_actions(RB, full_stack, min_cost_insert->xRB);
-			ft_do_multiple_actions(RR, full_stack, min_cost_insert->xRR);
-			ft_do_multiple_actions(RRA, full_stack, min_cost_insert->xRRA);
-			ft_do_multiple_actions(RRB, full_stack, min_cost_insert->xRRB);
-			ft_do_multiple_actions(RRR, full_stack, min_cost_insert->xRRR);
-			ft_do_multiple_actions(PB, full_stack, 1);
+			ft_do_multiple_actions(RA, full_stack, min_cost_insert->xRA, 0);
+			ft_do_multiple_actions(RB, full_stack, min_cost_insert->xRB, 0);
+			ft_do_multiple_actions(RR, full_stack, min_cost_insert->xRR, 0);
+			ft_do_multiple_actions(RRA, full_stack, min_cost_insert->xRRA, 0);
+			ft_do_multiple_actions(RRB, full_stack, min_cost_insert->xRRB, 0);
+			ft_do_multiple_actions(RRR, full_stack, min_cost_insert->xRRR, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
 			stack_iterator = full_stack->a_head;
 			min_cost_insert->total = INT_MAX;
 		}
@@ -90,9 +90,9 @@ int	main(int argc, char **argv)
 		// and push everything to a_stack
 		t_stack_list *max = ft_stack_max_value(full_stack->b_head);
 		while (full_stack->b_head != max)
-			ft_do_multiple_actions(RB, full_stack, 1);
+			ft_do_multiple_actions(RB, full_stack, 1, 0);
 		while (full_stack->b_head)
-			ft_do_multiple_actions(PA, full_stack, 1);
+			ft_do_multiple_actions(PA, full_stack, 1, 0);
 		ft_free_full_stack(&full_stack);
 	}
 	return (0);

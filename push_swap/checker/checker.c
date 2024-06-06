@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 13:44:18 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:23:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int main(int argc, char **argv)
 			{
 				if (ft_check_stack(full_stack) != 0)
 					ft_printf("KO\n");
+				else
+					ft_printf("OK\n");
 				free(move);
 				exit(0);
 			}				
@@ -98,12 +100,13 @@ int	ft_execute_move(char *move, t_stacks *full_stack)
 		{
 			if (i == 10)
 				return (0);
-			ft_do_multiple_actions(i + 1, full_stack, 1);
+			ft_do_multiple_actions(i + 1, full_stack, 1, 1);
 			found = 1;
 			break;
 		}
 	}
 	if (found == -1)
 		found = ft_strlen(move);
+	ft_print_both_stacks(full_stack);
 	return (found);
 }

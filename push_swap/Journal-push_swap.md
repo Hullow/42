@@ -152,3 +152,6 @@ size: a 7, b 2, optimal_position: 2
 # 5/6/24
 - All right, focused in silence (thank you !) and redid the 3-element-stack hardcoding. Also added an anchor to ft_check_stack,
 which was the source of the issue with only part of a stack being printed out
+
+# 6/6/24
+- Still working on small stacks

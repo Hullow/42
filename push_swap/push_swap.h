@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 13:30:40 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:05:49 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void			ft_do_optimal_insertion(t_stacks *full_stack);
 int				ft_optimal_position(int a_value, t_stack_list *b_stack);
 
 	// moves
-void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves);
+void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves, int checker);
 void	ft_do_action(int action, t_stacks *full_stack);
 
 // debugging

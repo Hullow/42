@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 13:42:53 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:22:04 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,19 +154,19 @@ void	ft_sort_three_elements(t_stacks *full_stack)
 	stack_order = ft_three_stack_order(full_stack->a_head);
 	if (stack_order == 132)
 	{
-		ft_do_multiple_actions(RRA, full_stack, 1);
-		ft_do_multiple_actions(SA, full_stack, 1);
+		ft_do_multiple_actions(RRA, full_stack, 1, 0);
+		ft_do_multiple_actions(SA, full_stack, 1, 0);
 	}
 	else if (stack_order == 213)
-		ft_do_multiple_actions(SA, full_stack, 1);
+		ft_do_multiple_actions(SA, full_stack, 1, 0);
 	else if (stack_order == 231)
-		ft_do_multiple_actions(RRA, full_stack, 1);
+		ft_do_multiple_actions(RRA, full_stack, 1, 0);
 	else if (stack_order == 312)
-		ft_do_multiple_actions(RA, full_stack, 1);
+		ft_do_multiple_actions(RA, full_stack, 1, 0);
 	else if (stack_order == 321)
 	{
-		ft_do_multiple_actions(RA, full_stack, 1);
-		ft_do_multiple_actions(SA, full_stack, 1);
+		ft_do_multiple_actions(RA, full_stack, 1, 0);
+		ft_do_multiple_actions(SA, full_stack, 1, 0);
 	}
 }
 
@@ -178,39 +178,37 @@ void	ft_sort_four_elements(t_stacks *full_stack)
 		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
 		if (max->position < 2)
 		{
-			ft_do_multiple_actions(RA, full_stack, max->position);
-			ft_do_multiple_actions(PB, full_stack, 1);
+			ft_do_multiple_actions(RA, full_stack, max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
 		}
 		else
 		{
-			ft_do_multiple_actions(RRA, full_stack, 4 - max->position);
-			ft_do_multiple_actions(PB, full_stack, 1);
+			ft_do_multiple_actions(RRA, full_stack, 4 - max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
 		}
 		// ft_print_both_stacks(full_stack);
 		ft_sort_three_elements(full_stack);
 		// ft_print_both_stacks(full_stack);
-		ft_do_multiple_actions(PA, full_stack, 1);
-		ft_do_multiple_actions(RA, full_stack, 1);
+		ft_do_multiple_actions(PA, full_stack, 1, 0);
+		ft_do_multiple_actions(RA, full_stack, 1, 0);
 }
 
 // hardcoded sort of five element stacks
 void	ft_sort_five_elements(t_stacks *full_stack)
 {
-		// printf("sorting stack size == 4\n");
+		// printf("sorting stack size == 5\n");
 		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
 		if (max->position < 3)
 		{
-			ft_do_multiple_actions(RA, full_stack, max->position);
-			ft_do_multiple_actions(PB, full_stack, 1);
+			ft_do_multiple_actions(RA, full_stack, max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
 		}
 		else
 		{
-			ft_do_multiple_actions(RRA, full_stack, 5 - max->position);
-			ft_do_multiple_actions(PB, full_stack, 1);
+			ft_do_multiple_actions(RRA, full_stack, 5 - max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
 		}
-		// ft_print_both_stacks(full_stack);
 		ft_sort_four_elements(full_stack);
-		// ft_print_both_stacks(full_stack);
-		ft_do_multiple_actions(PA, full_stack, 1);
-		ft_do_multiple_actions(RA, full_stack, 1);
+		ft_do_multiple_actions(PA, full_stack, 1, 0);
+		ft_do_multiple_actions(RA, full_stack, 1, 0);
 }
