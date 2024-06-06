@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 13:48:03 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/06 18:22:40 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves, int che
 			ft_printf("%s\n", table[action - 1]);
 	}
 	ft_calculate_sizes(full_stack);
+	ft_set_positions(full_stack);
 }
 
 // using a define set in push_swap.h, calls the various actions:

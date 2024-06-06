@@ -155,4 +155,4 @@ which was the source of the issue with only part of a stack being printed out
 
 # 6/6/24
 - Checker okay now
-- Working on small stacks
+- Working on small stacks: for a stack of 5, trying out Filipo (Fcandia)'s idea of pushing the two smallest elements to b in an optimized way, but it does too many moves. To debug and test
