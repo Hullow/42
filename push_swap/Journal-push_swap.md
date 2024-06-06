@@ -154,4 +154,5 @@ size: a 7, b 2, optimal_position: 2
 which was the source of the issue with only part of a stack being printed out
 
 # 6/6/24
-- Still working on small stacks
+- Checker okay now
+- Working on small stacks
