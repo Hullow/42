@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 12:06:42 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 15:09:45 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,14 +238,14 @@ void	ft_push_two_smallest_elements(t_stacks *full_stack, t_stack_list *min, t_st
 	// printf("min->position: %d, sec_min->position: %d\n", min->position, sec_min->position);
 	if (full_stack->a_head == min || full_stack->a_head == sec_min) // position == 0 => one move
 	{
-		printf("if\n");
+		// printf("if\n");
 		ft_do_multiple_actions(PB, full_stack, 1, 0);
 		pushed = 1;
 	}
 	else
 	{
-		printf("else\n");
-		printf("full_stack->a_head->next: %d at %p, sec_min: %d at %p\n", full_stack->a_head->next->value, full_stack->a_head->next, sec_min->value, sec_min);
+		// printf("else\n");
+		// printf("full_stack->a_head->next: %d at %p, sec_min: %d at %p\n", full_stack->a_head->next->value, full_stack->a_head->next, sec_min->value, sec_min);
 		if (min->position == 4 || sec_min->position == 4)
 			ft_do_multiple_actions(RRA, full_stack, 1, 0);
 		else if (full_stack->a_head->next == min || full_stack->a_head->next == sec_min)
