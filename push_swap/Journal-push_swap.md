@@ -156,3 +156,7 @@ which was the source of the issue with only part of a stack being printed out
 # 6/6/24
 - Checker okay now
 - Working on small stacks: for a stack of 5, trying out Filipo (Fcandia)'s idea of pushing the two smallest elements to b in an optimized way, but it does too many moves. To debug and test
+
+# 7/6/24
+- Working version, also for small stacks, but some "OK (4/5)" yellow results for stacks of 500, leaks issues. See "latest_test_output.txt" for output.
+- To do: check 4/5 yellow results, then fix leaks and norm, then retest

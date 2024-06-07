@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 15:09:45 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 15:17:38 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ int	ft_check_stack(t_stacks	*full_stack)
 // hardcoded sorting of small stacks (size < 6)
 void	ft_sort_small_stack(t_stacks *full_stack)
 {
+	if (full_stack->size_a == 2 && ft_check_stack(full_stack) != 0)
+		ft_do_multiple_actions(SA, full_stack, 1, 0);
 	if (full_stack->size_a == 3 && ft_check_stack(full_stack) != 0)
 		ft_sort_three_elements(full_stack);
 	else if (full_stack->size_a == 4 && ft_check_stack(full_stack) != 0)
@@ -208,7 +210,7 @@ void	ft_sort_three_elements(t_stacks *full_stack)
 }
 
 // hardcoded sort of four element stacks
-void	ft_sort_four_elements(t_stacks *full_stack)
+void	ft_sort_four_elements_non_recursive(t_stacks *full_stack)
 {
 		// printf("sorting stack size == 4\n");
 		t_stack_list *min = ft_stack_min_value(full_stack->a_head);
@@ -265,7 +267,7 @@ void	ft_push_two_smallest_elements(t_stacks *full_stack, t_stack_list *min, t_st
 
 
 // hardcoded sort of five element stacks
-void	ft_sort_five_elements(t_stacks *full_stack)
+void	ft_sort_five_elements_non_recursive(t_stacks *full_stack)
 {
 		// printf("sorting stack size == 5\n");
 		// ft_print_both_stacks(full_stack);
@@ -284,23 +286,46 @@ void	ft_sort_five_elements(t_stacks *full_stack)
 		// ft_print_both_stacks(full_stack);
 }
 
-/* 
-	ft_calculate_sizes(full_stack);
-	ft_set_positions(full_stack);
-	int optimal_position = ft_optimal_position(a_element->value, full_stack->b_head);
-	// printf("\nft_calculate_cost:\n");
-	// printf("\t- size: a:%d, b:%d, optimal_position for \"%d\": %d\n", full_stack->size_a, full_stack->size_b, a_element->value, optimal_position);
+// hardcoded sort of four element stacks
+void	ft_sort_four_elements(t_stacks *full_stack)
+{
+		// printf("sorting stack size == 4\n");
+		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
+		if (max->position < 2)
+		{
+			ft_do_multiple_actions(RA, full_stack, max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
+		}
+		else
+		{
+			ft_do_multiple_actions(RRA, full_stack, 4 - max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
+		}
+		// ft_print_both_stacks(full_stack);
+		ft_sort_three_elements(full_stack);
+		// ft_print_both_stacks(full_stack);
+		ft_do_multiple_actions(PA, full_stack, 1, 0);
+		ft_do_multiple_actions(RA, full_stack, 1, 0);
+}
 
-	cost->xRA = a_element->position;
-	cost->xRRA = full_stack->size_a - cost->xRA;
-	if (a_element->position == 0)  // optimisation: if a_element is already at the top, don't do any reverse rotations
-		cost->xRRA = 0;
-
-	cost->xRB = optimal_position;
-	cost->xRRB = full_stack->size_b - cost->xRB;
-	if (optimal_position == 0 || optimal_position == full_stack->size_b)  // optimisation: if optimal_position is at the top, do 0 reverse rotations
-	{
-		cost->xRRB = 0;
-		cost->xRB = 0;
-	}
- */
+// hardcoded sort of five element stacks
+void	ft_sort_five_elements(t_stacks *full_stack)
+{
+		// printf("sorting stack size == 4\n");
+		t_stack_list *max = ft_stack_max_value(full_stack->a_head);
+		if (max->position < 3)
+		{
+			ft_do_multiple_actions(RA, full_stack, max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
+		}
+		else
+		{
+			ft_do_multiple_actions(RRA, full_stack, 5 - max->position, 0);
+			ft_do_multiple_actions(PB, full_stack, 1, 0);
+		}
+		// ft_print_both_stacks(full_stack);
+		ft_sort_four_elements(full_stack);
+		// ft_print_both_stacks(full_stack);
+		ft_do_multiple_actions(PA, full_stack, 1, 0);
+		ft_do_multiple_actions(RA, full_stack, 1, 0);
+}
