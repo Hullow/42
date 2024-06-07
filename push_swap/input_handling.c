@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:14:20 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/30 20:27:12 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 17:07:56 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*ft_check_input(char *str)
 	return (str);
 }
 
+// finds duplicates in stack
 void	ft_find_duplicates(t_stacks *full_stack)
 {
 	t_stack_list	*anchor;

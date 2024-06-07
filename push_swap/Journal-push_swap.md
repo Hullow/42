@@ -160,3 +160,4 @@ which was the source of the issue with only part of a stack being printed out
 # 7/6/24
 - Working version, also for small stacks, but some "OK (4/5)" yellow results for stacks of 500, leaks issues. See "latest_test_output.txt" for output.
 - To do: check 4/5 yellow results, then fix leaks and norm, then retest
+- Working on Norm, renaming functions for clarification

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 11:48:23 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:28:12 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,20 @@ void	ft_rotate(t_stack_list **head, t_stack_list **tail);
 void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail);
 
 // stack utils
+int				ft_check_stack(t_stacks	*full_stack);
 void			ft_set_positions(t_stacks *full_stack);
 void			ft_calculate_sizes(t_stacks *full_stack);
 t_stack_list	*ft_stack_max_value(t_stack_list *stack_element);
 t_stack_list	*ft_stack_min_value(t_stack_list *stack_element);
 t_stack_list	*ft_second_smallest_value(t_stack_list *stack_element, int min);
 void			ft_push_two_smallest_elements(t_stacks *full_stack, t_stack_list *min, t_stack_list *sec_min);
-int				ft_check_stack(t_stacks	*full_stack);
-	// sorting small stacks
+
+// sorting
+void    ft_sort(t_stacks *full_stack);
+void	ft_sort_big_stack(t_stacks *full_stack);
+void    ft_sort_and_empty_stack_b(t_stacks *full_stack);
+
+// sorting small stacks
 void			ft_sort_small_stack(t_stacks *full_stack);
 int				ft_three_stack_order(t_stack_list *a_head);
 void			ft_sort_three_elements(t_stacks *full_stack);
@@ -107,12 +113,13 @@ int		ft_min(int a, int b);
 int		ft_max(int a, int b);
 int		ft_abs(int number);
 
-// insertion
+// cost
 void	ft_calculate_cost(t_stack_list *a_element, t_stacks *full_stack, t_cost *cost);
+void    ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert);
 
-// calculation
-void			ft_do_optimal_insertion(t_stacks *full_stack);
-int				ft_optimal_position(int a_value, t_stack_list *b_stack);
+// insertion
+void	ft_do_optimal_insertion(t_stacks *full_stack, t_cost *min_cost_insert);
+int		ft_optimal_position(int a_value, t_stack_list *b_stack);
 
 	// moves
 void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves, int checker);
