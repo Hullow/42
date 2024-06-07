@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/06 19:19:01 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 12:06:42 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_stack_list	*ft_stack_min_value(t_stack_list *stack_element)
 	}
 	if (min->value == INT_MIN)
 		ft_printf("ft_stack_min_value: error\n");
-	ft_printf("ft_stack_min_value: minimum found: %d\n", min->value);
+	// ft_printf("ft_stack_min_value: minimum found: %d\n", min->value);
 	return (min);
 }
 
@@ -116,7 +116,7 @@ t_stack_list	*ft_second_smallest_value(t_stack_list *stack_element, int min)
 	}
 	if (sec_min->value == INT_MIN)
 		ft_printf("ft_second_smallest_value: error\n");
-	ft_printf("ft_second_smallest_value: second smallest value found: %d\n", sec_min->value);
+	// ft_printf("ft_second_smallest_value: second smallest value found: %d\n", sec_min->value);
 	return (sec_min);
 }
 
@@ -230,21 +230,25 @@ void	ft_sort_four_elements(t_stacks *full_stack)
 
 // pushes the two smallest elements of a to be in an economical way
 // hardcoded for stacks of five elements
-void	ft_push_two_smallest_elements(t_stacks *full_stack)
+void	ft_push_two_smallest_elements(t_stacks *full_stack, t_stack_list *min, t_stack_list *sec_min)
 {
-	t_stack_list	*min;
-	t_stack_list	*sec_min;
+	int	pushed;
 
-	min = ft_stack_min_value(full_stack->a_head);
-	sec_min = ft_second_smallest_value(full_stack->a_head, min->value);
-	printf("min->position: %d, sec_min->position: %d\n", min->position, sec_min->position);
-	if (min->position == 0 || sec_min->position == 0) // one move
-		ft_do_multiple_actions(PB, full_stack, 1, 0);
-	else // two moves
+	pushed = 0;
+	// printf("min->position: %d, sec_min->position: %d\n", min->position, sec_min->position);
+	if (full_stack->a_head == min || full_stack->a_head == sec_min) // position == 0 => one move
 	{
+		printf("if\n");
+		ft_do_multiple_actions(PB, full_stack, 1, 0);
+		pushed = 1;
+	}
+	else
+	{
+		printf("else\n");
+		printf("full_stack->a_head->next: %d at %p, sec_min: %d at %p\n", full_stack->a_head->next->value, full_stack->a_head->next, sec_min->value, sec_min);
 		if (min->position == 4 || sec_min->position == 4)
 			ft_do_multiple_actions(RRA, full_stack, 1, 0);
-		else if (min->position == 1 || sec_min->position == 1)
+		else if (full_stack->a_head->next == min || full_stack->a_head->next == sec_min)
 			ft_do_multiple_actions(RA, full_stack, 1, 0);
 		else if ((full_stack->size_a == 4) && (min->position == 3 || sec_min->position == 3))
 			ft_do_multiple_actions(RRA, full_stack, 1, 0);
@@ -252,24 +256,32 @@ void	ft_push_two_smallest_elements(t_stacks *full_stack)
 			ft_do_multiple_actions(RRA, full_stack, 2, 0);
 		else if (min->position == 2 || sec_min->position == 2)
 			ft_do_multiple_actions(RA, full_stack, 2, 0);
-		ft_do_multiple_actions(PB, full_stack, min->position, 0);
 	}
+	if (pushed == 0)
+		ft_do_multiple_actions(PB, full_stack, 1, 0);
 	if (full_stack->size_b == 2 && (full_stack->b_head->value < full_stack->b_head->next->value)) // order two small elements on b
 		ft_do_multiple_actions(SB, full_stack, 1, 0);
 }
+
 
 // hardcoded sort of five element stacks
 void	ft_sort_five_elements(t_stacks *full_stack)
 {
 		// printf("sorting stack size == 5\n");
-			ft_print_both_stacks(full_stack);
-		ft_push_two_smallest_elements(full_stack);
-			ft_print_both_stacks(full_stack);
-		ft_push_two_smallest_elements(full_stack);
-			ft_print_both_stacks(full_stack);
+		// ft_print_both_stacks(full_stack);
+			
+		t_stack_list	*min;
+		t_stack_list	*sec_min;
+
+		min = ft_stack_min_value(full_stack->a_head);
+		sec_min = ft_second_smallest_value(full_stack->a_head, min->value);
+		ft_push_two_smallest_elements(full_stack, min, sec_min);
+			// ft_print_both_stacks(full_stack);
+		ft_push_two_smallest_elements(full_stack, min, sec_min);
+			// ft_print_both_stacks(full_stack);
 		ft_sort_three_elements(full_stack);
 		ft_do_multiple_actions(PA, full_stack, 2, 0);
-		ft_print_both_stacks(full_stack);
+		// ft_print_both_stacks(full_stack);
 }
 
 /* 

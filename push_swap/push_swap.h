@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/06 18:42:29 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 11:48:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void			ft_calculate_sizes(t_stacks *full_stack);
 t_stack_list	*ft_stack_max_value(t_stack_list *stack_element);
 t_stack_list	*ft_stack_min_value(t_stack_list *stack_element);
 t_stack_list	*ft_second_smallest_value(t_stack_list *stack_element, int min);
+void			ft_push_two_smallest_elements(t_stacks *full_stack, t_stack_list *min, t_stack_list *sec_min);
 int				ft_check_stack(t_stacks	*full_stack);
 	// sorting small stacks
 void			ft_sort_small_stack(t_stacks *full_stack);
