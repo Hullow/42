@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:14:20 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 17:07:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_stacks	*ft_string_to_stack(char **argv, int i)
 {
-	t_stack_list	*a_node;
-	t_stack_list	*a_head;
+	t_stack	*a_node;
+	t_stack	*a_head;
 	t_stacks		*full_stack;
 	int				count;
 
@@ -67,8 +67,8 @@ char	*ft_check_input(char *str)
 // finds duplicates in stack
 void	ft_find_duplicates(t_stacks *full_stack)
 {
-	t_stack_list	*anchor;
-	t_stack_list	*iterator;
+	t_stack	*anchor;
+	t_stack	*iterator;
 
 	anchor = full_stack->a_head;
 	iterator = full_stack->a_head;

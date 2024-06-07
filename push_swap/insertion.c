@@ -6,14 +6,14 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 19:21:16 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:02:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:36:19 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // performs the optimal insertion the selected element of a into b
-void	ft_do_optimal_insertion(t_stacks *full_stack, t_cost *min_cost_insert)
+void	ft_do_cheapest_insertion(t_stacks *full_stack, t_cost *min_cost_insert)
 {
 	ft_do_multiple_actions(RA, full_stack, min_cost_insert->xRA, 0);
 	ft_do_multiple_actions(RB, full_stack, min_cost_insert->xRB, 0);

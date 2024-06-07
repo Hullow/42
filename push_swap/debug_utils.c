@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/04 16:55:22 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_print_both_stacks(t_stacks *full_stack)
 	ft_printf("\n");
 }
 
-void	ft_print_stack(t_stack_list *list)
+void	ft_print_stack(t_stack *list)
 {
 	int		i;
 

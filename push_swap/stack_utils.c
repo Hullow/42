@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:13:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // checks if the stack a is ordered
 int	ft_check_stack(t_stacks	*full_stack)
 {
-	t_stack_list	*anchor;
+	t_stack	*anchor;
 
 	anchor = full_stack->a_head;
 	while (full_stack->a_head->next)
@@ -42,7 +42,7 @@ int	ft_check_stack(t_stacks	*full_stack)
 void	ft_set_positions(t_stacks *full_stack)
 {
 	int				position;
-	t_stack_list	*stack_iterator;
+	t_stack	*stack_iterator;
 
 	position = 0;
 	stack_iterator = full_stack->a_head;
@@ -65,7 +65,7 @@ void	ft_set_positions(t_stacks *full_stack)
 // calculates and sets the size of each stack
 void	ft_calculate_sizes(t_stacks *full_stack)
 {
-	t_stack_list	*anchor;
+	t_stack	*anchor;
 
 	full_stack->size_a = 0;
 	full_stack->size_b = 0;
@@ -92,9 +92,9 @@ void	ft_calculate_sizes(t_stacks *full_stack)
 }
 
 // returns the node that has the highest value of a stack
-t_stack_list	*ft_stack_max_value(t_stack_list *stack_element)
+t_stack	*ft_stack_max_value(t_stack *stack_element)
 {
-	t_stack_list	*max;
+	t_stack	*max;
 
 	max = stack_element;
 	while (stack_element)
@@ -110,9 +110,9 @@ t_stack_list	*ft_stack_max_value(t_stack_list *stack_element)
 }
 
 // returns the node that has the smallest value of a stack
-t_stack_list	*ft_stack_min_value(t_stack_list *stack_element)
+t_stack	*ft_stack_min_value(t_stack *stack_element)
 {
-	t_stack_list	*min;
+	t_stack	*min;
 
 	min = stack_element;
 	while (stack_element)
@@ -128,9 +128,9 @@ t_stack_list	*ft_stack_min_value(t_stack_list *stack_element)
 }
 
 // returns the node that has the smallest value of a stack
-t_stack_list	*ft_second_smallest_value(t_stack_list *stack_element, int min)
+t_stack	*ft_second_smallest_value(t_stack *stack_element, int min)
 {
-	t_stack_list	*sec_min;
+	t_stack	*sec_min;
 
 	sec_min = stack_element;
 	while (stack_element)

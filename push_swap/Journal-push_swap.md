@@ -161,3 +161,8 @@ which was the source of the issue with only part of a stack being printed out
 - Working version, also for small stacks, but some "OK (4/5)" yellow results for stacks of 500, leaks issues. See "latest_test_output.txt" for output.
 - To do: check 4/5 yellow results, then fix leaks and norm, then retest
 - Working on Norm, renaming functions for clarification
+- Maybe fix large stacks 4/5 to have "perfect" project so bonus can be counted
+	=> by not checking further than 10 first elements when looking for optimal insertion maybe
+
+
+To do: remove printfs !!!

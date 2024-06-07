@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:57:48 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:03:44 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert)
 	// RRA_to_top = full_stack->size_a - a_element->position;
 	// RB_to_optimal = optimal_position; 			// if optimal position is 0, 0 moves. if position 1, 1 move. etc.
 	// RRB_to_optimal = full_stack->size_b - optimal_position;
-void ft_calculate_cost(t_stack_list *a_element, t_stacks *full_stack, t_cost *cost)
+void ft_calculate_cost(t_stack *a_element, t_stacks *full_stack, t_cost *cost)
 {
 	ft_calculate_sizes(full_stack);
 	ft_set_positions(full_stack);

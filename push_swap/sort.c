@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:01:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:27:47 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:39:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,19 @@ void	ft_sort_small_stack(t_stacks *full_stack)
 
 // sorts stack size 6 and above
 // algorithm: "Turkish"
-// - starts by pushing the first two elements to b
-// - then computes the cheapest element of a to place at its sorted place in b
-// - pushes this element to b
-// - does this until stack a is empty
-// - then pushes back all elements from b to a  
+// - pushes the first two elements to b
+// - while(): calculates the (optimised) cost of insertion
+// for each element of stack a into stack b
+// in a way that the element is at its place in b,
+//      - inner while(): selects the cheapest insertion
+//      - performs the cheapest insertion from a into b (ft_cheapest_insertion)
+//      - does this until stack a is empty
+// - pushes back all elements from b to a
 void	ft_sort_big_stack(t_stacks *full_stack)
 {
-	t_cost			*cost;
-	t_cost			*min_cost_insert;
-	t_stack_list	*iterator;
+	t_cost	*cost;
+	t_cost	*min_cost_insert;
+	t_stack	*iterator;
 
     cost = malloc (sizeof(t_cost));
     min_cost_insert = malloc (sizeof(t_cost));
@@ -64,14 +67,14 @@ void	ft_sort_big_stack(t_stacks *full_stack)
 	iterator = full_stack->a_head;
 	while (iterator)
 	{
-		while (iterator) // compute cheapest element
+		while (iterator)
 		{
 			ft_calculate_cost(iterator, full_stack, cost);
 			if (cost->total < min_cost_insert->total)
 			    ft_set_min_cost(cost, min_cost_insert);
 			iterator = iterator->next;
 		}
-        ft_do_optimal_insertion(full_stack, min_cost_insert);// insert cheapest element
+        ft_do_cheapest_insertion(full_stack, min_cost_insert);
 		iterator = full_stack->a_head;
 		min_cost_insert->total = INT_MAX;
 	}
@@ -84,7 +87,7 @@ void	ft_sort_big_stack(t_stacks *full_stack)
 // and push everything to a_stack
 void    ft_sort_and_empty_stack_b(t_stacks *full_stack)
 {  
-	t_stack_list *max;
+	t_stack *max;
 
     max = ft_stack_max_value(full_stack->b_head);
 	while (full_stack->b_head != max)

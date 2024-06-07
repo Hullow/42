@@ -15,9 +15,9 @@
 // finds where an element from a stack a must be placed in stack b
 // returns the position it must be in (i-th element of b)
 // inputs: the value of the element in a, the stack b, the min_max for b
-int	ft_optimal_position(int value, t_stack_list *stack)
+int	ft_optimal_position(int value, t_stack *stack)
 {
-	t_stack_list	*anchor;
+	t_stack	*anchor;
 	int				optimal_position;
 	int				difference;
 	int				smallest_difference;

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:11:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:31:08 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 //  // if: head is 1 (smallest)
 //	// else if: head is 3 (largest)
 //	// else if: head is in-between value
-int	ft_three_stack_order(t_stack_list *a_head)
+int	ft_three_stack_order(t_stack *a_head)
 {
 	if (a_head->value < a_head->next->value && a_head->value < a_head->next->next->value)
     {
@@ -67,7 +67,7 @@ void	ft_sort_three_elements(t_stacks *full_stack)
 
 // pushes the two smallest elements of a to be in an optimised way
 // hardcoded for stacks of five elements
-void	ft_push_two_smallest_elements(t_stacks *full_stack, t_stack_list *min, t_stack_list *sec_min)
+void	ft_push_two_smallest_elements(t_stacks *full_stack, t_stack *min, t_stack *sec_min)
 {
 	int	pushed;
 
@@ -99,7 +99,7 @@ void	ft_push_two_smallest_elements(t_stacks *full_stack, t_stack_list *min, t_st
 // hardcoded sort of four element stacks
 void	ft_sort_four_elements(t_stacks *full_stack)
 {
-	t_stack_list *max = ft_stack_max_value(full_stack->a_head);
+	t_stack *max = ft_stack_max_value(full_stack->a_head);
 	if (max->position < 2)
 	{
 		ft_do_multiple_actions(RA, full_stack, max->position, 0);
@@ -118,7 +118,7 @@ void	ft_sort_four_elements(t_stacks *full_stack)
 // hardcoded sort of five element stacks
 void	ft_sort_five_elements(t_stacks *full_stack)
 {
-	t_stack_list *max = ft_stack_max_value(full_stack->a_head);
+	t_stack *max = ft_stack_max_value(full_stack->a_head);
 	if (max->position < 3)
 	{
 		ft_do_multiple_actions(RA, full_stack, max->position, 0);

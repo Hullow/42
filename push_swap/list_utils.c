@@ -6,18 +6,18 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:24:15 by fallan            #+#    #+#             */
-/*   Updated: 2024/05/30 16:41:16 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // adapted from ft_lstnew (libft bonus)
-t_stack_list	*ft_new_stack_node(int value)
+t_stack	*ft_new_stack_node(int value)
 {
-	t_stack_list	*new_node;
+	t_stack	*new_node;
 
-	new_node = (t_stack_list *)malloc(sizeof(t_stack_list));
+	new_node = (t_stack *)malloc(sizeof(t_stack));
 	if (!new_node)
 		return (NULL);
 	new_node->value = value;

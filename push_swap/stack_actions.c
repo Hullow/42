@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:13:09 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/05 11:54:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // and removes the element from the b stack
 void	ft_push_a(t_stacks *full_stack)
 {
-	t_stack_list	*temp_b_new_head;
+	t_stack	*temp_b_new_head;
 
 	if (!full_stack->b_head)
 	{
@@ -45,7 +45,7 @@ void	ft_push_a(t_stacks *full_stack)
 // and removes the element from the a stack
 void	ft_push_b(t_stacks *full_stack)
 {
-	t_stack_list	*a_second_element;
+	t_stack	*a_second_element;
 
 	a_second_element = full_stack->a_head->next;
 	if (!full_stack->a_head)
@@ -72,9 +72,9 @@ void	ft_push_b(t_stacks *full_stack)
 }
 
 // swap the first two elements of the stack
-void	ft_swap(t_stack_list **head, t_stack_list **tail, int stack_size)
+void	ft_swap(t_stack **head, t_stack **tail, int stack_size)
 {
-	t_stack_list	*temp_new_head;
+	t_stack	*temp_new_head;
 	if (!head || !(*head) || stack_size == 1)
 		return;
 	if (stack_size == 2)
@@ -94,9 +94,9 @@ void	ft_swap(t_stack_list **head, t_stack_list **tail, int stack_size)
 
 // sends the first element (head) to the end of the list (tail)
 // the second element of the list becomes the new head
-void	ft_rotate(t_stack_list **head, t_stack_list **tail)
+void	ft_rotate(t_stack **head, t_stack **tail)
 {
-	t_stack_list	*temp_new_head;
+	t_stack	*temp_new_head;
 
 	if (!head || !tail || !(*head) || !(*tail) || (*head == *tail))
 	{
@@ -113,10 +113,10 @@ void	ft_rotate(t_stack_list **head, t_stack_list **tail)
 
 // sends the last element of the list (tail) to the beginning (head)
 // the penultimate element becomes the last (tail)
-void	ft_reverse_rotate(t_stack_list **head, t_stack_list **tail)
+void	ft_reverse_rotate(t_stack **head, t_stack **tail)
 {
-	t_stack_list	*temp_old_head;
-	t_stack_list	*penultimate;
+	t_stack	*temp_old_head;
+	t_stack	*penultimate;
 
 	if (!head || !tail || !(*head) || !(*tail) || (*head == *tail))
 	{
