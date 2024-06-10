@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:14:20 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/10 17:12:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:53:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_find_duplicates(t_stacks *stacks)
 		{
 			if (anchor->value == iterator->value)
 			{
-				write(2, "Error (duplicates found in input)\n", 35);
+				write(2, "Error\n", 7);
 				ft_free_stacks(&stacks);
 				exit(-1);
 			}

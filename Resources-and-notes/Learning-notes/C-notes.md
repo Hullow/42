@@ -298,14 +298,21 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 ## Debugging
 - GDB: GNU debugger
 - lldb: low-level debugger, part of the LLVM project
+- AddressSanitizer/ASan: a tool to detect memory errors for C/C++
+- Valgrind: a suite of tools for debugging and profiling programs
 
 ### Debugging flags
 - `-g` (or `-g3`) : generate debug information => n.b.; necessary to set breakpoints in source code !
 - `-fsanitize` : [AddressSanitizer](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html). With `=address`, `=leak`, ...
 - adding compile instructions (e.g. `-L. -lft`) to the VSCode C/C++ debugger: in `tasks.json`
 
+### Valgrind
+- `valgrind --log-fd=1 <program> <args>`: to run valgrind and show output to stdout instead of stderr (default)
+	- `--tool=<toolname>` (default: memcheck)
+	- `--log-file=<filename>`
+	- `-s`: shows a list of detected errors and list of used suppressions at exit, for tools that report errors
+
 ### [AddressSanitizer (ASan)](https://github.com/google/sanitizers/wiki/AddressSanitizer)
-A tool to detect memory errors for C/C++
 - Disable `0xbe...` memory fill-in: ASan, by default, writes 0xbe to newly allocated memory. Use `export $ASAN_OPTIONS="$ASAN_OPTIONS:malloc_fill_byte=0"` to change the ASAN_OPTIONS environment variable to disable this
 
 ### LLDB

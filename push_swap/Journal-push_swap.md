@@ -174,3 +174,8 @@ To do: remove printfs !!!
 - Remaining issues:
 	- "order nums" test (?)
 	- all size test + leaks check => "KO Leaks" every 5 test
+		=> solved; no more errors with Tester ! 
+- Learning to use valgrind
+- Did some work on Norm, two things remain:
+	- ft_calculate_cost to be broken down
+	- ft_optimal_position to be shortened

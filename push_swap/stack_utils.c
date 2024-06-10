@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 20:02:59 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/10 17:12:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:58:16 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_check_stack(t_stacks	*stacks)
 		}
 		stacks->a_head = stacks->a_head->next;
 	}
-	if (stacks->b_head || stacks->size_b)
+	if (stacks->b_head)
 	{
 		stacks->a_head = anchor;
 		return (1);
