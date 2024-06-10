@@ -6,63 +6,97 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/06 18:22:40 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:43:04 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+
 // run an action on our stacks multiple times (#moves)
 // checker: if != 0, stops printing out the action
 // (set to 1 when called from the checker, 0 otherwise)
-void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves, int checker)
+void	ft_do_multiple_actions(int action, t_stacks *stacks, \
+int moves, int checker)
 {
-	char *table[] = {"sa", "sb", "pa", "pb", "ra", "rb", "rra", "rrb", "rr", "rrr"};
+	char	*table[10];
 
-	ft_calculate_sizes(full_stack);
+	table[0] = "sa";
+	table[1] = "sb";
+	table[2] = "pa";
+	table[3] = "pb";
+	table[4] = "ra";
+	table[5] = "rb";
+	table[6] = "rra";
+	table[7] = "rrb";
+	table[8] = "rr";
+	table[9] = "rrr";
+	ft_calculate_sizes(stacks);
 	while (moves--)
 	{
-		ft_do_action(action, full_stack);
+		ft_do_action(action, stacks);
 		if (!checker)
 			ft_printf("%s\n", table[action - 1]);
 	}
-	ft_calculate_sizes(full_stack);
-	ft_set_positions(full_stack);
+	ft_calculate_sizes(stacks);
+	ft_set_positions(stacks);
 }
 
+// does a move (swap, push, rotate, reverse rotate) on the stack
+// first checks if the action can be done
 // using a define set in push_swap.h, calls the various actions:
 // PA (push to stack A), PB (push to stack B),
 // RA (rotate stack A), RB (rotate stack B),
 // RRA (reverse rotate stack A), RB (reverse rotate stack B)
-void	ft_do_action(int action, t_stacks *full_stack)
+void	ft_do_action(int action, t_stacks *stacks)
 {
-	if ((!full_stack->a_head && (action == RA || action == RRA || action == PB))\
-|| (!full_stack->b_head && (action == RB || action == RRB || action == PA))) // checks if action can be done
-		return;
+	if ((!stacks->a_head && (action == RA || action == RRA || action == PB)) \
+	|| (!stacks->b_head && (action == RB || action == RRB || action == PA)))
+		return ;
 	if (action == SA)
-		ft_swap(&(full_stack->a_head), &(full_stack->a_tail), full_stack->size_a);
+		ft_swap(&(stacks->a_head), &(stacks->a_tail), stacks->size_a);
 	else if (action == SB)
-		ft_swap(&(full_stack->b_head), &(full_stack->b_tail), full_stack->size_b);
+		ft_swap(&(stacks->b_head), &(stacks->b_tail), stacks->size_b);
 	else if (action == PA)
-		ft_push_a(full_stack);
+		ft_push_a(stacks);
 	else if (action == PB)
-		ft_push_b(full_stack);
+		ft_push_b(stacks);
 	else if (action == RA)
-		ft_rotate(&(full_stack->a_head), &(full_stack->a_tail));
+		ft_rotate(&(stacks->a_head), &(stacks->a_tail));
 	else if (action == RB)
-		ft_rotate(&(full_stack->b_head), &(full_stack->b_tail));
-	else if (action == RR)
-	{
-		ft_rotate(&(full_stack->a_head), &(full_stack->a_tail));
-		ft_rotate(&(full_stack->b_head), &(full_stack->b_tail));
-	}
+		ft_rotate(&(stacks->b_head), &(stacks->b_tail));
+	else if (action == RR || action == RRR)
+		ft_rotate_both_stacks(action, stacks);
 	else if (action == RRA)
-		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
+		ft_reverse_rotate(&(stacks->a_head), &(stacks->a_tail));
 	else if (action == RRB)
-		ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+		ft_reverse_rotate(&(stacks->b_head), &(stacks->b_tail));
+}
+
+// call rotate for RR and RRR
+// created to make ft_do_action shorter
+void	ft_rotate_both_stacks(int action, t_stacks *stacks)
+{
+	if (action == RR)
+	{
+		ft_rotate(&(stacks->a_head), &(stacks->a_tail));
+		ft_rotate(&(stacks->b_head), &(stacks->b_tail));
+	}
 	else if (action == RRR)
 	{
-		ft_reverse_rotate(&(full_stack->a_head), &(full_stack->a_tail));
-		ft_reverse_rotate(&(full_stack->b_head), &(full_stack->b_tail));
+		ft_reverse_rotate(&(stacks->a_head), &(stacks->a_tail));
+		ft_reverse_rotate(&(stacks->b_head), &(stacks->b_tail));
 	}
+}
+
+// performs the optimal insertion the selected element of a into b
+void	ft_do_cheapest_insertion(t_stacks *stacks, t_cost *min_cost_insert)
+{
+	ft_do_multiple_actions(RA, stacks, min_cost_insert->xRA, 0);
+	ft_do_multiple_actions(RB, stacks, min_cost_insert->xRB, 0);
+	ft_do_multiple_actions(RR, stacks, min_cost_insert->xRR, 0);
+	ft_do_multiple_actions(RRA, stacks, min_cost_insert->xRRA, 0);
+	ft_do_multiple_actions(RRB, stacks, min_cost_insert->xRRB, 0);
+	ft_do_multiple_actions(RRR, stacks, min_cost_insert->xRRR, 0);
+	ft_do_multiple_actions(PB, stacks, 1, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/10 14:56:35 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:41:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,40 +73,31 @@ typedef	struct	s_stacks {
 // input handling
 char		*ft_check_input(char *str);
 t_stacks	*ft_string_to_stack(char **argv, int i);
-void		ft_find_duplicates(t_stacks *full_stack);
+void		ft_find_duplicates(t_stacks *stacks);
 
 // list handling
 t_stack	*ft_new_stack_node(int value);
-void	ft_free_full_stack(t_stacks **full_stack);
+void	ft_free_stacks(t_stacks **stacks);
 void	ft_free(void **temp);
 
-// stack actions
-void	ft_swap(t_stack **head, t_stack **tail, int stack_size);
-void	ft_push_a(t_stacks *full_stack);
-void	ft_push_b(t_stacks *full_stack);
-void	ft_rotate(t_stack **head, t_stack **tail);
-void	ft_reverse_rotate(t_stack **head, t_stack **tail);
-
 // stack utils
-int		ft_check_stack(t_stacks	*full_stack);
-void	ft_set_positions(t_stacks *full_stack);
-void	ft_calculate_sizes(t_stacks *full_stack);
+int		ft_check_stack(t_stacks	*stacks);
+void	ft_set_positions(t_stacks *stacks);
+void	ft_calculate_sizes(t_stacks *stacks);
 t_stack	*ft_stack_max_value(t_stack *stack_element);
 t_stack	*ft_stack_min_value(t_stack *stack_element);
-t_stack	*ft_second_smallest_value(t_stack *stack_element, int min);
 
 // sorting
-void	ft_sort(t_stacks *full_stack);
-void	ft_sort_small_stack(t_stacks *full_stack);
-void	ft_sort_large_stack(t_stacks *full_stack);
-void	ft_sort_and_empty_stack_b(t_stacks *full_stack);
+void	ft_sort(t_stacks *stacks);
+void	ft_sort_small_stack(t_stacks *stacks);
+void	ft_sort_large_stack(t_stacks *stacks);
+void	ft_sort_and_empty_stack_b(t_stacks *stacks);
 
 // sorting small stacks
 int		ft_three_stack_order(t_stack *a_head);
-void	ft_sort_three_elements(t_stacks *full_stack);
-void	ft_sort_four_elements(t_stacks *full_stack);
-void	ft_sort_five_elements(t_stacks *full_stack);
-void	ft_push_two_smallest_elements(t_stacks *full_stack, t_stack *min, t_stack *sec_min);
+void	ft_sort_three_elements(t_stacks *stacks);
+void	ft_sort_four_elements(t_stacks *stacks);
+void	ft_sort_five_elements(t_stacks *stacks);
 
 // general utils
 int	ft_min(int a, int b);
@@ -114,17 +105,25 @@ int	ft_max(int a, int b);
 int	ft_abs(int number);
 
 // cost
-void	ft_calculate_cost(t_stack *a_element, t_stacks *full_stack, t_cost *cost);
+void	ft_calculate_cost(t_stack *a_element, t_stacks *stacks, t_cost *cost);
 void	ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert);
 
-// insertion
-void	ft_do_cheapest_insertion(t_stacks *full_stack, t_cost *min_cost_insert);
-int		ft_optimal_position(int a_value, t_stack *b_stack);
+// stack actions
+void	ft_swap(t_stack **head, t_stack **tail, int stack_size);
+void	ft_push_a(t_stacks *stacks);
+void	ft_push_b(t_stacks *stacks);
+void	ft_rotate(t_stack **head, t_stack **tail);
+void	ft_reverse_rotate(t_stack **head, t_stack **tail);
+void	ft_rotate_both_stacks(int action, t_stacks *stacks);
 
 // moves
-void	ft_do_multiple_actions(int action, t_stacks *full_stack, int moves, int checker);
-void	ft_do_action(int action, t_stacks *full_stack);
+void	ft_do_multiple_actions(int action, t_stacks *stacks, int moves, int checker);
+void	ft_do_action(int action, t_stacks *stacks);
+
+// insertion
+void	ft_do_cheapest_insertion(t_stacks *stacks, t_cost *min_cost_insert);
+int		ft_optimal_position(int a_value, t_stack *b_stack);
 
 // debugging
-void	ft_print_both_stacks(t_stacks *full_stack);
-void	ft_print_stack(t_stack *list);
+// void	ft_print_both_stacks(t_stacks *stacks);
+// void	ft_print_stack(t_stack *list);

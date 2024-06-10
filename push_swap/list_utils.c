@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:24:15 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:12:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,26 @@ t_stack	*ft_new_stack_node(int value)
 	return (new_node);
 }
 
-void	ft_free(void **temp)
-{
-	if (*temp)
-	{
-		free(*temp);
-		*temp = NULL;
-	}
-}
-
-void	ft_free_full_stack(t_stacks **full_stack)
+// free each element of each stack, and then the whole stack
+void	ft_free_stacks(t_stacks **stacks)
 {
 	void	*temp;
-	while ((*full_stack)->b_head)
-	{
-		temp = (*full_stack)->b_head->next;
-		free((*full_stack)->b_head);
-		(*full_stack)->b_head = temp;
-	}
-	while ((*full_stack)->a_head)
-	{
-		temp = (*full_stack)->a_head->next;
-		free((*full_stack)->a_head);
-		(*full_stack)->a_head = temp;
-	}
-	free(*full_stack);
-	*full_stack = NULL;
-}
 
+	while ((*stacks)->b_head)
+	{
+		if ((*stacks)->b_head->next)
+		{
+			temp = (*stacks)->b_head->next;
+			free((*stacks)->b_head);
+			(*stacks)->b_head = temp;
+		}
+	}
+	while ((*stacks)->a_head)
+	{
+		temp = (*stacks)->a_head->next;
+		free((*stacks)->a_head);
+		(*stacks)->a_head = temp;
+	}
+	free(*stacks);
+	*stacks = NULL;
+}

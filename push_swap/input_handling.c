@@ -6,48 +6,48 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 23:14:20 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:12:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+// initializes the struct holding the two stacks
+// fills stack a with values from the input
 t_stacks	*ft_string_to_stack(char **argv, int i)
 {
-	t_stack	*a_node;
-	t_stack	*a_head;
-	t_stacks		*full_stack;
-	int				count;
+	t_stack		*a_node;
+	t_stack		*a_head;
+	t_stacks	*stacks;
+	int			count;
 
 	count = i;
 	i = 1;
 	a_node = ft_new_stack_node(ft_atoi(argv[i]));
-	full_stack = (t_stacks *) malloc(sizeof(t_stacks)); // correct ?
+	stacks = (t_stacks *) malloc(sizeof(t_stacks));
 	a_head = a_node;
-	//printf("\n\ninput stored in list:\n%d (head)\n", a_node->value);
 	while (++i < count - 1)
 	{
 		a_node->next = ft_new_stack_node(ft_atoi(argv[i]));
 		a_node = a_node->next;
-		//printf("%d\n", a_node->value);
 	}
 	if (argv[i])
 		a_node->next = ft_new_stack_node(ft_atoi(argv[i]));
-	full_stack->a_tail = a_node->next;
-	full_stack->a_tail->next = NULL;
-	//ft_printf("%d (tail)\n", full_stack->a_tail->value);
-	//ft_printf("_             _\n");
-	full_stack->a_head = a_head;
-	return (full_stack);
+	stacks->a_tail = a_node->next;
+	stacks->a_tail->next = NULL;
+	stacks->a_head = a_head;
+	stacks->b_head = NULL;
+	return (stacks);
 }
 
+// verifies that the input has proper form
 char	*ft_check_input(char *str)
 {
 	int	i;
 	int	input;
 
 	i = -1;
-	if (str[0]== '\0')
+	if (str[0] == '\0')
 		return (NULL);
 	if (ft_strrchr(str, '-') - str > 0)
 		return (NULL);
@@ -64,26 +64,26 @@ char	*ft_check_input(char *str)
 	return (str);
 }
 
-// finds duplicates in stack
-void	ft_find_duplicates(t_stacks *full_stack)
+// checks for duplicate numbers in stack
+void	ft_find_duplicates(t_stacks *stacks)
 {
 	t_stack	*anchor;
 	t_stack	*iterator;
 
-	anchor = full_stack->a_head;
-	iterator = full_stack->a_head;
+	anchor = stacks->a_head;
+	iterator = stacks->a_head;
 	while (anchor)
 	{
 		if (anchor->next)
 			iterator = anchor->next;
 		else
-			return;
+			return ;
 		while (iterator)
 		{
 			if (anchor->value == iterator->value)
 			{
-				write(2, "Error\n", 7);
-				// ft_free_all_the stuff;
+				write(2, "Error (duplicates found in input)\n", 35);
+				ft_free_stacks(&stacks);
 				exit(-1);
 			}
 			iterator = iterator->next;

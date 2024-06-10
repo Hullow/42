@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:57:48 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:34:07 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:27:21 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,25 @@ void    ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert)
 // first count of moves required for each rotation combination,
 // without optimization (aggregation, done by ft_aggregate_moves)
 	// RA_to_top = a_element->position; 			// if in position 0, 0 moves. if position 1, 1 move. etc.
-	// RRA_to_top = full_stack->size_a - a_element->position;
+	// RRA_to_top = stacks->size_a - a_element->position;
 	// RB_to_optimal = optimal_position; 			// if optimal position is 0, 0 moves. if position 1, 1 move. etc.
-	// RRB_to_optimal = full_stack->size_b - optimal_position;
-void ft_calculate_cost(t_stack *a_element, t_stacks *full_stack, t_cost *cost)
+	// RRB_to_optimal = stacks->size_b - optimal_position;
+void ft_calculate_cost(t_stack *a_element, t_stacks *stacks, t_cost *cost)
 {
-	ft_calculate_sizes(full_stack);
-	ft_set_positions(full_stack);
-	int optimal_position = ft_optimal_position(a_element->value, full_stack->b_head);
+	ft_calculate_sizes(stacks);
+	ft_set_positions(stacks);
+	int optimal_position = ft_optimal_position(a_element->value, stacks->b_head);
 	// printf("\nft_calculate_cost:\n");
-	// printf("\t- size: a:%d, b:%d, optimal_position for \"%d\": %d\n", full_stack->size_a, full_stack->size_b, a_element->value, optimal_position);
+	// printf("\t- size: a:%d, b:%d, optimal_position for \"%d\": %d\n", stacks->size_a, stacks->size_b, a_element->value, optimal_position);
 
 	cost->xRA = a_element->position;
-	cost->xRRA = full_stack->size_a - cost->xRA;
+	cost->xRRA = stacks->size_a - cost->xRA;
 	if (a_element->position == 0)  // optimisation: if a_element is already at the top, don't do any reverse rotations
 		cost->xRRA = 0;
 
 	cost->xRB = optimal_position;
-	cost->xRRB = full_stack->size_b - cost->xRB;
-	if (optimal_position == 0 || optimal_position == full_stack->size_b)  // optimisation: if optimal_position is at the top, do 0 reverse rotations
+	cost->xRRB = stacks->size_b - cost->xRB;
+	if (optimal_position == 0 || optimal_position == stacks->size_b)  // optimisation: if optimal_position is at the top, do 0 reverse rotations
 	{
 		cost->xRRB = 0;
 		cost->xRB = 0;

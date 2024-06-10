@@ -11,7 +11,7 @@
 # 13/5/24
 - Lucas writes to me to ask how it's going and suggest a few things:
 	- struct for each stack
-	- struct full_stack
+	- struct stacks
 	- do_action(func action, overarching_stack)
 - Lucas showed me his general algo on whiteboard in Foundation:
 	- finish with all pieces ordered in stack b, before pushing back to stack a
@@ -61,7 +61,7 @@ to figure out between which two values of stack b I must place my element from s
 - Back to work (Unimail)
 - Trying to fix segfault in ft_calculate_sizes: segfault moves around, even for list `list = list->next;`don't understand why, maybe the sanitizer's Oxbebe which changes the value ?
 - Fixing segfaults from ft_optimal_insertion/ft_optimal_position when a_stack is empty: actually useless, only call ft_optimal_insertion if there is an element to insert. Now maybe, add checks in case b_stack doesn't exist yet
-- Segfault in ft_calculate_sizes due to `full_stack->b_head = full_stack->b_head->next;` in while even though there was a check
+- Segfault in ft_calculate_sizes due to `stacks->b_head = stacks->b_head->next;` in while even though there was a check
 
 # 23/5/24
 - Back to work (at school)
@@ -69,11 +69,11 @@ to figure out between which two values of stack b I must place my element from s
 - Until now, used ft_optimal_position to determine where to place a value from stack a above a value from stack b that is smaller.
 Problem is, with `./push_swap 1 2 3 4 5 6 7 8 9` and moves :
 ```c
-ft_do_multiple_actions(PB, full_stack, 5);
-ft_do_multiple_actions(RRA, full_stack, 3);
-ft_do_multiple_actions(PA, full_stack, 1);
-ft_do_multiple_actions(RRB, full_stack, 1);
-ft_do_multiple_actions(PA, full_stack, 1);
+ft_do_multiple_actions(PB, stacks, 5);
+ft_do_multiple_actions(RRA, stacks, 3);
+ft_do_multiple_actions(PA, stacks, 1);
+ft_do_multiple_actions(RRB, stacks, 1);
+ft_do_multiple_actions(PA, stacks, 1);
 ```
 , I get :
 a:
@@ -115,7 +115,7 @@ size: a 7, b 2, optimal_position: 2
 => it looks like our stack handling functions have issues. Test them systematically before anything else
 
 # 28/5/24
-- Fixed size calculation: it was because we were calculating size based on `full_stack->a_head`, which moves in the while() in our main. Replaced it with a variable `stack_iterator` so size can be calculated with an untouched `full_stack->a_head`
+- Fixed size calculation: it was because we were calculating size based on `stacks->a_head`, which moves in the while() in our main. Replaced it with a variable `stack_iterator` so size can be calculated with an untouched `stacks->a_head`
 - Looks like I debugged a few things, and now can see a stack be rearranged !
 - Need a function to do the final stack arrangement (e.g. ft_stack_max to calculate maximum value, then rotate or reverse_rotate until found)
 => done !
