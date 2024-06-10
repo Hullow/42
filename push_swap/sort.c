@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:01:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/07 18:39:13 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/10 14:56:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_sort(t_stacks *full_stack)
 	if (full_stack->size_a < 6)
 		ft_sort_small_stack(full_stack);
 	else
-		ft_sort_big_stack(full_stack);
+		ft_sort_large_stack(full_stack);
 }
 
 // hardcoded sorting of small stacks (size < 6)
@@ -54,7 +54,7 @@ void	ft_sort_small_stack(t_stacks *full_stack)
 //      - performs the cheapest insertion from a into b (ft_cheapest_insertion)
 //      - does this until stack a is empty
 // - pushes back all elements from b to a
-void	ft_sort_big_stack(t_stacks *full_stack)
+void	ft_sort_large_stack(t_stacks *full_stack)
 {
 	t_cost	*cost;
 	t_cost	*min_cost_insert;
@@ -83,6 +83,7 @@ void	ft_sort_big_stack(t_stacks *full_stack)
 	free(min_cost_insert);
 }
 
+
 // rearrange b_stack to put maximum value at the top
 // and push everything to a_stack
 void    ft_sort_and_empty_stack_b(t_stacks *full_stack)
@@ -90,8 +91,16 @@ void    ft_sort_and_empty_stack_b(t_stacks *full_stack)
 	t_stack *max;
 
     max = ft_stack_max_value(full_stack->b_head);
-	while (full_stack->b_head != max)
-		ft_do_multiple_actions(RB, full_stack, 1, 0);
+	if (max->position < full_stack->size_b / 2)
+	{
+		while (full_stack->b_head != max)
+			ft_do_multiple_actions(RB, full_stack, 1, 0);
+	}
+	else
+	{
+		while (full_stack->b_head != max)
+			ft_do_multiple_actions(RRB, full_stack, 1, 0);
+	}
 	while (full_stack->b_head)
 		ft_do_multiple_actions(PA, full_stack, 1, 0);
 }

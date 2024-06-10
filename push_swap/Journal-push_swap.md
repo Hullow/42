@@ -166,3 +166,11 @@ which was the source of the issue with only part of a stack being printed out
 
 
 To do: remove printfs !!!
+
+# 10/6/24
+- Solved largest stack issue (>5500 moves):
+	- initially started with Lucas' idea of not searching further than X elements in the stack (e.g. 10, 50) and coded a function ft_advance_X_elements for that but it didn't solve the problem
+	- decided to take a look at one sequence that was too long and saw hundreds of "rb" at the end (pushing the highest element at the top of the b stack before pushing back to a stack); added a if/else with rrb instead if max_element->position > (size_b / 2) => solved in two lines
+- Remaining issues:
+	- "order nums" test (?)
+	- all size test + leaks check => "KO Leaks" every 5 test
