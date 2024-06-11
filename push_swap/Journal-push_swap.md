@@ -179,3 +179,17 @@ To do: remove printfs !!!
 - Did some work on Norm, two things remain:
 	- ft_calculate_cost to be broken down
 	- ft_optimal_position to be shortened
+
+# 11/6/24
+- Put ft_calculate_cost to Norm (separated in a few functions)
+- Cannot run norminette on MacBook... => fixed with `pip3 install --upgrade norminette` and `export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.10/bin`
+- Norm okay except comments in cost.c
+- Norm not done in checker
+
+
+To do:
+- Check cost.c function with comments inside
+- Test with tester
+- Norm the header
+- Test the checker
+- Norm the checker

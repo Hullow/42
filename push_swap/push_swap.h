@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/11 16:15:09 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:54:39 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,21 @@ void	ft_sort_three_elements(t_stacks *stacks);
 void	ft_sort_four_elements(t_stacks *stacks);
 void	ft_sort_five_elements(t_stacks *stacks);
 
-// general utils
-int	ft_min(int a, int b);
-int	ft_max(int a, int b);
-int	ft_abs(int number);
-
 // cost
 void	ft_calculate_cost(t_stack *a_element, t_stacks *stacks, t_cost *cost);
-void	ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert);
 void	ft_set_initial_costs(t_stack *a_element, t_stacks *stacks, t_cost *cost);
 int		ft_cheapest_cost_sequence (t_cost *cost);
 void	ft_set_cheapest_cost(t_cost *cost, int i);
 void	ft_set_cheapest_cost_annex(t_cost *cost, int i);
+
+// insertion
+	// calculation
+int		ft_optimal_position(int value, t_stack *stack, int smallest_difference);
+void	ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert);
+	// moves
+void	ft_do_cheapest_insertion(t_stacks *stacks, t_cost *min_cost_insert);
+void	ft_do_multiple_actions(int action, t_stacks *stacks, int moves, int checker);
+void	ft_do_action(int action, t_stacks *stacks);
 
 // stack actions
 void	ft_swap(t_stack **head, t_stack **tail, int stack_size);
@@ -120,13 +123,10 @@ void	ft_rotate(t_stack **head, t_stack **tail);
 void	ft_reverse_rotate(t_stack **head, t_stack **tail);
 void	ft_rotate_both_stacks(int action, t_stacks *stacks);
 
-// moves
-void	ft_do_multiple_actions(int action, t_stacks *stacks, int moves, int checker);
-void	ft_do_action(int action, t_stacks *stacks);
-
-// insertion
-void	ft_do_cheapest_insertion(t_stacks *stacks, t_cost *min_cost_insert);
-int		ft_optimal_position(int a_value, t_stack *b_stack);
+// general utils
+int	ft_min(int a, int b);
+int	ft_max(int a, int b);
+int	ft_abs(int number);
 
 // debugging
 // void	ft_print_both_stacks(t_stacks *stacks);

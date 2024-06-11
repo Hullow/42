@@ -6,32 +6,15 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:57:48 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/11 16:25:38 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:52:38 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// sets minimum cost values to cost values
-// called from a loop to find minimal costs
-void    ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert)
-{
-    min_cost_insert->xRA = cost->xRA;
-    min_cost_insert->xRB = cost->xRB;
-    min_cost_insert->xRR = cost->xRR;
-    min_cost_insert->xRRA = cost->xRRA;
-    min_cost_insert->xRRB = cost->xRRB;
-    min_cost_insert->xRRR = cost->xRRR;
-    min_cost_insert->total = cost->total;
-}
-
-// first count of moves required for each rotation combination,
-// without optimization (aggregation, done by ft_aggregate_moves)
-	// RA_to_top = a_element->position; 			// if in position 0, 0 moves. if position 1, 1 move. etc.
-	// RRA_to_top = stacks->size_a - a_element->position;
-	// RB_to_optimal = optimal_position; 			// if optimal position is 0, 0 moves. if position 1, 1 move. etc.
-	// RRB_to_optimal = stacks->size_b - optimal_position;
-void ft_calculate_cost(t_stack *a_element, t_stacks *stacks, t_cost *cost)
+// finds the cheapest insertion and sets the corresponding moves
+// in the variable cost
+void	ft_calculate_cost(t_stack *a_element, t_stacks *stacks, t_cost *cost)
 {
 	int	i;
 
@@ -46,10 +29,19 @@ void ft_calculate_cost(t_stack *a_element, t_stacks *stacks, t_cost *cost)
 // the values correspond to moves needed 
 // to move a_element to top of stack a
 // and down to its optimal position in stack b
-	// if() optimisation: if a_element/b_element is already at the top, don't do any reverse rotations
+	// if() optimisation: if a_element/b_element is 
+	// already at the top, don't do any reverse rotations
 // aggregates rotations into RR and RRR with ft_min
 // then calculates minimal necessary rotations ("...._aggregated")
 // finally, computes the total number of moves to enable a comparison
+// first count of moves required for each rotation combination,
+// without optimization (aggregation, done by ft_aggregate_moves)
+	// RA_to_top = a_element->position; 
+		// if in position 0, 0 moves. if position 1, 1 move. etc.
+	// RRA_to_top = stacks->size_a - a_element->position;
+	// RB_to_optimal = optimal_position;
+		// if optimal position is 0, 0 moves. if position 1, 1 move. etc.
+	// RRB_to_optimal = stacks->size_b - optimal_position;
 void	ft_set_initial_costs(t_stack *a_element, t_stacks *stacks, t_cost *cost)
 {
 	int		optimal_position;
@@ -61,8 +53,8 @@ void	ft_set_initial_costs(t_stack *a_element, t_stacks *stacks, t_cost *cost)
 		cost->xRRA = 0;
 	cost->xRB = optimal_position;
 	cost->xRRB = stacks->size_b - cost->xRB;
-	// removed this: || optimal_position == stacks->size_b)
-	if (optimal_position == 0) // optimisation: if optimal_position is at the top, do 0 reverse rotations
+	// optimisation: if optimal_position is at the top, do 0 reverse rotations
+	if (optimal_position == 0) // removed this: || optimal_position == stacks->size_b)
 	{
 		cost->xRRB = 0; // why not 1 ? (because we order it anyway; but try it)
 		cost->xRB = 0;
@@ -80,16 +72,16 @@ void	ft_set_initial_costs(t_stack *a_element, t_stacks *stacks, t_cost *cost)
 // computes cost of each possible sequence of rotations,
 	// i.e. (RR + RA + RB, RRR + RRA + RRB, RA + RRB, RRA + RB)
 // then finds and returns index of cheapest sequence
-int	ft_cheapest_cost_sequence (t_cost *cost)
+int	ft_cheapest_cost_sequence(t_cost *cost)
 {
-	int cost_sequence[4];
-	int min_cost;
-	int i;
-	
+	int	cost_sequence[4];
+	int	min_cost;
+	int	i;
+
 	cost_sequence[0] = cost->xRR + \
 	ft_max(cost->xRA, cost->xRB) - ft_min(cost->xRA, cost->xRB);
 	cost_sequence[1] = cost->xRRR + \
-	ft_max(cost->xRRA,cost->xRRB) - ft_min(cost->xRRA, cost->xRRB);
+	ft_max(cost->xRRA, cost->xRRB) - ft_min(cost->xRRA, cost->xRRB);
 	cost_sequence[2] = cost->xRA + cost->xRRB;
 	cost_sequence[3] = cost->xRB + cost->xRRA;
 	i = -1;
@@ -97,7 +89,7 @@ int	ft_cheapest_cost_sequence (t_cost *cost)
 	ft_min(cost_sequence[2], cost_sequence[3]));
 	while (++i < 4)
 		if (min_cost == cost_sequence[i])
-			break;
+			break ;
 	return (i);
 }
 

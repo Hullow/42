@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   insertion_moves.c                                  :+:      :+:    :+:   */
+/*   insertion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/10 17:43:04 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:54:24 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
 
 // run an action on our stacks multiple times (#moves)
 // checker: if != 0, stops printing out the action
@@ -73,20 +72,52 @@ void	ft_do_action(int action, t_stacks *stacks)
 		ft_reverse_rotate(&(stacks->b_head), &(stacks->b_tail));
 }
 
-// call rotate for RR and RRR
-// created to make ft_do_action shorter
-void	ft_rotate_both_stacks(int action, t_stacks *stacks)
+// finds where an element from a stack a must be placed in stack b
+// returns the position it must be in (i-th element of b)
+	// inputs: the value of the element in a, the stack b, the min_max for b
+	// first while(): "difference" if a is bigger 
+	// than the value pointed to in b, a can take its place in the stack
+	// second while(): 
+		// set i to point to the element of b with the smallest difference
+int	ft_optimal_position(int value, t_stack *stack, int smallest_difference)
 {
-	if (action == RR)
+	t_stack	*anchor;
+	int		optimal_position;
+	int		difference;
+
+	if (!stack)
+		return (0);
+	optimal_position = 0;
+	anchor = stack;
+	while (stack)
 	{
-		ft_rotate(&(stacks->a_head), &(stacks->a_tail));
-		ft_rotate(&(stacks->b_head), &(stacks->b_tail));
+		difference = value - stack->value;
+		if (ft_abs(difference) < smallest_difference)
+			smallest_difference = ft_abs(difference);
+		stack = stack->next;
 	}
-	else if (action == RRR)
+	stack = anchor;
+	while (stack && smallest_difference != ft_abs(value - stack->value))
 	{
-		ft_reverse_rotate(&(stacks->a_head), &(stacks->a_tail));
-		ft_reverse_rotate(&(stacks->b_head), &(stacks->b_tail));
+		optimal_position++;
+		stack = stack->next;
 	}
+	if (value < stack->value)
+		optimal_position++;
+	return (optimal_position);
+}
+
+// sets minimum cost values to cost values
+// called from a loop to find minimal costs
+void	ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert)
+{
+	min_cost_insert->xRA = cost->xRA;
+	min_cost_insert->xRB = cost->xRB;
+	min_cost_insert->xRR = cost->xRR;
+	min_cost_insert->xRRA = cost->xRRA;
+	min_cost_insert->xRRB = cost->xRRB;
+	min_cost_insert->xRRR = cost->xRRR;
+	min_cost_insert->total = cost->total;
 }
 
 // performs the optimal insertion the selected element of a into b
