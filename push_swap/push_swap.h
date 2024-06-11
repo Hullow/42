@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/10 17:41:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:15:09 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ int	ft_abs(int number);
 // cost
 void	ft_calculate_cost(t_stack *a_element, t_stacks *stacks, t_cost *cost);
 void	ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert);
+void	ft_set_initial_costs(t_stack *a_element, t_stacks *stacks, t_cost *cost);
+int		ft_cheapest_cost_sequence (t_cost *cost);
+void	ft_set_cheapest_cost(t_cost *cost, int i);
+void	ft_set_cheapest_cost_annex(t_cost *cost, int i);
 
 // stack actions
 void	ft_swap(t_stack **head, t_stack **tail, int stack_size);

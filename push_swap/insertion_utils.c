@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insertion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:28:08 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/10 17:10:51 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:26:00 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 // finds where an element from a stack a must be placed in stack b
 // returns the position it must be in (i-th element of b)
-// inputs: the value of the element in a, the stack b, the min_max for b
-
-// first while(): "difference" if a is bigger 
-// than the value pointed to in b, a can take its place in the stack
-// second while(): 
-	// set i to point to the element of b with the smallest difference
+	// inputs: the value of the element in a, the stack b, the min_max for b
+	// first while(): "difference" if a is bigger 
+	// than the value pointed to in b, a can take its place in the stack
+	// second while(): 
+		// set i to point to the element of b with the smallest difference
 int	ft_optimal_position(int value, t_stack *stack)
 {
 	t_stack	*anchor;
