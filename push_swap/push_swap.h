@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/17 17:44:24 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:12:31 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		ft_find_duplicates(t_stacks *stacks);
 
 // list handling
 t_stack		*ft_new_stack_node(int value);
-void		ft_free_stacks(t_stacks **stacks);
+void		ft_free_stacks_and_exit(t_stacks **stacks);
 void		ft_free(void **temp);
 
 // stack utils
@@ -130,7 +130,7 @@ int			ft_max(int a, int b);
 int			ft_abs(int number);
 
 // debugging
-// void	ft_print_both_stacks(t_stacks *stacks);
-// void	ft_print_stack(t_stack *list);
+void	ft_print_both_stacks(t_stacks *stacks);
+void	ft_print_stack(t_stack *list);
 
 #endif

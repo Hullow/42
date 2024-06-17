@@ -191,5 +191,15 @@ To do (from last time):
 - Check cost.c function with comments inside => done
 - Test with tester => ok
 - Norm the header => done
-- Test the checker
+- Test the checker => crap, get the "error: move not recognised"
 - Norm the checker
+
+Push_swap sorter done, now trying to fix the checker, unsuccessfully so far
+
+Unclear how to signal that input is finished. Replaced "end" instruction with "\n"
+but to use checker with push_swap output is different...how to understand that input is at the end ?
+for ./push_swap [ARGS] | ./checker [$ARGS] (=> "Error" after like 5 moves, which I cannot reproduce 
+by inputing the sequence manually...)
+
+To do:
+- Checker (+ checker Norm)

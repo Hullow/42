@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:24:15 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/10 17:12:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:12:31 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_stack	*ft_new_stack_node(int value)
 }
 
 // free each element of each stack, and then the whole stack
-void	ft_free_stacks(t_stacks **stacks)
+void	ft_free_stacks_and_exit(t_stacks **stacks)
 {
 	void	*temp;
 
@@ -47,4 +47,5 @@ void	ft_free_stacks(t_stacks **stacks)
 	}
 	free(*stacks);
 	*stacks = NULL;
+	exit (0);
 }
