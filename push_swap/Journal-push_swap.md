@@ -186,9 +186,10 @@ To do: remove printfs !!!
 - Norm okay except comments in cost.c
 - Norm not done in checker
 
-To do:
-- Check cost.c function with comments inside
-- Test with tester
-- Norm the header
+# 12/6/24
+To do (from last time):
+- Check cost.c function with comments inside => done
+- Test with tester => ok
+- Norm the header => done
 - Test the checker
 - Norm the checker

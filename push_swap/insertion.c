@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   insertion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 02:49:54 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/11 16:54:24 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/17 17:37:50 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,23 +111,23 @@ int	ft_optimal_position(int value, t_stack *stack, int smallest_difference)
 // called from a loop to find minimal costs
 void	ft_set_min_cost(t_cost *cost, t_cost *min_cost_insert)
 {
-	min_cost_insert->xRA = cost->xRA;
-	min_cost_insert->xRB = cost->xRB;
-	min_cost_insert->xRR = cost->xRR;
-	min_cost_insert->xRRA = cost->xRRA;
-	min_cost_insert->xRRB = cost->xRRB;
-	min_cost_insert->xRRR = cost->xRRR;
+	min_cost_insert->x_ra = cost->x_ra;
+	min_cost_insert->x_rb = cost->x_rb;
+	min_cost_insert->x_rr = cost->x_rr;
+	min_cost_insert->x_rra = cost->x_rra;
+	min_cost_insert->x_rrb = cost->x_rrb;
+	min_cost_insert->x_rrr = cost->x_rrr;
 	min_cost_insert->total = cost->total;
 }
 
 // performs the optimal insertion the selected element of a into b
 void	ft_do_cheapest_insertion(t_stacks *stacks, t_cost *min_cost_insert)
 {
-	ft_do_multiple_actions(RA, stacks, min_cost_insert->xRA, 0);
-	ft_do_multiple_actions(RB, stacks, min_cost_insert->xRB, 0);
-	ft_do_multiple_actions(RR, stacks, min_cost_insert->xRR, 0);
-	ft_do_multiple_actions(RRA, stacks, min_cost_insert->xRRA, 0);
-	ft_do_multiple_actions(RRB, stacks, min_cost_insert->xRRB, 0);
-	ft_do_multiple_actions(RRR, stacks, min_cost_insert->xRRR, 0);
+	ft_do_multiple_actions(RA, stacks, min_cost_insert->x_ra, 0);
+	ft_do_multiple_actions(RB, stacks, min_cost_insert->x_rb, 0);
+	ft_do_multiple_actions(RR, stacks, min_cost_insert->x_rr, 0);
+	ft_do_multiple_actions(RRA, stacks, min_cost_insert->x_rra, 0);
+	ft_do_multiple_actions(RRB, stacks, min_cost_insert->x_rrb, 0);
+	ft_do_multiple_actions(RRR, stacks, min_cost_insert->x_rrr, 0);
 	ft_do_multiple_actions(PB, stacks, 1, 0);
 }
