@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 17:57:48 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/11 16:52:38 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:57:00 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_set_initial_costs(t_stack *a_element, t_stacks *stacks, t_cost *cost)
 {
 	int		optimal_position;
 
-	optimal_position = ft_optimal_position(a_element->value, stacks->b_head);
+	optimal_position = ft_optimal_position(a_element->value, stacks->b_head, INT_MAX);
 	cost->xRA = a_element->position;
 	cost->xRRA = stacks->size_a - cost->xRA;
 	if (a_element->position == 0)

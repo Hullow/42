@@ -186,7 +186,6 @@ To do: remove printfs !!!
 - Norm okay except comments in cost.c
 - Norm not done in checker
 
-
 To do:
 - Check cost.c function with comments inside
 - Test with tester
