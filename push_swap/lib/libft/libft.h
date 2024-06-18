@@ -6,15 +6,19 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 16:57:45 by francis           #+#    #+#             */
-/*   Updated: 2023/12/12 15:43:07 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/18 11:22:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdlib.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	42
+# endif
+
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 
 //partie principale
@@ -69,5 +73,24 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
+
+// get_next_line
+struct	s_result {
+	int		read_ret;
+	char	*line;
+	char	*buf;
+};
+
+char			*get_next_line(int fd);
+struct s_result	ft_fill_line(char *buf, char *line, int read_ret, int fd);
+char			*ft_add_string(char *addition, \
+unsigned int end_of_line, char *base);
+int				ft_read(int fd, char *buf, int read_ret);
+void			ft_free_get_next_line(char *temp);
+unsigned int	ft_end_of_line(char *buf);
+void			*ft_fill_char(void *s, char c);
+char			*ft_next_lines(char *dst, char *src);
+size_t			ft_strlcpy_get_next_line(char *dst, char *src, size_t dstsize);
+size_t			ft_strlen_get_next_line(char *str);
 
 #endif

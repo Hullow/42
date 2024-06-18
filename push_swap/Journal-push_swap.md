@@ -186,7 +186,7 @@ To do: remove printfs !!!
 - Norm okay except comments in cost.c
 - Norm not done in checker
 
-# 12/6/24
+# 17/6/24
 To do (from last time):
 - Check cost.c function with comments inside => done
 - Test with tester => ok
@@ -203,3 +203,8 @@ by inputing the sequence manually...)
 
 To do:
 - Checker (+ checker Norm)
+
+# 18/6/24
+- Used GNL instead of read in checker (cf Rui's advice) => problem solved
+- Added GNL to the libft used in push_swap
+- Norm-ing and refactoring the checker

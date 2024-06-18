@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
+#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/06/11 16:31:02 by francis          ###   ########.fr        #
+#    Updated: 2024/06/18 11:59:12 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SRC = push_swap.c sort.c sort_small_utils.c cost.c insertion.c input_handling.c general_utils.c stack_actions.c stack_utils.c list_utils.c debug_utils.c
+SRC = push_swap.c sort.c sort_small_utils.c cost.c insertion.c input_handling.c $\
+general_utils.c stack_actions.c stack_utils.c list_utils.c debug_utils.c
 
 OBJ = $(SRC:.c=.o)
 

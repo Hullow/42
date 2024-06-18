@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 21:24:15 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/17 19:12:31 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/18 11:33:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	ft_free_stacks_and_exit(t_stacks **stacks)
 			temp = (*stacks)->b_head->next;
 			free((*stacks)->b_head);
 			(*stacks)->b_head = temp;
+		}
+		else
+		{
+			free((*stacks)->b_head);
+			(*stacks)->b_head = NULL;
 		}
 	}
 	while ((*stacks)->a_head)

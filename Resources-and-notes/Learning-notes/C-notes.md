@@ -310,6 +310,7 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 - `valgrind --log-fd=1 <program> <args>`: to run valgrind and show output to stdout instead of stderr (default)
 	- `--tool=<toolname>` (default: memcheck)
 	- `--log-file=<filename>`
+	- `--leak-check=full`
 	- `-s`: shows a list of detected errors and list of used suppressions at exit, for tools that report errors
 
 ### [AddressSanitizer (ASan)](https://github.com/google/sanitizers/wiki/AddressSanitizer)

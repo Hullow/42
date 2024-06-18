@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/17 17:47:59 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/18 11:50:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,23 @@
 #include <stdio.h> // to remove or comment out
 void	ft_print_both_stacks(t_stacks *stacks)
 {
-	ft_printf("\na:\n");
+	ft_printf("\nstacks:\na:  ");
 	ft_print_stack(stacks->a_head);
-	ft_printf("\nb:\n");
+	ft_printf("\nb:  ");
 	ft_print_stack(stacks->b_head);
 	ft_printf("\n");
 }
 
 void	ft_print_stack(t_stack *list)
 {
-	int		i;
-
-	i = -1;
-	// ft_printf("ft_print_list: list address %p\n", list);
 	if (!list)
-		ft_printf("(empty)\n");
+		ft_printf("***empty***\n");
 	if (list)
 	{
 		while (list)
 		{
-			if (list != NULL) // if (list->value)
-				printf("%d) %d\n", ++i, list->value); // printf
+			if (list != NULL)
+				ft_printf("%d  ", list->value);
 			list = list->next;
 		}
 	}
