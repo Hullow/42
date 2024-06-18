@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 11:47:26 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/17 19:12:31 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/18 14:39:51 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,16 @@ int			ft_max(int a, int b);
 int			ft_abs(int number);
 
 // debugging
-void	ft_print_both_stacks(t_stacks *stacks);
-void	ft_print_stack(t_stack *list);
+void		ft_print_both_stacks(t_stacks *stacks);
+void		ft_print_stack(t_stack *list);
+
+// checker
+t_stacks	*ft_checker_input_handling(char **argv, t_stacks *stacks);
+int			ft_read_and_execute_sequence(int found, t_stacks *stacks);
+int			ft_find_and_execute_move(char *move, t_stacks *stacks, \
+				int i, int found);
+int			ft_match_input_and_execute_move(char *move, char *table_entry, \
+				t_stacks *stacks, int i);
+void		ft_checker(t_stacks *stacks);
 
 #endif

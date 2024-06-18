@@ -208,3 +208,5 @@ To do:
 - Used GNL instead of read in checker (cf Rui's advice) => problem solved
 - Added GNL to the libft used in push_swap
 - Norm-ing and refactoring the checker
+	=> done. now need to put into main Makefile via "bonus" rule
+	=> also, need to do a few more tests of the checker
