@@ -3,6 +3,9 @@ Files (including file history) found in `$HOME/Library/Application\ Support/Code
 - VSCode files path : `/System/Volumes/Data/Users/francis/Library/Application Support/Code`
 - Github Copilot history: likely `Code\User\workspaceStorage\<alphanumerical>\state.vscdb` (see https://github.com/orgs/community/discussions/69740)
 
+### Norm formatter
+- VSCode extension does it: 42 C-Format by keyhr
+
 ### Disabling sounds
 - Command palette: `> audio`, select "Help: List Signal Sounds" and disable/enable relevant audio cues
 

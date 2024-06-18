@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/18 15:39:35 by fallan           ###   ########.fr       */
+/*   Created: 2023/12/12 15:28:40 by fallan            #+#    #+#             */
+/*   Updated: 2024/05/29 17:34:20 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../ft_printf.h"
 
-int	main(int argc, char **argv)
+int	ft_putnbr_unsigned(unsigned int n, int res)
 {
-	int			i;
-	t_stacks	*stacks;
-
-	if (argc == 1)
-		return (-1);
-	if (argc > 1)
+	if (n == 2147483648)
+		return (write(1, "2147483648", 10));
+	else
 	{
-		i = 0;
-		while (argv[++i])
+		if (n <= 9)
 		{
-			if (ft_check_input(argv[i]) == NULL)
-			{
-				write(2, "Error\n", 7);
-				return (-1);
-			}
+			n += 48;
+			write(1, &n, 1);
+			n -= 48;
+			res++;
 		}
-		if (i == 2)
-			return (0);
-		stacks = ft_string_to_stack(argv, i);
-		ft_find_duplicates(stacks);
-		ft_sort(stacks);
-		ft_free_stacks_and_exit(&stacks);
+		if (n > 9)
+		{
+			res = ft_putnbr_unsigned(n / 10, res);
+			res = ft_putnbr_unsigned(n % 10, res);
+		}
 	}
-	return (0);
+	return (res);
 }

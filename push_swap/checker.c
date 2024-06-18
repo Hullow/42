@@ -6,18 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/18 14:38:56 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:28:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-t_stacks	*ft_checker_input_handling(char **argv, t_stacks *stacks);
-int			ft_read_and_execute_sequence(int found, t_stacks *stacks);
-int	ft_find_and_execute_move(char *move, t_stacks *stacks, int i, int found);
-int	ft_match_input_and_execute_move(char *move, char *table_entry, \
-		t_stacks *stacks, int i);
-void	ft_checker(t_stacks *stacks);
 
 // stacks = ft_input_handling(argv, stacks); 
 //				=> checks input for errors
@@ -52,4 +45,16 @@ int	main(int argc, char **argv)
 		}
 	}
 	return (0);
+}
+
+// checks if stack a is ordered, prints stacks, frees the memory and exits
+// called from main if GNL arrived at the end (found == 0)
+void	ft_checker(t_stacks *stacks)
+{
+	if (ft_check_stack(stacks) != 0)
+		ft_printf("KO\n");
+	else
+		ft_printf("OK\n");
+	ft_print_both_stacks(stacks);
+	ft_free_stacks_and_exit(&stacks);
 }

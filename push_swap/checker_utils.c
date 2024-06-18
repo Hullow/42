@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:35:08 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/18 14:39:19 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:29:48 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,30 @@ int	ft_read_and_execute_sequence(int found, t_stacks *stacks)
 	return (found);
 }
 
+// initialize table of actions that will be compared
+// to each char *move from input
+char	**ft_initialize_table(char **table)
+{
+	int	i;
+
+	i = -1;
+	table = (char **)malloc (sizeof(char *) * 11);
+	while (++i < 11)
+		table[i] = (char *)malloc(sizeof(char) * 4);
+	table[0] = "sa";
+	table[1] = "sb";
+	table[2] = "pa";
+	table[3] = "pb";
+	table[4] = "ra";
+	table[5] = "rb";
+	table[6] = "rra";
+	table[7] = "rrb";
+	table[8] = "rr";
+	table[9] = "rrr";
+	table[10] = NULL;
+	return (table);
+}
+
 // matches the input (char *move) to an action on the stack
 // and executes the action
 // returns the value of found to indicate whether there was a match:
@@ -73,9 +97,9 @@ int	ft_read_and_execute_sequence(int found, t_stacks *stacks)
 // nb: the first while() replaces the \n with a \0 to enable ft_strcmp
 int	ft_find_and_execute_move(char *move, t_stacks *stacks, int i, int found)
 {
-	char	*table[] = {"sa", "sb", "pa", "pb", "ra", "rb", \
-		"rra", "rrb", "rr", "rrr", NULL};
+	char	**table;
 
+	table = ft_initialize_table(NULL);
 	if (!move)
 		return (0);
 	while (move[++i] && i <= 3)
@@ -114,16 +138,4 @@ int	ft_match_input_and_execute_move(char *move, char *table_entry, \
 	}
 	else
 		return (-1);
-}
-
-// checks if stack a is ordered, prints stacks, frees the memory and exits
-// called from main if GNL arrived at the end (found == 0)
-void	ft_checker(t_stacks *stacks)
-{
-	if (ft_check_stack(stacks) != 0)
-		ft_printf("KO\n");
-	else
-		ft_printf("OK\n");
-	ft_print_both_stacks(stacks);
-	ft_free_stacks_and_exit(&stacks);
 }

@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/10 11:47:14 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/18 15:39:35 by fallan           ###   ########.fr       */
+/*   Created: 2024/05/13 20:35:21 by fallan            #+#    #+#             */
+/*   Updated: 2024/06/18 11:50:13 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+#include <stdio.h> // to remove or comment out
+void	ft_print_both_stacks(t_stacks *stacks)
 {
-	int			i;
-	t_stacks	*stacks;
+	ft_printf("\nstacks:\na:  ");
+	ft_print_stack(stacks->a_head);
+	ft_printf("\nb:  ");
+	ft_print_stack(stacks->b_head);
+	ft_printf("\n");
+}
 
-	if (argc == 1)
-		return (-1);
-	if (argc > 1)
+void	ft_print_stack(t_stack *list)
+{
+	if (!list)
+		ft_printf("***empty***\n");
+	if (list)
 	{
-		i = 0;
-		while (argv[++i])
+		while (list)
 		{
-			if (ft_check_input(argv[i]) == NULL)
-			{
-				write(2, "Error\n", 7);
-				return (-1);
-			}
+			if (list != NULL)
+				ft_printf("%d  ", list->value);
+			list = list->next;
 		}
-		if (i == 2)
-			return (0);
-		stacks = ft_string_to_stack(argv, i);
-		ft_find_duplicates(stacks);
-		ft_sort(stacks);
-		ft_free_stacks_and_exit(&stacks);
 	}
-	return (0);
 }

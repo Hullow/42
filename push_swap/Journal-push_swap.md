@@ -209,4 +209,7 @@ To do:
 - Added GNL to the libft used in push_swap
 - Norm-ing and refactoring the checker
 	=> done. now need to put into main Makefile via "bonus" rule
+		=> done
 	=> also, need to do a few more tests of the checker
+		=> okay right, done albeit a bit superficially
+
