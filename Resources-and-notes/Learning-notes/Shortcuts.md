@@ -26,6 +26,7 @@
 - `ALT + CMD + H` to add 42 header
 - `CMD + +`  to zoom in
 - `CTRL + D` to select occurrences of an expression, combined with e.g. `end` to go to the end of the line
+- `CTRL + Shift + P` to open command palette (Linux, maybe Mac)
 
 ### Github Copilot in VS Code
 - `tab` : accept a code suggestion

@@ -213,3 +213,4 @@ To do:
 	=> also, need to do a few more tests of the checker
 		=> okay right, done albeit a bit superficially
 
+=> pushed, will subscribe to defence tomorrow morning (no spots yet)
