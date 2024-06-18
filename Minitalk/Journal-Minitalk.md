@@ -4,3 +4,7 @@
 
 # 28/4/24
 - More reading of the manual, trying to use getpid()
+
+# 18/6/24
+- Passed fdf and pushed push_swap, now back to this
+- Managed to get and print out a PID using `getpid();`

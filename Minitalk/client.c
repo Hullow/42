@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 18:49:34 by francis           #+#    #+#             */
-/*   Updated: 2024/06/18 18:04:14 by francis          ###   ########.fr       */
+/*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
+/*   Updated: 2024/06/18 18:05:49 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minitalk.h"
 #include <stdio.h>
 
-int main()
+int main(int argc, char **argv)
 {
-	pid_t	sample_PID;
-
-	sample_PID = getpid();
-	printf("PID: %d\n", sample_PID);
-	// sigemptyset(signal_set); //initializes a signal set to be empty: signal_set
-
-	while (1)
+	if (argc > 1)
 	{
-		// sigemptyset(signal_set); //initializes a signal set to be empty: signal_set
-		// sigaddset(signal_set, 30); // add the signal no 30 (SIGUSR1) to the signal set signal_setq
+		printf("argv[1]: %s\n", argv[1]);
 	}
-	// write(1, &sample_PID, 50);
-
+	return (0);
 }
