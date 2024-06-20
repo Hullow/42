@@ -6,31 +6,11 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:35:08 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/18 15:29:48 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:15:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
-
-// checks the input for issues (non-numbers, duplicates, etc.)
-// stores the input inside a struct t_stacks
-t_stacks	*ft_checker_input_handling(char **argv, t_stacks *stacks)
-{
-	int	i;
-
-	i = 0;
-	while (argv[++i])
-	{
-		if (ft_check_input(argv[i]) == NULL)
-		{
-			write(2, "Error\n", 7);
-			exit (-1);
-		}
-	}
-	stacks = ft_string_to_stack(argv, i);
-	ft_find_duplicates(stacks);
-	return (stacks);
-}
 
 // reads moves from the stdin and calls ft_execute_move to execute each
 // is called from main with value found = 0
@@ -44,8 +24,10 @@ t_stacks	*ft_checker_input_handling(char **argv, t_stacks *stacks)
 int	ft_read_and_execute_sequence(int found, t_stacks *stacks)
 {
 	char	*move;
+	char	*temp;
 
 	move = get_next_line(0);
+	temp = move;
 	if (move)
 	{
 		found = ft_find_and_execute_move(move, stacks, 1, -1);
@@ -53,13 +35,15 @@ int	ft_read_and_execute_sequence(int found, t_stacks *stacks)
 		{
 			move = get_next_line(0);
 			found = ft_find_and_execute_move(move, stacks, 1, -1);
+			if (move)
+				free(move);
 			if (found == 1)
 				continue ;
 			else
 				break ;
 		}
 	}
-	free(move);
+	ft_free((void **)&temp);
 	return (found);
 }
 
@@ -67,12 +51,7 @@ int	ft_read_and_execute_sequence(int found, t_stacks *stacks)
 // to each char *move from input
 char	**ft_initialize_table(char **table)
 {
-	int	i;
-
-	i = -1;
 	table = (char **)malloc (sizeof(char *) * 11);
-	while (++i < 11)
-		table[i] = (char *)malloc(sizeof(char) * 4);
 	table[0] = "sa";
 	table[1] = "sb";
 	table[2] = "pa";
@@ -87,6 +66,26 @@ char	**ft_initialize_table(char **table)
 	return (table);
 }
 
+// check input to find \n and replace it with \0
+// this is a precondition to allow strncmp with 
+// actions (sa, sb, pa, pb, ra, rra, ..)
+// if no newline is found, we have a problem: return -1
+int	ft_find_newline(char *move, int i)
+{
+	if (move[0] == '\n')
+		return (0);
+	while (move[++i] && i <= 3)
+	{
+		if (move[i] == '\n')
+		{
+			move[i] = '\0';
+			return (1);
+			break ;
+		}
+	}
+	return (-1);
+}
+
 // matches the input (char *move) to an action on the stack
 // and executes the action
 // returns the value of found to indicate whether there was a match:
@@ -99,20 +98,14 @@ int	ft_find_and_execute_move(char *move, t_stacks *stacks, int i, int found)
 {
 	char	**table;
 
-	table = ft_initialize_table(NULL);
 	if (!move)
 		return (0);
-	while (move[++i] && i <= 3)
-	{
-		if (move[i] == '\n')
-		{
-			move[i] = '\0';
-			found = 1;
-			break ;
-		}
-	}
+	found = ft_find_newline(move, i);
 	if (found == -1)
-		return (found);
+		return (-1);
+	else if (found == 0)
+		return (0);
+	table = ft_initialize_table(NULL);
 	i = -1;
 	found = -1;
 	while (table[++i])
@@ -121,6 +114,7 @@ int	ft_find_and_execute_move(char *move, t_stacks *stacks, int i, int found)
 		if (found == 1)
 			break ;
 	}
+	free(table);
 	return (found);
 }
 

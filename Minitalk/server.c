@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 18:49:34 by francis           #+#    #+#             */
-/*   Updated: 2024/06/19 16:43:47 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/20 19:00:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main()
 
 	sample_PID = getpid();
 	printf("%d\n", sample_PID);
-	// write(0, )
+	// ft_putnbr_fd(sample_PID, 0);
 
 	// sigemptyset(signal_set); //initializes a signal set to be empty: signal_set
 		// sigset_t *sigset = NULL;
