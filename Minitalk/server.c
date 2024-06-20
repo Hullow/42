@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 18:49:34 by francis           #+#    #+#             */
-/*   Updated: 2024/06/18 18:04:14 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/19 16:43:47 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ int main()
 	pid_t	sample_PID;
 
 	sample_PID = getpid();
-	printf("PID: %d\n", sample_PID);
-	// sigemptyset(signal_set); //initializes a signal set to be empty: signal_set
+	printf("%d\n", sample_PID);
+	// write(0, )
 
+	// sigemptyset(signal_set); //initializes a signal set to be empty: signal_set
+		// sigset_t *sigset = NULL;
+		// sigemptyset(sigset);  //initializes a signal set to be empty: signal_set
+		// sigaddset(sigset, SIGUSR2); // add the signal no 30 (SIGUSR1) to the signal set signal_setq
 	while (1)
 	{
-		// sigemptyset(signal_set); //initializes a signal set to be empty: signal_set
-		// sigaddset(signal_set, 30); // add the signal no 30 (SIGUSR1) to the signal set signal_setq
+		pause();
+		kill(getpid(), SIGKILL);
+		// signal(SIGUSR2, (sig_t) write(1, "signal 31 received\n", 20));
+	
 	}
 	// write(1, &sample_PID, 50);
-
+	return (0);
 }

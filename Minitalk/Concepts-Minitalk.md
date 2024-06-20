@@ -1,5 +1,12 @@
 # Functions
 
+# Running two executables at the same time
+From Copilot:
+> Yes, it is possible to run two executables simultaneously in both C and Bash.
+In Bash, you can use the `&` operator to run a command in the background, allowing the next command to run without waiting for the first one to finish. Here's an example:
+`./executable1 & ./executable2`
+In this example, `executable1` will run in the background, and `executable2` will run immediately after, without waiting for `executable1` to finish.
+
 # sleep
 `man 3 sleep`: 
 > "suspend thread execution for an interval measured in seconds"<br>

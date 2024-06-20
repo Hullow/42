@@ -8,3 +8,7 @@
 # 18/6/24
 - Passed fdf and pushed push_swap, now back to this
 - Managed to get and print out a PID using `getpid();`
+
+# 19/6/24
+- With some help from Copilot on concepts, managed to generate a signal with kill
+- Working on sending stuff from one process to another 

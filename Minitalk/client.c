@@ -6,18 +6,16 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/06/18 18:05:49 by francis          ###   ########.fr       */
+/*   Updated: 2024/06/19 16:46:34 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minitalk.h"
 #include <stdio.h>
 
-int main(int argc, char **argv)
+int main()
 {
-	if (argc > 1)
-	{
-		printf("argv[1]: %s\n", argv[1]);
-	}
+	sleep(5);
+	pause();
 	return (0);
 }
