@@ -1,0 +1,15 @@
+==66359== Memcheck, a memory error detector
+==66359== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==66359== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==66359== Command: ./push_swap 3 -2 -17 18783 383838 8383 0
+==66359== Parent PID: 61346
+==66359== 
+==66359== 
+==66359== HEAP SUMMARY:
+==66359==     in use at exit: 0 bytes in 0 blocks
+==66359==   total heap usage: 10 allocs, 10 frees, 576 bytes allocated
+==66359== 
+==66359== All heap blocks were freed -- no leaks are possible
+==66359== 
+==66359== For lists of detected and suppressed errors, rerun with: -s
+==66359== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

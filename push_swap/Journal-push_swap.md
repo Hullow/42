@@ -214,3 +214,6 @@ To do:
 		=> okay right, done albeit a bit superficially
 
 => pushed, will subscribe to defence tomorrow morning (no spots yet)
+
+# 20/6/24
+- Forgot to check for leaks in checker => see some with valgrind unfortunately.
