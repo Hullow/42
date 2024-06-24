@@ -217,3 +217,7 @@ To do:
 
 # 20/6/24
 - Forgot to check for leaks in checker => see some with valgrind unfortunately.
+=> done
+
+- Gave up project to be able to resubmit (at 6:30 pm )=> try again in two days
+	=> files to push: /Rendus/PS-gittest1

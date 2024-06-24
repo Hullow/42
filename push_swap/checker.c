@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:48:12 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/18 15:28:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:15:42 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 			write(2, "Error\n", 7);
 			ft_print_both_stacks(stacks);
 		}
+		ft_free_stacks_and_exit(&stacks);
 	}
 	return (0);
 }
@@ -57,4 +58,24 @@ void	ft_checker(t_stacks *stacks)
 		ft_printf("OK\n");
 	ft_print_both_stacks(stacks);
 	ft_free_stacks_and_exit(&stacks);
+}
+
+// checks the input for issues (non-numbers, duplicates, etc.)
+// stores the input inside a struct t_stacks
+t_stacks	*ft_checker_input_handling(char **argv, t_stacks *stacks)
+{
+	int	i;
+
+	i = 0;
+	while (argv[++i])
+	{
+		if (ft_check_input(argv[i]) == NULL)
+		{
+			write(2, "Error\n", 7);
+			exit (-1);
+		}
+	}
+	stacks = ft_string_to_stack(argv, i);
+	ft_find_duplicates(stacks);
+	return (stacks);
 }

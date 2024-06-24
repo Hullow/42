@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 20:06:01 by fallan            #+#    #+#              #
-#    Updated: 2024/06/18 15:50:14 by fallan           ###   ########.fr        #
+#    Updated: 2024/06/20 18:41:41 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,9 @@ SRC_PS_MAIN = push_swap.c
 
 SRC_BONUS = checker.c checker_utils.c
 
-OBJ_PS_MAIN = $(SRC_PS_MAIN:.c=.o)
-
 OBJ = $(SRC:.c=.o)
+
+OBJ_PS_MAIN = $(SRC_PS_MAIN:.c=.o)
 
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
