@@ -11,4 +11,14 @@
 
 # 19/6/24
 - With some help from Copilot on concepts, managed to generate a signal with kill
-- Working on sending stuff from one process to another 
+- Working on sending stuff from one process to another
+
+# 24/6/24
+- Back to topic
+- Reading [42 Minitalk Explained – Oduwole Dare](https://medium.com/@oduwoledare/42-minitalk-explained-5b236adc2c24) together with `man sigaction` and things make a tiny bit more sense. Testing the code with SIGINT-test.c and commands like `kill -9 $(pgrep a.out)` => ok.
+- Still don't understand how to catch a signal from another executable but it seems like maybe some lines of Oduwole Dare make sense, e.g.
+```c
+kill(pid, SIGUSR1);
+         // initialize pid to zero, so that you can handle multiple terminals
+         // return
+```
