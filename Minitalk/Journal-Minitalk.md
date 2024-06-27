@@ -22,3 +22,6 @@ kill(pid, SIGUSR1);
          // initialize pid to zero, so that you can handle multiple terminals
          // return
 ```
+
+# 26/6/24
+- Reading [Envoyer et intercepter un signal en C](https://www.codequoi.com/envoyer-et-intercepter-un-signal-en-c/)

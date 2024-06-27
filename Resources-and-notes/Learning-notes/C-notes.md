@@ -224,6 +224,9 @@ int main() {
 - Cause the compiler to flag an error if arguments are missing, as many C compilers don’t check for parameter matching, thus helping us avoid unexpected behavior.
 Advantages of using prototypes: helps navigate program with main at the top
 
+### Reentrant functions
+> A reentrant function is a function that can be safely called simultaneously from multiple threads or processes, even when the calls involve shared data. (Copilot)
+
 ### Specific functions
 #### [exit()](https://www.javatpoint.com/exit-function-in-c)
 > Protoype: `void exit (int status);`
