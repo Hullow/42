@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 17:49:42 by francis           #+#    #+#              #
-#    Updated: 2024/06/20 18:58:39 by fallan           ###   ########.fr        #
+#    Updated: 2024/06/28 17:50:54 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,13 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAMES)
+$(LIBFT):
+	make -C ./lib/libft -f Makefile
+
+$(FT_PRINTF):
+	make -C ./lib/ft_printf -f Makefile
+
+all: $(LIBFT) $(FT_PRINTF) $(NAMES)
 
 sanitize: CFLAGS += -fsanitize=address
 sanitize: re
@@ -40,19 +46,13 @@ sanitize: re
 debug: CFLAGS += -g
 debug: re
 
-$(LIBFT):
-	make -C ./lib/libft -f Makefile
-
-$(FT_PRINTF):
-	make -C ./lib/ft_printf/ -f Makefile
-
 %.o : %.c
 	$(CC) $(CFLAGS) -Ilib -c $< -o $@
 
-$(CLIENT): $(CLIENT_OBJ) $(FT_PRINTF) $(LIBFT)
+$(CLIENT): $(CLIENT_OBJ) $(LIBFT) $(FT_PRINTF) 
 	$(CC) $(CFLAGS) $(CLIENT_OBJ) -L./lib -lft -lftprintf -o $(CLIENT)
 
-$(SERVER): $(SERVER_OBJ) $(FT_PRINTF) $(LIBFT)
+$(SERVER): $(SERVER_OBJ) $(LIBFT) $(FT_PRINTF)
 	$(CC) $(CFLAGS) $(SERVER_OBJ) -L./lib -lft -lftprintf -o $(SERVER)
 
 clean:

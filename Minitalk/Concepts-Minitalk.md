@@ -1,4 +1,7 @@
-# Functions
+# Overview of signals
+`man 7 signals`
+
+# Functions (mac OS)
 
 # Running two executables at the same time
 From Copilot:

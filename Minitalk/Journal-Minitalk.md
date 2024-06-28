@@ -25,3 +25,18 @@ kill(pid, SIGUSR1);
 
 # 26/6/24
 - Reading [Envoyer et intercepter un signal en C](https://www.codequoi.com/envoyer-et-intercepter-un-signal-en-c/)
+
+# 28/6/24
+- No need to run server and client with one command ! Run server, get PID, then 
+run client...time wasted: 1-2 days
+- weird compile bug with ft_strlen in ft_printf, checked and didn't see the issue,
+so just added ft_strlen directly in ft_print_string.c.
+Error was:
+```bash
+gcc -Wall -Wextra -Werror server.o -L./lib -lft -lftprintf -o server
+/usr/bin/ld: ./lib/libftprintf.a(ft_print_string.o): in function `ft_print_string':
+ft_print_string.c:(.text+0x88): undefined reference to `ft_strlen'
+collect2: error: ld returned 1 exit status
+make: *** [Makefile:56: server] Error 1
+```
+- managed to start server with ./server&, then sent signal with kill without error. pause() works too, but the process stops right after, nothing is printed out.

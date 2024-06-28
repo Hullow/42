@@ -6,11 +6,23 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:28:29 by fallan            #+#    #+#             */
-/*   Updated: 2024/04/04 14:41:15 by fallan           ###   ########.fr       */
+/*   Updated: 2024/06/28 17:51:32 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+
+size_t	ft_strlen(const char *str)
+{
+	int	length;
+
+	if (!str)
+		return (0);
+	length = 0;
+	while (str[length] != 0)
+		length++;
+	return (length);
+}
 
 int	ft_print_string(char *str)
 {
