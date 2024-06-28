@@ -91,7 +91,7 @@
 - `passwd`: change password of current user
 
 ## Prompt settings
-- `PROMPT=“%~ “`: make prompt shorter
+- `PROMPT=“%~ “`: make prompt shorter (bash; zsh uses `PS1`)
 - `setterm -foreground black -background white` : to change terminal colors (Linux)
 - `echo $PS1 && oldps1="$PS1"` to get the current prompt setting and save it
 - `export PS1="\e[0;34m$oldps1"` to change the prompt color (0;29 white , 0;30 black, 0;32 green, 0:;33 orange, 0:34 blue, ...)

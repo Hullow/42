@@ -25,3 +25,6 @@ kill(pid, SIGUSR1);
 
 # 26/6/24
 - Reading [Envoyer et intercepter un signal en C](https://www.codequoi.com/envoyer-et-intercepter-un-signal-en-c/)
+
+# 27/6/24
+- Test strace: "intercepts and records the system calls which are called by a process and the signals which are received by a process.  The name of each system call, its arguments and its return value are printed on standard error or to the file specified with the -o option. strace is a useful diagnostic, instructional, and debugging tool."
