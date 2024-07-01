@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:10:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/06/28 18:41:23 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/01 16:00:28 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,15 @@ void	handler(int signum)
 int main()
 {
 	pid_t				sample_PID;
-	// struct	sigaction 	sigact;
 	
 	sample_PID = getpid();
-	// sigact.sa_handler = handler;
 	ft_printf("%d\n", sample_PID);
-	// sigaction(SIGUSR1, (const) sigact, NULL);
 	pause();
-	// while (1)
-	// {
-	// 	pause();
-	// 	kill(getpid(), SIGKILL);
-	// }
-	// write(1, &sample_PID, 50);
+	struct	sigaction	sigact;
+	sigact.sa_handler = handler;
+	sigact.sa_flags =
+	sigaction(SIGUSR1, &sigact, NULL);
+
 	printf("server: signal received\n");
 	return (0);
 }

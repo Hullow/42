@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
+#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 17:49:42 by francis           #+#    #+#              #
-#    Updated: 2024/06/28 17:50:54 by fallan           ###   ########.fr        #
+#    Updated: 2024/07/01 15:45:18 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,10 @@ clean:
 	done
 
 fclean: clean
-	rm -f $(NAMES) $(FT_PRINTF) $(LIBFT)
+	rm -f $(CLIENT_OBJ) $(SERVER_OBJ) $(NAMES) $(FT_PRINTF) $(LIBFT)
+	for dir in ./lib/libft ./lib/ft_printf; do \
+		$(MAKE) -C $$dir fclean; \
+	done
 
 re: fclean all
 

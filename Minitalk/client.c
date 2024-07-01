@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/06/28 18:39:37 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/01 15:53:55 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int main(int argc, char **argv)
 {
 	int	server_PID;
 
+	server_PID = 0;
 	if (argc == 3)
 	{
 		server_PID = ft_atoi(argv[1]);
-		printf("argv[1]: %d\n", server_PID);
+		ft_printf("argv[1]: %d\n", server_PID);
+		ft_printf("argv[2]: %d\n", argv[2]);
 	}
 	else
 		ft_printf("please input args\n");

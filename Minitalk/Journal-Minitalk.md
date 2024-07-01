@@ -29,7 +29,6 @@ kill(pid, SIGUSR1);
 # 27/6/24
 - Test strace: "intercepts and records the system calls which are called by a process and the signals which are received by a process.  The name of each system call, its arguments and its return value are printed on standard error or to the file specified with the -o option. strace is a useful diagnostic, instructional, and debugging tool."
 
-
 # 28/6/24
 - No need to run server and client with one command ! Run server, get PID, then 
 run client...time wasted: 1-2 days
