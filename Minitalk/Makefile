@@ -3,26 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
+#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 17:49:42 by francis           #+#    #+#              #
-#    Updated: 2024/07/01 15:45:18 by francis          ###   ########.fr        #
+#    Updated: 2024/07/01 20:01:56 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAMES = $(CLIENT) $(SERVER)
-
-CLIENT = client
-
-SERVER = server
-
-SERVER_SRC = server.c
-
-CLIENT_SRC = client.c
-
-SERVER_OBJ = $(SERVER_SRC:.c=.o)
-
-CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
+NAMES = client server
 
 LIBFT = ./lib/libft/libft.a
 
@@ -32,11 +20,30 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
+LIBFLAGS = -L./lib -lft -lftprintf
+
+CLIENT_SRC = client.c
+
+CLIENT_OBJ = client.o
+
+SERVER_SRC = server.c
+
+SERVER_OBJ = server.o
+
+%.o : %.c
+	$(CC) $(CFLAGS) $(LIBFLAGS) -c $< -o $@
+
 $(LIBFT):
 	make -C ./lib/libft -f Makefile
 
 $(FT_PRINTF):
 	make -C ./lib/ft_printf -f Makefile
+
+client: client.o
+	$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIBFLAGS) -o client
+
+server: server.o
+	$(CC) $(CFLAGS) $(SERVER_OBJ) $(LIBFLAGS) -o server
 
 all: $(LIBFT) $(FT_PRINTF) $(NAMES)
 
@@ -45,15 +52,6 @@ sanitize: re
 
 debug: CFLAGS += -g
 debug: re
-
-%.o : %.c
-	$(CC) $(CFLAGS) -Ilib -c $< -o $@
-
-$(CLIENT): $(CLIENT_OBJ) $(LIBFT) $(FT_PRINTF) 
-	$(CC) $(CFLAGS) $(CLIENT_OBJ) -L./lib -lft -lftprintf -o $(CLIENT)
-
-$(SERVER): $(SERVER_OBJ) $(LIBFT) $(FT_PRINTF)
-	$(CC) $(CFLAGS) $(SERVER_OBJ) -L./lib -lft -lftprintf -o $(SERVER)
 
 clean:
 	rm -f $(CLIENT_OBJ) $(SERVER_OBJ)
@@ -69,4 +67,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all sanitize debug clean fclean re
+.PHONY: all sanitize debug clean fclean re client server

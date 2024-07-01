@@ -43,3 +43,10 @@ collect2: error: ld returned 1 exit status
 make: *** [Makefile:56: server] Error 1
 ```
 - managed to start server with ./server&, then sent signal with kill without error. pause() works too, but the process stops right after, nothing is printed out.
+
+# 1/7/24
+- Fixed Makefile (clean, fclean)
+- Re-read `man 7 signal` to understand whether sigemptyset and sigaddset are necessary; according to Thenguye, not really. Also learned about real-time signals, but they're not really accessible because they need specific functions like rt_sigaction
+- Started working on text to binary signal protocol
+- Rewrote makefile a bit
+- Tested sigaddset but removed, don't see the use for now
