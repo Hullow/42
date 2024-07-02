@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:10:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/07/02 15:02:37 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/02 15:53:57 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,29 @@
 
 void	handler(int signum)
 {
-	if (signum == SIGUSR1)
+	static int	byte = 0;
+	static int 	multiplicator = 64;
+	
+	// ft_printf("\nserver: handler called\n");
+	if (signum == SIGUSR1 && multiplicator) // if bit is 0
 	{
-		ft_printf("0");
+		// printf("\nhandler: SIGUSR1, byte is %d and multiplicator is %d\n", byte, multiplicator);
+		multiplicator /= 2;
 	}
-	else if (signum == SIGUSR2)
-		ft_printf("1");
-	else
-		ft_printf("2");
-
+	else if (signum == SIGUSR2 && multiplicator) // if bit is 1
+	{
+		// printf("\nhandler: SIGUSR2, byte is %d and multiplicator is %d\n", byte, multiplicator);
+		byte += multiplicator;
+		multiplicator /= 2;
+	}
+	if (multiplicator == 0)
+	{
+		// printf("\nhandler: end reached, byte is %d and multiplicator is %d\n", byte, multiplicator);
+		write(1, &byte, 4);
+		// ft_printf("%c", byte);
+		byte = 0;
+		multiplicator = 64;
+	}
 }
 
 int main()

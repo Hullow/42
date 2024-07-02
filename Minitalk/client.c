@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/02 15:04:41 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/02 15:57:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ int main(int argc, char **argv)
 	if (argc == 3)
 	{
 		server_PID = ft_atoi(argv[1]);
-		ft_printf("argv[2]: %s\n", argv[2]);
+		// ft_printf("argv[2]: %s\n", argv[2]);
 		int	i = -1;
+		// int byte = 59;
+		// write(1, &byte, 4);
 		while (argv[2][++i])
 		{
 			ft_binary_signal(server_PID, (unsigned int) argv[2][i]);

@@ -54,3 +54,10 @@ make: *** [Makefile:56: server] Error 1
 # 2/7/24
 - Fixed issue with characters not appearing by showing code of "server.c" to Copilot which suggested adding some timing between signals, because things might be sent too fast; went down to usleep(100). Works real fast even with like 100 characters
 - Now, how to reconvert binary signals to characters
+- We have a working version. but bugs for non alphabetical characters .
+    - buggy sequences:
+        - ; => argument not recognised
+        - ";" => blank
+        - ababbaddddd; => ; doesn't appear
+        - "abbjffv;" => wCEEUMMm
+
