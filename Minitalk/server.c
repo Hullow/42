@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:10:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/07/01 19:21:30 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/02 15:02:37 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	handler(int signum)
 	}
 	else if (signum == SIGUSR2)
 		ft_printf("1");
+	else
+		ft_printf("2");
+
 }
 
 int main()
@@ -34,7 +37,9 @@ int main()
 	sigaction(SIGUSR1, &sigact, NULL);
 	sigaction(SIGUSR2, &sigact, NULL);
 	while (1)
+	{
 		pause();
-	ft_printf("\nserver: signal received\n");
+		// ft_printf("\nserver: signal received\n");
+	}
 	return (0);
 }

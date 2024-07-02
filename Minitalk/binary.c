@@ -18,12 +18,15 @@ void	ft_binary(unsigned int number)
 		ft_binary(number / 2);
 		ft_binary(number % 2);
 	}
-	// return (res);
 }
 
 int main(int argc, char **argv)
 {
 	if (argc == 2)
-		ft_binary((int) argv[1][0]);
+	{
+		int i = -1;
+		while (argv[1][++i])
+			ft_binary((int) argv[1][i]);
+	}
 	return (0);
 }
