@@ -61,3 +61,5 @@ make: *** [Makefile:56: server] Error 1
         - ababbaddddd; => ; doesn't appear
         - "abbjffv;" => wCEEUMMm
 
+# 3/7/24
+- Took a brief look at the Makefile to try to fix the relink, also an issue in push_swap, where there are multiple executables to compile. Still not very clear.

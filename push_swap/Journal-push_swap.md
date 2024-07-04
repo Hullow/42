@@ -221,3 +221,12 @@ To do:
 
 - Gave up project to be able to resubmit (at 6:30 pm )=> try again in two days
 	=> files to push: /Rendus/PS-gittest1
+
+# 2/7/24
+- Finally pushed and corrected.
+- Fixed a few things with the checker (error treatment in checker_utils.c)
+- Issues remaining:
+	- Makefile relink! careful!
+	- ft_check_input => redundancy in checking for e.g. 3333-3333
+		=> way to do is to use compare ft_strlen before and after ft_atoi => if shorter after atoi, means some characters are 			not integers
+	- 

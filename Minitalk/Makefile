@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
+#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 17:49:42 by francis           #+#    #+#              #
-#    Updated: 2024/07/01 20:01:56 by fallan           ###   ########.fr        #
+#    Updated: 2024/07/03 12:51:32 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,14 +36,14 @@ SERVER_OBJ = server.o
 $(LIBFT):
 	make -C ./lib/libft -f Makefile
 
-$(FT_PRINTF):
+$(FT_PRINTF): $(LIBFT)
 	make -C ./lib/ft_printf -f Makefile
 
-client: client.o
-	$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIBFLAGS) -o client
+client: client.o $(LIBFT) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIBFT) $(FT_PRINTF) $(LIBFLAGS) -o client
 
-server: server.o
-	$(CC) $(CFLAGS) $(SERVER_OBJ) $(LIBFLAGS) -o server
+server: server.o $(LIBFT) $(FT_PRINTF)
+	$(CC) $(CFLAGS) $(SERVER_OBJ) $(LIBFT) $(FT_PRINTF) $(LIBFLAGS) -o server
 
 all: $(LIBFT) $(FT_PRINTF) $(NAMES)
 
@@ -60,7 +60,7 @@ clean:
 	done
 
 fclean: clean
-	rm -f $(CLIENT_OBJ) $(SERVER_OBJ) $(NAMES) $(FT_PRINTF) $(LIBFT)
+	rm -f $(CLIENT_OBJ) $(SERVER_OBJ) $(NAMES) # $(FT_PRINTF) $(LIBFT)
 	for dir in ./lib/libft ./lib/ft_printf; do \
 		$(MAKE) -C $$dir fclean; \
 	done
