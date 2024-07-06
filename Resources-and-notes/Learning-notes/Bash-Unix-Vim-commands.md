@@ -57,6 +57,9 @@
 - `grep` <expression> : print lines from an input (e.g. piped from another command) where an expression appears
 	- `-A x -B y`: print x lines after, y lines before
 
+## Programs
+- `nm <executable> | grep U` to show all undefined symbols (i.e. external functions ?) called by an executable
+
 ## System state and information
 - `echo $0`: return terminal in use (bash, zsh, sh, ..) (n.b. `$0` is the name of the running process)
 - `tty` : returns user's terminal name

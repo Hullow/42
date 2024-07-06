@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    oldfile                                            :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 17:49:42 by francis           #+#    #+#              #
-#    Updated: 2024/07/06 22:25:56 by fallan           ###   ########.fr        #
+#    Updated: 2024/07/06 22:32:51 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ client: $(LIBFT) $(FT_PRINTF) $(CLIENT_OBJ)
 server: $(LIBFT) $(FT_PRINTF) $(SERVER_OBJ)
 	$(CC) $(CFLAGS) $(SERVER_OBJ) $(LIBFLAGS) -o server
 
-$(FT_PRINTF):
+$(FT_PRINTF): $(LIBFT)
 	make -C ./lib/ft_printf -f Makefile
 
 $(LIBFT):
@@ -60,7 +60,7 @@ clean:
 	done
 
 fclean: clean
-	rm -f $(CLIENT_OBJ) $(SERVER_OBJ) $(NAMES) $(FT_PRINTF) $(LIBFT)
+	rm -f $(CLIENT_OBJ) $(SERVER_OBJ) $(NAMES) # $(FT_PRINTF) $(LIBFT)
 	for dir in ./lib/libft ./lib/ft_printf; do \
 		$(MAKE) -C $$dir fclean; \
 	done

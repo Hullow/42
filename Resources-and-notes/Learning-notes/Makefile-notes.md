@@ -21,7 +21,7 @@ RULE: DEPENDENCY LINE
 (n.b.: the action line, or recipe, can appear on the same line after a `;` rather than a newline+tab)
 - [Types of prerequisites](https://www.gnu.org/software/make/manual/make.html#Prerequisite-Types):
 	- *normal*: imposes an order in which recipes will be invoked: recipes for all prerequisites will be completed before the recipe for the target. If any prerequisite is newer than the target, the target is considered out-of-date and must be rebuilt.
-	- *order-only*: ensures a prerequisite is only is only built if
+	- *order-only*: ensures that a prerequisite is built before a target, but without forcing the target to be updated if the prerequisite is updated
 
 #### Pattern rules
 [*pattern rules*](https://www.gnu.org/software/make/manual/make.html#Pattern-Intro) contain the character `%` in the target, which matches any nonempty string -> "a pattern for matching file names". Look exactly like ordinary rules otherwise.

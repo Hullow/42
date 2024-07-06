@@ -61,6 +61,9 @@ make: *** [Makefile:56: server] Error 1
         - ababbaddddd; => ; doesn't appear
         - "abbjffv;" => wCEEUMMm
 
+# 3/7/24
+- Took a brief look at the Makefile to try to fix the relink, also an issue in push_swap, where there are multiple executables to compile. Still not very clear.
+
 # 6/7/24
 - Fixed Makefile while talking to Copilot, which didn't give me the solution but made me relook at the file multiple times:
     => not remaking without "all" issue : put "all" target first and reorder targets
