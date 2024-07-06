@@ -1,20 +1,20 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    oldfile                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 17:49:42 by francis           #+#    #+#              #
-#    Updated: 2024/07/01 20:01:56 by fallan           ###   ########.fr        #
+#    Updated: 2024/07/06 22:25:56 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAMES = client server
 
-LIBFT = ./lib/libft/libft.a
+LIBFT = ./lib/libft.a
 
-FT_PRINTF = ./lib/ft_printf/libft_printf.a
+FT_PRINTF = ./lib/libftprintf.a
 
 CC = gcc
 
@@ -31,21 +31,21 @@ SERVER_SRC = server.c
 SERVER_OBJ = server.o
 
 %.o : %.c
-	$(CC) $(CFLAGS) $(LIBFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-	make -C ./lib/libft -f Makefile
+all: $(NAMES)
+
+client: $(LIBFT) $(FT_PRINTF) $(CLIENT_OBJ)
+	$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIBFLAGS) -o client
+
+server: $(LIBFT) $(FT_PRINTF) $(SERVER_OBJ)
+	$(CC) $(CFLAGS) $(SERVER_OBJ) $(LIBFLAGS) -o server
 
 $(FT_PRINTF):
 	make -C ./lib/ft_printf -f Makefile
 
-client: client.o
-	$(CC) $(CFLAGS) $(CLIENT_OBJ) $(LIBFLAGS) -o client
-
-server: server.o
-	$(CC) $(CFLAGS) $(SERVER_OBJ) $(LIBFLAGS) -o server
-
-all: $(LIBFT) $(FT_PRINTF) $(NAMES)
+$(LIBFT):
+	make -C ./lib/libft -f Makefile
 
 sanitize: CFLAGS += -fsanitize=address
 sanitize: re
@@ -67,4 +67,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all sanitize debug clean fclean re client server
+.PHONY: all sanitize debug clean fclean re

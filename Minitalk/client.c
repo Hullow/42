@@ -6,14 +6,12 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/02 15:57:05 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/06 21:47:19 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minitalk.h"
 #include <stdio.h>
-
-#include <errno.h>
 
 void	ft_binary_signal(int server_PID, unsigned int number)
 {

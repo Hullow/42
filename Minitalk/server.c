@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:10:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/07/02 15:53:57 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/06 22:14:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	handler(int signum)
 	{
 		// printf("\nhandler: end reached, byte is %d and multiplicator is %d\n", byte, multiplicator);
 		write(1, &byte, 4);
-		// ft_printf("%c", byte);
 		byte = 0;
 		multiplicator = 64;
 	}

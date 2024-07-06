@@ -61,3 +61,8 @@ make: *** [Makefile:56: server] Error 1
         - ababbaddddd; => ; doesn't appear
         - "abbjffv;" => wCEEUMMm
 
+# 6/7/24
+- Fixed Makefile while talking to Copilot, which didn't give me the solution but made me relook at the file multiple times:
+    => not remaking without "all" issue : put "all" target first and reorder targets
+    => relinking: paths of libraries
+- Worked a bit on binary decoding but still no success (tried int instead of unsigned int, created a file "input_test.c" to see)
