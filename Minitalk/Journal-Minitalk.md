@@ -69,3 +69,28 @@ make: *** [Makefile:56: server] Error 1
     => not remaking without "all" issue : put "all" target first and reorder targets
     => relinking: paths of libraries
 - Worked a bit on binary decoding but still no success (tried int instead of unsigned int, created a file "input_test.c" to see)
+- Okay, issue is when binary numbers have <7 binary digits, i.e. when less than 100 (@ in ascii). Looked at discord discussion and someone mentions [bitshifting](https://en.m.wikipedia.org/w/index.php?title=Bitwise_operation&diffonly=true#Bit_shifts). Also, someone mentioned sending ascii 6 and 21 instead of usleep, following the concept of an [acknowledgment](https://en.m.wikipedia.org/wiki/Acknowledgement_(data_networks)).
+=> I wanna avoid a malloc !!
+
+# 8/7/24
+- Midnight reading Wikipedia ([Endianness](https://en.wikipedia.org/wiki/Endianness), [Bit numbering](https://en.wikipedia.org/wiki/Bit_numbering), [Bitwise operators in C, C++ - GeeksforGeeks](https://www.geeksforgeeks.org/bitwise-operators-in-c-cpp/), [Bit array](https://en.wikipedia.org/wiki/Bit_array), [Bit fields in C - GeeksforGeeks](https://www.geeksforgeeks.org/bit-fields-c/) => to optimise with a struct if a number uses fewer bits than it can store)
+- Send 3 bits before each word to say if 1,2,3,4,5,6, or 7 bits number ? 7 == 111
+e.g. ! is 33 == 100001, 6 bits. 64 is 1000000, 7 bits.
+if 7, shift 0 bits to right
+if 6 bits, i.e. 32 <= char < 64, shift 1 bit to right
+if 5 bits, i.e. 16 <= char < 32, shift 1 bit to right
+=> but [ASCII printable characters](https://www.ascii-code.com/characters/printable-characters) are 32 to 126, so 6 or 7 bits. Hence if character is only 6 bits,
+just send a 0 before calling the function
+	=> It works ! But issue with `;`, not recognized as an argument. Works between parentheses, but then "!;" has a bug "bash: !: event not found"
+		=> Issue due to `!` being interpreted as a special character for history expansion, and can be avoided either with an escape character `\` or with single quotes
+	=> Issue with "é" => check locale and unicode encoding on 42 iMacs ?
+		=> Unicode is bonus
+
+- Time optimisation: 100 characters without " or ' inside the sequence is too long.
+	- Also, tried to make the program usleep modulo X but didn't solve the issue.
+	- Reduced write to write 1 byte instead of 4. Still issue
+	- Looking at ACK (6 in ASCII) => but this involves sending a signal back no ? Or if we just send a signal to the process itself, maybe it slows things down ? Probably not the right idea. Instead, look into sending PID of client to server, then send 
+
+- Nb "Une fois la chaîne **entièrement** reçue" => must malloc
+
+generate random ASCII with selected characters: https://onlinetools.com/ascii/generate-random-ascii

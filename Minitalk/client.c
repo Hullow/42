@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/06 21:47:19 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/08 03:32:20 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	ft_binary_signal(int server_PID, unsigned int number)
 {
-	int killret;
-		
+	int 		killret;
+
 	killret = -2;
 	if (number == 0)
 	{
@@ -42,20 +42,27 @@ void	ft_binary_signal(int server_PID, unsigned int number)
 int main(int argc, char **argv)
 {
 	int	server_PID;
+	int	killret;
 
 	server_PID = 0;
+	killret = -2;
 	if (argc == 3)
 	{
 		server_PID = ft_atoi(argv[1]);
-		// ft_printf("argv[2]: %s\n", argv[2]);
 		int	i = -1;
-		// int byte = 59;
-		// write(1, &byte, 4);
 		while (argv[2][++i])
 		{
+			if ((unsigned int) argv[2][i] < 64)
+			{
+
+					killret = kill(server_PID, SIGUSR1);
+					usleep (100);
+					if (killret == -1)
+					ft_printf("\nclient: kill error");
+			}
 			ft_binary_signal(server_PID, (unsigned int) argv[2][i]);
-			// ft_printf("\nclient: sent one character\n");
 		}
+		ft_printf("\n");
 	}
 	else
 		ft_printf("please input args\n");

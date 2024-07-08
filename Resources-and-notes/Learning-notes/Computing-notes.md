@@ -4,18 +4,26 @@ aliases:
 tags:
   - computer-science
 ---
+### [Byte order / Endianness](https://en.m.wikipedia.org/wiki/Endianness)
+> A **big-endian system** stores *the most significant byte of a word at the smallest memory address* and the least significant byte at the largest. A **little-endian system**, in contrast, stores *the least-significant byte at the smallest address*. Of the two, big-endian is thus closer to the way the digits of numbers are written left-to-right in English, comparing digits to bytes. Bi-endianness is a feature supported by numerous computer architectures that feature switchable endianness in data fetches and stores or for instruction fetches. Other orderings are generically called middle-endian or mixed-endian.<br><br>
+> Big-endianness is the dominant ordering in networking protocols, such as in the Internet protocol suite, where it is referred to as network order, transmitting the most significant byte first. Conversely, *little-endianness is the dominant ordering for processor architectures (x86, most ARM implementations, base RISC-V implementations) and their associated memory*. File formats can use either ordering; some formats use a mixture of both or contain an indicator of which ordering is used throughout the file.
+
+## Binary arithmetic
 ### [Bit numbering](https://en.wikipedia.org/wiki/Bit_numbering)
 #### [Most significant bit (MSb)](https://en.wikipedia.org/wiki/Bit_numbering#Most_significant_bit)
 a.k.a. the *high-order bit* or *left-most bit*. The highest-order place of the binary integer.
 
 #### Least significant bit (MSb)
 a.k.a. *low-order bit* or *right-most bit*, due to convention in positional notation of writing less significant digits further to the right.
+N.b.: 
+> Bit indexing correlates to the positional notation of the value in base 2. For this reason, bit index is not affected by how the value is stored on the device, such as the value's [byte order (endianness)](#byte-order--endianness). Rather, it is a property of the numeric value in binary itself. 
 
-[Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement)
+### [Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement)
 - The most common method of representing signed (positive, negative, zero) integers on computers, and more generally, [fixed point binary](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) values.
 - Uses the binary digit with the greatest place value (MSb, see above) to indicate if positive (1) or negative (0).
 - General method: take the absolute value of the number, invert all bits, add 1 to the entire inverted number, ignoring any overflow (n.b.: accounting for overflow will produce the wrong value).
 
+### [Bitwise operation](https://en.wikipedia.org/wiki/Bitwise_operation)
 
 ## [Emulation](https://stackoverflow.com/questions/6234711/what-are-the-specific-differences-between-an-emulator-and-a-virtual-machine)
 Emulation is using software to provide a different execution environment or architecture. In other words, emulators emulate hardware, aiming to accurately reproduce its behavior, including quirks and bugs. Given that software fills in for hardware, the processor takes a toll by allocating cycles to the emulation process, which therefore cannot be used to execute calculations. 

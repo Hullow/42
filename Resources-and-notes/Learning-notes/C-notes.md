@@ -8,7 +8,7 @@
 ### Escape characters and sequences:
 - Escape character for `%` in `printf` or `scanf`: `%%`, e.g.:
 - To represent a double quotation mark in a string literal, use the escape sequence \". The single quotation mark (') can be represented without an escape sequence:
-```
+```c
   char c = 'A';
 printf("Here is a char printed using %%c format specifier: %c\n", c);
 ```
@@ -289,14 +289,24 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 ##### [Calling variadic functions](https://www.gnu.org/software/libc/manual/html_node/Calling-Variadics.html)
 > Since the prototype doesn’t specify types for optional arguments, in a call to a variadic function the default argument promotions are performed on the optional argument values. This means the objects of type char or short int (whether signed or not) are promoted to either int or unsigned int, as appropriate; and that objects of type float are promoted to type double. So, if the caller passes a char as an optional argument, it is promoted to an int, and the function can access it with va_arg (ap, int).
 
+## Command line arguments
+From @dthalman in 42 discord, #C channel — 09/07/2022 10:46
+>Hello, je trouvais sympa de vous partager ceci :
+>@trossel m’a montré que dans l’un de ces codes pour le microshell, il a découvert que pour la fonction main(int argc, char ** argv, char ** env) la liste argv était terminé par un pointeur NULL. Ceci exactement comme la liste des env. On se posait donc la question de l’utilité du argc, puisqu’il n’est pas nécessaire d’avoir l’information du nombre d’argument. On peu simplement le calculer en parcourant la liste.
+>Après quelque recherche, il s’agit en fait d’un résidu historique du langage C. Avant la norme du ANSI C, la liste argv n’était pas terminée par un NULL. Pour cette raison, il était nécessaire d’avoir  le nombre d’argument passé dans la liste argv. La version actuelle du C possède donc à présent la terminaison du NULL pointeur. Et pour  une question de compatibilité avec les anciens code, il y a toujours le argc.
+>Pour plus de détail, voir :
+>https://retrocomputing.stackexchange.com/questions/5179/why-historically-include-the-number-of-arguments-argc-as-a-parameter-of-main 
+
 ## Compilers (gcc)
 - gcc: GNU compiler collection (C, C++, Ada, Go)
-- [Clang](https://clang.llvm.org/): compiler/frontend for LLVM for C, C++, Objective-C, CUDA, ...). Contains a gcc-compatible compiler driver
+- [Clang](https://clang.llvm.org/): compiler/frontend for LLVM for C, C++, Objective-C, CUDA, ...). Contains a gcc-compatible compiler driver (=> what does that mean ?)
+
 - ### Compiler flags
 - `-I` : specifies to look in the current directory (.) for header files. Alternative: `INC_DIR = .`
 - `-c`: generate the object file, i.e. compile and assemble, but do not link
 - `-o` : write output to file
 - `fmax-errors=N` (gcc) / `-ferror-limit=N` (clang): limit number of errors displayed
+- `clang -std=<standard> : specifies the language standard to compile for (c89, c90, various ISO versions). Default C language standard is gnu17, except on PS4 (gnu99)
 
 ## Debugging
 - GDB: GNU debugger
