@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:10:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/07/08 15:37:38 by francis          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:11:14 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ void	handler(int signum)
 {
 	static int	byte = 0;
 	static int 	multiplicator = 64;
-	char		*string;
-	static int	strlen;
-	static int	lengthflag;
+	// char		*string;
+	// static int	strlen;
+	// static int	lengthflag;
 
-	strlen = 0;
-	lengthflag = 8;
-	if (lengthflag == 0)
-	{
+	// strlen = 0;
+	// lengthflag = 8;
+	// if (lengthflag == 0)
+	// {
 
-		return ;
-	}
+	// 	return ;
+	// }
 	if (signum == SIGUSR1 && multiplicator) // if bit is 0
 	{
 		multiplicator /= 2;
@@ -53,11 +53,12 @@ void	handler(int signum)
 	if (multiplicator == 0)
 	{
 		write(1, &byte, 1); // maybe malloc instead
-		string = malloc (sizeof(char));
-		string++;
-		strlen++;
+		// string = malloc (sizeof(char));
+		// string++;
+		// strlen++;
 		byte = 0;
 		multiplicator = 64;
+		kill(getpid(), SIGUSR1);
 	}
 }
 

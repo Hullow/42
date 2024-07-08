@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/08 15:34:51 by francis          ###   ########.fr       */
+/*   Updated: 2024/07/08 17:16:06 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,23 @@
 
 void	ft_binary_signal(int server_PID, unsigned int number)
 {
-	int 		killret;
-
-	killret = -2;
 	if (number == 0)
 	{
-		killret = kill(server_PID, SIGUSR1);
-		usleep (100);
-		if (killret == -1)
+		if (kill(server_PID, SIGUSR1) == -1)
+		{
 			ft_printf("\nclient: kill error");
+			exit(-1);
+		}
+		usleep (100);
 	}
 	else if (number == 1)
 	{
-		killret = kill(server_PID, SIGUSR2);
-		usleep (100);
-		if (killret == -1)
+		if (kill(server_PID, SIGUSR2) == -1)
+		{
 			ft_printf("\nclient: kill error");
+			exit(-1);
+		}
+		usleep (100);
 	}
 	else
 	{
@@ -49,16 +50,22 @@ int main(int argc, char **argv)
 	if (argc == 3)
 	{
 		server_PID = ft_atoi(argv[1]);
-		int	i = 0;
-		while (argv[2][i] != NULL)
-			i++;
-		ft_binary_signal(server_PID, i);
-		i = -1;
+		// int	i = 0;
+		// while (argv[2][i] != NULL)
+		// 	i++;
+		// ft_binary_signal(server_PID, i);
+		int i = -1;
 		while (argv[2][++i])
 		{
+			if ((unsigned int) argv[2][i] < 128)
+			{
+				killret = kill(server_PID, SIGUSR1);
+				usleep (100);
+				if (killret == -1)
+				ft_printf("\nclient: kill error");
+			}
 			if ((unsigned int) argv[2][i] < 64)
 			{
-
 				killret = kill(server_PID, SIGUSR1);
 				usleep (100);
 				if (killret == -1)
