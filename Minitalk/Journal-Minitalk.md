@@ -127,3 +127,29 @@ void sig_handler(int signum, siginfo_t* info, void* context)
 What is max size of command line argument ? [Stack Overflow](https://stackoverflow.com/a/7499490/21457978): 
 > "no individual limit on the number of arguments or argument's length. Only [a] limit on total size required to store all the arguments and environment variables."
 To find it: `getconf ARG_MAX` => returns 1048576
+
+Testing ASCII characters one by one:
+- problem with `\` => `dquote>`
+- problem with "\`"  => `dquote bquote>`
+
+Be careful to restart server if issues when sending strings
+sample strings of length 100:
+
+>s9DACTNXq;}j*.MhbrenRQ/^bi9;1%{>rJ9~o>JFMx}N5z]JY:(BW>xHd4Pz*(mus1U_qB3B=/kMcg>$R>(~*(R)e4&o35J&<b)
+;lTF_SIf:,^4TRu@Dy%A$Nme*QTk3-@)jN5_9Gkq+}fx]T=WB5st[2PR=kZ^*&ndc;-M*I(NCX=O3MlFFqD@cy4M5Q5/.nfRex+7
+l.FT&1s~_:q@2^-2<*i)CCk;a%3>~_3mSr1Qu*qm}NLrm,Wn#&S@dmZ~#U=bHWwdiGDxYCm$&|=7w#^q2+i0bfxmS.m}0C:Ep=k,
+3u/Ys0rAL:d49{wFXi<]E0/M;q$XHV/Eba9YfFk*:]DRdmvW);)3/~Q&.zVL%{7hdsdY[?YHJu[Q]$bqQI{a(mhr5Q-MXSHo(_pJ
+-weFi/N:vIe|2,PDcXw5PmLH<iSM9_@_<2/+:,]|<k/865A+D,^=KO4E2?HV^N+_D,w9L)~Fs*{sf+qb|6RcHMA%n{3x(e@Zh*G[
+2Kz0fJ<5/vUdCNx9dveu}S{E_L3a2HP6y*RV2--M~cJx$F1hD?*TbL73UiT?ZF+0p7^7Pivp<{K6J?x?t|LC4HX,z*=ZQaZ?w=ae
+9-MNt0^Ul~Q]citr)>4;j:G%64?~3#0_nd7vQ7r2Y&n=lSS;dx$45Qd(gMekRB+VuEcqB#kdAu}Y9~T;DdaKO>~:I5(A$ZQq?;%8
+l*?_?_/4[(@5puEhG_YoN9WHCQ|eV0Z<kb~?_(>+OTx[HL[JWmTEK3aWUBa=?4#qpVnkO5[L:p;zpNbkerR$A{FbP2LDk;nsAPFI
+[A]J)<3/^(|u#%caY2md3nps?M@=W&H4w]gX[_zgTfUuDxd_*BWm)#m4v@8eO/]i8zolk]*o=~1Eg)4_9_/U&/|b)b_3sdn8FwN%
+7Ms^G-%vaT3a^Plu9Y+rG2H_QX?Qdtv[T|XpT7I@JU++Bu8g7cpCZ^2f=G,Bu&[z5Z)Ax}_C#kr@eP7qG,DuHBI##-_w.F:7kE<F
+
+- Got correction but it broke on ASCII < 32, such as tab, as planned. 
+Fixed it by sending additional 0s (SIGUSR1) for each fewer bit (e.g. if ASCII value is 9, i.e. tab, 
+that is 1001 in binary, i.e. 4 bits, so we send 3 0's before sending 1001, ending with 7 bits as planned)
+
+Also, went from 7 bits to 8, just in case (to protect our `write(1, &byte, 1)` among other things)
+
+- Began to work on bonus: sending signal back to client, with sigaction flag SA_SIGINFO but couldn't make it work so far

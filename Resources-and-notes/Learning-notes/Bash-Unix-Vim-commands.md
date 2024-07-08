@@ -63,6 +63,7 @@
 
 ## Programs
 - `nm <executable> | grep U` to show all undefined symbols (i.e. external functions ?) called by an executable
+- `time <executable>` runs an executable, then shows its execution time
 
 ## System state and information
 - `echo $0`: return terminal in use (bash, zsh, sh, ..) (n.b. `$0` is the name of the running process)
