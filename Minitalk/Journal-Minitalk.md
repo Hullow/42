@@ -94,3 +94,36 @@ just send a 0 before calling the function
 - Nb "Une fois la chaîne **entièrement** reçue" => must malloc
 
 generate random ASCII with selected characters: https://onlinetools.com/ascii/generate-random-ascii
+
+
+- (In the train):
+From [42 Minitalk Explained – Oduwole Dare](https://medium.com/@oduwoledare/42-minitalk-explained-5b236adc2c24), how to handle multiple terminals
+```c
+void sig_handler(int signum, siginfo_t* info, void* context)
+{
+  /**
+  * create static int variable for pid and i and static char for c
+  * void unused arg
+  * set the details of the pid you are receiving from to the pid by using
+  * info->pid
+  * send the signal number and address of c to the bin_to_char function
+  * if (++i == 8) // for every 8 bit read c
+     {
+      initialize i to 0
+      if (!c) // this if block prepares the server for new feed of strings
+      {
+         kill(pid, SIGUSR1);
+         // initialize pid to zero, so that you can handle multiple terminals
+         // return
+      }
+      // since we have read 8 bits we can now read c and then initalise it back
+      // back to null
+     }
+     kill(pid, SIGUSR2);
+  */
+}
+```
+
+What is max size of command line argument ? [Stack Overflow](https://stackoverflow.com/a/7499490/21457978): 
+> "no individual limit on the number of arguments or argument's length. Only [a] limit on total size required to store all the arguments and environment variables."
+To find it: `getconf ARG_MAX` => returns 1048576

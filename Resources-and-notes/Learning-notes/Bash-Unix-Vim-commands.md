@@ -12,6 +12,10 @@
 - `?` for a single character (e.g. `???.c`)
 - `[]` for a range or a set of characters, e.g. `[a-p0-5].c` for items containing any of the characters between a and p and 0 and 5. Or `[agkj]*.*`
 
+## Findng information
+- `man man`
+- `apropos <term>` / `man -k <term>` : search for relevant man pages
+
 ## Files
 ### File navigation
 - `pwd` : show path to present working directory (current directory)
