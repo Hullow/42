@@ -3,32 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/08 22:03:49 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/09 11:17:06 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minitalk.h"
 #include <stdio.h>
 
-// struct sigaction	sigact;
-void	ft_send_signal_one(int server_pid);
+void	ft_send_signal_one(int server_pid)
+{
+	if (kill(server_pid, SIGUSR1) == -1)
+	{
+		ft_printf("\nclient: kill error");
+		exit(-1);
+	}
+	usleep (600);
+}
 
- /* // For testing and debugging purposes
-void	handler(int signum)
-{	
-	if (signum == SIGUSR1) // if bit is 0
+void	ft_send_signal_two(int server_pid)
+{
+	if (kill(server_pid, SIGUSR2) == -1)
 	{
-// printf("\nhandler: SIGUSR1, byte is %d and // multiplicator is %d\n", byte, multiplicator);
-		write(1, "\nclient: SIGUSR1 received from server\n", 39);
+		ft_printf("\nclient: kill error");
+		exit(-1);
 	}
-	else if (signum == SIGUSR2) // if bit is 1
-	{
-		write(1, "1", 1);
-	}
-} */
+	usleep (600);
+}
 
 // recursive function converting decimal to binary, sending SIGUSR1 signal for
 // each '0' bit and SIGUSR2 for each '1' bit
@@ -36,23 +39,9 @@ void	handler(int signum)
 void	ft_binary_signal(int server_pid, unsigned int number)
 {
 	if (number == 0)
-	{
-		if (kill(server_pid, SIGUSR1) == -1)
-		{
-			ft_printf("\nclient: kill error");
-			exit(-1);
-		}
-		usleep (600);
-	}
+		ft_send_signal_one(server_pid);
 	else if (number == 1)
-	{
-		if (kill(server_pid, SIGUSR2) == -1)
-		{
-			ft_printf("\nclient: kill error");
-			exit(-1);
-		}
-		usleep (600);
-	}
+		ft_send_signal_two(server_pid);
 	else
 	{
 		ft_binary_signal(server_pid, number / 2);
@@ -69,10 +58,6 @@ int	main(int argc, char **argv)
 	int	server_pid;
 	int	i;
 	unsigned int ascii_value;
-
-	// sigact.sa_handler = handler;
-	// sigaction(SIGUSR1, &sigact, NULL);
-	// sigaction(SIGUSR2, &sigact, NULL);
 
 	server_pid = 0;
 	i = -1;
@@ -97,15 +82,19 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-void	ft_send_signal_one(int server_pid)
-{
-	if (kill(server_pid, SIGUSR1) == -1)
+ /* // For testing and debugging purposes
+void	handler(int signum)
+{	
+	if (signum == SIGUSR1) // if bit is 0
 	{
-		ft_printf("\nclient: kill error");
-		exit(-1);
+// printf("\nhandler: SIGUSR1, byte is %d and // multiplicator is %d\n", byte, multiplicator);
+		write(1, "\nclient: SIGUSR1 received from server\n", 39);
 	}
-	usleep (600);
-}
+	else if (signum == SIGUSR2) // if bit is 1
+	{
+		write(1, "1", 1);
+	}
+} */
 
 /* 
 100-character long ASCII Test strings:
