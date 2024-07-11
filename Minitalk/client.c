@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/09 11:17:06 by francis          ###   ########.fr       */
+/*   Updated: 2024/07/09 12:54:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	ft_send_signal_two(int server_pid)
 // recursive function converting decimal to binary, sending SIGUSR1 signal for
 // each '0' bit and SIGUSR2 for each '1' bit
 // usleep slows down execution to allow for each bit to be received by server 
-void	ft_binary_signal(int server_pid, unsigned int number)
+void	ft_binary_signal(int server_pid, unsigned int number, int c)
 {
-	if (number == 0)
+	if (c == 0 && number == 0)
 		ft_send_signal_one(server_pid);
-	else if (number == 1)
+	else if (c == 0 && number == 1)
 		ft_send_signal_two(server_pid);
-	else
-	{
-		ft_binary_signal(server_pid, number / 2);
-		ft_binary_signal(server_pid, number % 2);
+	if (c > 0) {
+		if (c > 1)
+			ft_binary_signal(server_pid, number / 2, c - 1);
+		ft_binary_signal(server_pid, number % 2, 0);	
 	}
 }
 
@@ -57,24 +57,28 @@ int	main(int argc, char **argv)
 {
 	int	server_pid;
 	int	i;
-	unsigned int ascii_value;
+	// unsigned int ascii_value;
 
 	server_pid = 0;
 	i = -1;
-	ascii_value = 128;
+	// ascii_value = 128;
 	if (argc == 3)
 	{
 		server_pid = ft_atoi(argv[1]);
 		while (argv[2][++i])
 		{
-			while (ascii_value > 1)
-			{
-				if ((unsigned int) argv[2][i] < ascii_value)
-					ft_send_signal_one(server_pid);
-				ascii_value /= 2;
-			}
-			ascii_value = 128;
-			ft_binary_signal(server_pid, (unsigned int) argv[2][i]);
+			// 00101
+			// / 2 ** 3
+			// 1 << 0-7
+			// 00000000
+			// while (ascii_value > 1)
+			// {
+			// 	if ((unsigned int) argv[2][i] < ascii_value)
+			// 		ft_send_signal_one(server_pid);
+			// 	ascii_value /= 2;
+			// }
+			// ascii_value = 128;
+			ft_binary_signal(server_pid, (unsigned int) argv[2][i], 8);
 		}
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:10:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/07/08 21:58:28 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/09 12:45:50 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@
 void	handler(int signum)
 {
 	static int	byte = 0;
-	static int	multiplicator = 128;
+	static int	bit = 7;
 
-	if (signum == SIGUSR1 && multiplicator)
+	if (signum == SIGUSR1)
 	{
-		multiplicator /= 2;
+		bit--;
 		// kill(siginf.si_pid, SIGUSR1);
 	}
-	else if (signum == SIGUSR2 && multiplicator)
+	else if (signum == SIGUSR2)
 	{
-		byte += multiplicator;
-		multiplicator /= 2;
+		byte += 1 << bit;
+		bit--;
 	}
-	if (multiplicator == 0)
+	if (bit < 0)
 	{
 		write(1, &byte, 1);
 		byte = 0;
-		multiplicator = 128;
+		bit = 7;
 	}
 }
 
