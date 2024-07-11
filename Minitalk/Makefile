@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
+#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/27 17:49:42 by francis           #+#    #+#              #
-#    Updated: 2024/07/08 17:13:20 by francis          ###   ########.fr        #
+#    Updated: 2024/07/11 19:27:35 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFLAGS = -L./lib -lft -lftprintf
 
-CLIENT_SRC = client.c
+CLIENT_SRC = client.c signal_utils.c
 
-CLIENT_OBJ = client.o
+CLIENT_OBJ = client.o signal_utils.o
 
-SERVER_SRC = server.c
+SERVER_SRC = server.c signal_utils.c
 
-SERVER_OBJ = server.o
+SERVER_OBJ = server.o signal_utils.o
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@

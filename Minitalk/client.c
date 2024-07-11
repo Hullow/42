@@ -6,46 +6,53 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/09 12:54:30 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/11 20:09:45 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minitalk.h"
 #include <stdio.h>
 
-void	ft_send_signal_one(int server_pid)
-{
-	if (kill(server_pid, SIGUSR1) == -1)
+// For testing and debugging purposes
+void	binary_handler(int signum)
+{	
+	if (signum == SIGUSR1) // if bit is 0
 	{
-		ft_printf("\nclient: kill error");
-		exit(-1);
+// printf("\nhandler: SIGUSR1, byte is %d and // multiplicator is %d\n", byte, multiplicator);
+		write(1, "0", 1);
 	}
-	usleep (600);
+	else if (signum == SIGUSR2) // if bit is 1
+	{
+		write(1, "1", 1);
+	}
 }
 
-void	ft_send_signal_two(int server_pid)
+// uses binary signal to reconstruct 7-bit numbers to integers,
+// which are then used as ascii codes to be written to stdout
+void	client_sigaction_handler(int signum, siginfo_t *info, void *context)
 {
-	if (kill(server_pid, SIGUSR2) == -1)
-	{
-		ft_printf("\nclient: kill error");
-		exit(-1);
-	}
-	usleep (600);
-}
+	static int	byte = 0;
+	static int	bit = 8;
 
-// recursive function converting decimal to binary, sending SIGUSR1 signal for
-// each '0' bit and SIGUSR2 for each '1' bit
-// usleep slows down execution to allow for each bit to be received by server 
-void	ft_binary_signal(int server_pid, unsigned int number, int c)
-{
-	if (c == 0 && number == 0)
-		ft_send_signal_one(server_pid);
-	else if (c == 0 && number == 1)
-		ft_send_signal_two(server_pid);
-	if (c > 0) {
-		if (c > 1)
-			ft_binary_signal(server_pid, number / 2, c - 1);
-		ft_binary_signal(server_pid, number % 2, 0);	
+	(void)context;
+	(void)info;
+	if (signum == SIGUSR1)
+	{
+		bit--;
+	}
+	else if (signum == SIGUSR2)
+	{
+		byte += 1 << bit;
+		bit--;
+	}
+	if (bit < 0 || byte == 6)
+	{
+		if (byte == 6)
+			ft_printf("server sent acknowledgment\n");
+		else
+			ft_printf("server sent %d\n", byte);
+		byte = 0;
+		bit = 8;
 	}
 }
 
@@ -57,13 +64,17 @@ int	main(int argc, char **argv)
 {
 	int	server_pid;
 	int	i;
-	// unsigned int ascii_value;
 
+	printf("client PID: %d\n", getpid());
 	server_pid = 0;
 	i = -1;
-	// ascii_value = 128;
+	int j = 7;
+	struct sigaction	sigact;
 	if (argc == 3)
 	{
+		sigact.sa_sigaction = client_sigaction_handler;
+		sigaction(SIGUSR1, &sigact, NULL);
+		sigaction(SIGUSR2, &sigact, NULL);
 		server_pid = ft_atoi(argv[1]);
 		while (argv[2][++i])
 		{
@@ -78,27 +89,19 @@ int	main(int argc, char **argv)
 			// 	ascii_value /= 2;
 			// }
 			// ascii_value = 128;
-			ft_binary_signal(server_pid, (unsigned int) argv[2][i], 8);
+			ft_send_binary_signal(server_pid, (unsigned int) argv[2][i], 8);
+			while (j > 0)
+			{
+				j--;
+				pause();
+			}
+			j = 7;
 		}
 	}
 	else
 		ft_printf("please input args\n");
 	return (0);
 }
-
- /* // For testing and debugging purposes
-void	handler(int signum)
-{	
-	if (signum == SIGUSR1) // if bit is 0
-	{
-// printf("\nhandler: SIGUSR1, byte is %d and // multiplicator is %d\n", byte, multiplicator);
-		write(1, "\nclient: SIGUSR1 received from server\n", 39);
-	}
-	else if (signum == SIGUSR2) // if bit is 1
-	{
-		write(1, "1", 1);
-	}
-} */
 
 /* 
 100-character long ASCII Test strings:
