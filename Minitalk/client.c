@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/08 22:03:49 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/11 22:18:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,7 @@ int	main(int argc, char **argv)
 	int	server_pid;
 	int	i;
 	unsigned int ascii_value;
-
-	// sigact.sa_handler = handler;
-	// sigaction(SIGUSR1, &sigact, NULL);
-	// sigaction(SIGUSR2, &sigact, NULL);
-
+^
 	server_pid = 0;
 	i = -1;
 	ascii_value = 128;

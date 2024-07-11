@@ -4,7 +4,7 @@
 - `CMD+up/down` : next/previous command
 - `ctrl` + `a` / `e` : move cursor to start/end of command prompt
 - `ctrl+R` : search past commands (tap `ctrl+R` again to search for the next occurrence, then `tab` to select)
-- `vim ~/.zsh_history` : see commands of current terminal session
+- `history` / `vim ~/.zsh_history` : see commands of current terminal session
 - `reset`: fixes messed up characters for instance.
 
 **Wildcards**
