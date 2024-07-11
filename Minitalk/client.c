@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/11 20:09:45 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/11 21:36:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	binary_handler(int signum)
 {	
 	if (signum == SIGUSR1) // if bit is 0
 	{
-// printf("\nhandler: SIGUSR1, byte is %d and // multiplicator is %d\n", byte, multiplicator);
+		// printf("\nhandler: SIGUSR1, byte is %d and // multiplicator is %d\n", byte, multiplicator);
 		write(1, "0", 1);
 	}
 	else if (signum == SIGUSR2) // if bit is 1
@@ -27,33 +27,41 @@ void	binary_handler(int signum)
 	}
 }
 
-// uses binary signal to reconstruct 7-bit numbers to integers,
-// which are then used as ascii codes to be written to stdout
-void	client_sigaction_handler(int signum, siginfo_t *info, void *context)
+void	client_sigaction_handler(int signum)
 {
 	static int	byte = 0;
-	static int	bit = 8;
+	static int	multiplicator = 128;
 
-	(void)context;
-	(void)info;
-	if (signum == SIGUSR1)
+	if (signum == SIGUSR1 && multiplicator)
 	{
-		bit--;
+		multiplicator /= 2;
 	}
-	else if (signum == SIGUSR2)
+	else if (signum == SIGUSR2 && multiplicator)
 	{
-		byte += 1 << bit;
-		bit--;
+		byte += multiplicator;
+		multiplicator /= 2;
 	}
-	if (bit < 0 || byte == 6)
+	if (multiplicator == 0)
 	{
 		if (byte == 6)
 			ft_printf("server sent acknowledgment\n");
 		else
 			ft_printf("server sent %d\n", byte);
 		byte = 0;
-		bit = 8;
+		multiplicator = 128;
 	}
+}
+
+void	ft_binary_sequence_generator(int ascii_value, int server_pid, char argv2i)
+{
+	while (ascii_value > 1)
+	{
+		if ((unsigned int) argv2i < (unsigned int) ascii_value)
+			ft_send_signal_one(server_pid);
+		ascii_value /= 2;
+	}
+	ascii_value = 128;
+	ft_send_binary_signal(server_pid, (unsigned int) argv2i);
 }
 
 // takes in 2 command line arguments: server PID and character string
@@ -64,32 +72,21 @@ int	main(int argc, char **argv)
 {
 	int	server_pid;
 	int	i;
+	struct sigaction	sigact;
 
 	printf("client PID: %d\n", getpid());
 	server_pid = 0;
 	i = -1;
 	int j = 7;
-	struct sigaction	sigact;
 	if (argc == 3)
 	{
-		sigact.sa_sigaction = client_sigaction_handler;
+		sigact.sa_handler = client_sigaction_handler;
 		sigaction(SIGUSR1, &sigact, NULL);
 		sigaction(SIGUSR2, &sigact, NULL);
 		server_pid = ft_atoi(argv[1]);
 		while (argv[2][++i])
 		{
-			// 00101
-			// / 2 ** 3
-			// 1 << 0-7
-			// 00000000
-			// while (ascii_value > 1)
-			// {
-			// 	if ((unsigned int) argv[2][i] < ascii_value)
-			// 		ft_send_signal_one(server_pid);
-			// 	ascii_value /= 2;
-			// }
-			// ascii_value = 128;
-			ft_send_binary_signal(server_pid, (unsigned int) argv[2][i], 8);
+			ft_binary_sequence_generator(128, server_pid, argv[2][i]);
 			while (j > 0)
 			{
 				j--;

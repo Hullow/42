@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:23:31 by fallan            #+#    #+#             */
-/*   Updated: 2024/07/11 19:47:14 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/11 20:23:40 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	ft_send_signal_two(int server_pid)
 // recursive function converting decimal to binary, sending SIGUSR1 signal for
 // each '0' bit and SIGUSR2 for each '1' bit
 // usleep slows down execution to allow for each bit to be received by server 
-void	ft_send_binary_signal(int target_pid, unsigned int number, int c)
+void	ft_send_binary_signal(int target_pid, unsigned int number)
 {
-	if (c == 0 && number == 0)
+	if (number == 0)
 		ft_send_signal_one(target_pid);
-	else if (c == 0 && number == 1)
+	else if (number == 1)
 		ft_send_signal_two(target_pid);
-	if (c > 0) {
-		if (c > 1)
-			ft_send_binary_signal(target_pid, number / 2, c - 1);
-		ft_send_binary_signal(target_pid, number % 2, 0);
+	else
+	{
+		ft_send_binary_signal(target_pid, number / 2);
+		ft_send_binary_signal(target_pid, number % 2);
 	}
 }

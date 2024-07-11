@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 17:10:50 by fallan            #+#    #+#             */
-/*   Updated: 2024/07/11 19:58:40 by fallan           ###   ########.fr       */
+/*   Updated: 2024/07/11 20:19:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,26 @@
 void	server_sigaction_handler(int signum, siginfo_t *info, void *context)
 {
 	static int	byte = 0;
-	static int	bit = 7;
+	static int	multiplicator = 128;
 
-	(void)context;
-	if (signum == SIGUSR1)
+	if (signum == SIGUSR1 && multiplicator)
 	{
-		bit--;
+		multiplicator /= 2;
 	}
-	else if (signum == SIGUSR2)
+	else if (signum == SIGUSR2 && multiplicator)
 	{
-		byte += 1 << bit;
-		bit--;
+		byte += multiplicator;
+		multiplicator /= 2;
 	}
-	if (bit < 0)
+	if (multiplicator == 0)
 	{
 		write(1, &byte, 1);
+		int i = 5;
+		while (i-- > 0)
+			ft_send_signal_one(info->si_pid);
 		ft_send_binary_signal(info->si_pid, (unsigned int) 6, 8);
 		byte = 0;
-		bit = 7;
+		multiplicator = 128;
 	}
 }
 
