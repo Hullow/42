@@ -6,29 +6,35 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:04:21 by francis           #+#    #+#             */
-/*   Updated: 2024/07/11 22:18:29 by francis          ###   ########.fr       */
+/*   Updated: 2024/07/12 12:32:55 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Minitalk.h"
 #include <stdio.h>
 
-// struct sigaction	sigact;
-void	ft_send_signal_one(int server_pid);
-
- /* // For testing and debugging purposes
+ // For testing and debugging purposes
 void	handler(int signum)
 {	
 	if (signum == SIGUSR1) // if bit is 0
 	{
-// printf("\nhandler: SIGUSR1, byte is %d and // multiplicator is %d\n", byte, multiplicator);
 		write(1, "\nclient: SIGUSR1 received from server\n", 39);
 	}
 	else if (signum == SIGUSR2) // if bit is 1
 	{
 		write(1, "1", 1);
 	}
-} */
+}
+
+void	ft_send_signal(int server_pid, int signum)
+{
+	if (kill(server_pid, signum) == -1)
+	{
+		ft_printf("\nclient: kill error");
+		exit(-1);
+	}
+	usleep (600);
+}
 
 // recursive function converting decimal to binary, sending SIGUSR1 signal for
 // each '0' bit and SIGUSR2 for each '1' bit
@@ -36,23 +42,9 @@ void	handler(int signum)
 void	ft_binary_signal(int server_pid, unsigned int number)
 {
 	if (number == 0)
-	{
-		if (kill(server_pid, SIGUSR1) == -1)
-		{
-			ft_printf("\nclient: kill error");
-			exit(-1);
-		}
-		usleep (600);
-	}
+		ft_send_signal(server_pid, SIGUSR1);
 	else if (number == 1)
-	{
-		if (kill(server_pid, SIGUSR2) == -1)
-		{
-			ft_printf("\nclient: kill error");
-			exit(-1);
-		}
-		usleep (600);
-	}
+		ft_send_signal(server_pid, SIGUSR2);
 	else
 	{
 		ft_binary_signal(server_pid, number / 2);
@@ -66,10 +58,10 @@ void	ft_binary_signal(int server_pid, unsigned int number)
 // for 6-bit characters (ASCII 32 to 64, thus < 64), a '0' is sent first 
 int	main(int argc, char **argv)
 {
-	int	server_pid;
-	int	i;
-	unsigned int ascii_value;
-^
+	int				server_pid;
+	int				i;
+	unsigned int 	ascii_value;
+
 	server_pid = 0;
 	i = -1;
 	ascii_value = 128;
