@@ -86,26 +86,6 @@ we have: `sp->a == s1.a;`, `sp->d[0] == s1.d[0]`, etc.
 - Self-referential structs: only are possible using pointers. Otherwise, they would lead to infinite recursion, taking up an infinite amount of memory. 
 
 
-#### Typedefs
-- Allow us to give a type a new name, e.g. `typedef unsigned char BYTE;` will allow us to declare an unsigned char like so: `BYTE b = 'r';`.
-- By convention, uppercase letters are used for definitions, but lowercase letters work: `typedef unsigned char byte;`.
-- [For structs](https://abstractexpr.com/2023/06/29/structures-in-c-from-basics-to-memory-alignment/), removes the need to write `struct` when declaring a variable, as in `struct s s1;`. If we typedef struct s as `str`: 
-```c
-struct Vector 2d{
-	float	x;
-	float	y;
-};
-typedef struct Vector2D Vector2D;
-```
-allowing to make declarations like `Vector 2D vector;` rather than `struct Vector2D vector;`
-More succintly:
-```c
-typedef struct Vector2D{
-	float	x;
-	float	y;
-} Vector2D;
-```
-
 #### [Naming structs](https://medium.com/@hatronix/mastering-structs-in-c-an-in-depth-guide-4a524af06fd4)
 (n.b.: not entirely sure about this whole section)
 ##### Anonymous structs
@@ -156,6 +136,56 @@ typdef struct name_top {
 	int		a;
 	char	b;
 }	name_bot;
+```
+
+
+#### Typedefs
+- Allow us to give a type a new name, e.g. `typedef unsigned char BYTE;` will allow us to declare an unsigned char like so: `BYTE b = 'r';`.
+- By convention, uppercase letters are used for definitions, but lowercase letters work: `typedef unsigned char byte;`.
+- [For structs](https://abstractexpr.com/2023/06/29/structures-in-c-from-basics-to-memory-alignment/), removes the need to write `struct` when declaring a variable, as in `struct s s1;`. If we typedef struct s as `str`: 
+```c
+struct Vector2d{
+	float	x;
+	float	y;
+};
+typedef struct Vector2D Vector2D;
+```
+allowing to make declarations like `Vector 2D vector;` rather than `struct Vector2D vector;`
+More succintly:
+```c
+typedef struct Vector2D{
+	float	x;
+	float	y;
+} Vector2D;
+```
+
+#### [Forward references](https://www.cs.auckland.ac.nz/references/unix/digital/AQTLTBTE/DOCU_024.HTM)
+- A *forward reference* is the use of an identifier *before* its declaration and results in an error, except when:
+	- a `goto` statement refers to a statement label before the label's declaration
+	- a structure, union, or enumeration tag is used before it is declare
+- Examples:
+```c
+int a;
+main ()
+{
+	int b = c; /* Forward reference to c -- illegal */
+	int c = 10; 
+	glop x = 1; /* Forward reference to glop type -- illegal */
+	typedef int glop;
+	goto test; /* Forward reference to statement label -- legal */
+
+	test:
+	if (a > 0) b = TRUE;
+}
+```
+
+```c
+struct s
+{ struct t *pt }; /* Forward reference to structure t : 
+					note that the reference is preceded by the struct keyword
+					to resolve potential ambiguity */
+struct t
+{ struct s *ps };
 ```
 
 ### Data structures
@@ -346,3 +376,12 @@ initializing `char *` with an expression of type `const char *` discards qualifi
 
 ### Checking for memory leaks
 - `leaks --atExit -- ./a.out` : runs a.out and shows leaks after
+
+## Coding style - good examples
+### Malloc protection
+```c
+AST *ptr = malloc(sizeof(AST));
+if (ptr)
+	*ptr = ast;
+return ptr;
+```

@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+/* #ifndef BUFFER_SIZE 
+#define BUFFER_SIZE 50
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -19,26 +22,29 @@ int main(int argc, char *argv[])
 
 	printf("output: %s\n", output);
 }
-
+ */
 
 int main(void)
 {
 // example 2:
 	char c;
 	char msg[20];
-	char msg2[20];
+	char msg2[50];
 	char buf0[2] = {0, 0};
-	char buf2[2] = {0, 0};
-	int fd1 = open("example.txt", O_RDONLY, 0);
+	char buf2[50];
+
+	// int fd1 = open("example.txt", O_RDONLY, 0);
+	// read(fd1, &c, 1);
+	// sprintf(msg, "read fd1: %d: %s", fd1, buf0);
+	// perror(msg);
+
 	int fd2 = open("example.tx", O_RDONLY, 0);
-	// printf("fd1 = %d, fd2 = %d\n", fd1, fd2);
-	read(fd1, &c, 1);
-	read(fd2, &c, 1);
-	sprintf(msg, "read fd1: %d:%s", fd1, buf0);
-	sprintf(msg2, "read fd2: %d:%s", fd2, buf2);
-	perror(msg);
+	read(fd2, &buf2, 20);
+	// printf("buf2: %s\n", buf2);
+	sprintf(msg2, "read fd2: %d: %s", fd2, buf2);
 	perror(msg2);
-	printf("c = %c\n", c);
+	perror("error");
+
 	exit(0);
 
 
