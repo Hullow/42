@@ -6,6 +6,7 @@
 - `ctrl+R` : search past commands (tap `ctrl+R` again to search for the next occurrence, then `tab` to select)
 - `history` / `vim ~/.zsh_history` : see commands of current terminal session
 - `reset`: fixes messed up characters for instance.
+- `ctrl+c`, followed by `tab` : types in a literal tab in the terminal
 
 **Wildcards**
 - `*` for any number of characters

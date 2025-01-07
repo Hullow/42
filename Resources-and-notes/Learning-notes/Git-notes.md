@@ -1,4 +1,4 @@
-# Commands pêle-mêle
+# Git Commands pêle-mêle
 
 - stop tracking a file: `git rm --cached <file> && git commit` (CAUTION)
 - stage unstaged changes (but not changes to untracked files): `git add -u` 
@@ -13,7 +13,9 @@
 - Show changes of a commit: `git show <commit-id>`
 - Show changes since last commit : `git diff`
 - Show changes of multiple previous commits (incl. size of changes): `git log --stat`
+- Show only the files changed since a commit: `git diff <commit-id> --name-only`
 - Show tracked files: `git ls-tree -r main --name-only`
+- Show graph of commits: `git log --graph --oneline`
 - Show HEAD commit ID: `git rev-parse HEAD`
 - `git log` :
 	- [Find when a term existed or was introduced, by commit](https://git-scm.com/book/en/v2/Git-Tools-Searching#:~:text=Simply%20run%20git%20log%20with,%2DL%20%3Agit_deflate_bound%3Azlib.): `git log -S <term> --since=2024-01-01 --oneline
@@ -21,22 +23,26 @@
 - Show a file's state n commits before the last commit: `git show HEAD~n:relative/path/to/file` (e.g. `get_next_line/get_next_line.c`)
 - View the whole git folder in a previous commit stage: `git checkout HEAD~n` (`git checkout main/master` to go back)
 
-# Pulling
+## Pulling
 - A `pull` is two operations in one:
 	- `fetch`
 	- `merge ORIGIN\$CURRENT_BRANCH`
 
-
-
-
-# Git checkout vs git switch
+## Git checkout vs git switch
 - Both change branch, but:
 	- `checkout` : more powerful, can **overwrite local changes!!**
 	- `switch` : simpler, just switching branches
 
+## Branching
+- Show remote branches: `git branch -r`
+- Delete a branch: `git branch -D branch_name`
+- Delete a remote branch: `git push origin --delete branch_name`
+
 ## Going back on changes
 - `Git restore <file>` : restore the contents of currently tracked but unstaged <files> to their state at the last commit
-- `Git reset --soft` : reset to previous commit. `--soft`: "Does not touch the index file or the working tree at all (but resets the head to `<commit>`, just like all modes do). This leaves all your changed files "Changes to be committed", as `git status` would put it.""
+- `Git reset --soft` : reset to previous commit. Only works on local trees.
+	`--soft`: "Does not touch the index file or the working tree at all (but resets the head to `<commit>`, just like all modes do). This leaves all your changed files "Changes to be committed", as `git status` would put it.""
+- `git revert <commit-ID or HEAD^n or HEAD^~n>` : create a new commit that nullifies the last commit(s). For modifying work on a remote.
 
 - `Git rm --cached <file>` : removes files from tree but not local storage (CAUTION)
 
@@ -108,14 +114,13 @@ eval `ssh-agent -s`
 - Abort a merge: `git merge --abort`
 - Accept all incoming changes: `git checkout --theirs .`
 
+### Cherry-picking
+- Take a specific commit from another branch (e.g. .gitignore modification):
+`git log <branch>` to find the commit, then `git cherry-pick <commit>` in the branch you want to apply it
 
-
+### 42 git repo rules
 Règles pour les rendus (école 42):
-Quand on travaille a plusieurs: git pull (SEE DOC)
-
-NB: ne pas dépasser 100MB sur le serveur +> abus de ressources, sanctionne !!
-
-Temps de rendu: ce qui compte c’est le debut de la connection: ne pas la couper peut rendre 5min après delai si on a commence avant
-
-
-Authentication: avec ticket Kerberos, qui expire. Commandes: klist (kdestroy), k init => create new one
+- Quand on travaille a plusieurs: git pull (SEE DOC)
+- NB: ne pas dépasser 100MB sur le serveur +> abus de ressources, sanctionne !!
+- Temps de rendu: ce qui compte c’est le debut de la connection: ne pas la couper peut rendre 5min après delai si on a commence avant
+- Authentication: avec ticket Kerberos, qui expire. Commandes: klist (kdestroy), k init => create new one
