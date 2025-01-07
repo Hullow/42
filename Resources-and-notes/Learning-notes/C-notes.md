@@ -27,6 +27,9 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 - Passing a pointer to a function doesn't copy the variable. Variables allocated to the heap persist until they are explicitly freed, regardless of the scope. N.b.: you can create pointers to stack-allocated data. In general, passing value by pointer is more efficient in terms of memory usage, especially for large variables, but requires careful management of the memory to avoid leaks or invalid accesses.
 
 ### Data types
+#### Booleans
+- `bool`: `0` stands for `false`, anything else for `true`
+
 #### Type-casting
 - A typecast explicitly causes an expression to be of a specific data type
 - "A value of type `char` is automatically promoted into a value of type `int` when used as a parameter" (*GNU Libc Manual*, p. 98)
