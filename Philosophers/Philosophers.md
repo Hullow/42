@@ -9,7 +9,6 @@
 	- int	philo_id;
 	- int	*ptr; /* or structure with thread_id, philo_id, last_eaten, */
 
-	- 
 	- pthread_create(&tid, NULL, philo_routine, (void *)ptr);
 	- if (pthread_detach(tid))
 		error(detach_error);
@@ -25,10 +24,8 @@ int
 > Upon thread exit the storage for the thread must be reclaimed by another thread via a call to `pthread_join()`. Alternatively, `pthread_detach()` may be called on the thread to indicate that the system may automatically reclaim the thread storage upon exit. The `pthread_attr_setdetachstate()` function may be used on the attr argument passed to `pthread_create()` in order to achieve the same effect as a call to `pthread_detach()` on the newly created thread.<br><br>
 
 >     The signal state of the new thread is initialized as:
-
->           •   The signal mask is inherited from the creating thread.
-
->           •   The set of signals pending for the new thread is empty.
+>    •   The signal mask is inherited from the creating thread.
+>    •   The set of signals pending for the new thread is empty.
 
 >RETURN VALUES
 >     If successful, the pthread_create() function will return zero. Otherwise an error number will be returned to indicate the error.
@@ -36,7 +33,7 @@ int
 	and philosopher n sits between n - 1 and philosopher n + 1
 		=> ?
 
-	set last_time_eaten = 0
+	set last_eaten = 0
 		=> ?
 
 ### Forks initialization
@@ -55,8 +52,7 @@ X = 2: left hand is 1 % 2 == 1, right hand is 2 % 2 == 0
 n.b. if n = 1: left hand is 0 % 1 == 0, right hand is 1 % 1 == 0
 
 #### Fork protection with mutexes
-- Protect forks state with a mutex to prevent philosophers (threads)
-from duplicating them
+- Protect forks state with a mutex to prevent philosophers (threads) from duplicating them
 (n.b.: one on left-side, one on right-side)
 	pthread_mutex_t		fork_mutex;
 	if (pthread_mutex_init(&fork_mutex, NULL))
@@ -94,16 +90,27 @@ void	*philo_thread_routine(void *vargp)
 N.b.: The `pthread_mutex_lock()` function locks mutex. If the mutex is already locked, the calling thread will block until the mutex becomes available.
 
 - utils:
-	- print_state_change: print(gettimeofday, X, CURRENT_STATE)
+	- print_state_change: print(gettimeofday, X, CURRENT_STATE) nb sforster: printing needs mutex to execute correctly
 	- check if alive: run it from main thread ?
 	if (gettime - last_time_philosopher_eat > time_to_die)
 		- pthread_join(tid)
 		- print state change: has died
 		- program stop
+	- sleeping the correct time
+
 
 - ending program:
 	pthread_mutex_destroy
 	pthread_join ?
+
+
+- mutexes:
+	- when printing
+	- when reading (because it can be written to at the same time)
+
+- other:
+	- check fork value rather than relying only on mutex_init to prevent risk of deadlock
+	- "global" variable that marks whether a philo has died or not
 
 ```c
 int     pthread_join(pthread_t thread, void **value_ptr);
