@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   timestamping.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:41:01 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/07 16:53:25 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/09 19:50:59 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int	main()
 	timestamp = (current_time.tv_sec * 1000) + current_time.tv_usec; 
 	printf("time in ms: %ld\n", timestamp);
 	return (0);
-	// printf("%d Philosopher %d is thinking\n", philo->philo_id);
+	// printf("%d Philosopher %d is thinking\n", philo->id);
 }

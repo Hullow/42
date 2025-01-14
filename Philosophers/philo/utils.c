@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/07 17:57:04 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/14 17:11:13 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
+
+int	print_error(int error)
+{
+	if (error == THREAD_CREATION_ERROR)
+		write(2, "Philosophers: Thread creation error", 22);
+	else if (error == MUTEX_INIT_ERROR)
+		write(2, "Philosophers: Mutex init error", 17);
+	return (-1);
+}
 
 // returns timestamp in ms
 // printf("time in seconds: %ld\n", current_time.tv_sec);
@@ -22,10 +31,10 @@ long	get_time_stamp(void)
 
 	if (gettimeofday(&current_time, NULL) == -1)
 		return (-1);
-	return ((current_time.tv_sec * 1000) + current_time.tv_usec);
+	return ((current_time.tv_sec * 1000) + current_time.tv_usec / 1000);
 }
 
-int	check_if_alive(struct s_philo *philo)
+int	check_if_alive(t_philo *philo)
 {
 	long	timestamp;
 
@@ -35,10 +44,10 @@ int	check_if_alive(struct s_philo *philo)
 	if ((timestamp - philo->last_eaten) >= philo->tt_die)
 	{
 		printf("%ld Philosopher %d died after spending %ld ms without eating\n", 
-			timestamp, philo->philo_id, timestamp - philo->last_eaten);
+			timestamp, philo->id, timestamp - philo->last_eaten);
 		return (0);
 	}
 	printf("%ld Philosopher %d is still alive, having last eaten %ld ms ago\n", 
-		timestamp, philo->philo_id, timestamp - philo->last_eaten);
+		timestamp, philo->id, timestamp - philo->last_eaten);
 	return (1);
 }

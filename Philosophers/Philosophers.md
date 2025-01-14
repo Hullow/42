@@ -6,8 +6,8 @@
 	=> ?
 
 	- pthread_t	tid;
-	- int	philo_id;
-	- int	*ptr; /* or structure with thread_id, philo_id, last_eaten, */
+	- int	id;
+	- int	*ptr; /* or structure with thread_id, id, last_eaten, */
 
 	- pthread_create(&tid, NULL, philo_routine, (void *)ptr);
 	- if (pthread_detach(tid))
@@ -51,12 +51,61 @@ X = 2: left hand is 1 % 2 == 1, right hand is 2 % 2 == 0
 
 n.b. if n = 1: left hand is 0 % 1 == 0, right hand is 1 % 1 == 0
 
+#### Fork and philosopher selection per eating round
+	even vs uneven number of philosophers: 
+	who takes turns eating to avoid forks conflicts?
+	
+	even example:
+		f0 | f1 | f2 | f3 | f0
+		  p1 	p2	 p3	  p4
+
+	we start with:
+		philo #1: f0-f1, philo #3: f2-f3
+	then:
+		philo #2: f1-f2, philo #4: f3-f0
+	then:
+		(repeat)
+
+
+uneven example:
+	f0 | f1 | f2 | f3 | f4 | f0
+		p1	p2	 p3	  p4   p5
+
+	we start with:
+		philo #1: f0-f1, philo #3: f2-f3
+	then:
+		philo #2: f1-f2, philo #4: f3-f4
+	then:
+		philo #5: f4-f0, philo #3: f2-f3
+	then:
+		(repeat)
+
+uneven example 2:
+	f0 | f1 | f2 | f3 | f4 | f5 | f6 | f0
+		p1	p2	 p3	  p4   p5	p6	 p7
+	
+	we start with:
+		philo #1: f0-f1, philo #3: f2-f3, philo #5: f4-f5
+	then:
+		philo #2: f1-f2, philo #4: f3-f4, philo #6: f5-f6
+	then:
+		philo#7: f6-f0, philo #5: f4-f5, philo #3: f2-f3
+	then:
+		(repeat)
+
+if uneven number of philosophers, alternate between:
+	- even numbered philosophers are all the even numbered philos 
+	- all uneven numbered philosophers except last philosopher
+	- all uneven numbered philosophers except first philosopher
+
+=> in practice, initialize all forks at value '0', then select philosophers to start eating
+
 #### Fork protection with mutexes
 - Protect forks state with a mutex to prevent philosophers (threads) from duplicating them
 (n.b.: one on left-side, one on right-side)
 	pthread_mutex_t		fork_mutex;
 	if (pthread_mutex_init(&fork_mutex, NULL))
-		handle_error(mutex_init_error);
+		print_error(mutex_init_error);
 
 ### Philosopher routine
 ```c

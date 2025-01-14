@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/07 17:57:40 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/14 17:11:13 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,14 @@ int	ft_atoi(char *str)
 	return (out);
 }
 
-int	handle_error(int error)
-{
-	if (error == THREAD_CREATION_ERROR)
-		write(2, "Thread creation error", 22);
-	else if (error == MUTEX_INIT_ERROR)
-		write(2, "Mutex init error", 17);
-	return (-1);
-}
-
 // Stores the input parameters in a the s_params struct
 // returns -1 if parameter count is not 4 or 5
 // returns 0 otherwise
-int	handle_input(struct s_params *params, int argc, char **argv)
+int	handle_input(t_params *params, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 	{
-		printf("Philosophers – wrong number of parameters: must be 4 or 5\n");
+		printf("Philosophers – wrong number of parameters: must be 4 or 5\n"); // replace with write
 		free(params);
 		return (-1);
 	}
@@ -64,6 +55,12 @@ int	handle_input(struct s_params *params, int argc, char **argv)
 	params->tt_eat = ft_atoi(argv[3]);
 	params->tt_sleep = ft_atoi(argv[4]);
 	if (argv[5])
-		params->must_eat_times = ft_atoi(argv[5]);
+		params->must_eat = ft_atoi(argv[5]);
+	if (params->nb_philo > 200)
+	{
+		printf("Philosophers – number of philosophers too high: must be <= 200\n"); // replace with write
+		free(params);
+		return (-1);
+	}
 	return (0);
 }

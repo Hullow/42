@@ -11,14 +11,14 @@ int	main()
 {
 	pthread_t	thread[NB_THREADS];
 	int			i;
-	// int			*ptr;
+	int			*ptr;
 
 	i = -1;
 	while (++i < NB_THREADS)
 	{
-		// ptr = malloc(sizeof(int));
-		// *ptr = i;
-		pthread_create(&(thread[i]), NULL, thread_routine, (void *)i);
+		ptr = malloc(sizeof(int));
+		*ptr = i;
+		pthread_create(&(thread[i]), NULL, thread_routine, (void *)ptr);
 	}
 	i = -1;
 	while (++i < NB_THREADS)
@@ -29,9 +29,14 @@ int	main()
 /* Thread routine*/
 void	*thread_routine(void *vargp)
 {
-	int myid = ((int)vargp);
-	// free(vargp);
-	printf("Hello, this is thread %d\n", myid);
+	int myid = *((int *)vargp);
+	write(1, "Hello, this is thread",22);
+
+	write(1, &myid, 1); // needs putnbr
+	// printf("Hello, this is thread %d\n", myid);
+	write(1, "\n", 1);
+	free(vargp);
+	// printf("Hello, this is thread %d\n", myid);
 	return (NULL);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
+#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/07 14:02:17 by fallan           ###   ########.fr        #
+#    Updated: 2025/01/14 17:19:32 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,12 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -ferror-limit=2
 
 SRCS =	main.c \
-		main_utils.c
+		input.c \
+		initialization.c \
+		utils.c
 
 OBJ = $(SRCS:.c=.o)
 
