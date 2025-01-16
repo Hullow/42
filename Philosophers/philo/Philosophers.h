@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/14 21:39:57 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/16 18:17:04 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ typedef struct s_table
 {
 	int					table_id;
 	int					nb_philo;
+	int					forks[MAX_THREADS];
+	pthread_mutex_t		forks_mutex[MAX_THREADS];
 	t_philo				philos[MAX_THREADS];
-	pthread_mutex_t		forks[MAX_THREADS];
 }	t_table;
 
 // Utils

@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/16 17:37:11 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/16 18:20:10 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	init_philo(t_table	*table, t_params *params, int id)
 	pthread_mutex_t	*right_fork;
 
 	philo = &table->philos[id];
-	left_fork = &table->forks[id % params->nb_philo];
-	right_fork = &table->forks[(id + 1) % params->nb_philo] ;
+	left_fork = &table->fork_mutex[id % params->nb_philo];
+	right_fork = &table->fork_mutex[(id + 1) % params->nb_philo] ;
 
 	philo->nb_philo = params->nb_philo;
 	philo->philo_id = id + 1;
@@ -52,14 +52,14 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		if (pthread_mutex_init(&table->forks[i], NULL))
+		if (pthread_mutex_init(&table->fork_mutex[i], NULL))
 			return (print_error(MUTEX_INIT_ERROR));
 		init_philo(table, params, i);
 		i++;
 	}
 	table->nb_philo = nb_philo;
 	i = 0;
-	
+
 	/* Starting philosopher threads */
 	while (i < nb_philo)
 	{
@@ -68,6 +68,18 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 			return (print_error(THREAD_CREATION_ERROR)); // need to destroy mutexes
 		i++;
 	}
+
+	/* Start grim reaper here ? */
+	// i = 0;
+	// while (i < 15000)
+	// {
+	// 	if 
+		
+
+	// 	if (i % 1000 == 0)
+	// 		printf("testing #%d\n", i);
+	// 	i++;
+	// }
 	
 	/* reaping threads */
 	i = 0;
@@ -81,7 +93,7 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 	i = 0;
 	while(i < nb_philo)
 	{
-		pthread_mutex_destroy(&table->forks[i]); // add error handling
+		pthread_mutex_destroy(&table->fork_mutex[i]); // add error handling
 		i++;
 	}
 	/* need more error handling */
