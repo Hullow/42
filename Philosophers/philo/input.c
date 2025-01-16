@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/14 20:24:31 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/16 17:45:37 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	handle_input(t_params *params, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 	{
-		printf("Philosophers – wrong number of parameters: must be 4 or 5\n"); // replace with write
+		printf("Philosophers – wrong number of parameters: must be 4 or 5\n");
+		printf("1) number of philosophers\n2) time to die\n");
+		printf("3) time to eat\n4) time to sleep\n");
+		printf("5) number of times each philosopher must eat (optional)\n");
 		free(params);
 		return (-1);
 	}
@@ -60,7 +63,8 @@ int	handle_input(t_params *params, int argc, char **argv)
 		params->must_eat = -1;
 	if (params->nb_philo > 200)
 	{
-		printf("Philosophers – number of philosophers too high: must be <= 200\n"); // replace with write
+		printf("Philosophers – ");
+		printf("number of philosophers too high: must be <= 200\n");
 		free(params);
 		return (-1);
 	}

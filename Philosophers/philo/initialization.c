@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/14 21:58:03 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/16 17:37:11 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,3 @@ void	*philo_routine(void *vargp)
 
 	return (NULL);
 }
-
-/* Print philos and forks on stack*/
-/* 	while (i < nb_philo)
-	{
-		printf("fork[%d] address: %p\n", i, (void *) &table->forks[i]);
-		i++;
-	}	 */
