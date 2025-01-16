@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/14 21:52:28 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/16 18:58:50 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	check_if_alive(t_philo *philo)
 		return (-1);
 
 	printf("\ncheck_if_alive:\n");
-	printf("time to die	: %ld\n", philo->tt_die);
+	printf("time to die	: %ld\n", philo->time_to_die);
 	printf("timestamp  	: %ld\n", timestamp);
 	printf("last_eaten 	: %ld\n", philo->last_eaten);
 
 	time_without_eating = timestamp - philo->last_eaten;
-	if (philo->tt_die <= time_without_eating)
+	if (philo->time_to_die <= time_without_eating)
 	{
 		printf("%ld Philosopher %d died after spending %ld ms without eating\n", 
 			timestamp, philo->philo_id, time_without_eating);

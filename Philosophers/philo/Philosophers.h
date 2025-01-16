@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/16 18:17:04 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/16 19:51:40 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ enum error {
 typedef struct s_params
 {
 	int	nb_philo;
-	int	tt_die;
-	int	tt_eat;
-	int	tt_sleep;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
 	int	must_eat;
 }	t_params;
 
@@ -49,24 +49,29 @@ typedef struct s_params
 typedef struct s_philo
 {
 	pthread_t		thread;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*left_fork_mutex;
+	pthread_mutex_t	*right_fork_mutex;
+	unsigned char	*left_fork;
+	unsigned char	*right_fork;
 	int				nb_philo;
 	int				philo_id;
 	long			last_eaten;
+	int				times_eaten;
 	int				must_eat;
-	long			tt_die;
-	long			tt_eat;
-	long			tt_sleep;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	unsigned char	*global_death_status;
 }	t_philo;
 
 typedef struct s_table
 {
 	int					table_id;
 	int					nb_philo;
-	int					forks[MAX_THREADS];
-	pthread_mutex_t		forks_mutex[MAX_THREADS];
+	unsigned char		forks[MAX_THREADS];
+	pthread_mutex_t		fork_mutex[MAX_THREADS];
 	t_philo				philos[MAX_THREADS];
+	unsigned char		global_death_status;
 }	t_table;
 
 // Utils
@@ -84,4 +89,5 @@ int		init_table(t_table *table, t_params *params, int nb_philo);
 int		init_forks(t_table *table, int nb_philo);
 void	init_philo(t_table	*table, t_params *params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
+	// Routine
 void	*philo_routine(void *table);

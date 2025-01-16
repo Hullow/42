@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/16 17:45:37 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/16 18:58:50 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	handle_input(t_params *params, int argc, char **argv)
 		return (-1);
 	}
 	params->nb_philo = ft_atoi(argv[1]);
-	params->tt_die = ft_atoi(argv[2]);
-	params->tt_eat = ft_atoi(argv[3]);
-	params->tt_sleep = ft_atoi(argv[4]);
+	params->time_to_die = ft_atoi(argv[2]);
+	params->time_to_eat = ft_atoi(argv[3]);
+	params->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		params->must_eat = ft_atoi(argv[5]);
 	else

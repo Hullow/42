@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/14 18:02:40 by francis          ###   ########.fr        #
+#    Updated: 2025/01/16 19:39:31 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CFLAGS = -Wall -Wextra -Werror -ferror-limit=2
 SRCS =	main.c \
 		input.c \
 		initialization.c \
+		routine.c \
 		utils.c
 
 OBJ = $(SRCS:.c=.o)
