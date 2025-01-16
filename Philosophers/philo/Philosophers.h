@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/14 18:54:33 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/14 21:39:57 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,24 @@ typedef struct s_params
 	*/
 typedef struct s_philo
 {
-	pthread_t	thread;
-	int			philo_id;
-	long		last_eaten;
-	int			must_eat;
-	long		tt_die;
-	int			tt_eat;
-	int			tt_sleep;
+	pthread_t		thread;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	int				nb_philo;
+	int				philo_id;
+	long			last_eaten;
+	int				must_eat;
+	long			tt_die;
+	long			tt_eat;
+	long			tt_sleep;
 }	t_philo;
 
 typedef struct s_table
 {
 	int					table_id;
 	int					nb_philo;
-	t_philo				*philos;
-	pthread_mutex_t		*forks;
+	t_philo				philos[MAX_THREADS];
+	pthread_mutex_t		forks[MAX_THREADS];
 }	t_table;
 
 // Utils
@@ -78,6 +81,6 @@ int		print_error(int error);
 	// Initialization
 int		init_table(t_table *table, t_params *params, int nb_philo);
 int		init_forks(t_table *table, int nb_philo);
-int		init_philos(t_table *table, t_params *params, int nb_philo);
+void	init_philo(t_table	*table, t_params *params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
 void	*philo_routine(void *table);

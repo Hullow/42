@@ -9,9 +9,13 @@ int main()
 
 	if (a % 2)
 		printf("0 mod 2 is true\n");
+	else
+		printf("0 mod 2 is false\n");
 	if (b % 2)
 		printf("1 mod 2 is true\n");
 	if (c % 2)
 		printf("2 mod 2 is true\n");
+	else
+		printf("2 mod 2 is false\n");
 	return (0);
 }

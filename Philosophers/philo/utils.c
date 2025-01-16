@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/14 18:56:57 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/14 21:52:28 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ long	get_time_stamp(void)
 
 	if (gettimeofday(&current_time, NULL) == -1)
 		return (-1);
-	return ((current_time.tv_sec * 1000) + current_time.tv_usec / 1000);
+	return (((current_time.tv_sec * 1000) + current_time.tv_usec / 1000) % 1736887000000);
 }
 
 int	check_if_alive(t_philo *philo)

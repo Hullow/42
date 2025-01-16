@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/14 17:11:13 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/14 20:24:31 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	handle_input(t_params *params, int argc, char **argv)
 	params->tt_sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		params->must_eat = ft_atoi(argv[5]);
+	else
+		params->must_eat = -1;
 	if (params->nb_philo > 200)
 	{
 		printf("Philosophers – number of philosophers too high: must be <= 200\n"); // replace with write

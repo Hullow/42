@@ -6,20 +6,31 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/14 19:34:37 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/14 21:58:03 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
 // fills the philosopher struct with our parameters from input
-void	fill_params(t_philo	*philo, t_params *params, int id)
+void	init_philo(t_table	*table, t_params *params, int id)
 {
+	t_philo			*philo;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+
+	philo = &table->philos[id];
+	left_fork = &table->forks[id % params->nb_philo];
+	right_fork = &table->forks[(id + 1) % params->nb_philo] ;
+
+	philo->nb_philo = params->nb_philo;
 	philo->philo_id = id + 1;
+	philo->tt_die = (long) params->tt_die * 1000;
+	philo->tt_eat = params->tt_eat * 1000;
+	philo->tt_sleep = params->tt_sleep * 1000;
 	philo->must_eat = params->must_eat;
-	philo->tt_die = (long) params->tt_die;
-	philo->tt_eat = params->tt_eat;
-	philo->tt_sleep = params->tt_sleep;
+	philo->left_fork = left_fork;
+	philo->right_fork = right_fork;
 	philo->last_eaten = get_time_stamp();
 }
 
@@ -31,47 +42,6 @@ In my words:
 pthread_t *thread is a pointer that specifies a location. In that location, the ID of the created
 thread will be stored to get the ID you'll have to dereference [pthread_t *thread] using [*thread] */
 
-/* Initializes the philosophers, setting the parameters from input */
-int	init_philos(t_table *table, t_params *params, int nb_philo)
-{
-	t_philo	philo[nb_philo];
-	int		i;
-
-	i = 0;
-	while (i < nb_philo)
-	{
-		fill_params(&philo[i], params, i);
-		i++;
-	}
-	// i = 0;
-	// while (i < nb_philo)
-	// {
-	// 	printf("philo[%d].philo_id: %d\n", i, philo[i].philo_id);
-	// 	i++;
-	// }
-
-	
-	table->philos = philo;
-	return (0);
-}
-
-/* Initializes the forks, i.e. the mutexes */
-int	init_forks(t_table *table, int nb_philo)
-{
-	pthread_mutex_t	forks[nb_philo];
-	int				i;
-	
-	i = 0;
-	while (i < nb_philo)
-	{
-		if (pthread_mutex_init(&forks[i], NULL))
-			return (print_error(MUTEX_INIT_ERROR));
-		i++;
-	}
-	table->forks = forks;
-	return (0);
-}
-
 // initializes table:
 // calls init_forks first
 // then creates the philosophers thread with all the parameters
@@ -82,65 +52,83 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		fill_params(&table->philos[i], params, i);
 		if (pthread_mutex_init(&table->forks[i], NULL))
 			return (print_error(MUTEX_INIT_ERROR));
+		init_philo(table, params, i);
 		i++;
 	}
 	table->nb_philo = nb_philo;
 	i = 0;
+	
 	/* Starting philosopher threads */
 	while (i < nb_philo)
 	{
 		table->table_id = i; // data race ?
-		if (pthread_create(&(table->philos[i].thread), NULL, philo_routine, table))
+		if (pthread_create(&(table->philos[i].thread), NULL, philo_routine, &table->philos[i]))
 			return (print_error(THREAD_CREATION_ERROR)); // need to destroy mutexes
 		i++;
 	}
-	/* error handling */
+	
+	/* reaping threads */
+	i = 0;
+	while(i < nb_philo)
+	{
+		pthread_join(table->philos[i].thread, NULL); // add error handling
+		i++;
+	}
+	
+	/* destroying mutexes */
+	i = 0;
+	while(i < nb_philo)
+	{
+		pthread_mutex_destroy(&table->forks[i]); // add error handling
+		i++;
+	}
+	/* need more error handling */
 	return (0);
 }
 
 // philosopher thread initialization routine
 void	*philo_routine(void *vargp)
 {
-	t_table	*table;
+	t_philo	*philo;
 	int		id;
 
 	/* Initialization */
-	table = (t_table *)vargp;
-	id = table->table_id;
+	philo = (t_philo *)vargp;
+	if (pthread_mutex_lock(philo->left_fork))
+		printf("philo %d couldn't lock left fork (fork #%d)\n", philo->philo_id, philo->philo_id % philo->nb_philo); // add error handling
+	if (pthread_mutex_lock(philo->right_fork))
+		pthread_mutex_unlock(philo->left_fork); // add error handling
+
+	id = philo->philo_id;
 
 	/* Lock fork */
-	pthread_mutex_lock(&table->forks[id]);
 	
 	/* Print current state*/
-	printf("philo_routine:\nid: %d\n", id);
-	// printf("%ld Philosopher %d is thinking\n", get_time_stamp(), table->philos[id].philo_id);
+	printf("philo_routine – id: %d\n", id);
+	printf("%ld Philosopher %d is thinking\n", get_time_stamp(), philo->philo_id);
 
-	// printf("\n***seg check 1***\n\n");
-	
-	/* Check if alive => should be done ever 2.5 ms */
-	// check_if_alive(&table->philos[id]);
-	
-	// printf("\n***seg check 2***\n\n");
+	// check_if_alive(&table->philos[id]);	/* => should be done every 2.5 ms */
 
 	/* Even number of philosophers */
-	if (table->nb_philo % 2 == 0)
+	if (philo->nb_philo % 2 == 0)
 	{
-		printf("even number of philosophers: table->nb_philo == %d\n", table->nb_philo);
-		if (table->table_id % 2) // if uneven
-			usleep(2500); // sleep 2.5 ms
+		// if (philo->philo_id % 2 == 0) // if uneven
+		// 	usleep(1000); // sleep 1 ms
 
-		// pthread_mutex_lock(&table->forks[id]);
-		// printf("%ld Philosopher %d is eating\n", get_time_stamp(), table->philos[sd].philo_id);
-		// pthread_mutex_unlock(&table->forks[id]);
+		printf("%ld Philosopher %d is eating\n", get_time_stamp(), philo->philo_id);
+		usleep(philo->tt_eat); // take time to eat
 
-		// printf("%ld Philosopher %d is thinking\n", get_time_stamp(), table->philos[id].philo_id);
+		printf("%ld Philosopher %d is sleeping\n", get_time_stamp(), philo->philo_id);
+		usleep(philo->tt_sleep); // take time to sleep
+		
+		printf("%ld Philosopher %d is thinking\n", get_time_stamp(), philo->philo_id);
 	}
-	else
-		printf("uneven number of philosophers: table->nb_philo == %d\n", table->nb_philo);
-	pthread_mutex_unlock(&table->forks[id]);
+
+	/* Unlock fork */
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 
 	return (NULL);
 }
