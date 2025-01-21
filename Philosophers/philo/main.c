@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
-/*   Updated: 2025/01/16 19:39:44 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/21 18:41:47 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		// lock global death mutex
-		if (table->global_death_status == '1')
+		if (table.global_death_status == '1')
 		{
 			printf("A philosopher died – end of simulation\n");
 			// unlock global death mutex
 			break ;
 		}
 		// unlock global death mutex
-		usleep(1000); // check every ms ?
+		usleep(10000); // check every ms ?
 	}
 
 	/* End simulation */
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while(i < params->nb_philo)
 	{
-		pthread_join(&table.philos[i].thread, NULL); // add error handling
+		pthread_join(table.philos[i].thread, NULL); // add error handling
 		i++;
 	}
 

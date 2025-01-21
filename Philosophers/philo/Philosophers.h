@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/16 19:51:40 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/21 18:11:41 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 enum error {
 	MALLOC_FAIL,
 	MUTEX_INIT_ERROR,
+	MUTEX_LOCK_ERROR,
+	MUTEX_UNLOCK_ERROR,
 	THREAD_CREATION_ERROR
 };
 
@@ -53,6 +55,8 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork_mutex;
 	unsigned char	*left_fork;
 	unsigned char	*right_fork;
+	int				left_fork_id;
+	int				right_fork_id;
 	int				nb_philo;
 	int				philo_id;
 	long			last_eaten;
@@ -64,9 +68,16 @@ typedef struct s_philo
 	unsigned char	*global_death_status;
 }	t_philo;
 
+// Structure for the whole table
+// Holds:
+// - the number of philosophers
+// - the forks
+// - the mutexes for the forks
+// - the philosophers
+// - a death status marker that is pointed to from each philosopher
+
 typedef struct s_table
 {
-	int					table_id;
 	int					nb_philo;
 	unsigned char		forks[MAX_THREADS];
 	pthread_mutex_t		fork_mutex[MAX_THREADS];
@@ -74,20 +85,28 @@ typedef struct s_table
 	unsigned char		global_death_status;
 }	t_table;
 
-// Utils
-	// Input
-int		ft_atoi(char *str);
+// Input
+
 int		handle_input(t_params *params, int argc, char **argv);
-	// Running
-long	get_time_stamp(void);
-int		check_if_alive(t_philo *philo);
-int		print_error(int error);
+int		ft_atoi_philo(char *str);
 
 // Simulation
 	// Initialization
+
 int		init_table(t_table *table, t_params *params, int nb_philo);
 int		init_forks(t_table *table, int nb_philo);
 void	init_philo(t_table	*table, t_params *params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
 	// Routine
+
 void	*philo_routine(void *table);
+void	*handle_philo_death(t_philo *philo);
+int		lock_fork_mutexes(t_philo *philo);
+int		unlock_fork_mutexes(t_philo *philo);
+void	set_forks_status(t_philo *philo, char c);
+
+// Utils
+
+long	get_time_stamp(void); 
+int		check_if_alive(t_philo *philo);
+int		print_error(int error);

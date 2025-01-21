@@ -6,14 +6,14 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/16 18:58:50 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/21 17:36:53 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
 // homemade atoi to convert our input to int type
-int	ft_atoi(char *str)
+int	ft_atoi_philo(char *str)
 {
 	int	out;
 	int	sign;
@@ -53,12 +53,12 @@ int	handle_input(t_params *params, int argc, char **argv)
 		free(params);
 		return (-1);
 	}
-	params->nb_philo = ft_atoi(argv[1]);
-	params->time_to_die = ft_atoi(argv[2]);
-	params->time_to_eat = ft_atoi(argv[3]);
-	params->time_to_sleep = ft_atoi(argv[4]);
+	params->nb_philo = ft_atoi_philo(argv[1]);
+	params->time_to_die = ft_atoi_philo(argv[2]);
+	params->time_to_eat = ft_atoi_philo(argv[3]);
+	params->time_to_sleep = ft_atoi_philo(argv[4]);
 	if (argv[5])
-		params->must_eat = ft_atoi(argv[5]);
+		params->must_eat = ft_atoi_philo(argv[5]);
 	else
 		params->must_eat = -1;
 	if (params->nb_philo > 200)

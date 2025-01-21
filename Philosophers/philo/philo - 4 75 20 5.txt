@@ -1,0 +1,33 @@
+1737481395213 ms: Philosopher 1 is thinking
+1737481395213 ms: Philosopher 3 is thinking
+1737481395213 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737481395213 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737481395213 ms: Philosopher 2 is thinking
+1737481395213 ms: Philosopher 4 is thinking
+1737481395237 ms: Philosopher 1 is sleeping
+1737481395238 ms: Philosopher 3 is sleeping
+1737481395238 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737481395238 ms: Philosopher 4 is eating – left fork 3, right fork 0
+1737481395263 ms: Philosopher 2 is sleeping
+1737481395263 ms: Philosopher 4 is sleeping
+1737481395291 ms: Philosopher 1 is thinking
+
+******************************************
+ Philosopher 1 died after spending 78 ms without eating !
+******************************************
+1737481395293 ms: Philosopher 3 is thinking
+
+******************************************
+ Philosopher 3 died after spending 80 ms without eating !
+******************************************
+A philosopher died – end of simulation
+1737481395315 ms: Philosopher 2 is thinking
+
+******************************************
+ Philosopher 2 died after spending 77 ms without eating !
+******************************************
+1737481395315 ms: Philosopher 4 is thinking
+
+******************************************
+ Philosopher 4 died after spending 77 ms without eating !
+******************************************

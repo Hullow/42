@@ -3,17 +3,13 @@
 
 int main()
 {
-	int a = 0;
-	int b = 1;
-	int c = 2;
-
-	if (a % 2)
+	if (0 % 2)
 		printf("0 mod 2 is true\n");
 	else
 		printf("0 mod 2 is false\n");
-	if (b % 2)
+	if (1 % 2)
 		printf("1 mod 2 is true\n");
-	if (c % 2)
+	if (2 % 2)
 		printf("2 mod 2 is true\n");
 	else
 		printf("2 mod 2 is false\n");

@@ -6,7 +6,7 @@
 
 void	init_philos(int nb_philos);
 void	*init_philos_routine(void *thread_id);
-long	get_time_stamp(void);
+long	get_time_stamp_threading(void);
 
 char *messages[6];
 
@@ -48,7 +48,7 @@ void	init_philos(int nb_philos)
 	{
 		id[i] = i;
 		printf("creating thread %d – thread ID: %ld\n", i, (long) philos[i]);
-		current_time = get_time_stamp();
+		current_time = get_time_stamp_threading();
 		ret_code = pthread_create(&philos[i], NULL, init_philos_routine, (void *) id[i]);
 		if (ret_code)
 		{
@@ -63,7 +63,7 @@ void	init_philos(int nb_philos)
 }
 
 
-long	get_time_stamp(void)
+long	get_time_stamp_threading(void)
 {
 	struct timeval	current_time;
 

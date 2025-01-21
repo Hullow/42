@@ -1,0 +1,768 @@
+1737482642174 ms: Philosopher 1 is thinking
+1737482642174 ms: Philosopher 2 is thinking
+1737482642174 ms: Philosopher 3 is thinking
+1737482642174 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642174 ms: Philosopher 4 is thinking
+1737482642174 ms: Philosopher 5 is thinking
+1737482642174 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642198 ms: Philosopher 3 is sleeping
+1737482642198 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642199 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642199 ms: Philosopher 5 is sleeping
+1737482642223 ms: Philosopher 2 is sleeping
+1737482642223 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642224 ms: Philosopher 4 is sleeping
+1737482642248 ms: Philosopher 1 is sleeping
+1737482642253 ms: Philosopher 3 is thinking
+1737482642253 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642254 ms: Philosopher 5 is thinking
+1737482642254 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642276 ms: Philosopher 5 is sleeping
+1737482642277 ms: Philosopher 4 is thinking
+1737482642277 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642277 ms: Philosopher 2 is thinking
+1737482642277 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642277 ms: Philosopher 3 is sleeping
+1737482642298 ms: Philosopher 4 is sleeping
+1737482642302 ms: Philosopher 2 is sleeping
+1737482642302 ms: Philosopher 1 is thinking
+1737482642302 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642327 ms: Philosopher 1 is sleeping
+1737482642327 ms: Philosopher 5 is thinking
+1737482642327 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642332 ms: Philosopher 3 is thinking
+1737482642332 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642348 ms: Philosopher 5 is sleeping
+1737482642353 ms: Philosopher 2 is thinking
+1737482642353 ms: Philosopher 4 is thinking
+1737482642357 ms: Philosopher 3 is sleeping
+1737482642357 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642357 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642377 ms: Philosopher 2 is sleeping
+1737482642377 ms: Philosopher 1 is thinking
+1737482642377 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642377 ms: Philosopher 4 is sleeping
+1737482642403 ms: Philosopher 5 is thinking
+1737482642403 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642403 ms: Philosopher 1 is sleeping
+1737482642412 ms: Philosopher 3 is thinking
+1737482642412 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642429 ms: Philosopher 5 is sleeping
+1737482642432 ms: Philosopher 2 is thinking
+1737482642434 ms: Philosopher 4 is thinking
+1737482642442 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642442 ms: Philosopher 3 is sleeping
+1737482642442 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642458 ms: Philosopher 1 is thinking
+1737482642467 ms: Philosopher 2 is sleeping
+1737482642467 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642467 ms: Philosopher 4 is sleeping
+1737482642482 ms: Philosopher 5 is thinking
+1737482642492 ms: Philosopher 1 is sleeping
+1737482642492 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642497 ms: Philosopher 3 is thinking
+1737482642497 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642517 ms: Philosopher 5 is sleeping
+1737482642518 ms: Philosopher 4 is thinking
+1737482642518 ms: Philosopher 2 is thinking
+1737482642522 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642522 ms: Philosopher 3 is sleeping
+1737482642522 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642548 ms: Philosopher 4 is sleeping
+1737482642548 ms: Philosopher 1 is thinking
+1737482642554 ms: Philosopher 2 is sleeping
+1737482642554 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642569 ms: Philosopher 5 is thinking
+1737482642577 ms: Philosopher 3 is thinking
+1737482642577 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642577 ms: Philosopher 1 is sleeping
+1737482642577 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642604 ms: Philosopher 4 is thinking
+1737482642604 ms: Philosopher 3 is sleeping
+1737482642604 ms: Philosopher 5 is sleeping
+1737482642604 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642610 ms: Philosopher 2 is thinking
+1737482642610 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642627 ms: Philosopher 4 is sleeping
+1737482642632 ms: Philosopher 1 is thinking
+1737482642635 ms: Philosopher 2 is sleeping
+1737482642635 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642655 ms: Philosopher 3 is thinking
+1737482642655 ms: Philosopher 5 is thinking
+1737482642655 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642655 ms: Philosopher 1 is sleeping
+1737482642655 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642679 ms: Philosopher 4 is thinking
+1737482642679 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642679 ms: Philosopher 5 is sleeping
+1737482642679 ms: Philosopher 3 is sleeping
+1737482642688 ms: Philosopher 2 is thinking
+1737482642688 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642704 ms: Philosopher 4 is sleeping
+1737482642710 ms: Philosopher 1 is thinking
+1737482642712 ms: Philosopher 2 is sleeping
+1737482642712 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642734 ms: Philosopher 3 is thinking
+1737482642734 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642734 ms: Philosopher 5 is thinking
+1737482642736 ms: Philosopher 1 is sleeping
+1737482642736 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642754 ms: Philosopher 3 is sleeping
+1737482642755 ms: Philosopher 4 is thinking
+1737482642761 ms: Philosopher 5 is sleeping
+1737482642761 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642767 ms: Philosopher 2 is thinking
+1737482642767 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642786 ms: Philosopher 4 is sleeping
+1737482642791 ms: Philosopher 1 is thinking
+1737482642792 ms: Philosopher 2 is sleeping
+1737482642792 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642809 ms: Philosopher 3 is thinking
+1737482642809 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642811 ms: Philosopher 5 is thinking
+1737482642812 ms: Philosopher 1 is sleeping
+1737482642812 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642834 ms: Philosopher 3 is sleeping
+1737482642836 ms: Philosopher 4 is thinking
+1737482642837 ms: Philosopher 5 is sleeping
+1737482642837 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642844 ms: Philosopher 2 is thinking
+1737482642844 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642862 ms: Philosopher 4 is sleeping
+1737482642862 ms: Philosopher 1 is thinking
+1737482642869 ms: Philosopher 2 is sleeping
+1737482642869 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642886 ms: Philosopher 3 is thinking
+1737482642886 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642888 ms: Philosopher 5 is thinking
+1737482642894 ms: Philosopher 1 is sleeping
+1737482642894 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642911 ms: Philosopher 3 is sleeping
+1737482642917 ms: Philosopher 4 is thinking
+1737482642919 ms: Philosopher 5 is sleeping
+1737482642919 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482642924 ms: Philosopher 2 is thinking
+1737482642924 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482642944 ms: Philosopher 4 is sleeping
+1737482642949 ms: Philosopher 1 is thinking
+1737482642949 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482642949 ms: Philosopher 2 is sleeping
+1737482642966 ms: Philosopher 3 is thinking
+1737482642966 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482642974 ms: Philosopher 5 is thinking
+1737482642974 ms: Philosopher 1 is sleeping
+1737482642974 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482642991 ms: Philosopher 3 is sleeping
+1737482642999 ms: Philosopher 4 is thinking
+1737482642999 ms: Philosopher 5 is sleeping
+1737482642999 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643004 ms: Philosopher 2 is thinking
+1737482643004 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643024 ms: Philosopher 4 is sleeping
+1737482643027 ms: Philosopher 1 is thinking
+1737482643029 ms: Philosopher 2 is sleeping
+1737482643029 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643046 ms: Philosopher 3 is thinking
+1737482643046 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643054 ms: Philosopher 5 is thinking
+1737482643054 ms: Philosopher 1 is sleeping
+1737482643054 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643071 ms: Philosopher 3 is sleeping
+1737482643079 ms: Philosopher 4 is thinking
+1737482643079 ms: Philosopher 5 is sleeping
+1737482643079 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643083 ms: Philosopher 2 is thinking
+1737482643083 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643104 ms: Philosopher 4 is sleeping
+1737482643104 ms: Philosopher 1 is thinking
+1737482643106 ms: Philosopher 2 is sleeping
+1737482643106 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643125 ms: Philosopher 3 is thinking
+1737482643125 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643131 ms: Philosopher 1 is sleeping
+1737482643134 ms: Philosopher 5 is thinking
+1737482643134 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643148 ms: Philosopher 3 is sleeping
+1737482643157 ms: Philosopher 4 is thinking
+1737482643157 ms: Philosopher 2 is thinking
+1737482643157 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643157 ms: Philosopher 5 is sleeping
+1737482643157 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643179 ms: Philosopher 4 is sleeping
+1737482643179 ms: Philosopher 2 is sleeping
+1737482643186 ms: Philosopher 1 is thinking
+1737482643186 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643202 ms: Philosopher 3 is thinking
+1737482643202 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643209 ms: Philosopher 1 is sleeping
+1737482643209 ms: Philosopher 5 is thinking
+1737482643209 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643228 ms: Philosopher 3 is sleeping
+1737482643230 ms: Philosopher 4 is thinking
+1737482643231 ms: Philosopher 5 is sleeping
+1737482643231 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643234 ms: Philosopher 2 is thinking
+1737482643234 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643254 ms: Philosopher 4 is sleeping
+1737482643257 ms: Philosopher 2 is sleeping
+1737482643263 ms: Philosopher 1 is thinking
+1737482643263 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643278 ms: Philosopher 3 is thinking
+1737482643278 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643284 ms: Philosopher 5 is thinking
+1737482643285 ms: Philosopher 1 is sleeping
+1737482643285 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643303 ms: Philosopher 3 is sleeping
+1737482643309 ms: Philosopher 4 is thinking
+1737482643310 ms: Philosopher 5 is sleeping
+1737482643310 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643311 ms: Philosopher 2 is thinking
+1737482643311 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643335 ms: Philosopher 2 is sleeping
+1737482643335 ms: Philosopher 4 is sleeping
+1737482643340 ms: Philosopher 1 is thinking
+1737482643340 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643358 ms: Philosopher 3 is thinking
+1737482643358 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643360 ms: Philosopher 1 is sleeping
+1737482643360 ms: Philosopher 5 is thinking
+1737482643360 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643379 ms: Philosopher 3 is sleeping
+1737482643385 ms: Philosopher 5 is sleeping
+1737482643388 ms: Philosopher 2 is thinking
+1737482643388 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643388 ms: Philosopher 4 is thinking
+1737482643388 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643413 ms: Philosopher 4 is sleeping
+1737482643413 ms: Philosopher 2 is sleeping
+1737482643416 ms: Philosopher 1 is thinking
+1737482643416 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643433 ms: Philosopher 3 is thinking
+1737482643433 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643440 ms: Philosopher 5 is thinking
+1737482643443 ms: Philosopher 1 is sleeping
+1737482643443 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643456 ms: Philosopher 3 is sleeping
+1737482643464 ms: Philosopher 5 is sleeping
+1737482643468 ms: Philosopher 4 is thinking
+1737482643468 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643468 ms: Philosopher 2 is thinking
+1737482643468 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643490 ms: Philosopher 2 is sleeping
+1737482643492 ms: Philosopher 4 is sleeping
+1737482643496 ms: Philosopher 1 is thinking
+1737482643496 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643509 ms: Philosopher 3 is thinking
+1737482643509 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643517 ms: Philosopher 5 is thinking
+1737482643518 ms: Philosopher 1 is sleeping
+1737482643518 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643533 ms: Philosopher 3 is sleeping
+1737482643542 ms: Philosopher 5 is sleeping
+1737482643544 ms: Philosopher 2 is thinking
+1737482643544 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643544 ms: Philosopher 4 is thinking
+1737482643544 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643568 ms: Philosopher 2 is sleeping
+1737482643568 ms: Philosopher 4 is sleeping
+1737482643571 ms: Philosopher 1 is thinking
+1737482643571 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643591 ms: Philosopher 3 is thinking
+1737482643591 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643596 ms: Philosopher 1 is sleeping
+1737482643596 ms: Philosopher 5 is thinking
+1737482643596 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643614 ms: Philosopher 3 is sleeping
+1737482643619 ms: Philosopher 4 is thinking
+1737482643621 ms: Philosopher 5 is sleeping
+1737482643621 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643623 ms: Philosopher 2 is thinking
+1737482643623 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643645 ms: Philosopher 4 is sleeping
+1737482643646 ms: Philosopher 2 is sleeping
+1737482643650 ms: Philosopher 1 is thinking
+1737482643650 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643669 ms: Philosopher 3 is thinking
+1737482643669 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643674 ms: Philosopher 1 is sleeping
+1737482643675 ms: Philosopher 5 is thinking
+1737482643675 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643693 ms: Philosopher 3 is sleeping
+1737482643700 ms: Philosopher 5 is sleeping
+1737482643700 ms: Philosopher 4 is thinking
+1737482643700 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643700 ms: Philosopher 2 is thinking
+1737482643700 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643724 ms: Philosopher 2 is sleeping
+1737482643724 ms: Philosopher 4 is sleeping
+1737482643728 ms: Philosopher 1 is thinking
+1737482643728 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643747 ms: Philosopher 3 is thinking
+1737482643747 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643753 ms: Philosopher 1 is sleeping
+1737482643755 ms: Philosopher 5 is thinking
+1737482643755 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643771 ms: Philosopher 3 is sleeping
+1737482643777 ms: Philosopher 2 is thinking
+1737482643777 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643777 ms: Philosopher 5 is sleeping
+1737482643781 ms: Philosopher 4 is thinking
+1737482643781 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643802 ms: Philosopher 2 is sleeping
+1737482643802 ms: Philosopher 4 is sleeping
+1737482643807 ms: Philosopher 1 is thinking
+1737482643808 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643826 ms: Philosopher 3 is thinking
+1737482643826 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643829 ms: Philosopher 1 is sleeping
+1737482643831 ms: Philosopher 5 is thinking
+1737482643831 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643852 ms: Philosopher 3 is sleeping
+1737482643855 ms: Philosopher 2 is thinking
+1737482643855 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643856 ms: Philosopher 5 is sleeping
+1737482643856 ms: Philosopher 4 is thinking
+1737482643856 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643880 ms: Philosopher 2 is sleeping
+1737482643883 ms: Philosopher 4 is sleeping
+1737482643884 ms: Philosopher 1 is thinking
+1737482643884 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643906 ms: Philosopher 3 is thinking
+1737482643906 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643909 ms: Philosopher 1 is sleeping
+1737482643909 ms: Philosopher 5 is thinking
+1737482643909 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482643930 ms: Philosopher 3 is sleeping
+1737482643933 ms: Philosopher 5 is sleeping
+1737482643934 ms: Philosopher 2 is thinking
+1737482643934 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482643937 ms: Philosopher 4 is thinking
+1737482643937 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482643959 ms: Philosopher 2 is sleeping
+1737482643962 ms: Philosopher 4 is sleeping
+1737482643964 ms: Philosopher 1 is thinking
+1737482643964 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482643982 ms: Philosopher 3 is thinking
+1737482643982 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482643987 ms: Philosopher 5 is thinking
+1737482643989 ms: Philosopher 1 is sleeping
+1737482643989 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644007 ms: Philosopher 3 is sleeping
+1737482644013 ms: Philosopher 5 is sleeping
+1737482644014 ms: Philosopher 2 is thinking
+1737482644014 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644017 ms: Philosopher 4 is thinking
+1737482644017 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644039 ms: Philosopher 2 is sleeping
+1737482644045 ms: Philosopher 4 is sleeping
+1737482644045 ms: Philosopher 1 is thinking
+1737482644045 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644060 ms: Philosopher 3 is thinking
+1737482644060 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644068 ms: Philosopher 5 is thinking
+1737482644069 ms: Philosopher 1 is sleeping
+1737482644069 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644086 ms: Philosopher 3 is sleeping
+1737482644092 ms: Philosopher 2 is thinking
+1737482644092 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644092 ms: Philosopher 5 is sleeping
+1737482644100 ms: Philosopher 4 is thinking
+1737482644100 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644117 ms: Philosopher 2 is sleeping
+1737482644123 ms: Philosopher 1 is thinking
+1737482644123 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644125 ms: Philosopher 4 is sleeping
+1737482644136 ms: Philosopher 3 is thinking
+1737482644136 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644146 ms: Philosopher 1 is sleeping
+1737482644147 ms: Philosopher 5 is thinking
+1737482644147 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644161 ms: Philosopher 3 is sleeping
+1737482644172 ms: Philosopher 2 is thinking
+1737482644172 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644172 ms: Philosopher 5 is sleeping
+1737482644180 ms: Philosopher 4 is thinking
+1737482644180 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644193 ms: Philosopher 2 is sleeping
+1737482644200 ms: Philosopher 1 is thinking
+1737482644200 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644202 ms: Philosopher 4 is sleeping
+1737482644211 ms: Philosopher 3 is thinking
+1737482644211 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644221 ms: Philosopher 1 is sleeping
+1737482644223 ms: Philosopher 5 is thinking
+1737482644223 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644236 ms: Philosopher 3 is sleeping
+1737482644245 ms: Philosopher 2 is thinking
+1737482644245 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644247 ms: Philosopher 5 is sleeping
+1737482644255 ms: Philosopher 4 is thinking
+1737482644255 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644270 ms: Philosopher 2 is sleeping
+1737482644276 ms: Philosopher 1 is thinking
+1737482644276 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644278 ms: Philosopher 4 is sleeping
+1737482644288 ms: Philosopher 3 is thinking
+1737482644288 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644297 ms: Philosopher 1 is sleeping
+1737482644302 ms: Philosopher 5 is thinking
+1737482644302 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644311 ms: Philosopher 3 is sleeping
+1737482644324 ms: Philosopher 2 is thinking
+1737482644324 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644324 ms: Philosopher 5 is sleeping
+1737482644330 ms: Philosopher 4 is thinking
+1737482644330 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644347 ms: Philosopher 2 is sleeping
+1737482644351 ms: Philosopher 1 is thinking
+1737482644351 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644353 ms: Philosopher 4 is sleeping
+1737482644363 ms: Philosopher 3 is thinking
+1737482644363 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644378 ms: Philosopher 1 is sleeping
+1737482644379 ms: Philosopher 5 is thinking
+1737482644379 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644386 ms: Philosopher 3 is sleeping
+1737482644402 ms: Philosopher 2 is thinking
+1737482644402 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644402 ms: Philosopher 5 is sleeping
+1737482644408 ms: Philosopher 4 is thinking
+1737482644408 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644427 ms: Philosopher 2 is sleeping
+1737482644429 ms: Philosopher 4 is sleeping
+1737482644432 ms: Philosopher 1 is thinking
+1737482644432 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644440 ms: Philosopher 3 is thinking
+1737482644440 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644456 ms: Philosopher 5 is thinking
+1737482644457 ms: Philosopher 1 is sleeping
+1737482644457 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644460 ms: Philosopher 3 is sleeping
+1737482644482 ms: Philosopher 2 is thinking
+1737482644482 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644482 ms: Philosopher 5 is sleeping
+1737482644483 ms: Philosopher 4 is thinking
+1737482644483 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644504 ms: Philosopher 4 is sleeping
+1737482644507 ms: Philosopher 2 is sleeping
+1737482644512 ms: Philosopher 1 is thinking
+1737482644512 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644515 ms: Philosopher 3 is thinking
+1737482644515 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644537 ms: Philosopher 5 is thinking
+1737482644537 ms: Philosopher 1 is sleeping
+1737482644537 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644539 ms: Philosopher 3 is sleeping
+1737482644557 ms: Philosopher 4 is thinking
+1737482644561 ms: Philosopher 2 is thinking
+1737482644561 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644561 ms: Philosopher 5 is sleeping
+1737482644561 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644581 ms: Philosopher 2 is sleeping
+1737482644585 ms: Philosopher 4 is sleeping
+1737482644589 ms: Philosopher 1 is thinking
+1737482644589 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644594 ms: Philosopher 3 is thinking
+1737482644594 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644612 ms: Philosopher 1 is sleeping
+1737482644615 ms: Philosopher 3 is sleeping
+1737482644615 ms: Philosopher 5 is thinking
+1737482644615 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644637 ms: Philosopher 2 is thinking
+1737482644637 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644637 ms: Philosopher 4 is thinking
+1737482644640 ms: Philosopher 5 is sleeping
+1737482644640 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644662 ms: Philosopher 2 is sleeping
+1737482644662 ms: Philosopher 4 is sleeping
+1737482644667 ms: Philosopher 1 is thinking
+1737482644667 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644669 ms: Philosopher 3 is thinking
+1737482644669 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644692 ms: Philosopher 1 is sleeping
+1737482644692 ms: Philosopher 3 is sleeping
+1737482644695 ms: Philosopher 5 is thinking
+1737482644695 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644715 ms: Philosopher 2 is thinking
+1737482644715 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644717 ms: Philosopher 4 is thinking
+1737482644718 ms: Philosopher 5 is sleeping
+1737482644718 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644740 ms: Philosopher 2 is sleeping
+1737482644743 ms: Philosopher 4 is sleeping
+1737482644747 ms: Philosopher 1 is thinking
+1737482644747 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644747 ms: Philosopher 3 is thinking
+1737482644747 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644769 ms: Philosopher 3 is sleeping
+1737482644769 ms: Philosopher 1 is sleeping
+1737482644769 ms: Philosopher 5 is thinking
+1737482644769 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644793 ms: Philosopher 2 is thinking
+1737482644793 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644794 ms: Philosopher 5 is sleeping
+1737482644798 ms: Philosopher 4 is thinking
+1737482644798 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644818 ms: Philosopher 2 is sleeping
+1737482644820 ms: Philosopher 4 is sleeping
+1737482644821 ms: Philosopher 1 is thinking
+1737482644821 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644821 ms: Philosopher 3 is thinking
+1737482644821 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644846 ms: Philosopher 1 is sleeping
+1737482644846 ms: Philosopher 3 is sleeping
+1737482644846 ms: Philosopher 5 is thinking
+1737482644846 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644869 ms: Philosopher 2 is thinking
+1737482644869 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644871 ms: Philosopher 5 is sleeping
+1737482644875 ms: Philosopher 4 is thinking
+1737482644875 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644894 ms: Philosopher 2 is sleeping
+1737482644900 ms: Philosopher 4 is sleeping
+1737482644901 ms: Philosopher 1 is thinking
+1737482644901 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644901 ms: Philosopher 3 is thinking
+1737482644901 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644926 ms: Philosopher 5 is thinking
+1737482644928 ms: Philosopher 3 is sleeping
+1737482644928 ms: Philosopher 1 is sleeping
+1737482644928 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482644949 ms: Philosopher 2 is thinking
+1737482644949 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482644952 ms: Philosopher 5 is sleeping
+1737482644955 ms: Philosopher 4 is thinking
+1737482644955 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482644974 ms: Philosopher 2 is sleeping
+1737482644978 ms: Philosopher 3 is thinking
+1737482644978 ms: Philosopher 1 is thinking
+1737482644978 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482644980 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482644980 ms: Philosopher 4 is sleeping
+1737482645001 ms: Philosopher 1 is sleeping
+1737482645005 ms: Philosopher 3 is sleeping
+1737482645006 ms: Philosopher 5 is thinking
+1737482645006 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645029 ms: Philosopher 2 is thinking
+1737482645029 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645029 ms: Philosopher 5 is sleeping
+1737482645035 ms: Philosopher 4 is thinking
+1737482645035 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645053 ms: Philosopher 1 is thinking
+1737482645053 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645053 ms: Philosopher 2 is sleeping
+1737482645057 ms: Philosopher 3 is thinking
+1737482645057 ms: Philosopher 4 is sleeping
+1737482645057 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645078 ms: Philosopher 1 is sleeping
+1737482645078 ms: Philosopher 3 is sleeping
+1737482645081 ms: Philosopher 5 is thinking
+1737482645081 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645104 ms: Philosopher 5 is sleeping
+1737482645111 ms: Philosopher 2 is thinking
+1737482645111 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645112 ms: Philosopher 4 is thinking
+1737482645112 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645133 ms: Philosopher 1 is thinking
+1737482645133 ms: Philosopher 4 is sleeping
+1737482645133 ms: Philosopher 2 is sleeping
+1737482645133 ms: Philosopher 3 is thinking
+1737482645133 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645133 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645157 ms: Philosopher 5 is thinking
+1737482645158 ms: Philosopher 3 is sleeping
+1737482645158 ms: Philosopher 1 is sleeping
+1737482645158 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645183 ms: Philosopher 5 is sleeping
+1737482645186 ms: Philosopher 2 is thinking
+1737482645186 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645188 ms: Philosopher 4 is thinking
+1737482645188 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645211 ms: Philosopher 3 is thinking
+1737482645211 ms: Philosopher 1 is thinking
+1737482645211 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645211 ms: Philosopher 2 is sleeping
+1737482645213 ms: Philosopher 4 is sleeping
+1737482645213 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645236 ms: Philosopher 1 is sleeping
+1737482645238 ms: Philosopher 3 is sleeping
+1737482645238 ms: Philosopher 5 is thinking
+1737482645238 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645263 ms: Philosopher 5 is sleeping
+1737482645265 ms: Philosopher 2 is thinking
+1737482645265 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645268 ms: Philosopher 4 is thinking
+1737482645268 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645290 ms: Philosopher 2 is sleeping
+1737482645290 ms: Philosopher 3 is thinking
+1737482645291 ms: Philosopher 1 is thinking
+1737482645291 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645293 ms: Philosopher 4 is sleeping
+1737482645293 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645315 ms: Philosopher 5 is thinking
+1737482645316 ms: Philosopher 1 is sleeping
+1737482645316 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645318 ms: Philosopher 3 is sleeping
+1737482645341 ms: Philosopher 5 is sleeping
+1737482645345 ms: Philosopher 2 is thinking
+1737482645345 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645348 ms: Philosopher 4 is thinking
+1737482645348 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645370 ms: Philosopher 2 is sleeping
+1737482645371 ms: Philosopher 1 is thinking
+1737482645371 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645371 ms: Philosopher 4 is sleeping
+1737482645371 ms: Philosopher 3 is thinking
+1737482645371 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645396 ms: Philosopher 1 is sleeping
+1737482645396 ms: Philosopher 5 is thinking
+1737482645396 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645396 ms: Philosopher 3 is sleeping
+1737482645421 ms: Philosopher 2 is thinking
+1737482645421 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645421 ms: Philosopher 5 is sleeping
+1737482645426 ms: Philosopher 4 is thinking
+1737482645426 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645445 ms: Philosopher 2 is sleeping
+1737482645452 ms: Philosopher 4 is sleeping
+1737482645452 ms: Philosopher 1 is thinking
+1737482645452 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645452 ms: Philosopher 3 is thinking
+1737482645452 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645473 ms: Philosopher 3 is sleeping
+1737482645476 ms: Philosopher 5 is thinking
+1737482645478 ms: Philosopher 1 is sleeping
+1737482645478 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645498 ms: Philosopher 2 is thinking
+1737482645498 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645501 ms: Philosopher 5 is sleeping
+1737482645509 ms: Philosopher 4 is thinking
+1737482645509 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645524 ms: Philosopher 2 is sleeping
+1737482645528 ms: Philosopher 3 is thinking
+1737482645531 ms: Philosopher 4 is sleeping
+1737482645531 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645533 ms: Philosopher 1 is thinking
+1737482645533 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645557 ms: Philosopher 5 is thinking
+1737482645557 ms: Philosopher 3 is sleeping
+1737482645558 ms: Philosopher 1 is sleeping
+1737482645558 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645578 ms: Philosopher 2 is thinking
+1737482645578 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645583 ms: Philosopher 5 is sleeping
+1737482645586 ms: Philosopher 4 is thinking
+1737482645586 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645600 ms: Philosopher 2 is sleeping
+1737482645612 ms: Philosopher 4 is sleeping
+1737482645612 ms: Philosopher 3 is thinking
+1737482645612 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645612 ms: Philosopher 1 is thinking
+1737482645612 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645634 ms: Philosopher 3 is sleeping
+1737482645634 ms: Philosopher 1 is sleeping
+1737482645638 ms: Philosopher 5 is thinking
+1737482645638 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645656 ms: Philosopher 2 is thinking
+1737482645656 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645664 ms: Philosopher 5 is sleeping
+1737482645664 ms: Philosopher 4 is thinking
+1737482645664 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645679 ms: Philosopher 2 is sleeping
+1737482645687 ms: Philosopher 4 is sleeping
+1737482645689 ms: Philosopher 3 is thinking
+1737482645689 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645689 ms: Philosopher 1 is thinking
+1737482645689 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645713 ms: Philosopher 1 is sleeping
+1737482645715 ms: Philosopher 3 is sleeping
+1737482645719 ms: Philosopher 5 is thinking
+1737482645719 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645734 ms: Philosopher 2 is thinking
+1737482645734 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645741 ms: Philosopher 4 is thinking
+1737482645743 ms: Philosopher 5 is sleeping
+1737482645744 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645759 ms: Philosopher 2 is sleeping
+1737482645768 ms: Philosopher 3 is thinking
+1737482645769 ms: Philosopher 1 is thinking
+1737482645769 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645769 ms: Philosopher 4 is sleeping
+1737482645769 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645792 ms: Philosopher 1 is sleeping
+1737482645794 ms: Philosopher 3 is sleeping
+1737482645794 ms: Philosopher 5 is thinking
+1737482645794 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645813 ms: Philosopher 2 is thinking
+1737482645813 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645818 ms: Philosopher 5 is sleeping
+1737482645826 ms: Philosopher 4 is thinking
+1737482645826 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645838 ms: Philosopher 2 is sleeping
+1737482645847 ms: Philosopher 1 is thinking
+1737482645847 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645848 ms: Philosopher 3 is thinking
+1737482645852 ms: Philosopher 4 is sleeping
+1737482645852 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645871 ms: Philosopher 1 is sleeping
+1737482645873 ms: Philosopher 5 is thinking
+1737482645873 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645877 ms: Philosopher 3 is sleeping
+1737482645893 ms: Philosopher 2 is thinking
+1737482645893 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645898 ms: Philosopher 5 is sleeping
+1737482645907 ms: Philosopher 4 is thinking
+1737482645907 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645913 ms: Philosopher 2 is sleeping
+1737482645925 ms: Philosopher 1 is thinking
+1737482645925 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482645931 ms: Philosopher 3 is thinking
+1737482645931 ms: Philosopher 4 is sleeping
+1737482645931 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482645948 ms: Philosopher 1 is sleeping
+1737482645950 ms: Philosopher 5 is thinking
+1737482645950 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482645955 ms: Philosopher 3 is sleeping
+1737482645967 ms: Philosopher 2 is thinking
+1737482645967 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482645972 ms: Philosopher 5 is sleeping
+1737482645986 ms: Philosopher 4 is thinking
+1737482645986 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482645992 ms: Philosopher 2 is sleeping
+1737482646003 ms: Philosopher 1 is thinking
+1737482646003 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482646009 ms: Philosopher 4 is sleeping
+1737482646010 ms: Philosopher 3 is thinking
+1737482646010 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482646027 ms: Philosopher 5 is thinking
+1737482646028 ms: Philosopher 1 is sleeping
+1737482646028 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482646035 ms: Philosopher 3 is sleeping
+1737482646046 ms: Philosopher 2 is thinking
+1737482646046 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482646051 ms: Philosopher 5 is sleeping
+1737482646060 ms: Philosopher 4 is thinking
+1737482646060 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482646069 ms: Philosopher 2 is sleeping
+1737482646082 ms: Philosopher 1 is thinking
+1737482646082 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482646085 ms: Philosopher 4 is sleeping
+1737482646090 ms: Philosopher 3 is thinking
+1737482646090 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482646106 ms: Philosopher 5 is thinking
+1737482646107 ms: Philosopher 1 is sleeping
+1737482646107 ms: Philosopher 5 is eating – left fork 4, right fork 0
+1737482646110 ms: Philosopher 3 is sleeping
+1737482646124 ms: Philosopher 2 is thinking
+1737482646124 ms: Philosopher 2 is eating – left fork 1, right fork 2
+1737482646130 ms: Philosopher 5 is sleeping
+1737482646140 ms: Philosopher 4 is thinking
+1737482646140 ms: Philosopher 4 is eating – left fork 3, right fork 4
+1737482646148 ms: Philosopher 2 is sleeping
+1737482646160 ms: Philosopher 3 is thinking
+1737482646162 ms: Philosopher 1 is thinking
+1737482646162 ms: Philosopher 1 is eating – left fork 0, right fork 1
+1737482646165 ms: Philosopher 4 is sleeping
+1737482646165 ms: Philosopher 3 is eating – left fork 2, right fork 3
+1737482646185 ms: Philosopher 3 is sleeping
+1737482646185 ms: Philosopher 5 is thinking

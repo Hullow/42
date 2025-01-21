@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/16 19:50:56 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/21 15:49:19 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,19 @@ void	init_philo(t_table	*table, t_params *params, int id)
 	/* forks and mutexes */
 	philo->left_fork = &table->forks[id % nb_philo];
 	philo->right_fork = &table->forks[(id + 1) % nb_philo];
-	philo->left_fork_mutex= &table->fork_mutex[id % nb_philo];
-	philo->right_fork_mutex =&table->fork_mutex[(id + 1) % nb_philo];
-	
+	philo->left_fork_mutex = &table->fork_mutex[id % nb_philo];
+	philo->right_fork_mutex = &table->fork_mutex[(id + 1) % nb_philo];
+
+	/* For debugging */
+	philo->left_fork_id = id % nb_philo;
+	philo->right_fork_id = (id + 1) % nb_philo;
+
 	/* params */
 	philo->philo_id = id + 1; // start philosophers at 1 instead of 0
 	philo->nb_philo = nb_philo;
-	philo->time_to_die = (long) params->time_to_die * 1000;
-	philo->time_to_eat = (long) params->time_to_eat * 1000;
-	philo->time_to_sleep = (long) params->time_to_sleep * 1000;
+	philo->time_to_die = (long) params->time_to_die;
+	philo->time_to_eat = (long) params->time_to_eat;
+	philo->time_to_sleep = (long) params->time_to_sleep;
 	philo->must_eat = params->must_eat;
 	philo->last_eaten = get_time_stamp();
 	philo->times_eaten = 0;
@@ -76,7 +80,6 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		table->table_id = i; // data race ?
 		if (pthread_create(&(table->philos[i].thread), NULL, philo_routine, &table->philos[i]))
 			return (print_error(THREAD_CREATION_ERROR)); // add error handling (pthread_join)
 		i++;
