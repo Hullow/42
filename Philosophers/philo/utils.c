@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/21 18:43:11 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/23 11:19:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,44 @@ int	print_error(int error)
 	else if (error == MUTEX_UNLOCK_ERROR)
 		write(2, "Philosophers: Mutex unlock error", 33);
 	return (1);
+}
+
+/**
+ * @brief	Sleeps the precise number of ms
+ * @details Checks the current time since desired start, 
+ * 			taking as input the desired_sleep_time (in ms),
+ * 			and the activity (eating or sleeping)
+ * @returns	-1 in case of error, 0 otherwise
+ */
+int	perform_activity(t_philo *philo, long start, int activity)
+{
+	long	desired_sleep;
+	long	leg_time;
+
+	if (start == -1)
+		return (-1);
+	desired_sleep = 0;
+	leg_time = 0;
+	if (activity == SLEEPING)
+	{
+		desired_sleep = philo->time_to_sleep;
+		printf("%ld ms: Philosopher %d is sleeping\n", start, philo->philo_id);
+	}
+	else if (activity == EATING)
+	{
+		desired_sleep = philo->time_to_eat;
+		printf("%ld ms: Philosopher %d is eating   (left fork %d, right fork %d)\n", get_time_stamp(), philo->philo_id, philo->left_fork_id, philo->right_fork_id);
+	}
+	while (desired_sleep > get_time_stamp() - start)
+		usleep(100);
+	if (activity == SLEEPING)
+	{
+		leg_time = get_time_stamp();
+		printf("%ld ms: Philosopher %d is thinking\n", leg_time, philo->philo_id);
+	}
+	else if (activity == EATING)
+		philo->last_eaten = get_time_stamp();
+	return (0);
 }
 
 /**

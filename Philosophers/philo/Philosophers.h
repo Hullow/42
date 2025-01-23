@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/21 18:11:41 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/23 11:19:07 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ enum error {
 	MUTEX_LOCK_ERROR,
 	MUTEX_UNLOCK_ERROR,
 	THREAD_CREATION_ERROR
+};
+
+enum sleep_activity {
+	SLEEPING,
+	EATING,
 };
 
 # define MAX_THREADS 200
@@ -110,3 +115,4 @@ void	set_forks_status(t_philo *philo, char c);
 long	get_time_stamp(void); 
 int		check_if_alive(t_philo *philo);
 int		print_error(int error);
+int		perform_activity(t_philo *philo, long start, int activity);

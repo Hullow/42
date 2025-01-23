@@ -1,0 +1,81 @@
+1737647447267 ms: Philosopher 1 is thinking
+1737647447267 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447267 ms: Philosopher 2 is thinking
+1737647447267 ms: Philosopher 3 is thinking
+1737647447267 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647447267 ms: Philosopher 4 is thinking
+
+******************************************
+ Philosopher 2 died after spending 75 ms without eating !
+******************************************
+marked a philo as dead
+
+******************************************
+ Philosopher 4 died after spending 75 ms without eating !
+******************************************
+marked a philo as dead
+1737647447342 ms: Philosopher 1 is sleeping
+1737647447342 ms: Philosopher 3 is sleeping
+A philosopher died – end of simulation
+1737647447367 ms: Philosopher 1 is thinking
+1737647447367 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447367 ms: Philosopher 3 is thinking
+1737647447367 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647447442 ms: Philosopher 1 is sleeping
+1737647447442 ms: Philosopher 3 is sleeping
+1737647447467 ms: Philosopher 1 is thinking
+1737647447467 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447467 ms: Philosopher 3 is thinking
+1737647447467 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647447542 ms: Philosopher 1 is sleeping
+1737647447542 ms: Philosopher 3 is sleeping
+1737647447567 ms: Philosopher 1 is thinking
+1737647447567 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447567 ms: Philosopher 3 is thinking
+1737647447567 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647447642 ms: Philosopher 3 is sleeping
+1737647447642 ms: Philosopher 1 is sleeping
+1737647447667 ms: Philosopher 3 is thinking
+1737647447667 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647447667 ms: Philosopher 1 is thinking
+1737647447667 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447742 ms: Philosopher 1 is sleeping
+1737647447742 ms: Philosopher 3 is sleeping
+1737647447767 ms: Philosopher 1 is thinking
+1737647447767 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447767 ms: Philosopher 3 is thinking
+1737647447767 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647447842 ms: Philosopher 3 is sleeping
+1737647447842 ms: Philosopher 1 is sleeping
+1737647447867 ms: Philosopher 3 is thinking
+1737647447867 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647447867 ms: Philosopher 1 is thinking
+1737647447867 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447942 ms: Philosopher 1 is sleeping
+1737647447942 ms: Philosopher 3 is sleeping
+1737647447967 ms: Philosopher 1 is thinking
+1737647447967 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647447967 ms: Philosopher 3 is thinking
+1737647447967 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647448042 ms: Philosopher 3 is sleeping
+1737647448042 ms: Philosopher 1 is sleeping
+1737647448067 ms: Philosopher 3 is thinking
+1737647448067 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647448067 ms: Philosopher 1 is thinking
+1737647448067 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647448142 ms: Philosopher 3 is sleeping
+1737647448142 ms: Philosopher 1 is sleeping
+1737647448167 ms: Philosopher 3 is thinking
+1737647448167 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647448167 ms: Philosopher 1 is thinking
+1737647448167 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647448242 ms: Philosopher 1 is sleeping
+1737647448242 ms: Philosopher 3 is sleeping
+1737647448267 ms: Philosopher 3 is thinking
+1737647448267 ms: Philosopher 1 is thinking
+1737647448267 ms: Philosopher 3 is eating   (left fork 2, right fork 3)
+1737647448267 ms: Philosopher 1 is eating   (left fork 0, right fork 1)
+1737647448342 ms: Philosopher 1 is sleeping
+1737647448342 ms: Philosopher 3 is sleeping
+1737647448367 ms: Philosopher 3 is thinking
+1737647448367 ms: Philosopher 3 is eating   (left fork 2, right for

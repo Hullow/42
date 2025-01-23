@@ -26,3 +26,13 @@ P.S.:
 	- added staggered start for when uneven number of philosophers
 - Issues:
 	- Tasks still executed too slowly (eating and sleeping for 1-5 ms more than required)
+
+# 22/1/25
+- Working on a more precise sleep function (for eating or sleeping); more precise than usleep
+
+# 22/1/25
+- More precise sleep function (for eating or sleeping) => made some progress, than got what seemed like a deadlock. Solved by adding a usleep(50) after unlocking mutex in case fork is taken. It works with tight cases like `./philo 4 75 50 25`
+- Remaining issues:
+	- death case(s): death detected but simulation not ended properly (e.g. `./philo 4 75 75 25`)
+ 		=> use detach for that (cf. trgoel)
+	- check uneven philos
