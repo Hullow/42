@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/23 11:19:29 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:21:37 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
  */
 int	print_error(int error)
 {
-	if (error == THREAD_CREATION_ERROR)
-		write(2, "Philosophers: Thread creation error", 22);
+	if (error == INVALID_INPUT)
+		write(2, "Philosophers: Invalid input\n", 29);
+	else if (error == THREAD_CREATION_ERROR)
+		write(2, "Philosophers: Thread creation error", 36);
 	else if (error == MUTEX_INIT_ERROR)
 		write(2, "Philosophers: Mutex init error", 31);
 	else if (error == MUTEX_LOCK_ERROR)
 		write(2, "Philosophers: Mutex lock error", 31);
 	else if (error == MUTEX_UNLOCK_ERROR)
 		write(2, "Philosophers: Mutex unlock error", 33);
-	return (1);
+	return (-1);
 }
 
 /**

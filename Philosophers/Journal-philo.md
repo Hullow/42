@@ -36,3 +36,5 @@ P.S.:
 	- death case(s): death detected but simulation not ended properly (e.g. `./philo 4 75 75 25`)
  		=> use detach for that (cf. trgoel)
 	- check uneven philos
+	- check edge cases: single philo, 0 philos
+- rewrote input validity checker (to be finished)

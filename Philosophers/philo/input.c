@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/21 17:36:53 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:20:45 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,39 @@ int	ft_atoi_philo(char *str)
 	return (out);
 }
 
+/**
+ * @brief	Checks the validity of the input parameters
+ * @details	Cases:
+ * 				- a parameter is < 0
+ * 				- nb_philo > 200
+ * 			To determine: 
+ * 				- a parameter is == 0
+ * 				- a parameter is > INT_MAX
+ * @returns	returns a call to handle_invalid_input, which prints an error,
+ * 			frees the parameters, and returns -1
+ * */
+int	input_checker(t_params *params)
+{
+	if (params->nb_philo < 0 || params->time_to_die < 0 || \
+	params->time_to_eat < 0 || params->time_to_sleep < 0)
+		return (handle_invalid_input(params));
+	if (params->nb_philo > 200)
+		return (handle_invalid_input(params));
+	/* other potential invalid input cases */
+	return (0);
+}
+
+/**
+ * @brief	prints an INVALID_INPUT error and frees the parameters
+ * @returns	-1
+ */
+int	handle_invalid_input(t_params *params)
+{
+	print_error(INVALID_INPUT);
+	free(params);
+	return (-1);
+}
+
 // Stores the input parameters in a the s_params struct
 // returns -1 if parameter count is not 4 or 5
 // returns 0 otherwise
@@ -50,23 +83,17 @@ int	handle_input(t_params *params, int argc, char **argv)
 		printf("1) number of philosophers\n2) time to die\n");
 		printf("3) time to eat\n4) time to sleep\n");
 		printf("5) number of times each philosopher must eat (optional)\n");
-		free(params);
-		return (-1);
+		return (handle_invalid_input(params));
 	}
+	if (argv[5] && argv[5] < 0)
+		return (handle_invalid_input(params));
+	if (argv[5]) /* bigger or EQUAL to zero*/
+		params->must_eat = ft_atoi_philo(argv[5]);
+	else
+		params->must_eat = -1;
 	params->nb_philo = ft_atoi_philo(argv[1]);
 	params->time_to_die = ft_atoi_philo(argv[2]);
 	params->time_to_eat = ft_atoi_philo(argv[3]);
 	params->time_to_sleep = ft_atoi_philo(argv[4]);
-	if (argv[5])
-		params->must_eat = ft_atoi_philo(argv[5]);
-	else
-		params->must_eat = -1;
-	if (params->nb_philo > 200)
-	{
-		printf("Philosophers – ");
-		printf("number of philosophers too high: must be <= 200\n");
-		free(params);
-		return (-1);
-	}
-	return (0);
+	return (input_checker(params));
 }

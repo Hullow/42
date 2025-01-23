@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/23 11:19:07 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:20:25 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sys/time.h>
 
 enum error {
+	INVALID_INPUT,
 	MALLOC_FAIL,
 	MUTEX_INIT_ERROR,
 	MUTEX_LOCK_ERROR,
@@ -94,6 +95,9 @@ typedef struct s_table
 
 int		handle_input(t_params *params, int argc, char **argv);
 int		ft_atoi_philo(char *str);
+int		handle_invalid_input(t_params *params);
+int		input_checker(t_params *params);
+
 
 // Simulation
 	// Initialization
