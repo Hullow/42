@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/19 23:11:13 by francis          ###   ########.fr        #
+#    Updated: 2025/01/23 17:57:05 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ $(NAME): $(OBJ)
 debug: CFLAGS += -g
 debug: re
 
-asan: CFLAGS += -g -fsanitize=address
-asan: re
+sanitize: CFLAGS += -g -fsanitize=address
+sanitize: re
 
 tsan: CFLAGS += -g -fsanitize=thread
 tsan: re

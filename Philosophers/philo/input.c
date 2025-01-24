@@ -6,36 +6,34 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/23 17:20:45 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:47:00 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-// homemade atoi to convert our input to int type
+/**
+ *	@brief	custom atoi to convert our input to int type
+ * @returns (positive) int if valid-1 if negative number or any invalid characters
+*/
 int	ft_atoi_philo(char *str)
 {
 	int	out;
-	int	sign;
 	int	i;
 
-	out = 0;
 	if (str[0] == '-')
-		sign = 1;
-	else
-		sign = 0;
-	i = sign;
+		return (-1);
+	out = 0;
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
-			return (out);
+			return (-1);
 		if (out)
 			out *= 10;
 		out += (int) str[i] - 48;
 		i++;
 	}
-	if (sign)
-		out *= -1;
 	return (out);
 }
 

@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/23 17:20:25 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 07:53:09 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@
 #include <sys/time.h>
 
 enum error {
-	INVALID_INPUT,
 	MALLOC_FAIL,
+	INVALID_INPUT,
+	GET_TIME_OF_DAY_ERROR,
+	THREAD_CREATION_ERROR,
+	THREAD_DETACH_ERROR,
 	MUTEX_INIT_ERROR,
 	MUTEX_LOCK_ERROR,
 	MUTEX_UNLOCK_ERROR,
-	THREAD_CREATION_ERROR
+	MUTEX_DESTROY_ERROR,
 };
 
 enum sleep_activity {
@@ -57,6 +60,7 @@ typedef struct s_params
 typedef struct s_philo
 {
 	pthread_t		thread;
+	pthread_mutex_t	*global_death_mutex;
 	pthread_mutex_t	*left_fork_mutex;
 	pthread_mutex_t	*right_fork_mutex;
 	unsigned char	*left_fork;
@@ -87,6 +91,7 @@ typedef struct s_table
 	int					nb_philo;
 	unsigned char		forks[MAX_THREADS];
 	pthread_mutex_t		fork_mutex[MAX_THREADS];
+	pthread_mutex_t		global_death_mutex;
 	t_philo				philos[MAX_THREADS];
 	unsigned char		global_death_status;
 }	t_table;
@@ -98,18 +103,17 @@ int		ft_atoi_philo(char *str);
 int		handle_invalid_input(t_params *params);
 int		input_checker(t_params *params);
 
-
 // Simulation
 	// Initialization
 
 int		init_table(t_table *table, t_params *params, int nb_philo);
 int		init_forks(t_table *table, int nb_philo);
-void	init_philo(t_table	*table, t_params *params, int id);
+int		init_philo(t_table	*table, t_params *params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
 	// Routine
 
 void	*philo_routine(void *table);
-void	*handle_philo_death(t_philo *philo);
+int		handle_philo_death(t_philo *philo);
 int		lock_fork_mutexes(t_philo *philo);
 int		unlock_fork_mutexes(t_philo *philo);
 void	set_forks_status(t_philo *philo, char c);
@@ -117,6 +121,6 @@ void	set_forks_status(t_philo *philo, char c);
 // Utils
 
 long	get_time_stamp(void); 
-int		check_if_alive(t_philo *philo);
+int		check_if_alive(t_philo *philo, long timestamp);
 int		print_error(int error);
 int		perform_activity(t_philo *philo, long start, int activity);

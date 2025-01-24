@@ -1,0 +1,341 @@
+./philo 50 75 25 50
+
+1737664796747 ms: Philosopher 1 is thinking   (waiting for left fork 0, right fork 1)
+1737664796747 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737664796747 ms: Philosopher 13 is thinking   (waiting for left fork 12, right fork 13)
+1737664796747 ms: Philosopher 13  is eating   (left fork 12, right fork 13)
+1737664796748 ms: Philosopher 15 is thinking   (waiting for left fork 14, right fork 15)
+1737664796748 ms: Philosopher 15  is eating   (left fork 14, right fork 15)
+1737664796748 ms: Philosopher 21 is thinking   (waiting for left fork 20, right fork 21)
+1737664796748 ms: Philosopher 21  is eating   (left fork 20, right fork 21)
+1737664796748 ms: Philosopher 23 is thinking   (waiting for left fork 22, right fork 23)
+1737664796748 ms: Philosopher 23  is eating   (left fork 22, right fork 23)
+1737664796748 ms: Philosopher 39 is thinking   (waiting for left fork 38, right fork 39)
+1737664796748 ms: Philosopher 39  is eating   (left fork 38, right fork 39)
+1737664796749 ms: Philosopher 7 is thinking   (waiting for left fork 6, right fork 7)
+1737664796749 ms: Philosopher 29 is thinking   (waiting for left fork 28, right fork 29)
+1737664796749 ms: Philosopher 25 is thinking   (waiting for left fork 24, right fork 25)
+1737664796749 ms: Philosopher 29  is eating   (left fork 28, right fork 29)
+1737664796749 ms: Philosopher 25  is eating   (left fork 24, right fork 25)
+1737664796749 ms: Philosopher 41 is thinking   (waiting for left fork 40, right fork 41)
+1737664796749 ms: Philosopher 41  is eating   (left fork 40, right fork 41)
+1737664796749 ms: Philosopher 37 is thinking   (waiting for left fork 36, right fork 37)
+1737664796749 ms: Philosopher 37  is eating   (left fork 36, right fork 37)
+1737664796749 ms: Philosopher 45 is thinking   (waiting for left fork 44, right fork 45)
+1737664796749 ms: Philosopher 45  is eating   (left fork 44, right fork 45)
+1737664796749 ms: Philosopher 33 is thinking   (waiting for left fork 32, right fork 33)
+1737664796749 ms: Philosopher 33  is eating   (left fork 32, right fork 33)
+1737664796749 ms: Philosopher 43 is thinking   (waiting for left fork 42, right fork 43)
+1737664796749 ms: Philosopher 43  is eating   (left fork 42, right fork 43)
+1737664796749 ms: Philosopher 5 is thinking   (waiting for left fork 4, right fork 5)
+1737664796749 ms: Philosopher 5  is eating   (left fork 4, right fork 5)
+1737664796749 ms: Philosopher 49 is thinking   (waiting for left fork 48, right fork 49)
+1737664796749 ms: Philosopher 49  is eating   (left fork 48, right fork 49)
+1737664796749 ms: Philosopher 47 is thinking   (waiting for left fork 46, right fork 47)
+1737664796749 ms: Philosopher 47  is eating   (left fork 46, right fork 47)
+1737664796749 ms: Philosopher 7  is eating   (left fork 6, right fork 7)
+1737664796750 ms: Philosopher 3 is thinking   (waiting for left fork 2, right fork 3)
+1737664796750 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737664796750 ms: Philosopher 19 is thinking   (waiting for left fork 18, right fork 19)
+1737664796750 ms: Philosopher 19  is eating   (left fork 18, right fork 19)
+1737664796758 ms: Philosopher 31 is thinking   (waiting for left fork 30, right fork 31)
+1737664796758 ms: Philosopher 31  is eating   (left fork 30, right fork 31)
+1737664796758 ms: Philosopher 9 is thinking   (waiting for left fork 8, right fork 9)
+1737664796758 ms: Philosopher 9  is eating   (left fork 8, right fork 9)
+1737664796758 ms: Philosopher 27 is thinking   (waiting for left fork 26, right fork 27)
+1737664796758 ms: Philosopher 27  is eating   (left fork 26, right fork 27)
+1737664796758 ms: Philosopher 35 is thinking   (waiting for left fork 34, right fork 35)
+1737664796758 ms: Philosopher 35  is eating   (left fork 34, right fork 35)
+1737664796769 ms: Philosopher 11 is thinking   (waiting for left fork 10, right fork 11)
+1737664796769 ms: Philosopher 11  is eating   (left fork 10, right fork 11)
+1737664796772 ms: Philosopher 1  is sleeping
+1737664796772 ms: Philosopher 13  is sleeping
+1737664796772 ms: Philosopher 17  is sleeping
+1737664796773 ms: Philosopher 39  is sleeping
+1737664796773 ms: Philosopher 21  is sleeping
+1737664796773 ms: Philosopher 23  is sleeping
+1737664796773 ms: Philosopher 15  is sleeping
+1737664796774 ms: Philosopher 7  is sleeping
+1737664796774 ms: Philosopher 49  is sleeping
+1737664796774 ms: Philosopher 37  is sleeping
+1737664796774 ms: Philosopher 43  is sleeping
+1737664796774 ms: Philosopher 47  is sleeping
+1737664796774 ms: Philosopher 41  is sleeping
+1737664796774 ms: Philosopher 33  is sleeping
+1737664796774 ms: Philosopher 45  is sleeping
+1737664796774 ms: Philosopher 29  is sleeping
+1737664796774 ms: Philosopher 5  is sleeping
+1737664796774 ms: Philosopher 25  is sleeping
+1737664796774 ms: Philosopher 44 is thinking   (waiting for left fork 43, right fork 44)
+1737664796774 ms: Philosopher 44  is eating   (left fork 43, right fork 44)
+1737664796775 ms: Philosopher 19  is sleeping
+1737664796775 ms: Philosopher 50 is thinking   (waiting for left fork 49, right fork 0)
+1737664796775 ms: Philosopher 50  is eating   (left fork 49, right fork 0)
+1737664796775 ms: Philosopher 20 is thinking   (waiting for left fork 19, right fork 20)
+1737664796775 ms: Philosopher 20  is eating   (left fork 19, right fork 20)
+1737664796775 ms: Philosopher 38 is thinking   (waiting for left fork 37, right fork 38)
+1737664796775 ms: Philosopher 38  is eating   (left fork 37, right fork 38)
+1737664796775 ms: Philosopher 2 is thinking   (waiting for left fork 1, right fork 2)
+1737664796775 ms: Philosopher 3  is sleeping
+1737664796775 ms: Philosopher 2  is eating   (left fork 1, right fork 2)
+1737664796775 ms: Philosopher 14 is thinking   (waiting for left fork 13, right fork 14)
+1737664796775 ms: Philosopher 14  is eating   (left fork 13, right fork 14)
+1737664796775 ms: Philosopher 4 is thinking   (waiting for left fork 3, right fork 4)
+1737664796775 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737664796775 ms: Philosopher 6 is thinking   (waiting for left fork 5, right fork 6)
+1737664796775 ms: Philosopher 6  is eating   (left fork 5, right fork 6)
+1737664796776 ms: Philosopher 22 is thinking   (waiting for left fork 21, right fork 22)
+1737664796776 ms: Philosopher 22  is eating   (left fork 21, right fork 22)
+1737664796776 ms: Philosopher 46 is thinking   (waiting for left fork 45, right fork 46)
+1737664796776 ms: Philosopher 46  is eating   (left fork 45, right fork 46)
+1737664796777 ms: Philosopher 18 is thinking   (waiting for left fork 17, right fork 18)
+1737664796777 ms: Philosopher 18  is eating   (left fork 17, right fork 18)
+1737664796777 ms: Philosopher 48 is thinking   (waiting for left fork 47, right fork 48)
+1737664796777 ms: Philosopher 48  is eating   (left fork 47, right fork 48)
+1737664796777 ms: Philosopher 24 is thinking   (waiting for left fork 23, right fork 24)
+1737664796777 ms: Philosopher 24  is eating   (left fork 23, right fork 24)
+1737664796777 ms: Philosopher 42 is thinking   (waiting for left fork 41, right fork 42)
+1737664796777 ms: Philosopher 42  is eating   (left fork 41, right fork 42)
+1737664796777 ms: Philosopher 16 is thinking   (waiting for left fork 15, right fork 16)
+1737664796777 ms: Philosopher 16  is eating   (left fork 15, right fork 16)
+1737664796778 ms: Philosopher 40 is thinking   (waiting for left fork 39, right fork 40)
+1737664796778 ms: Philosopher 40  is eating   (left fork 39, right fork 40)
+1737664796783 ms: Philosopher 36 is thinking   (waiting for left fork 35, right fork 36)
+1737664796783 ms: Philosopher 28 is thinking   (waiting for left fork 27, right fork 28)
+1737664796783 ms: Philosopher 31  is sleeping
+1737664796783 ms: Philosopher 9  is sleeping
+1737664796783 ms: Philosopher 36  is eating   (left fork 35, right fork 36)
+1737664796783 ms: Philosopher 30 is thinking   (waiting for left fork 29, right fork 30)
+1737664796783 ms: Philosopher 30  is eating   (left fork 29, right fork 30)
+1737664796783 ms: Philosopher 32 is thinking   (waiting for left fork 31, right fork 32)
+1737664796783 ms: Philosopher 32  is eating   (left fork 31, right fork 32)
+1737664796783 ms: Philosopher 27  is sleeping
+1737664796783 ms: Philosopher 26 is thinking   (waiting for left fork 25, right fork 26)
+1737664796783 ms: Philosopher 26  is eating   (left fork 25, right fork 26)
+1737664796783 ms: Philosopher 35  is sleeping
+1737664796783 ms: Philosopher 28  is eating   (left fork 27, right fork 28)
+1737664796784 ms: Philosopher 34 is thinking   (waiting for left fork 33, right fork 34)
+1737664796784 ms: Philosopher 34  is eating   (left fork 33, right fork 34)
+1737664796789 ms: Philosopher 8 is thinking   (waiting for left fork 7, right fork 8)
+1737664796789 ms: Philosopher 8  is eating   (left fork 7, right fork 8)
+1737664796794 ms: Philosopher 12 is thinking   (waiting for left fork 11, right fork 12)
+1737664796794 ms: Philosopher 12  is eating   (left fork 11, right fork 12)
+1737664796794 ms: Philosopher 11  is sleeping
+1737664796794 ms: Philosopher 10 is thinking   (waiting for left fork 9, right fork 10)
+1737664796794 ms: Philosopher 10  is eating   (left fork 9, right fork 10)
+1737664796799 ms: Philosopher 44  is sleeping
+1737664796800 ms: Philosopher 38  is sleeping
+1737664796800 ms: Philosopher 6  is sleeping
+1737664796800 ms: Philosopher 2  is sleeping
+1737664796800 ms: Philosopher 50  is sleeping
+1737664796800 ms: Philosopher 14  is sleeping
+1737664796800 ms: Philosopher 4  is sleeping
+1737664796800 ms: Philosopher 20  is sleeping
+1737664796801 ms: Philosopher 46  is sleeping
+1737664796801 ms: Philosopher 22  is sleeping
+1737664796802 ms: Philosopher 16  is sleeping
+1737664796802 ms: Philosopher 48  is sleeping
+1737664796802 ms: Philosopher 18  is sleeping
+1737664796802 ms: Philosopher 24  is sleeping
+1737664796802 ms: Philosopher 42  is sleeping
+1737664796803 ms: Philosopher 40  is sleeping
+1737664796808 ms: Philosopher 26  is sleeping
+1737664796808 ms: Philosopher 30  is sleeping
+1737664796808 ms: Philosopher 28  is sleeping
+1737664796808 ms: Philosopher 36  is sleeping
+1737664796808 ms: Philosopher 32  is sleeping
+1737664796809 ms: Philosopher 34  is sleeping
+1737664796814 ms: Philosopher 8  is sleeping
+1737664796819 ms: Philosopher 12  is sleeping
+1737664796819 ms: Philosopher 10  is sleeping
+1737664796822 ms: Philosopher 1 is thinking   (waiting for left fork 0, right fork 1)
+1737664796822 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737664796822 ms: Philosopher 17 is thinking   (waiting for left fork 16, right fork 17)
+1737664796822 ms: Philosopher 17  is eating   (left fork 16, right fork 17)
+1737664796822 ms: Philosopher 13 is thinking   (waiting for left fork 12, right fork 13)
+1737664796822 ms: Philosopher 13  is eating   (left fork 12, right fork 13)
+1737664796823 ms: Philosopher 39 is thinking   (waiting for left fork 38, right fork 39)
+1737664796823 ms: Philosopher 39  is eating   (left fork 38, right fork 39)
+1737664796823 ms: Philosopher 15 is thinking   (waiting for left fork 14, right fork 15)
+1737664796823 ms: Philosopher 15  is eating   (left fork 14, right fork 15)
+1737664796823 ms: Philosopher 21 is thinking   (waiting for left fork 20, right fork 21)
+1737664796823 ms: Philosopher 21  is eating   (left fork 20, right fork 21)
+1737664796823 ms: Philosopher 23 is thinking   (waiting for left fork 22, right fork 23)
+1737664796823 ms: Philosopher 23  is eating   (left fork 22, right fork 23)
+1737664796824 ms: Philosopher 29 is thinking   (waiting for left fork 28, right fork 29)
+1737664796824 ms: Philosopher 29  is eating   (left fork 28, right fork 29)
+1737664796824 ms: Philosopher 47 is thinking   (waiting for left fork 46, right fork 47)
+1737664796824 ms: Philosopher 47  is eating   (left fork 46, right fork 47)
+1737664796824 ms: Philosopher 45 is thinking   (waiting for left fork 44, right fork 45)
+1737664796824 ms: Philosopher 45  is eating   (left fork 44, right fork 45)
+1737664796824 ms: Philosopher 37 is thinking   (waiting for left fork 36, right fork 37)
+1737664796824 ms: Philosopher 37  is eating   (left fork 36, right fork 37)
+1737664796824 ms: Philosopher 25 is thinking   (waiting for left fork 24, right fork 25)
+1737664796824 ms: Philosopher 25  is eating   (left fork 24, right fork 25)
+1737664796824 ms: Philosopher 49 is thinking   (waiting for left fork 48, right fork 49)
+1737664796824 ms: Philosopher 49  is eating   (left fork 48, right fork 49)
+1737664796824 ms: Philosopher 33 is thinking   (waiting for left fork 32, right fork 33)
+1737664796824 ms: Philosopher 33  is eating   (left fork 32, right fork 33)
+1737664796824 ms: Philosopher 41 is thinking   (waiting for left fork 40, right fork 41)
+1737664796824 ms: Philosopher 41  is eating   (left fork 40, right fork 41)
+1737664796824 ms: Philosopher 7 is thinking   (waiting for left fork 6, right fork 7)
+1737664796824 ms: Philosopher 7  is eating   (left fork 6, right fork 7)
+1737664796824 ms: Philosopher 5 is thinking   (waiting for left fork 4, right fork 5)
+1737664796824 ms: Philosopher 5  is eating   (left fork 4, right fork 5)
+1737664796824 ms: Philosopher 43 is thinking   (waiting for left fork 42, right fork 43)
+1737664796824 ms: Philosopher 43  is eating   (left fork 42, right fork 43)
+1737664796825 ms: Philosopher 3 is thinking   (waiting for left fork 2, right fork 3)
+1737664796825 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737664796825 ms: Philosopher 19 is thinking   (waiting for left fork 18, right fork 19)
+1737664796825 ms: Philosopher 19  is eating   (left fork 18, right fork 19)
+1737664796833 ms: Philosopher 31 is thinking   (waiting for left fork 30, right fork 31)
+1737664796833 ms: Philosopher 31  is eating   (left fork 30, right fork 31)
+1737664796833 ms: Philosopher 27 is thinking   (waiting for left fork 26, right fork 27)
+1737664796833 ms: Philosopher 27  is eating   (left fork 26, right fork 27)
+1737664796833 ms: Philosopher 35 is thinking   (waiting for left fork 34, right fork 35)
+1737664796833 ms: Philosopher 35  is eating   (left fork 34, right fork 35)
+1737664796833 ms: Philosopher 9 is thinking   (waiting for left fork 8, right fork 9)
+1737664796833 ms: Philosopher 9  is eating   (left fork 8, right fork 9)
+1737664796844 ms: Philosopher 11 is thinking   (waiting for left fork 10, right fork 11)
+1737664796844 ms: Philosopher 11  is eating   (left fork 10, right fork 11)
+1737664796847 ms: Philosopher 17  is sleeping
+1737664796847 ms: Philosopher 1  is sleeping
+1737664796847 ms: Philosopher 13  is sleeping
+1737664796848 ms: Philosopher 21  is sleeping
+1737664796848 ms: Philosopher 15  is sleeping
+1737664796848 ms: Philosopher 39  is sleeping
+1737664796848 ms: Philosopher 23  is sleeping
+1737664796849 ms: Philosopher 37  is sleeping
+1737664796849 ms: Philosopher 47  is sleeping
+1737664796849 ms: Philosopher 5  is sleeping
+1737664796849 ms: Philosopher 7  is sleeping
+1737664796849 ms: Philosopher 41  is sleeping
+1737664796849 ms: Philosopher 33  is sleeping
+1737664796849 ms: Philosopher 49  is sleeping
+1737664796849 ms: Philosopher 44 is thinking   (waiting for left fork 43, right fork 44)
+1737664796849 ms: Philosopher 45  is sleeping
+1737664796849 ms: Philosopher 43  is sleeping
+1737664796849 ms: Philosopher 44  is eating   (left fork 43, right fork 44)
+1737664796849 ms: Philosopher 29  is sleeping
+1737664796849 ms: Philosopher 25  is sleeping
+1737664796850 ms: Philosopher 2 is thinking   (waiting for left fork 1, right fork 2)
+1737664796850 ms: Philosopher 14 is thinking   (waiting for left fork 13, right fork 14)
+1737664796850 ms: Philosopher 14  is eating   (left fork 13, right fork 14)
+1737664796850 ms: Philosopher 4 is thinking   (waiting for left fork 3, right fork 4)
+1737664796850 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737664796850 ms: Philosopher 38 is thinking   (waiting for left fork 37, right fork 38)
+1737664796850 ms: Philosopher 38  is eating   (left fork 37, right fork 38)
+1737664796850 ms: Philosopher 20 is thinking   (waiting for left fork 19, right fork 20)
+1737664796850 ms: Philosopher 19  is sleeping
+1737664796850 ms: Philosopher 2  is eating   (left fork 1, right fork 2)
+1737664796850 ms: Philosopher 3  is sleeping
+1737664796850 ms: Philosopher 6 is thinking   (waiting for left fork 5, right fork 6)
+1737664796850 ms: Philosopher 6  is eating   (left fork 5, right fork 6)
+1737664796850 ms: Philosopher 50 is thinking   (waiting for left fork 49, right fork 0)
+1737664796850 ms: Philosopher 50  is eating   (left fork 49, right fork 0)
+1737664796850 ms: Philosopher 20  is eating   (left fork 19, right fork 20)
+1737664796851 ms: Philosopher 46 is thinking   (waiting for left fork 45, right fork 46)
+1737664796851 ms: Philosopher 46  is eating   (left fork 45, right fork 46)
+1737664796851 ms: Philosopher 22 is thinking   (waiting for left fork 21, right fork 22)
+1737664796851 ms: Philosopher 22  is eating   (left fork 21, right fork 22)
+1737664796852 ms: Philosopher 18 is thinking   (waiting for left fork 17, right fork 18)
+1737664796852 ms: Philosopher 18  is eating   (left fork 17, right fork 18)
+1737664796852 ms: Philosopher 42 is thinking   (waiting for left fork 41, right fork 42)
+1737664796852 ms: Philosopher 42  is eating   (left fork 41, right fork 42)
+1737664796852 ms: Philosopher 24 is thinking   (waiting for left fork 23, right fork 24)
+1737664796852 ms: Philosopher 24  is eating   (left fork 23, right fork 24)
+1737664796852 ms: Philosopher 48 is thinking   (waiting for left fork 47, right fork 48)
+1737664796852 ms: Philosopher 48  is eating   (left fork 47, right fork 48)
+1737664796852 ms: Philosopher 16 is thinking   (waiting for left fork 15, right fork 16)
+1737664796852 ms: Philosopher 16  is eating   (left fork 15, right fork 16)
+1737664796853 ms: Philosopher 40 is thinking   (waiting for left fork 39, right fork 40)
+1737664796853 ms: Philosopher 40  is eating   (left fork 39, right fork 40)
+1737664796858 ms: Philosopher 32 is thinking   (waiting for left fork 31, right fork 32)
+1737664796858 ms: Philosopher 9  is sleeping
+1737664796858 ms: Philosopher 35  is sleeping
+1737664796858 ms: Philosopher 28 is thinking   (waiting for left fork 27, right fork 28)
+1737664796858 ms: Philosopher 28  is eating   (left fork 27, right fork 28)
+1737664796858 ms: Philosopher 30 is thinking   (waiting for left fork 29, right fork 30)
+1737664796858 ms: Philosopher 30  is eating   (left fork 29, right fork 30)
+1737664796858 ms: Philosopher 36 is thinking   (waiting for left fork 35, right fork 36)
+1737664796858 ms: Philosopher 27  is sleeping
+1737664796858 ms: Philosopher 36  is eating   (left fork 35, right fork 36)
+1737664796858 ms: Philosopher 26 is thinking   (waiting for left fork 25, right fork 26)
+1737664796858 ms: Philosopher 26  is eating   (left fork 25, right fork 26)
+1737664796858 ms: Philosopher 32  is eating   (left fork 31, right fork 32)
+1737664796858 ms: Philosopher 31  is sleeping
+1737664796859 ms: Philosopher 34 is thinking   (waiting for left fork 33, right fork 34)
+1737664796859 ms: Philosopher 34  is eating   (left fork 33, right fork 34)
+1737664796864 ms: Philosopher 8 is thinking   (waiting for left fork 7, right fork 8)
+1737664796864 ms: Philosopher 8  is eating   (left fork 7, right fork 8)
+1737664796869 ms: Philosopher 10 is thinking   (waiting for left fork 9, right fork 10)
+1737664796869 ms: Philosopher 11  is sleeping
+1737664796869 ms: Philosopher 12 is thinking   (waiting for left fork 11, right fork 12)
+1737664796869 ms: Philosopher 12  is eating   (left fork 11, right fork 12)
+1737664796869 ms: Philosopher 10  is eating   (left fork 9, right fork 10)
+1737664796874 ms: Philosopher 44  is sleeping
+1737664796875 ms: Philosopher 50  is sleeping
+1737664796875 ms: Philosopher 38  is sleeping
+1737664796875 ms: Philosopher 2  is sleeping
+1737664796875 ms: Philosopher 6  is sleeping
+1737664796875 ms: Philosopher 4  is sleeping
+1737664796875 ms: Philosopher 20  is sleeping
+1737664796875 ms: Philosopher 14  is sleeping
+1737664796876 ms: Philosopher 22  is sleeping
+1737664796876 ms: Philosopher 46  is sleeping
+1737664796877 ms: Philosopher 42  is sleeping
+1737664796877 ms: Philosopher 16  is sleeping
+1737664796877 ms: Philosopher 18  is sleeping
+1737664796877 ms: Philosopher 48  is sleeping
+1737664796877 ms: Philosopher 24  is sleeping
+1737664796878 ms: Philosopher 40  is sleeping
+1737664796883 ms: Philosopher 26  is sleeping
+1737664796883 ms: Philosopher 28  is sleeping
+1737664796883 ms: Philosopher 36  is sleeping
+1737664796883 ms: Philosopher 30  is sleeping
+1737664796884 ms: Philosopher 34  is sleeping
+1737664796884 ms: Philosopher 32  is sleeping
+1737664796889 ms: Philosopher 8  is sleeping
+1737664796895 ms: Philosopher 12  is sleeping
+1737664796895 ms: Philosopher 10  is sleeping
+1737664796898 ms: Philosopher 13 is thinking   (waiting for left fork 12, right fork 13)
+1737664796898 ms: Philosopher 13  is eating   (left fork 12, right fork 13)
+1737664796898 ms: Philosopher 17 is thinking   (waiting for left fork 16, right fork 17)
+1737664796898 ms: Philosopher 17  is eating   (left fork 16, right fork 17)
+1737664796899 ms: Philosopher 39 is thinking   (waiting for left fork 38, right fork 39)
+1737664796899 ms: Philosopher 39  is eating   (left fork 38, right fork 39)
+1737664796900 ms: Philosopher 25 is thinking   (waiting for left fork 24, right fork 25)
+1737664796900 ms: Philosopher 25  is eating   (left fork 24, right fork 25)
+1737664796900 ms: Philosopher 5 is thinking   (waiting for left fork 4, right fork 5)
+1737664796900 ms: Philosopher 5  is eating   (left fork 4, right fork 5)
+1737664796900 ms: Philosopher 7 is thinking   (waiting for left fork 6, right fork 7)
+1737664796900 ms: Philosopher 7  is eating   (left fork 6, right fork 7)
+1737664796900 ms: Philosopher 41 is thinking   (waiting for left fork 40, right fork 41)
+1737664796900 ms: Philosopher 41  is eating   (left fork 40, right fork 41)
+1737664796900 ms: Philosopher 29 is thinking   (waiting for left fork 28, right fork 29)
+1737664796900 ms: Philosopher 29  is eating   (left fork 28, right fork 29)
+1737664796900 ms: Philosopher 21 is thinking   (waiting for left fork 20, right fork 21)
+1737664796900 ms: Philosopher 21  is eating   (left fork 20, right fork 21)
+1737664796900 ms: Philosopher 45 is thinking   (waiting for left fork 44, right fork 45)
+1737664796900 ms: Philosopher 45  is eating   (left fork 44, right fork 45)
+1737664796900 ms: Philosopher 23 is thinking   (waiting for left fork 22, right fork 23)
+1737664796900 ms: Philosopher 23  is eating   (left fork 22, right fork 23)
+1737664796901 ms: Philosopher 43 is thinking   (waiting for left fork 42, right fork 43)
+1737664796901 ms: Philosopher 37 is thinking   (waiting for left fork 36, right fork 37)
+1737664796901 ms: Philosopher 37  is eating   (left fork 36, right fork 37)
+1737664796901 ms: Philosopher 47 is thinking   (waiting for left fork 46, right fork 47)
+1737664796901 ms: Philosopher 47  is eating   (left fork 46, right fork 47)
+1737664796901 ms: Philosopher 3 is thinking   (waiting for left fork 2, right fork 3)
+1737664796901 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737664796900 ms: Philosopher 49 is thinking   (waiting for left fork 48, right fork 49)
+1737664796901 ms: Philosopher 49  is eating   (left fork 48, right fork 49)
+1737664796901 ms: Philosopher 43  is eating   (left fork 42, right fork 43)
+1737664796901 ms: Philosopher 33 is thinking   (waiting for left fork 32, right fork 33)
+1737664796901 ms: Philosopher 33  is eating   (left fork 32, right fork 33)
+1737664796907 ms: Philosopher 19 is thinking   (waiting for left fork 18, right fork 19)
+1737664796907 ms: Philosopher 19  is eating   (left fork 18, right fork 19)
+1737664796907 ms: Philosopher 1 is thinking   (waiting for left fork 0, right fork 1)
+1737664796923 ms: Philosopher 1 died after spending 76 ms without eating !
+1737664796924 ms: Philosopher 1 marked dead
+1737664796910 ms: Philosopher 31 is thinking   (waiting for left fork 30, right fork 31)
+1737664796924 ms: A philosopher died – end of simulation

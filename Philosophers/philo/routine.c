@@ -6,21 +6,25 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/23 16:52:27 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 08:04:45 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
 // sets the global death status to 1
-// returns NULL
-void	*handle_philo_death(t_philo *philo)
+// returns 0 on success, -1 in case of error
+int	handle_philo_death(t_philo *philo)
 {
-	// lock global death mutex
+	if (pthread_mutex_lock(philo->global_death_mutex))
+		return (print_error(MUTEX_LOCK_ERROR));
 	memset(philo->global_death_status, '1', sizeof(unsigned char));
-	// unlock global death mutex
-	printf("marked a philo as dead\n");
-	return (NULL);
+	if (pthread_mutex_unlock(philo->global_death_mutex))
+		return (print_error(MUTEX_UNLOCK_ERROR));
+	if (pthread_detach(philo->thread))
+		return (print_error(THREAD_DETACH_ERROR));
+	printf("%ld ms: Philosopher %d  marked dead\n", get_time_stamp(), philo->philo_id);
+	return (0);
 }
 
 /* locks a philosopher's left and right fork 
@@ -30,14 +34,14 @@ int	lock_fork_mutexes(t_philo *philo)
 	if (pthread_mutex_lock(philo->left_fork_mutex))
 	{
 		print_error(MUTEX_LOCK_ERROR);
-		printf("lock_fork_mutexes: error locking left fork\n");
+		write(2, "lock_fork_mutexes: error locking left fork\n", 44);
 		return (1);
 	}
 	else if (pthread_mutex_lock(philo->right_fork_mutex))
 	{
 		print_error(MUTEX_LOCK_ERROR);
 		pthread_mutex_unlock(philo->left_fork_mutex); // add error handling
-		printf("lock_fork_mutexes: error locking right fork\n");
+		write(2, "lock_fork_mutexes: error locking right fork\n", 45);
 		return (1);
 	}
 	return (0);
@@ -74,25 +78,27 @@ void	*philo_routine(void *vargp)
 	/* Initialization */
 	philo = (t_philo *)vargp;
 	id = philo->philo_id; /* Set ids */
-	printf("%ld ms: Philosopher %d is thinking\n", get_time_stamp(), id);
+	printf("%ld ms: Philosopher %d  is thinking\n", get_time_stamp(), id);
 
 	/* Staggered start:*/
 	if (philo->nb_philo % 2 == 0) /* if even number of philosophers */
 	{
-		if (id % 2 == 0) // even numbered philos wait 2.5ms before trying to eat
-			usleep(1000);
+		if (id % 2 == 0) // even numbered philos wait 0.05ms before trying to eat
+			usleep(50);
 	}
 	else /* Uneven number of philosopher */
 	{
-		if (id % 2 == 0 || id == 1) // even numbered philos wait 1ms before trying to eat
-			usleep(1000);
+		if (id % 2 == 0 || id == 1) // even numbered philos + 1st philo wait 0.1 ms before trying to eat
+			usleep(100);
 	}
-
 	/* Loop */
 	while (1)
 	{
-		if (check_if_alive(philo) == 0)
-			return (handle_philo_death(philo));
+		if (check_if_alive(philo, get_time_stamp()) == 0)
+		{
+			handle_philo_death(philo);
+			break ;
+		}
 		if (lock_fork_mutexes(philo))
 			break ; // add error handling
 

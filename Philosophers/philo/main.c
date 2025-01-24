@@ -6,11 +6,40 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
-/*   Updated: 2025/01/21 18:41:47 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/23 19:41:09 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
+
+int	grim_reaper(t_table *table)
+{
+	while (1)
+	{
+		if (pthread_mutex_lock(&table->global_death_mutex))
+		{
+			print_error(MUTEX_LOCK_ERROR);
+			return (-1);
+		}
+		if (table->global_death_status == '1')
+		{
+			printf("%ld ms: A philosopher died – end of simulation\n", get_time_stamp()); /* write to stderr ? */
+			if (pthread_mutex_unlock(&table->global_death_mutex))
+			{
+				print_error(MUTEX_UNLOCK_ERROR);
+				return (-1);
+			}
+			break ;
+		}
+		if (pthread_mutex_unlock(&table->global_death_mutex))
+		{
+			print_error(MUTEX_UNLOCK_ERROR);
+			return (-1);
+		}
+		usleep(50); // check every 0.5 ms
+	}
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -26,38 +55,29 @@ int	main(int argc, char **argv)
 		free(params);
 		return (-1);
 	}
-
+	
 	/* Grim reaper */
-	while (1)
-	{
-		// lock global death mutex
-		if (table.global_death_status == '1')
-		{
-			printf("A philosopher died – end of simulation\n");
-			// unlock global death mutex
-			break ;
-		}
-		// unlock global death mutex
-		usleep(10000); // check every ms ?
-	}
+	grim_reaper(&table);
 
 	/* End simulation */
 	/* reap threads */
-	i = 0;
-	while(i < params->nb_philo)
-	{
-		pthread_join(table.philos[i].thread, NULL); // add error handling
-		i++;
-	}
+	// i = 0;
+	// while(i < params->nb_philo)
+	// {
+	// 	pthread_join(table.philos[i].thread, NULL); // add error handling
+	// 	i++;
+	// }
 
 	/* destroy mutexes */
 	i = 0;
 	while(i < params->nb_philo)
 	{
-		pthread_mutex_destroy(&table.fork_mutex[i]); // add error handling
+		if (pthread_mutex_destroy(&table.fork_mutex[i])) // add error handling
+			print_error(MUTEX_DESTROY_ERROR);
 		i++;
 	}
-	/* destroy global mutex */
+	if (pthread_mutex_destroy(&table.global_death_mutex))
+		print_error(MUTEX_DESTROY_ERROR);
 
 	/* need more error handling */
 	free(params);
