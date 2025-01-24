@@ -139,10 +139,40 @@ Correction checks:
 - `./philo 4 310 200 100` => should die => but why ???
 	=> Re-reading subject: because `last_eaten` is when the philosopher last *started* to eat, not when finished.
 	=> Changed that, fixed!
-- Now need to correct the mutex(...)errors that occur sometimes, e.g. with `./philo 16 100 50 20`
+
+
+## Done
+- timestamp format: from start of program
 - Added death checker thread
-
-
-- To do:
+- Added wrapper on printf (`print_status`) to check global_death_status before printing (<* Rude-jes)
+- edge cases:
 	- time_to_eat > time_to_die => must die !!
+		=> already works (Also with time_to_sleep)
+	
+## To do:
 	- implement must_eat
+		- input == 1 philo
+		- input checking
+	- the `./philo 100 800 200 200` case is really problematic (see txt file): Philosopher 71 eats once, sleep, takes a fork at 402 ms, then dies at 812 ms without having taken a second fork (competition with 70 and 72). 73 is weird too: waits a very long time
+	- ending simulation :
+		- `grim_reaper`'s role:
+			- seems to help, but unclear why
+			- it's a `while(1)` in main that breaks if a death_status != 0
+				=> after checking with pthread_self, it's run by the main thread only, while others are busy with
+				their respective thread routines
+			- if put at the end of run_simulation, doesn't stop the simulation after a death (!)
+				=> unclear why. In main, it's right after run_simulation returns
+		- end it cleanly (locking what are likely destroyed mutexes, etc.)
+	- Correct the mutex(...)errors that occur sometimes, e.g. with `./philo 16 100 50 20`
+
+- Issues:
+	- some take forks after dying, everything doesn't stop after one dies
+		=> looks fixed, need to check more
+	- n.b.: with many philos, like `./philo 100 430 200 200`, delays and thus deaths happen
+	- Rudejes:
+		- idée: wrapper sur printf (si mort -> set variable à -> si variable est set à X, alors ne pas print)
+			=> done
+		- thinking: pas obligatoire mais algo qui sleep pendant le temps minimum de think (calculer ça), peut éviter de clog le système
+		- perf sur M1 >> perf sur Mac école. Bien tester
+		- philo visualizer: faire output épuré, et paste sur le site https://nafuka11.github.io/philosophers-visualizer/
+	

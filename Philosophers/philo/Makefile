@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/23 17:57:05 by francis          ###   ########.fr        #
+#    Updated: 2025/01/24 18:21:26 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ CFLAGS = -Wall -Wextra -Werror -ferror-limit=2
 SRCS =	main.c \
 		input.c \
 		initialization.c \
+		forks.c \
+		simulation.c \
 		routine.c \
 		utils.c
 

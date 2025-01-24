@@ -1,0 +1,90 @@
+1737664617050 ms: Philosopher 1 is thinking
+1737664617050 ms: Philosopher 3 is thinking
+1737664617050 ms: Philosopher 5 is thinking
+1737664617050 ms: Philosopher 5  is eating   (left fork 4, right fork 5)
+1737664617050 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737664617050 ms: Philosopher 2 is thinking
+1737664617050 ms: Philosopher 6 is thinking
+1737664617050 ms: Philosopher 4 is thinking
+1737664617050 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737664617050 ms: Philosopher 8 is thinking
+1737664617050 ms: Philosopher 9 is thinking
+1737664617050 ms: Philosopher 9  is eating   (left fork 8, right fork 9)
+1737664617050 ms: Philosopher 10 is thinking
+1737664617050 ms: Philosopher 7 is thinking
+1737664617050 ms: Philosopher 7  is eating   (left fork 6, right fork 7)
+1737664617050 ms: Philosopher 11 is thinking
+1737664617050 ms: Philosopher 11  is eating   (left fork 10, right fork 11)
+1737664617050 ms: Philosopher 12 is thinking
+1737664617050 ms: Philosopher 13 is thinking
+1737664617050 ms: Philosopher 13  is eating   (left fork 12, right fork 13)
+1737664617050 ms: Philosopher 14 is thinking
+1737664617050 ms: Philosopher 15 is thinking
+1737664617050 ms: Philosopher 15  is eating   (left fork 14, right fork 15)
+1737664617050 ms: Philosopher 16 is thinking
+1737664617050 ms: Philosopher 18 is thinking
+1737664617050 ms: Philosopher 19 is thinking
+1737664617050 ms: Philosopher 19  is eating   (left fork 18, right fork 19)
+1737664617050 ms: Philosopher 17 is thinking
+1737664617050 ms: Philosopher 17  is eating   (left fork 16, right fork 17)
+1737664617050 ms: Philosopher 20 is thinking
+1737664617050 ms: Philosopher 21 is thinking
+1737664617050 ms: Philosopher 21  is eating   (left fork 20, right fork 21)
+1737664617050 ms: Philosopher 22 is thinking
+1737664617050 ms: Philosopher 23 is thinking
+1737664617050 ms: Philosopher 23  is eating   (left fork 22, right fork 23)
+1737664617050 ms: Philosopher 24 is thinking
+1737664617050 ms: Philosopher 25 is thinking
+1737664617050 ms: Philosopher 25  is eating   (left fork 24, right fork 25)
+1737664617050 ms: Philosopher 26 is thinking
+1737664617050 ms: Philosopher 27 is thinking
+1737664617050 ms: Philosopher 27  is eating   (left fork 26, right fork 27)
+1737664617050 ms: Philosopher 30 is thinking
+1737664617050 ms: Philosopher 29 is thinking
+1737664617050 ms: Philosopher 28 is thinking
+1737664617050 ms: Philosopher 29  is eating   (left fork 28, right fork 29)
+1737664617050 ms: Philosopher 31 is thinking
+1737664617050 ms: Philosopher 31  is eating   (left fork 30, right fork 31)
+1737664617050 ms: Philosopher 32 is thinking
+1737664617050 ms: Philosopher 33 is thinking
+1737664617050 ms: Philosopher 33  is eating   (left fork 32, right fork 33)
+1737664617050 ms: Philosopher 34 is thinking
+1737664617051 ms: Philosopher 35 is thinking
+1737664617051 ms: Philosopher 35  is eating   (left fork 34, right fork 35)
+1737664617051 ms: Philosopher 36 is thinking
+1737664617051 ms: Philosopher 37 is thinking
+1737664617051 ms: Philosopher 37  is eating   (left fork 36, right fork 37)
+1737664617051 ms: Philosopher 38 is thinking
+1737664617051 ms: Philosopher 39 is thinking
+1737664617051 ms: Philosopher 39  is eating   (left fork 38, right fork 39)
+1737664617051 ms: Philosopher 40 is thinking
+1737664617051 ms: Philosopher 41 is thinking
+1737664617051 ms: Philosopher 41  is eating   (left fork 40, right fork 41)
+1737664617051 ms: Philosopher 42 is thinking
+1737664617051 ms: Philosopher 43 is thinking
+1737664617051 ms: Philosopher 46 is thinking
+1737664617051 ms: Philosopher 43  is eating   (left fork 42, right fork 43)
+1737664617051 ms: Philosopher 44 is thinking
+1737664617051 ms: Philosopher 45 is thinking
+1737664617051 ms: Philosopher 45  is eating   (left fork 44, right fork 45)
+1737664617051 ms: Philosopher 47 is thinking
+1737664617051 ms: Philosopher 47  is eating   (left fork 46, right fork 47)
+1737664617051 ms: Philosopher 48 is thinking
+1737664617051 ms: Philosopher 50 is thinking
+1737664617051 ms: Philosopher 49 is thinking
+1737664617051 ms: Philosopher 49  is eating   1737664617125 ms: Philosopher 25  is sleeping
+1737664617125 ms: Philosopher 50 died after spending 75 ms without eating !
+1737664617125 ms: Philosopher 48 died after spending 75 ms without eating !
+1737664617125 ms: Philosopher 34 died after spending 75 ms without eating !
+1737664617125 ms: Philosopher 9  is sleeping
+1737664617125 ms: Philo 48 marked dead
+1737664617125 ms: Philo 30 marked dead
+1737664617125 ms: Philo 34 marked dead
+3  is sleeping
+1737664617125 ms: Philosopher 2 died after spending 75 ms without eating !
+1737664617125 ms: Philo 2 marked dead
+1737664617125 ms: Philosopher 12 died after spending 75 ms without eating !
+1737664617125 ms: Philosopher 36 died after spending 75 ms without eating !
+1737664617125 ms: A philosopher died – end of simulation
+1737664617125 ms: Philosopher 8 died after spending 75 ms without eating !
+1737664617125 ms: Philosopher 40 died after spending 75 ms without eating !

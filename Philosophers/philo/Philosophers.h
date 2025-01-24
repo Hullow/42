@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 16:44:42 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 19:28:04 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 enum error {
 	MALLOC_FAIL,
 	INVALID_INPUT,
+	ZERO_AS_INPUT,
 	GET_TIME_OF_DAY_ERROR,
 	THREAD_CREATION_ERROR,
 	THREAD_DETACH_ERROR,
@@ -29,7 +30,8 @@ enum error {
 	MUTEX_DESTROY_ERROR,
 };
 
-enum sleep_activity {
+enum activity {
+	THINKING,
 	SLEEPING,
 	EATING
 };
@@ -68,6 +70,7 @@ typedef struct s_philo
 	int				left_fork_id;
 	int				right_fork_id;
 	int				nb_philo;
+	long			start_time;
 	int				philo_id;
 	long			last_eaten;
 	int				times_eaten;
@@ -90,12 +93,13 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int					nb_philo;
+	long				start_time;
+	t_philo				philos[MAX_THREADS];
 	unsigned char		forks[MAX_THREADS];
 	pthread_mutex_t		fork_mutex[MAX_THREADS];
 	pthread_mutex_t		global_death_mutex;
-	t_philo				philos[MAX_THREADS];
-	pthread_t			checker;
 	unsigned char		death_status;
+	pthread_t			checker;
 }	t_table;
 
 // Input
@@ -109,20 +113,31 @@ int		input_checker(t_params *params);
 	// Initialization
 
 int		init_table(t_table *table, t_params *params, int nb_philo);
-int		init_forks(t_table *table, int nb_philo);
-int		init_philo(t_table	*table, t_params *params, int id);
+int		init_philo(t_table *table, t_params *params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
+
+// Running
+
+int		run_simulation(t_table table);
+int		grim_reaper(t_table *table);
+int		end_simulation(t_table table);
+
 	// Routine
 
+void	*checker_routine(void *vargp);
 void	*philo_routine(void *table);
 int		handle_philo_death(t_philo *philo);
+
+	// Forks
+int		lock_fork_mutexes(t_philo *philo);
+int		unlock_fork_mutexes(t_philo *philo);
 int		lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 int		unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 void	set_forks_status(t_philo *philo, char c);
 
 // Utils
 
-long	get_time_stamp(void); 
-int		check_if_alive(t_philo *philo, long timestamp);
+int		print_status(t_philo *philo, long timestamp, char *activity);
 int		print_error(int error);
-int		perform_activity(t_philo *philo, long start, int activity);
+long	get_time_stamp(long start_time);
+int		perform_activity(t_philo *philo, long activity_start, int activity);

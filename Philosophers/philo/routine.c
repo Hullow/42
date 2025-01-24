@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 17:18:29 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 00:10:39 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,82 +19,39 @@ int	handle_philo_death(t_philo *philo)
 {
 	if (pthread_mutex_lock(philo->global_death_mutex))
 		return (print_error(MUTEX_LOCK_ERROR));
-	memset(philo->death_status, '1', sizeof(unsigned char));
+	memset(philo->death_status, philo->philo_id, sizeof(unsigned char));
 	if (pthread_mutex_unlock(philo->global_death_mutex))
 		return (print_error(MUTEX_UNLOCK_ERROR));
-	if (pthread_detach(philo->thread))
-		return (print_error(THREAD_DETACH_ERROR));
-	printf("%ld ms: Philosopher %d  died !\n", get_time_stamp(), philo->philo_id);
+	print_status(philo, get_time_stamp(0), "died");
 	return (0);
 }
 
-/* locks a philosopher's left and right fork 
-	returns 1 in case of error and 0 otherwise */
-int	lock_fork_mutexes(t_philo *philo)
+/* checks if a philosopher is dead */
+void	*checker_routine(void *vargp)
 {
-	if (pthread_mutex_lock(philo->left_fork_mutex))
-	{
-		print_error(MUTEX_LOCK_ERROR);
-		write(2, "lock_fork_mutexes: error locking left fork\n", 44);
-		return (1);
-	}
-	else if (pthread_mutex_lock(philo->right_fork_mutex))
-	{
-		print_error(MUTEX_LOCK_ERROR);
-		pthread_mutex_unlock(philo->left_fork_mutex); // add error handling
-		write(2, "lock_fork_mutexes: error locking right fork\n", 45);
-		return (1);
-	}
-	return (0);
-}
+	t_philo	*philos;
+	int		nb_philo;
+	int		time_to_die;
+	int		i;
 
-/* locks a fork mutex
-	returns 1 in case of error and 0 otherwise */
-int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
-{
-	if (pthread_mutex_lock(fork_mutex))
+	philos = (t_philo *)vargp;
+	nb_philo = philos[0].nb_philo;
+	time_to_die = philos[0].time_to_die;
+	i = 0;
+	while (1)
 	{
-		print_error(MUTEX_LOCK_ERROR);
-		write(2, "lock_single_fork_mutex: error locking mutex\n", 45);
-		return (1);
+		while (i < nb_philo)
+		{
+			if (get_time_stamp(philos[0].start_time) - philos[i].last_eaten >= time_to_die)
+			{
+				handle_philo_death(&philos[i]);
+				return (NULL);
+			}
+			i++;
+			usleep(300);
+		}
+		i = 0;
 	}
-	return (0);
-}
-
-/* unlocks a fork mutex 
-	returns 1 in case of error and 0 otherwise */
-int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
-{
-	if (pthread_mutex_unlock(fork_mutex))
-	{
-		print_error(MUTEX_UNLOCK_ERROR);
-		write(2, "unlock_single_fork_mutex: error unlocking mutex\n", 49);
-		return (1);
-	}
-	return (0);
-}
-
-
-/* unlocks a philosopher's left and right fork 
-	in case of error, prints an error and returns 1
-	returns 0 otherwise */
-int	unlock_fork_mutexes(t_philo *philo)
-{
-	if (pthread_mutex_unlock(philo->left_fork_mutex) || \
-	pthread_mutex_unlock(philo->right_fork_mutex))
-	{
-		print_error(MUTEX_UNLOCK_ERROR);
-		return (1);
-	}
-	return (0);
-}
-
-/* sets the fork state using memset:
-	0 for free, 1 for locked as locked */
-void	set_forks_status(t_philo *philo, char c)
-{
-	memset(philo->left_fork, c, sizeof(unsigned char));
-	memset(philo->right_fork, c, sizeof(unsigned char));
 }
 
 /* philosopher thread routine */
@@ -107,21 +64,21 @@ void	*philo_routine(void *vargp)
 	/* Initialization */
 	philo = (t_philo *)vargp;
 	id = philo->philo_id; /* Set ids */
-	printf("%ld ms: Philosopher %d  is thinking\n", get_time_stamp(), id);
-	timestamp = 0;
+	timestamp = get_time_stamp(0);
+	print_status(philo, timestamp, "is thinking");
 
 	/* Staggered start:*/
 	if (philo->nb_philo % 2 == 0) /* if even number of philosophers */
 	{
 		if (id % 2 == 0) // even numbered philos wait 0.05ms before trying to eat
-			usleep(100);
+			usleep(200);
 	}
 	else /* Uneven number of philosopher */
 	{
 		if (id % 2 == 0) // even numbered philos wait 0.1 ms before trying to eat
-			usleep(100);
-		if (id == 1) // 1st philo waits 0.2 ms before trying to eat => likely no change; and yet, it seems to have changed things
 			usleep(200);
+		if (id == 1) // 1st philo waits 0.2 ms before trying to eat => likely no change; and yet, it seems to have changed things
+			usleep(500);
 	}
 	/* Loop */
 	while (1)
@@ -133,10 +90,10 @@ void	*philo_routine(void *vargp)
 		if (*(philo->left_fork) == 0) /* if left fork available */
 		{
 			memset(philo->left_fork, id, sizeof(unsigned char));
-			timestamp = get_time_stamp();
+			timestamp = get_time_stamp(0);
 			if (unlock_single_fork_mutex(philo->left_fork_mutex))
 				break ;
-			printf("%ld ms: Philosopher %d  has a taken a fork (left fork  %d)\n", timestamp, id, philo->left_fork_id);
+			print_status(philo, timestamp, "has taken a fork");
 		}
 		else if (unlock_single_fork_mutex(philo->left_fork_mutex))
 			break ;
@@ -147,36 +104,34 @@ void	*philo_routine(void *vargp)
 		if (*(philo->right_fork) == 0) /* if right fork available */
 		{
 			memset(philo->right_fork, id, sizeof(unsigned char));
-			timestamp = get_time_stamp();
+			timestamp = get_time_stamp(0);
 			if (unlock_single_fork_mutex(philo->right_fork_mutex))
 				break ;
-			printf("%ld ms: Philosopher %d  has a taken a fork (right fork %d)\n", timestamp, id, philo->right_fork_id);
+			print_status(philo, timestamp, "has taken a fork");
 		}
 		else if (unlock_single_fork_mutex(philo->right_fork_mutex))
 			break ;
-		if (lock_fork_mutexes(philo)) /* unlock both mutexes */
-			break ;
 
-		/* Eat if possible */
-		if (*(philo->left_fork) == id && *(philo->right_fork) == id) /* if right fork available */
+		/* Try to eat with both forks */
+		if (lock_fork_mutexes(philo))
+			break ;
+		if (*(philo->left_fork) == id && *(philo->right_fork) == id)
 		{
 			if (unlock_fork_mutexes(philo)) /* unlock both mutexes */
 				break ;
-			perform_activity(philo, get_time_stamp(), EATING); /* start eating */
-			/* Reset forks to available */
+			perform_activity(philo, get_time_stamp(0), EATING); /* start eating */
 			if (lock_fork_mutexes(philo))
 				break ; // add error handling
 			set_forks_status(philo, 0);
 			if (unlock_fork_mutexes(philo))
 				break ; // add error handling
-			/* Sleeping */
-			perform_activity(philo, get_time_stamp(), SLEEPING);
+			perform_activity(philo, get_time_stamp(0), SLEEPING);
 		}
 		else
 		{
 			if (unlock_fork_mutexes(philo)) /* otherwise, unlock both mutexes */
-				break ;
-			usleep(10);
+				break ; // add error handling
+			usleep(100);
 		}
 	}
 	return (NULL);
