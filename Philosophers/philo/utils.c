@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/24 11:09:08 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:08:08 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@
 int	print_error(int error)
 {
 	if (error == MALLOC_FAIL)
-		write(2, "Philosophers: Malloc fail\n", 27);
+		write(2, "\nPhilosophers: Malloc fail\n", 28);
 	else if (error == INVALID_INPUT)
-		write(2, "Philosophers: Invalid input\n", 29);
+		write(2, "\nPhilosophers: Invalid input\n", 30);
 	else if (error == GET_TIME_OF_DAY_ERROR)
-		write(2, "Philosophers: get_time_of_day() failed\n", 40);
+		write(2, "\nPhilosophers: get_time_of_day() failed\n", 41);
 	else if (error == THREAD_CREATION_ERROR)
-		write(2, "Philosophers: Thread creation error", 36);
+		write(2, "\nPhilosophers: Thread creation error\n", 38);
 	else if (error == THREAD_DETACH_ERROR)
-		write(2, "Philosophers: Thread detach error", 34);
+		write(2, "\nPhilosophers: Thread detach error\n", 36);
 	else if (error == MUTEX_INIT_ERROR)
-		write(2, "Philosophers: Mutex init error", 31);
+		write(2, "\nPhilosophers: Mutex init error\n", 33);
 	else if (error == MUTEX_LOCK_ERROR)
-		write(2, "Philosophers: Mutex lock error", 31);
+		write(2, "\nPhilosophers: Mutex lock error\n", 33);
 	else if (error == MUTEX_UNLOCK_ERROR)
-		write(2, "Philosophers: Mutex unlock error", 33);
+		write(2, "\nPhilosophers: Mutex unlock error\n", 36);
 	else if (error == MUTEX_DESTROY_ERROR)
-		write(2, "Philosophers: Mutex destroy error", 34);
+		write(2, "\nPhilosophers: Mutex destroy error\n", 36);
 	return (-1);
 }
 
@@ -79,52 +79,20 @@ int	perform_activity(t_philo *philo, long start, int activity)
 	}
 	else if (activity == EATING)
 	{
+		philo->last_eaten = get_time_stamp();
 		desired_sleep = philo->time_to_eat;
-		printf("%ld ms: Philosopher %d  is eating   (left fork %d, right fork %d)\n", current_time, philo->philo_id, philo->left_fork_id, philo->right_fork_id);
+		printf("%ld ms: Philosopher %d  is eating          (left fork  %d - right fork %d)\n", current_time, philo->philo_id, philo->left_fork_id, philo->right_fork_id);
 	}
 	current_time = get_time_stamp();
 	while (desired_sleep > current_time - start)
 	{
-		if (activity == SLEEPING)
-		{
-			if (check_if_alive(philo, current_time) == 0)
-				return (handle_philo_death(philo));
-		}
-		usleep(10);
+		usleep(50);
 		current_time = get_time_stamp();
 	}
 	if (activity == SLEEPING)
 	{
 		leg_time = get_time_stamp();
-		printf("%ld ms: Philosopher %d  is thinking   (waiting for left fork %d, right fork %d)\n", leg_time, philo->philo_id, philo->left_fork_id, philo->right_fork_id);
+		printf("%ld ms: Philosopher %d  is thinking        (waiting for left fork %d - right fork %d)\n", leg_time, philo->philo_id, philo->left_fork_id, philo->right_fork_id);
 	}
-	else if (activity == EATING)
-		philo->last_eaten = get_time_stamp();
 	return (0);
-}
-
-// checks if the philosopher is still alive
-int	check_if_alive(t_philo *philo, long timestamp)
-{
-	long	time_without_eating;
-
-	if (timestamp == -1)
-		return (-1);
-	time_without_eating = timestamp - philo->last_eaten;
-	// pthread_mutex_lock(philo->global_death_mutex);
-	// if (*(philo->death_status) == '1')
-	// {
-	// 	pthread_mutex_unlock(philo->global_death_mutex);
-	// 	// printf("\nPhilosopher death detected, detaching\n");
-	// 	// pthread_detach(philo->thread);
-	// 	return (0);
-	// }
-	// pthread_mutex_unlock(philo->global_death_mutex);
-	if (philo->time_to_die <= time_without_eating)
-	{
-		printf("%ld ms: Philosopher %d  died after spending %ld ms \
-without eating !\n", timestamp, philo->philo_id, time_without_eating);
-		return (0);
-	}
-	return (1);
 }

@@ -6,13 +6,14 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 11:41:08 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:18:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
 // sets the global death status to 1
+// prints a death statement
 // returns 0 on success, -1 in case of error
 int	handle_philo_death(t_philo *philo)
 {
@@ -23,7 +24,7 @@ int	handle_philo_death(t_philo *philo)
 		return (print_error(MUTEX_UNLOCK_ERROR));
 	if (pthread_detach(philo->thread))
 		return (print_error(THREAD_DETACH_ERROR));
-	printf("%ld ms: Philosopher %d  marked dead\n", get_time_stamp(), philo->philo_id);
+	printf("%ld ms: Philosopher %d  died !\n", get_time_stamp(), philo->philo_id);
 	return (0);
 }
 
@@ -101,11 +102,13 @@ void	*philo_routine(void *vargp)
 {
 	t_philo	*philo;
 	int		id;
+	long	timestamp;
 
 	/* Initialization */
 	philo = (t_philo *)vargp;
 	id = philo->philo_id; /* Set ids */
 	printf("%ld ms: Philosopher %d  is thinking\n", get_time_stamp(), id);
+	timestamp = 0;
 
 	/* Staggered start:*/
 	if (philo->nb_philo % 2 == 0) /* if even number of philosophers */
@@ -123,37 +126,38 @@ void	*philo_routine(void *vargp)
 	/* Loop */
 	while (1)
 	{
-		if (check_if_alive(philo, get_time_stamp()) == 0)
-		{
-			handle_philo_death(philo);
-			break ;
-		}
-
 		/* Eating routine */
 		/* Take left fork if possible */
-		// if (lock_fork_mutexes(philo))
-		// 	break ; // add error handling
 		if (lock_single_fork_mutex(philo->left_fork_mutex))
 			break ;
 		if (*(philo->left_fork) == 0) /* if left fork available */
 		{
 			memset(philo->left_fork, id, sizeof(unsigned char));
-			printf("%ld ms: Philosopher %d  has a taken a fork (left fork %d)\n", get_time_stamp(), id, philo->left_fork_id);
+			timestamp = get_time_stamp();
+			if (unlock_single_fork_mutex(philo->left_fork_mutex))
+				break ;
+			printf("%ld ms: Philosopher %d  has a taken a fork (left fork  %d)\n", timestamp, id, philo->left_fork_id);
 		}
-		if (unlock_single_fork_mutex(philo->left_fork_mutex))
+		else if (unlock_single_fork_mutex(philo->left_fork_mutex))
 			break ;
+
+		/* Take right fork if possible */
 		if (lock_single_fork_mutex(philo->right_fork_mutex))
 			break ;
 		if (*(philo->right_fork) == 0) /* if right fork available */
 		{
 			memset(philo->right_fork, id, sizeof(unsigned char));
-			printf("%ld ms: Philosopher %d  has a taken a fork (right fork %d)\n", get_time_stamp(), id, philo->right_fork_id);
+			timestamp = get_time_stamp();
+			if (unlock_single_fork_mutex(philo->right_fork_mutex))
+				break ;
+			printf("%ld ms: Philosopher %d  has a taken a fork (right fork %d)\n", timestamp, id, philo->right_fork_id);
 		}
-		if (unlock_single_fork_mutex(philo->right_fork_mutex))
+		else if (unlock_single_fork_mutex(philo->right_fork_mutex))
 			break ;
 		if (lock_fork_mutexes(philo)) /* unlock both mutexes */
 			break ;
-		/* Take right fork if possible */
+
+		/* Eat if possible */
 		if (*(philo->left_fork) == id && *(philo->right_fork) == id) /* if right fork available */
 		{
 			if (unlock_fork_mutexes(philo)) /* unlock both mutexes */

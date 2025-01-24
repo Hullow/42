@@ -32,6 +32,11 @@
 - `open -a TextEdit` : opens the TextEdit program
 - `code main.c` : opens a main.c file in VSCode
 
+### Redirections
+- `&>file`: redirects both standard output and standard error to file
+- `>&file`: equivalent to above (less preferred)
+- `> file 2>&1`: equivalent to above
+
 ### File manipulation
 - `curl -o [filename] [URL]` (nb: `-o` for output): download a file
 - `mv -v <origin folder>/* <destination folder>` : move all files and folders from a folder to another

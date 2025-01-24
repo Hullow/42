@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/24 11:09:08 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:05:43 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ In my words:
 pthread_t *thread is a pointer that specifies a location. In that location, the ID of the created
 thread will be stored to get the ID you'll have to dereference [pthread_t *thread] using [*thread] */
 
+
+void	*checker_routine(void *vargp);
+
 // initializes table:
 // calls init_forks first
 // then creates the philosophers thread with all the parameters
@@ -74,7 +77,7 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 	if (pthread_mutex_init(&table->global_death_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
 	i = 0;
-	while (i < nb_philo)	/* Initialize forks, mutexes and philosophers */
+	while (i < nb_philo)	/* Inxitialize forks, mutexes and philosophers */
 	{
 		memset(&table->forks[i], 0, sizeof(unsigned char));
 		if (pthread_mutex_init(&table->fork_mutex[i], NULL))
@@ -83,6 +86,7 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 			return (print_error(GET_TIME_OF_DAY_ERROR));
 		i++;
 	}
+	pthread_create(&table->checker, NULL, checker_routine, table->philos);
 	i = 0;
 	while (i < nb_philo)	/* Create philosopher threads */
 	{
@@ -92,4 +96,32 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 		i++;
 	}
 	return (0);
+}
+
+void	*checker_routine(void *vargp)
+{
+	t_philo	*philos;
+	int		nb_philo;
+	int		time_to_die;
+	int		i;
+
+	philos = (t_philo *)vargp;
+	nb_philo = philos[0].nb_philo;
+	time_to_die = philos[0].time_to_die;
+	i = 0;
+	while (1)
+	{
+		while (i < nb_philo)
+		{
+			if (get_time_stamp() - philos[i].last_eaten >= time_to_die)
+			{
+				handle_philo_death(&philos[i]);
+				return (NULL);
+			}
+			i++;
+			usleep(10);
+		}
+		i = 0;
+	}
+	
 }

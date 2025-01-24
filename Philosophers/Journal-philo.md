@@ -136,3 +136,13 @@ Correction checks:
 - Worked on uneven numbers
 - Implemented individual fork taking
 - `./philo 5 101 50 20` => one philo dies
+- `./philo 4 310 200 100` => should die => but why ???
+	=> Re-reading subject: because `last_eaten` is when the philosopher last *started* to eat, not when finished.
+	=> Changed that, fixed!
+- Now need to correct the mutex(...)errors that occur sometimes, e.g. with `./philo 16 100 50 20`
+- Added death checker thread
+
+
+- To do:
+	- time_to_eat > time_to_die => must die !!
+	- implement must_eat

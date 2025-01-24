@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 11:19:04 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 16:44:42 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_table
 	pthread_mutex_t		fork_mutex[MAX_THREADS];
 	pthread_mutex_t		global_death_mutex;
 	t_philo				philos[MAX_THREADS];
+	pthread_t			checker;
 	unsigned char		death_status;
 }	t_table;
 
