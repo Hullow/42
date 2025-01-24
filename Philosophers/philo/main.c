@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
-/*   Updated: 2025/01/23 19:41:09 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 11:09:08 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	grim_reaper(t_table *table)
 			print_error(MUTEX_LOCK_ERROR);
 			return (-1);
 		}
-		if (table->global_death_status == '1')
+		if (table->death_status == '1')
 		{
 			printf("%ld ms: A philosopher died – end of simulation\n", get_time_stamp()); /* write to stderr ? */
 			if (pthread_mutex_unlock(&table->global_death_mutex))

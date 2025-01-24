@@ -95,6 +95,21 @@ Full end:
 1737664796910 ms: Philosopher 31 is thinking   (waiting for left fork 30, right fork 31)
 1737664796924 ms: A philosopher died – end of simulation
 
+Uneven nb_philo – alternating sequence should look like: 
+- nb_philo = 5:
+3 5
+
+4 2
+
+1
+
+3 5
+
+4 2
+
+1
+
+
 To do:
 - Think through detach, what happens and why
 - Fork taking: correct method ?
@@ -109,3 +124,15 @@ To do:
 
 Correction checks:
 - \> INT_MAX or \< INT_MIN inputs
+- ./philo 5 100 50 X => one should die no ? given that two rounds wof eating happen without them (round 1: 50ms, round 2: 50ms => 100ms have passed, you die)
+> `time_to_die` (in milliseconds):<br>
+> If a philosopher didn’t start eating `time_to_die` milliseconds since the beginning of their last meal or the beginning of the simulation, they die.
+
+0ms: start
+100ms: philosopher will start to eat hasn't started to eat
+=> dies
+
+# 24/1/25
+- Worked on uneven numbers
+- Implemented individual fork taking
+- `./philo 5 101 50 20` => one philo dies

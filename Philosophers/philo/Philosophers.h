@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 07:53:09 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 11:19:04 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ enum error {
 
 enum sleep_activity {
 	SLEEPING,
-	EATING,
+	EATING
 };
 
 # define MAX_THREADS 200
@@ -63,7 +63,7 @@ typedef struct s_philo
 	pthread_mutex_t	*global_death_mutex;
 	pthread_mutex_t	*left_fork_mutex;
 	pthread_mutex_t	*right_fork_mutex;
-	unsigned char	*left_fork;
+	unsigned char	*left_fork;;
 	unsigned char	*right_fork;
 	int				left_fork_id;
 	int				right_fork_id;
@@ -75,7 +75,8 @@ typedef struct s_philo
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	unsigned char	*global_death_status;
+	unsigned char	*death_status;
+	unsigned char	*round;
 }	t_philo;
 
 // Structure for the whole table
@@ -93,7 +94,7 @@ typedef struct s_table
 	pthread_mutex_t		fork_mutex[MAX_THREADS];
 	pthread_mutex_t		global_death_mutex;
 	t_philo				philos[MAX_THREADS];
-	unsigned char		global_death_status;
+	unsigned char		death_status;
 }	t_table;
 
 // Input
@@ -114,8 +115,8 @@ void	fill_params(t_philo *philo, t_params *params, int id);
 
 void	*philo_routine(void *table);
 int		handle_philo_death(t_philo *philo);
-int		lock_fork_mutexes(t_philo *philo);
-int		unlock_fork_mutexes(t_philo *philo);
+int		lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
+int		unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 void	set_forks_status(t_philo *philo, char c);
 
 // Utils

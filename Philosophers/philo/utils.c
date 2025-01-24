@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/24 07:56:43 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/24 11:09:08 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	perform_activity(t_philo *philo, long start, int activity)
 			if (check_if_alive(philo, current_time) == 0)
 				return (handle_philo_death(philo));
 		}
-		usleep(50);
+		usleep(10);
 		current_time = get_time_stamp();
 	}
 	if (activity == SLEEPING)
@@ -112,7 +112,7 @@ int	check_if_alive(t_philo *philo, long timestamp)
 		return (-1);
 	time_without_eating = timestamp - philo->last_eaten;
 	// pthread_mutex_lock(philo->global_death_mutex);
-	// if (*(philo->global_death_status) == '1')
+	// if (*(philo->death_status) == '1')
 	// {
 	// 	pthread_mutex_unlock(philo->global_death_mutex);
 	// 	// printf("\nPhilosopher death detected, detaching\n");
