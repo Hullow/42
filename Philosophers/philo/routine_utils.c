@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 18:12:25 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 19:34:26 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ at different times:
 	- In simulations with an uneven number of philosophers, the first philo
 	waits 0.5ms before trying to eat, so that there it can alternate with 
 	the last philo, which is its neighbor, and also uneven-numbered
+// 1st philo waiting 0.5 ms rather than 0.2 ms before trying to eat => likely no change; and yet, it seems to have changed things
 	*/
 void	stagger_start(int nb_philo, int id)
 {
 	if (id == 1 && nb_philo % 2 != 0)
-		usleep(500);// 1st philo waits 0.5 ms before trying to eat => likely no change; and yet, it seems to have changed things
+		usleep(500);
 	else if (id % 2 == 0)
 		usleep(200);
 }
@@ -42,7 +43,6 @@ unsigned char *variable)
 	unsigned char	value;
 
 	value = *variable + 1;
-	// printf("edit_status_var: setting value to %d\n", value);
 	if (pthread_mutex_lock(status_mutex))
 		return (print_error(MUTEX_LOCK_ERROR));
 	memset(variable, value, sizeof(unsigned char));
@@ -93,8 +93,8 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
 
 /* 	- Attempts to mark a specific fork (left or right) as taken
 	by the calling philo/thread
-	- Marks it as taken using memset to change the fork's value
-	to the philo's id
+	- If fork is available (*(fork) == 0), marks it as taken 
+	using memset to change the fork's value to the philo's id
 	- Protects fork with mutex before reading and writing
 */
 int	attempt_take_fork(t_philo *philo, int fork_to_pick)
@@ -115,7 +115,7 @@ int	attempt_take_fork(t_philo *philo, int fork_to_pick)
 	}
 	if (lock_single_fork_mutex(fork_mutex))
 		return (-1);
-	if (*(fork) == 0) /* if fork available */
+	if (*(fork) == 0)
 	{
 		memset(fork, philo->philo_id, sizeof(unsigned char));
 		if (unlock_single_fork_mutex(fork_mutex))

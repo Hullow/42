@@ -191,3 +191,11 @@ the must_eat value. Wrote `edit_status_var` function to increments its' and deat
 - Single philo: implemented to eat with one fork, but that's mistake. There should be only one fork, and the philo should die. Works with `./philo 1 800 200 200`, but mutex_destroy_error => not clear why, because `end_simulation` which
 
 - Doing preparation eval: it seems everything is okay. However, it remains to be checked if there's a mutex to prevent a philosopher from dying and starting eating at the same time. That 
+
+
+# Tests:
+## Clear failures
+- `./philo 200 1000 200 200` => mutex unlock error, mutex lock error
+
+## Of note
+- `./philo 200 1000 200 200` => a philo dies, but not with `./philo 200 1500 200 200`

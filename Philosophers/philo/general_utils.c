@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 17:23:00 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 22:28:41 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,21 @@ int	print_error(int error)
 	if (error == MALLOC_FAIL)
 		write(2, "\nPhilosophers: Malloc fail\n", 28);
 	else if (error == INVALID_INPUT)
-		write(2, "Philosophers: Invalid input\n", 30);
+		write(2, "Philosophers: Invalid input\n", 29);
 	else if (error == ZERO_AS_INPUT)
 		write(2, "Philosophers: simulation doesn't take 0 as parameter\n", 54);
 	else if (error == GET_TIME_OF_DAY_ERROR)
 		write(2, "\nPhilosophers: get_time_of_day() failed\n", 41);
 	else if (error == THREAD_CREATION_ERROR)
-		write(2, "\nPhilosophers: Thread creation error\n", 38);
+		write(2, "\nPhilosophers: Thread creation error\n", 37);
 	else if (error == THREAD_DETACH_ERROR)
-		write(2, "\nPhilosophers: Thread detach error\n", 36);
+		write(2, "\nPhilosophers: Thread detach error\n", 35);
 	else if (error == MUTEX_INIT_ERROR)
 		write(2, "\nPhilosophers: Mutex init error\n", 33);
 	else if (error == MUTEX_LOCK_ERROR)
 		write(2, "\nPhilosophers: Mutex lock error\n", 33);
 	else if (error == MUTEX_UNLOCK_ERROR)
-		write(2, "\nPhilosophers: Mutex unlock error\n", 36);
+		write(2, "\nPhilosophers: Mutex unlock error\n", 35);
 	else if (error == MUTEX_DESTROY_ERROR)
 		write(2, "\nPhilosophers: Mutex destroy error\n", 36);
 	return (-1);

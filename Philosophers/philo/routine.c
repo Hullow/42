@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 19:30:50 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 19:32:01 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,8 @@ void	*philo_routine(void *vargp)
 	{
 		if (attempt_take_fork(philo, LEFT) == -1)
 			break ;
-		// if (philo->nb_philo > 1) // && philo->nb_philo - *(philo->finished_eating) > 1)
-		// {
-			if (attempt_take_fork(philo, RIGHT) == -1)
-				break ;
-		// }
+		if (attempt_take_fork(philo, RIGHT) == -1)
+			break ;
 		eat_return = attempt_to_eat(philo, id);
 		if (eat_return == -1 || eat_return == 1) /* if -1, means mutex error, if 1, means eat enough times */
 		{
