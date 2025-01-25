@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 00:16:36 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 11:27:23 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ int	print_error(int error)
 long	get_time_stamp(long start_time)
 {
 	struct timeval	current_time;
+	long			return_time;
 
 	if (gettimeofday(&current_time, NULL) == -1)
 		return (-1);
-	return (((current_time.tv_sec * 1000) + current_time.tv_usec / 1000) - start_time);
+	return_time = ((((long) current_time.tv_sec) * 1000) + ((long) current_time.tv_usec) / 1000) - start_time;
+	return (return_time);
 }
 
 /**

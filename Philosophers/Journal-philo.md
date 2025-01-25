@@ -150,16 +150,19 @@ Correction checks:
 		=> already works (Also with time_to_sleep)
 	
 ## To do:
+	- the `./philo 100 800 200 200` case is really problematic (see txt file): Philosopher 71 eats once, sleep, takes a fork at 402 ms, then dies at 812 ms without having taken a second fork (competition with 70 and 72). 73 is weird too: waits a very long time
+		=> let's try taking two forks at same time, letting go otherwise. First,
+		 need to implement helper function to take fork
+		
+		update: => actually, the problem only appears when get_time_stamp is used with start_time 
 	- implement must_eat
 		- input == 1 philo
 		- input checking
-	- the `./philo 100 800 200 200` case is really problematic (see txt file): Philosopher 71 eats once, sleep, takes a fork at 402 ms, then dies at 812 ms without having taken a second fork (competition with 70 and 72). 73 is weird too: waits a very long time
 	- ending simulation :
 		- `grim_reaper`'s role:
 			- seems to help, but unclear why
 			- it's a `while(1)` in main that breaks if a death_status != 0
-				=> after checking with pthread_self, it's run by the main thread only, while others are busy with
-				their respective thread routines
+				=> after checking with pthread_self, it's run by the main thread only, while others are busy with their respective thread routines
 			- if put at the end of run_simulation, doesn't stop the simulation after a death (!)
 				=> unclear why. In main, it's right after run_simulation returns
 		- end it cleanly (locking what are likely destroyed mutexes, etc.)
@@ -176,3 +179,6 @@ Correction checks:
 		- perf sur M1 >> perf sur Mac école. Bien tester
 		- philo visualizer: faire output épuré, et paste sur le site https://nafuka11.github.io/philosophers-visualizer/
 	
+# 25/1/25
+- Changed get_time_stamp back to basic version, solves the wrongly dying philosophers (e.g. with `./philo 100 800 200 200`)
+- 

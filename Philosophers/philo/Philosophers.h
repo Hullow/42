@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 19:28:04 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 11:33:42 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ enum activity {
 	EATING
 };
 
+enum fork {
+	LEFT,
+	RIGHT
+};
+
 # define MAX_THREADS 200
 
 // Structure to store the input parameters
@@ -61,25 +66,24 @@ typedef struct s_params
 	*/
 typedef struct s_philo
 {
-	pthread_t		thread;
-	pthread_mutex_t	*global_death_mutex;
-	pthread_mutex_t	*left_fork_mutex;
-	pthread_mutex_t	*right_fork_mutex;
-	unsigned char	*left_fork;;
-	unsigned char	*right_fork;
-	int				left_fork_id;
-	int				right_fork_id;
+	int				philo_id;
 	int				nb_philo;
 	long			start_time;
-	int				philo_id;
 	long			last_eaten;
 	int				times_eaten;
 	int				must_eat;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
+	pthread_t		thread;
+	pthread_mutex_t	*global_death_mutex;
+	pthread_mutex_t	*left_fork_mutex;
+	pthread_mutex_t	*right_fork_mutex;
+	unsigned char	*left_fork;
+	unsigned char	*right_fork;
+	int				left_fork_id;
+	int				right_fork_id;
 	unsigned char	*death_status;
-	unsigned char	*round;
 }	t_philo;
 
 // Structure for the whole table
