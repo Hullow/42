@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 19:19:46 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 22:32:48 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,14 @@ thread will be stored to get the ID you'll have to dereference [pthread_t *threa
 int	init_table(t_table *table, t_params *params, int nb_philo)
 {
 	int	i;
+	pthread_mutex_t	death_status_mutex;
+	pthread_mutex_t	finished_eating_mutex;
 
 	table->nb_philo = nb_philo;
 	table->start_time = get_time_stamp();
+	
+	table->death_status_mutex = death_status_mutex;
+	table->finished_eating_mutex = finished_eating_mutex;
 	memset(&table->death_status, 0, sizeof(unsigned char));     /* Set death status to 0 (no philosopher is dead) */
 	memset(&table->finished_eating, 0, sizeof(unsigned char));  /* Set death status to 0 (no philosopher is dead) */
 	if (pthread_mutex_init(&table->death_status_mutex, NULL))
