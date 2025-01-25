@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 17:15:33 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 17:43:07 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	input_checker(t_params *params)
 		return (print_error(INVALID_INPUT));
 	if (params->nb_philo == 0 || params->time_to_die == 0 || \
 	params->time_to_eat == 0 || params->time_to_sleep == 0)
-		return(print_error(ZERO_AS_INPUT));
+		return (print_error(ZERO_AS_INPUT));
 	/* other potential invalid input cases */
 	return (0);
 }

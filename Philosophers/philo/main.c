@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 13:00:16 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 17:20:09 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	grim_reaper(&table);
-	end_simulation(table); 	/* need more error handling */
+	end_simulation(table); /* need more error handling */
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_utils.c                                 :+:      :+:    :+:   */
+/*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 17:04:09 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 18:12:25 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ unsigned char *variable)
 	unsigned char	value;
 
 	value = *variable + 1;
-	printf("edit_status_var: setting value to %d\n", value);
+	// printf("edit_status_var: setting value to %d\n", value);
 	if (pthread_mutex_lock(status_mutex))
 		return (print_error(MUTEX_LOCK_ERROR));
-	memset(variable, philo->philo_id, sizeof(unsigned char));
+	memset(variable, value, sizeof(unsigned char));
 	if (pthread_mutex_unlock(status_mutex))
 		return (print_error(MUTEX_UNLOCK_ERROR));
 	if (status_mutex == philo->death_status_mutex)
@@ -82,7 +82,10 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
 	while (desired_sleep > get_time_stamp() - activity_start)
 		usleep(300);
 	if (philo->times_eaten == philo->must_eat)
+	{
+		printf("%ld %d has eaten %d times (must_eat == %d)\n", get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);	
 		return (1);
+	}
 	if (activity == SLEEPING)
 		print_status(philo, get_time_stamp(), MSG_THINKING);
 	return (0);
@@ -96,9 +99,10 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
 */
 int	attempt_take_fork(t_philo *philo, int fork_to_pick)
 {
-	pthread_mutex_t	*fork_mutex = NULL;
+	pthread_mutex_t	*fork_mutex;
 	unsigned char	*fork;
 
+	fork_mutex = NULL;
 	if (fork_to_pick == LEFT)
 	{
 		fork_mutex = philo->left_fork_mutex;
@@ -144,7 +148,13 @@ int	attempt_to_eat(t_philo *philo, int id)
 			return (-1);
 		if (perform_activity(philo, get_time_stamp(), EATING) == 1) /* start eating */
 		{
-			
+			if (pthread_detach(philo->thread))
+				return (print_error(THREAD_DETACH_ERROR));
+			if (lock_fork_mutexes(philo))
+				return (-1); // add error handling
+			set_forks_status(philo, 0);
+			if (unlock_fork_mutexes(philo))
+				return (-1); // add error handling
 			return (1); /* return 1 if the philo eat number_of_times_must_eat */
 		}
 		if (lock_fork_mutexes(philo))

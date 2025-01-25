@@ -140,7 +140,6 @@ Correction checks:
 	=> Re-reading subject: because `last_eaten` is when the philosopher last *started* to eat, not when finished.
 	=> Changed that, fixed!
 
-
 ## Done
 - timestamp format: from start of program
 - Added death checker thread
@@ -168,20 +167,27 @@ Correction checks:
 		- end it cleanly (locking what are likely destroyed mutexes, etc.)
 	- Correct the mutex(...)errors that occur sometimes, e.g. with `./philo 16 100 50 20`
 
-- Issues:
-	- some take forks after dying, everything doesn't stop after one dies
-		=> looks fixed, need to check more
-	- n.b.: with many philos, like `./philo 100 430 200 200`, delays and thus deaths happen
-	- Rudejes:
-		- idée: wrapper sur printf (si mort -> set variable à -> si variable est set à X, alors ne pas print)
-			=> done
-		- thinking: pas obligatoire mais algo qui sleep pendant le temps minimum de think (calculer ça), peut éviter de clog le système
-		- perf sur M1 >> perf sur Mac école. Bien tester
-		- philo visualizer: faire output épuré, et paste sur le site https://nafuka11.github.io/philosophers-visualizer/
+## Issues solved:
+- some take forks after dying, everything doesn't stop after one dies
+	=> looks fixed, need to check more
+- Rudejes:
+	- idée: wrapper sur printf (si mort -> set variable à -> si variable est set à X, alors ne pas print)
+		=> done
+
+## Issues remaining:
+- n.b.: with many philos and tight time, like `./philo 100 430 200 200`, delays and thus deaths happen
+- Rudejes:
+	- thinking: pas obligatoire mais algo qui sleep pendant le temps minimum de think (calculer ça), peut éviter de clog le système
+	- perf sur M1 >> perf sur Mac école. Bien tester
+	- philo visualizer: faire output épuré, et paste sur le site https://nafuka11.github.io/philosophers-visualizer/
 	
 # 25/1/25
-- Changed get_time_stamp back to basic version, solves the wrongly dying philosophers (e.g. with `./philo 100 800 200 200`)
+- Changed get_time_stamp() back to basic version, solves the wrongly dying philosophers (e.g. with `./philo 100 800 200 200`)
 - Must_eat: added shared finished_eating variable, which is incremented by 1 each time a philosopher reaches
 the must_eat value. Wrote `edit_status_var` function to increments its' and death_status' (renamed) value by 1 (this replaces handle_philo_death).
-	=> All this is to be used by grim_reaper function or other to stop the simulation when `finished_eating == nb_philo`. => not done yet
-- 
+	=> All this is to be used by grim_reaper function or other to stop the simulation when `finished_eating == nb_philo`. => not done yet.
+	Update: seems to work. Will use debugger to see the exact behavior
+- Mutex lock errors: sometimes happen at the end, e.g. with `./philo 200 1000 200 200` or `./philo 100 600 200 200`
+- Single philo: implemented to eat with one fork, but that's mistake. There should be only one fork, and the philo should die. Works with `./philo 1 800 200 200`, but mutex_destroy_error => not clear why, because `end_simulation` which
+
+- Doing preparation eval: it seems everything is okay. However, it remains to be checked if there's a mutex to prevent a philosopher from dying and starting eating at the same time. That 

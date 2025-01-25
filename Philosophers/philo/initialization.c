@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 16:41:07 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 19:19:46 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 
 	table->nb_philo = nb_philo;
 	table->start_time = get_time_stamp();
-	memset(&table->death_status, 0, sizeof(unsigned char)); 	/* Set death status to 0 (no philosopher is dead) */
-	memset(&table->finished_eating, 0, sizeof(unsigned char)); 	/* Set death status to 0 (no philosopher is dead) */
+	memset(&table->death_status, 0, sizeof(unsigned char));     /* Set death status to 0 (no philosopher is dead) */
+	memset(&table->finished_eating, 0, sizeof(unsigned char));  /* Set death status to 0 (no philosopher is dead) */
 	if (pthread_mutex_init(&table->death_status_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
 	if (pthread_mutex_init(&table->finished_eating_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
 	i = 0;
-	while (i < nb_philo)	/* Initialize forks, mutexes and philosophers */
+	while (i < nb_philo)     /* Initialize forks, mutexes and philosophers */
 	{
 		memset(&table->forks[i], 0, sizeof(unsigned char));
 		if (pthread_mutex_init(&table->fork_mutex[i], NULL))

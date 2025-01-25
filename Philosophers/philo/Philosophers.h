@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 17:13:40 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 17:42:33 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define MAX_THREADS 200
 
-enum error {
+enum e_error {
 	MALLOC_FAIL,
 	INVALID_INPUT,
 	ZERO_AS_INPUT,
@@ -32,13 +32,13 @@ enum error {
 	MUTEX_DESTROY_ERROR,
 };
 
-enum activity {
+enum e_activity {
 	THINKING,
 	SLEEPING,
 	EATING
 };
 
-enum message {
+enum e_message {
 	MSG_COUNT,
 	MSG_THINKING,
 	MSG_SLEEPING,
@@ -47,12 +47,12 @@ enum message {
 	MSG_DIED,
 };
 
-enum status {
+enum e_status {
 	death_status,
 	finished_eating
 };
 
-enum fork {
+enum e_fork {
 	LEFT,
 	RIGHT
 };
@@ -142,10 +142,10 @@ int		end_simulation(t_table table);
 
 // Routines
 
-void	*checker_routine(void *vargp);
 void	*philo_routine(void *table);
+void	*checker_routine(void *vargp);
 
-// Simulation utils
+// Routine utils
 
 void	stagger_start(int nb_philo, int id);
 int		perform_activity(t_philo *philo, long activity_start, int activity);
@@ -164,6 +164,6 @@ void	set_forks_status(t_philo *philo, char c);
 
 // General utils
 
-int		print_status(t_philo *philo, long timestamp, enum message msg);
+int		print_status(t_philo *philo, long timestamp, enum e_message msg);
 int		print_error(int error);
 long	get_time_stamp(void);

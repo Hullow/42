@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 16:20:51 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 19:20:30 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 	returns 1 in case of error and 0 otherwise */
 int	lock_fork_mutexes(t_philo *philo)
 {
+	// if (philo->nb_philo == 1 || philo->nb_philo - *(philo->finished_eating) == 1)
+	// {
+	// 	if (pthread_mutex_lock(philo->left_fork_mutex))
+	// 	{
+	// 		print_error(MUTEX_LOCK_ERROR);
+	// 		write(2, "lock_fork_mutexes: error locking left fork\n", 44);
+	// 		return (1);
+	// 	}
+	// 	return (0);
+	// }
 	if (pthread_mutex_lock(philo->left_fork_mutex))
 	{
 		print_error(MUTEX_LOCK_ERROR);
@@ -63,6 +73,16 @@ int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
 	returns 0 otherwise */
 int	unlock_fork_mutexes(t_philo *philo)
 {
+	// if (philo->nb_philo == 1  || philo->nb_philo - *(philo->finished_eating) == 1)
+	// {
+	// 	if (pthread_mutex_unlock(philo->left_fork_mutex))
+	// 	{
+	// 		print_error(MUTEX_LOCK_ERROR);
+	// 		write(2, "lock_fork_mutexes: error locking left fork\n", 44);
+	// 		return (1);
+	// 	}
+	// 	return (0);
+	// }
 	if (pthread_mutex_unlock(philo->left_fork_mutex) || \
 	pthread_mutex_unlock(philo->right_fork_mutex))
 	{

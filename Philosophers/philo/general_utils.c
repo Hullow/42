@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 17:13:42 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 17:23:00 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 		- death_status == philo->philo_id => this philosopher died, print
 		- otherwise, doesn't print
 */
-int	print_status(t_philo *philo, long timestamp, enum message msg)
+int	print_status(t_philo *philo, long timestamp, enum e_message msg)
 {
 	static const char *const	messages[] = {
 	[MSG_THINKING] = "is thinking",
@@ -56,7 +56,7 @@ int	print_error(int error)
 	if (error == MALLOC_FAIL)
 		write(2, "\nPhilosophers: Malloc fail\n", 28);
 	else if (error == INVALID_INPUT)
-		write(2, "\nPhilosophers: Invalid input\n", 30);
+		write(2, "Philosophers: Invalid input\n", 30);
 	else if (error == ZERO_AS_INPUT)
 		write(2, "Philosophers: simulation doesn't take 0 as parameter\n", 54);
 	else if (error == GET_TIME_OF_DAY_ERROR)

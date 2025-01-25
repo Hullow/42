@@ -6,13 +6,13 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 17:17:01 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 19:30:50 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-/* checks if a philosopher is dead */
+/* checks if any philosopher is dead */
 void	*checker_routine(void *vargp)
 {
 	t_philo	*philos;
@@ -45,11 +45,13 @@ void	*philo_routine(void *vargp)
 {
 	t_philo		*philo;
 	int			id;
+	int			eat_return;
 	long		timestamp;
 
 	/* Initialization */
 	philo = (t_philo *)vargp;
 	id = philo->philo_id; /* Set ids */
+	eat_return = 0;
 
 	/* Loop : eating, then sleeping */
 	timestamp = get_time_stamp();
@@ -59,10 +61,17 @@ void	*philo_routine(void *vargp)
 	{
 		if (attempt_take_fork(philo, LEFT) == -1)
 			break ;
-		if (attempt_take_fork(philo, RIGHT) == -1)
+		// if (philo->nb_philo > 1) // && philo->nb_philo - *(philo->finished_eating) > 1)
+		// {
+			if (attempt_take_fork(philo, RIGHT) == -1)
+				break ;
+		// }
+		eat_return = attempt_to_eat(philo, id);
+		if (eat_return == -1 || eat_return == 1) /* if -1, means mutex error, if 1, means eat enough times */
+		{
+			edit_status_var(philo, philo->finished_eating_mutex, philo->finished_eating);
 			break ;
-		if (attempt_to_eat(philo, id) == -1) /* if -1, means mutex error, if 1, means eat enough times */
-			break ;
+		}
 	}
 	return (NULL);
 }
