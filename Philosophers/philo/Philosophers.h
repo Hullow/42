@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 16:27:22 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 17:13:40 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ enum activity {
 	THINKING,
 	SLEEPING,
 	EATING
+};
+
+enum message {
+	MSG_COUNT,
+	MSG_THINKING,
+	MSG_SLEEPING,
+	MSG_EATING,
+	MSG_FORK,
+	MSG_DIED,
 };
 
 enum status {
@@ -117,39 +126,44 @@ typedef struct s_table
 
 int		handle_input(t_params *params, int argc, char **argv);
 int		ft_atoi_philo(char *str);
-int		handle_invalid_input(t_params *params);
 int		input_checker(t_params *params);
 
-// Simulation
-	// Initialization
+// Initialization
 
 int		init_table(t_table *table, t_params *params, int nb_philo);
 int		init_philo(t_table *table, t_params *params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
 
-// Running
+// Simulation control
 
 int		run_simulation(t_table table);
 int		grim_reaper(t_table *table);
 int		end_simulation(t_table table);
 
-	// Routine
+// Routines
 
 void	*checker_routine(void *vargp);
 void	*philo_routine(void *table);
-// int		handle_philo_death(t_philo *philo);
-int		edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, unsigned char *variable);
+
+// Simulation utils
+
+void	stagger_start(int nb_philo, int id);
+int		perform_activity(t_philo *philo, long activity_start, int activity);
+int		edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex,\
+unsigned char *variable);
+int		attempt_take_fork(t_philo *philo, int fork_to_pick);
+int		attempt_to_eat(t_philo *philo, int id);
 
 	// Forks
+
 int		lock_fork_mutexes(t_philo *philo);
 int		unlock_fork_mutexes(t_philo *philo);
 int		lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 int		unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 void	set_forks_status(t_philo *philo, char c);
 
-// Utils
+// General utils
 
-int		print_status(t_philo *philo, long timestamp, char *activity);
+int		print_status(t_philo *philo, long timestamp, enum message msg);
 int		print_error(int error);
-long	get_time_stamp(long start_time);
-int		perform_activity(t_philo *philo, long activity_start, int activity);
+long	get_time_stamp(void);

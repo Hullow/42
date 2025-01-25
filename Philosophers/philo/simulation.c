@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 16:16:16 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:41:25 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	grim_reaper(t_table *table)
 			return (print_error(MUTEX_LOCK_ERROR));
 		if (table->death_status != 0)
 		{
-			printf("%ld A philosopher died – end of simulation\n", get_time_stamp(table->start_time)); /* write to stderr ? */
+			printf("%ld A philosopher died – end of simulation\n", get_time_stamp()); /* write to stderr ? */
 			if (pthread_mutex_unlock(&table->death_status_mutex))
 				return (print_error(MUTEX_UNLOCK_ERROR));
 			break ;
 		}
 		// else
-		// 	printf("%ld\t\t***reaping***\n", get_time_stamp(table->start_time));
+		// 	printf("%ld\t\t***reaping***\n", get_time_stamp());
 		if (pthread_mutex_unlock(&table->death_status_mutex))
 			return (print_error(MUTEX_UNLOCK_ERROR));
 	
@@ -38,7 +38,7 @@ int	grim_reaper(t_table *table)
 			return (print_error(MUTEX_UNLOCK_ERROR));
 		if (table->finished_eating == table->nb_philo)
 		{
-			printf("%ld All philosophers eat %d times - simulation stopping\n", get_time_stamp(table->start_time), table->finished_eating); /* write to stderr ? */
+			printf("%ld All philosophers eat %d times - simulation stopping\n", get_time_stamp(), table->finished_eating); /* write to stderr ? */
 			if (pthread_mutex_unlock(&table->finished_eating_mutex))
 				return (print_error(MUTEX_UNLOCK_ERROR));
 			break ;

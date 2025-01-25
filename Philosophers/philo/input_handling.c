@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 20:06:54 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 17:15:33 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,18 @@ int	ft_atoi_philo(char *str)
  * 			To determine: 
  * 				- a parameter is == 0
  * 				- a parameter is > INT_MAX
- * @returns	returns a call to handle_invalid_input, which prints an error,
- * 			frees the parameters, and returns -1
+ * @returns	returns a call (with error number) to print_error, which returns -1
  * */
 int	input_checker(t_params *params)
 {
 	if (params->nb_philo < 0 || params->time_to_die < 0 || \
 	params->time_to_eat < 0 || params->time_to_sleep < 0)
-		return (handle_invalid_input(params));
+		return (print_error(INVALID_INPUT));
 	if (params->nb_philo == 0 || params->time_to_die == 0 || \
 	params->time_to_eat == 0 || params->time_to_sleep == 0)
-	{
-		print_error(ZERO_AS_INPUT);
-		free(params);
-		return (-1);
-	}
+		return(print_error(ZERO_AS_INPUT));
 	/* other potential invalid input cases */
 	return (0);
-}
-
-/**
- * @brief	prints an INVALID_INPUT error and frees the parameters
- * @returns	-1
- */
-int	handle_invalid_input(t_params *params)
-{
-	print_error(INVALID_INPUT);
-	free(params);
-	return (-1);
 }
 
 // Stores the input parameters in a the s_params struct
@@ -86,10 +70,10 @@ int	handle_input(t_params *params, int argc, char **argv)
 		printf("1) number of philosophers\n2) time to die\n");
 		printf("3) time to eat\n4) time to sleep\n");
 		printf("5) number of times each philosopher must eat (optional)\n");
-		return (handle_invalid_input(params));
+		return (print_error(INVALID_INPUT));
 	}
 	if (argv[5] && argv[5] < 0)
-		return (handle_invalid_input(params));
+		return (print_error(INVALID_INPUT));
 	if (argv[5]) /* bigger or EQUAL to zero*/
 		params->must_eat = ft_atoi_philo(argv[5]);
 	else

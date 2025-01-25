@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 16:06:53 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 17:13:42 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,21 @@
 		- death_status == philo->philo_id => this philosopher died, print
 		- otherwise, doesn't print
 */
-int	print_status(t_philo *philo, long timestamp, char *activity)
+int	print_status(t_philo *philo, long timestamp, enum message msg)
 {
+	static const char *const	messages[] = {
+	[MSG_THINKING] = "is thinking",
+	[MSG_SLEEPING] = "is sleeping",
+	[MSG_EATING] = "is eating",
+	[MSG_FORK] = "has taken a fork",
+	[MSG_DIED] = "has died"
+	};
+
 	if (pthread_mutex_lock(philo->death_status_mutex))
 		return (print_error(MUTEX_LOCK_ERROR));
-	if (*(philo->death_status) == 0 || *(philo->death_status) == philo->philo_id)
+	if (*(philo->death_status) == 0 || msg == MSG_DIED)
 	{
-		printf("%ld %d %s\n", timestamp, philo->philo_id, activity);
+		printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
 		if (pthread_mutex_unlock(philo->death_status_mutex))
 			return (print_error(MUTEX_UNLOCK_ERROR));
 		return (0);
@@ -74,48 +82,11 @@ int	print_error(int error)
  * @details	uses gettimeofday() to get current time and converts it
  * 			by multiplying second by 1000 and adding microseconds divided by 1000
  */
-long	get_time_stamp(long start_time)
+long	get_time_stamp(void)
 {
 	struct timeval	current_time;
-	long			return_time;
 
 	if (gettimeofday(&current_time, NULL) == -1)
 		return (-1);
-	return_time = ((((long) current_time.tv_sec) * 1000) + ((long) current_time.tv_usec) / 1000) - start_time;
-	return (return_time);
-}
-
-/**
- * @brief	Sleeps the precise number of ms
- * @details Checks the current time since desired start, 
- * 			taking as input the desired_sleep_time (in ms),
- * 			and the activity (eating or sleeping)
- * @returns	-1 in case of error, 0 otherwise
- */
-int	perform_activity(t_philo *philo, long activity_start, int activity)
-{
-	long	desired_sleep;
-
-	if (activity_start == -1)
-		return (-1);
-	desired_sleep = 0;
-	if (activity == SLEEPING)
-	{
-		print_status(philo, activity_start, "is sleeping");
-		desired_sleep = philo->time_to_sleep;
-	}
-	else if (activity == EATING)
-	{
-		philo->last_eaten = activity_start;
-		print_status(philo, philo->last_eaten, "is eating");
-		desired_sleep = philo->time_to_eat;
-		philo->times_eaten++;
-	}
-	while (desired_sleep > get_time_stamp(0) - activity_start)
-		usleep(300);
-	if (philo->times_eaten == philo->must_eat)
-		return (1);
-	if (activity == SLEEPING)
-		print_status(philo, get_time_stamp(0), "is thinking");
-	return (0);
+	return (((long) current_time.tv_sec * 1000) + ((long) current_time.tv_usec / 1000));
 }

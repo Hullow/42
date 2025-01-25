@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/24 18:21:26 by francis          ###   ########.fr        #
+#    Updated: 2025/01/25 16:53:00 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -ferror-limit=2
 
 SRCS =	main.c \
-		input.c \
+		input_handling.c \
 		initialization.c \
 		forks.c \
-		simulation.c \
 		routine.c \
-		utils.c
+		simulation.c \
+		simulation_utils.c \
+		general_utils.c
 
 OBJ = $(SRCS:.c=.o)
 
