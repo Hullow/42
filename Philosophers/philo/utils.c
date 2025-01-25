@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 11:27:23 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:06:53 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@
 */
 int	print_status(t_philo *philo, long timestamp, char *activity)
 {
-	if (pthread_mutex_lock(philo->global_death_mutex))
+	if (pthread_mutex_lock(philo->death_status_mutex))
 		return (print_error(MUTEX_LOCK_ERROR));
 	if (*(philo->death_status) == 0 || *(philo->death_status) == philo->philo_id)
 	{
 		printf("%ld %d %s\n", timestamp, philo->philo_id, activity);
-		if (pthread_mutex_unlock(philo->global_death_mutex))
+		if (pthread_mutex_unlock(philo->death_status_mutex))
 			return (print_error(MUTEX_UNLOCK_ERROR));
 		return (0);
 	}
 	else
 	{
-		if (pthread_mutex_unlock(philo->global_death_mutex))
+		if (pthread_mutex_unlock(philo->death_status_mutex))
 			return (print_error(MUTEX_UNLOCK_ERROR));
 		return (0);
 	}
@@ -109,9 +109,12 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
 		philo->last_eaten = activity_start;
 		print_status(philo, philo->last_eaten, "is eating");
 		desired_sleep = philo->time_to_eat;
+		philo->times_eaten++;
 	}
 	while (desired_sleep > get_time_stamp(0) - activity_start)
 		usleep(300);
+	if (philo->times_eaten == philo->must_eat)
+		return (1);
 	if (activity == SLEEPING)
 		print_status(philo, get_time_stamp(0), "is thinking");
 	return (0);

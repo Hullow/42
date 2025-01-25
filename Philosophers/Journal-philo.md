@@ -181,4 +181,7 @@ Correction checks:
 	
 # 25/1/25
 - Changed get_time_stamp back to basic version, solves the wrongly dying philosophers (e.g. with `./philo 100 800 200 200`)
+- Must_eat: added shared finished_eating variable, which is incremented by 1 each time a philosopher reaches
+the must_eat value. Wrote `edit_status_var` function to increments its' and death_status' (renamed) value by 1 (this replaces handle_philo_death).
+	=> All this is to be used by grim_reaper function or other to stop the simulation when `finished_eating == nb_philo`. => not done yet
 - 

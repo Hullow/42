@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 11:33:42 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:27:22 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
+
+# define MAX_THREADS 200
 
 enum error {
 	MALLOC_FAIL,
@@ -36,12 +38,15 @@ enum activity {
 	EATING
 };
 
+enum status {
+	death_status,
+	finished_eating
+};
+
 enum fork {
 	LEFT,
 	RIGHT
 };
-
-# define MAX_THREADS 200
 
 // Structure to store the input parameters
 typedef struct s_params
@@ -52,7 +57,6 @@ typedef struct s_params
 	int	time_to_sleep;
 	int	must_eat;
 }	t_params;
-
 
 /* structure for each philosopher:
 	- thread ID pointer pthread_t *thread (X bytes)
@@ -76,7 +80,8 @@ typedef struct s_philo
 	long			time_to_eat;
 	long			time_to_sleep;
 	pthread_t		thread;
-	pthread_mutex_t	*global_death_mutex;
+	pthread_mutex_t	*death_status_mutex;
+	pthread_mutex_t	*finished_eating_mutex;
 	pthread_mutex_t	*left_fork_mutex;
 	pthread_mutex_t	*right_fork_mutex;
 	unsigned char	*left_fork;
@@ -84,6 +89,7 @@ typedef struct s_philo
 	int				left_fork_id;
 	int				right_fork_id;
 	unsigned char	*death_status;
+	unsigned char	*finished_eating;
 }	t_philo;
 
 // Structure for the whole table
@@ -93,7 +99,6 @@ typedef struct s_philo
 // - the mutexes for the forks
 // - the philosophers
 // - a death status marker that is pointed to from each philosopher
-
 typedef struct s_table
 {
 	int					nb_philo;
@@ -101,8 +106,10 @@ typedef struct s_table
 	t_philo				philos[MAX_THREADS];
 	unsigned char		forks[MAX_THREADS];
 	pthread_mutex_t		fork_mutex[MAX_THREADS];
-	pthread_mutex_t		global_death_mutex;
+	pthread_mutex_t		death_status_mutex;
+	pthread_mutex_t		finished_eating_mutex;
 	unsigned char		death_status;
+	unsigned char		finished_eating;
 	pthread_t			checker;
 }	t_table;
 
@@ -130,7 +137,8 @@ int		end_simulation(t_table table);
 
 void	*checker_routine(void *vargp);
 void	*philo_routine(void *table);
-int		handle_philo_death(t_philo *philo);
+// int		handle_philo_death(t_philo *philo);
+int		edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, unsigned char *variable);
 
 	// Forks
 int		lock_fork_mutexes(t_philo *philo);

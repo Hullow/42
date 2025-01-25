@@ -6,25 +6,47 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 12:44:55 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:27:22 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
+/*	Increments the value of a shared status variable 
+	(death_status or finished_eating) by 1.
+	If the variable is death_status, prints the death announcement
+	for the corresponding philosopher (given in parameters)
+*/
+int	edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, \
+unsigned char *variable)
+{
+	unsigned char	value;
+
+	value = *variable + 1;
+	printf("edit_status_var: setting value to %d\n", value);
+	if (pthread_mutex_lock(status_mutex))
+		return (print_error(MUTEX_LOCK_ERROR));
+	memset(variable, philo->philo_id, sizeof(unsigned char));
+	if (pthread_mutex_unlock(status_mutex))
+		return (print_error(MUTEX_UNLOCK_ERROR));
+	if (status_mutex == philo->death_status_mutex)
+		print_status(philo, get_time_stamp(0), "died");
+	return (0);
+}
+
 // sets the global death status to 1
 // prints a death statement
 // returns 0 on success, -1 in case of error
-int	handle_philo_death(t_philo *philo)
-{
-	if (pthread_mutex_lock(philo->global_death_mutex))
-		return (print_error(MUTEX_LOCK_ERROR));
-	memset(philo->death_status, philo->philo_id, sizeof(unsigned char));
-	if (pthread_mutex_unlock(philo->global_death_mutex))
-		return (print_error(MUTEX_UNLOCK_ERROR));
-	print_status(philo, get_time_stamp(0), "died");
-	return (0);
-}
+// int	handle_philo_death(t_philo *philo)
+// {
+// 	if (pthread_mutex_lock(philo->death_status_mutex))
+// 		return (print_error(MUTEX_LOCK_ERROR));
+// 	memset(philo->death_status, philo->philo_id, sizeof(unsigned char));
+// 	if (pthread_mutex_unlock(philo->death_status_mutex))
+// 		return (print_error(MUTEX_UNLOCK_ERROR));
+// 	print_status(philo, get_time_stamp(0), "died");
+// 	return (0);
+// }
 
 /* checks if a philosopher is dead */
 void	*checker_routine(void *vargp)
@@ -44,7 +66,7 @@ void	*checker_routine(void *vargp)
 		{
 			if (get_time_stamp(philos[0].start_time) - philos[i].last_eaten >= time_to_die)
 			{
-				handle_philo_death(&philos[i]);
+				edit_status_var(&philos[i], philos[i].death_status_mutex, philos[i].death_status);
 				return (NULL);
 			}
 			i++;
@@ -118,7 +140,11 @@ int	attempt_to_eat(t_philo *philo, int id)
 	{
 		if (unlock_fork_mutexes(philo)) /* unlock both mutexes */
 			return (-1);
-		perform_activity(philo, get_time_stamp(0), EATING); /* start eating */
+		if (perform_activity(philo, get_time_stamp(0), EATING) == 1) /* start eating */
+		{
+			
+			return (1); /* return 1 if the philo eat number_of_times_must_eat */
+		}
 		if (lock_fork_mutexes(philo))
 			return (-1); // add error handling
 		set_forks_status(philo, 0);
@@ -152,12 +178,11 @@ void	*philo_routine(void *vargp)
 	stagger_start(philo->nb_philo, id);
 	while (1)
 	{
-		/* Take each fork, if possible */
 		if (attempt_take_fork(philo, LEFT) == -1)
 			break ;
 		if (attempt_take_fork(philo, RIGHT) == -1)
 			break ;
-		if (attempt_to_eat(philo, id) == -1)
+		if (attempt_to_eat(philo, id) == -1) /* if -1, means mutex error, if 1, means eat enough times */
 			break ;
 	}
 	return (NULL);

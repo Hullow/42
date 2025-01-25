@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/24 23:48:19 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:16:16 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,33 @@ int	grim_reaper(t_table *table)
 {
 	while (1)
 	{
-		if (pthread_mutex_lock(&table->global_death_mutex))
+		/* checking for deaths */
+		if (pthread_mutex_lock(&table->death_status_mutex))
 			return (print_error(MUTEX_LOCK_ERROR));
 		if (table->death_status != 0)
 		{
 			printf("%ld A philosopher died – end of simulation\n", get_time_stamp(table->start_time)); /* write to stderr ? */
-			if (pthread_mutex_unlock(&table->global_death_mutex))
+			if (pthread_mutex_unlock(&table->death_status_mutex))
 				return (print_error(MUTEX_UNLOCK_ERROR));
 			break ;
 		}
 		// else
 		// 	printf("%ld\t\t***reaping***\n", get_time_stamp(table->start_time));
-		if (pthread_mutex_unlock(&table->global_death_mutex))
+		if (pthread_mutex_unlock(&table->death_status_mutex))
 			return (print_error(MUTEX_UNLOCK_ERROR));
+	
+		/* checking if finished eating */
+		if (pthread_mutex_lock(&table->finished_eating_mutex))
+			return (print_error(MUTEX_UNLOCK_ERROR));
+		if (table->finished_eating == table->nb_philo)
+		{
+			printf("%ld All philosophers eat %d times - simulation stopping\n", get_time_stamp(table->start_time), table->finished_eating); /* write to stderr ? */
+			if (pthread_mutex_unlock(&table->finished_eating_mutex))
+				return (print_error(MUTEX_UNLOCK_ERROR));
+			break ;
+		}
+		if (pthread_mutex_unlock(&table->finished_eating_mutex))
+				return (print_error(MUTEX_UNLOCK_ERROR));
 		usleep(1000); // check every 0.5 ms
 	}
 	return (0);
@@ -53,7 +67,7 @@ int	run_simulation(t_table table)
 	}
 	pthread_create(&table.checker, NULL, checker_routine, table.philos);
 	// grim_reaper(&table);
-	// printf("thread %ld: run simulation: when does this run?\n", (long) pthread_self());
+	printf("thread %ld: run simulation: when does this run?\n", (long) pthread_self());
 	return (0);
 }
 
@@ -80,7 +94,9 @@ int	end_simulation(t_table table)
 			return(print_error(MUTEX_DESTROY_ERROR));
 		i++;
 	}
-	if (pthread_mutex_destroy(&table.global_death_mutex))
+	if (pthread_mutex_destroy(&table.death_status_mutex))
+		return(print_error(MUTEX_DESTROY_ERROR));
+	if (pthread_mutex_destroy(&table.finished_eating_mutex))
 		return(print_error(MUTEX_DESTROY_ERROR));
 	return (0);
 }
