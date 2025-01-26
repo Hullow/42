@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 20:51:37 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 21:09:23 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int		input_checker(t_params *params);
 
 int		init_table(t_table *table, t_params *params, int nb_philo);
 int		init_philo(t_table *table, t_params *params, int id);
-void	init_philo_params(t_philo *philo, t_params *params, int id);
+void	init_philo_params(t_philo *philo, t_params **params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
 
 // Simulation control

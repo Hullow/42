@@ -6,25 +6,25 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/26 20:22:28 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 22:12:06 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-void	init_philo_params(t_philo *philo, t_params *params, int id)
+void	init_philo_params(t_philo *philo, t_params **params, int id)
 {
 	int	nb_philo;
 
-	nb_philo = params->nb_philo;
+	nb_philo = (*params)->nb_philo;
 	philo->philo_id = id + 1;
 	philo->nb_philo = nb_philo;
 	philo->left_fork_id = id % nb_philo;
 	philo->right_fork_id = (id + 1) % nb_philo;
-	philo->time_to_die = (long) params->time_to_die;
-	philo->time_to_eat = (long) params->time_to_eat;
-	philo->time_to_sleep = (long) params->time_to_sleep;
-	philo->must_eat = params->must_eat;
+	philo->time_to_die = (long) (*params)->time_to_die;
+	philo->time_to_eat = (long) (*params)->time_to_eat;
+	philo->time_to_sleep = (long) (*params)->time_to_sleep;
+	philo->must_eat = (*params)->must_eat;
 	philo->times_eaten = 0;
 }
 
@@ -39,7 +39,19 @@ int	init_philo(t_table *table, t_params *params, int id)
 	int		nb_philo;
 
 	philo = &table->philos[id];
-	init_philo_params(philo, params, id);
+	
+	// init_philo_params(philo, &params, id);
+	nb_philo = params->nb_philo;
+	philo->philo_id = id + 1;
+	philo->nb_philo = nb_philo;
+	philo->left_fork_id = id % nb_philo;
+	philo->right_fork_id = (id + 1) % nb_philo;
+	philo->time_to_die = (long) params->time_to_die;
+	philo->time_to_eat = (long) params->time_to_eat;
+	philo->time_to_sleep = (long) params->time_to_sleep;
+	philo->must_eat = params->must_eat;
+	philo->times_eaten = 0;
+
 	nb_philo = params->nb_philo;
 	philo->start_time = table->start_time;
 	philo->last_eaten = table->start_time;
@@ -65,6 +77,7 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 {
 	int	i;
 
+	table = malloc (sizeof(t_table));
 	table->nb_philo = nb_philo;
 	table->start_time = get_time_stamp();
 	memset(&table->death_status, 0, sizeof(unsigned char));
