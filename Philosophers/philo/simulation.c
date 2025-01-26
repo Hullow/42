@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 18:20:58 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 18:46:20 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,10 @@ int	end_simulation(t_table *table)
 			return (print_error(MUTEX_DESTROY_ERROR));
 		i++;
 	}
+	// pthread_mutex_unlock(&table->death_status_mutex);
 	if (pthread_mutex_destroy(&table->death_status_mutex))
 		return (print_error(MUTEX_DESTROY_ERROR));
+	// pthread_mutex_unlock(&table->finished_eating_mutex);
 	if (pthread_mutex_destroy(&table->finished_eating_mutex))
 		return (print_error(MUTEX_DESTROY_ERROR));
 	return (0);

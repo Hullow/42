@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 16:26:48 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:08:57 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	lock_fork_mutexes(t_philo *philo)
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 
-	if (philo->left_fork_id < philo->right_fork_id)
+	if (philo->left_fork_id == philo->right_fork_id)
+		return (lock_single_fork_mutex(philo->left_fork_mutex));
+	else if (philo->left_fork_id < philo->right_fork_id)
 	{
 		first_fork = philo->left_fork_mutex;
 		second_fork = philo->right_fork_mutex;
@@ -56,6 +58,12 @@ int	unlock_fork_mutexes(t_philo *philo)
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
 
+	if (philo->left_fork_id == philo->right_fork_id)
+	{
+		if (unlock_single_fork_mutex(philo->left_fork_mutex))
+			return (-1);
+		return (0);
+	}
 	if (philo->left_fork_id < philo->right_fork_id)
 	{
 		first_fork = philo->left_fork_mutex;

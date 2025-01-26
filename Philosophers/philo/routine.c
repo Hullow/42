@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 19:32:01 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 18:52:21 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	*philo_routine(void *vargp)
 			break ;
 		}
 	}
+	// unlock_fork_mutexes(philo); /* necessary or not ??? */
 	return (NULL);
 }
