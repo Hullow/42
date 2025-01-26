@@ -192,9 +192,13 @@ the must_eat value. Wrote `edit_status_var` function to increments its' and deat
 
 - Doing preparation eval: it seems everything is okay. However, it remains to be checked if there's a mutex to prevent a philosopher from dying and starting eating at the same time. That 
 
+# 26/1/25
+- Testing with valgrind --tool=helgrind
+- Added lock ordering to avoid possible deadlocks
 
 # Tests:
 ## Clear failures
+- `./philo 2 400 200 100` => don't die anymore. Why ????
 - `./philo 200 1000 200 200` => mutex unlock error, mutex lock error
 - `valgrind --tool=helgrind ./philo 1 1000 200 200`
 	=> 
@@ -216,6 +220,3 @@ possible data race during read of size 4
 - `valgrind --tool=helgrind ./philo 1 1000 200 200`
 	
  
-# 26/1/25
-- Testing with valgrind --tool=helgrind
-- Added lock ordering to avoid possible deadlocks

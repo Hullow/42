@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 19:45:04 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 20:51:37 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <stdbool.h>
 
-# define MAX_THREADS 200
+#define MAX_THREADS 200
 
-enum e_error {
+enum e_error
+{
 	MALLOC_FAIL,
 	INVALID_INPUT,
 	ZERO_AS_INPUT,
@@ -32,13 +34,15 @@ enum e_error {
 	MUTEX_DESTROY_ERROR,
 };
 
-enum e_activity {
+enum e_activity
+{
 	THINKING,
 	SLEEPING,
 	EATING
 };
 
-enum e_message {
+enum e_message
+{
 	MSG_COUNT,
 	MSG_THINKING,
 	MSG_SLEEPING,
@@ -47,12 +51,14 @@ enum e_message {
 	MSG_DIED,
 };
 
-enum e_status {
+enum e_status
+{
 	death_status,
 	finished_eating
 };
 
-enum e_fork {
+enum e_fork
+{
 	LEFT,
 	RIGHT
 };
@@ -71,7 +77,8 @@ typedef struct s_params
 	- thread ID pointer pthread_t *thread (X bytes)
 	- the philosopher's ID (4 byte)
 	- last time eaten (8 byte)
-	- how many times philosopher must eat (set to -1 if variable is not used) (4 byte)
+	- how many times philosopher must eat 
+	(set to -1 if variable is not used) (4 byte)
 	- time to die (4 byte)
 	- time to eat (4 byte)
 	- time to sleep (4 byte)
@@ -133,6 +140,7 @@ int		input_checker(t_params *params);
 
 int		init_table(t_table *table, t_params *params, int nb_philo);
 int		init_philo(t_table *table, t_params *params, int id);
+void	init_philo_params(t_philo *philo, t_params *params, int id);
 void	fill_params(t_philo *philo, t_params *params, int id);
 
 // Simulation control
@@ -148,23 +156,30 @@ void	*checker_routine(void *vargp);
 
 // Routine utils
 
-void	stagger_start(int nb_philo, int id);
-int		perform_activity(t_philo *philo, long activity_start, int activity);
-int		edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex,\
+int	perform_activity(t_philo *philo, long activity_start, long desired_sleep, \
+int activity);
+void	eat(t_philo *philo, long activity_start);
+int		edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, \
 unsigned char *variable);
-int		attempt_take_fork(t_philo *philo, int fork_to_pick);
 int		attempt_to_eat(t_philo *philo, int id);
 
 	// Forks
 
+int		attempt_take_fork(t_philo *philo, int fork_to_pick);
 int		lock_fork_mutexes(t_philo *philo);
 int		unlock_fork_mutexes(t_philo *philo);
 int		lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 int		unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
-void	set_forks_status(t_philo *philo, char c);
+
+	// Forks utils
+
+void			set_forks_status(t_philo *philo, char c);
+unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick);
+pthread_mutex_t	*select_fork_mutex(t_philo *philo, enum e_fork fork_to_pick);
 
 // General utils
 
+void	stagger_start(int nb_philo, int id);
 int		print_status(t_philo *philo, long timestamp, enum e_message msg);
 int		print_error(int error);
 long	get_time_stamp(void);

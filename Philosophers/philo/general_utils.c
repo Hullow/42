@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/26 16:21:53 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 20:31:39 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,24 @@ int	print_error(int error)
 	return (-1);
 }
 
+/*
+Staggers the start of the simulation, so even and uneven philos eat 
+at different times:
+	- In all simulations, even-numbered philos wait 0.2ms before trying to eat
+	- In simulations with an uneven number of philosophers, the first philo
+	waits 0.5ms before trying to eat, so that there it can alternate with 
+	the last philo, which is its neighbor, and also uneven-numbered
+// 1st philo waiting 0.5 ms rather than 0.2 ms before trying to eat 
+	=> likely no change; and yet, it seems to have changed things
+*/
+void	stagger_start(int nb_philo, int id)
+{
+	if (id == 1 && nb_philo % 2 != 0)
+		usleep(500);
+	else if (id % 2 == 0)
+		usleep(200);
+}
+
 /**
  * @brief	calculates the timestamp in ms
  * @return	timestamp in milliseconds (long), or -1 on error
@@ -88,5 +106,6 @@ long	get_time_stamp(void)
 
 	if (gettimeofday(&current_time, NULL) == -1)
 		return (-1);
-	return (((long) current_time.tv_sec * 1000) + ((long) current_time.tv_usec / 1000));
+	return (((long) current_time.tv_sec * 1000) + \
+	((long) current_time.tv_usec / 1000));
 }

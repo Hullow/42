@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 22:27:20 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 20:24:00 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /**
  *	@brief	custom atoi to convert our input to int type
- * @returns (positive) int if valid-1 if negative number or any invalid characters
+ *  @returns 	(positive) int if valid
+ * 				-1 if negative number or any invalid characters
 */
 int	ft_atoi_philo(char *str)
 {
@@ -73,7 +74,7 @@ int	handle_input(t_params *params, int argc, char **argv)
 		printf("5) number of times each philosopher must eat (optional)\n");
 		return (print_error(INVALID_INPUT));
 	}
-	if (argv[5]) /* bigger or EQUAL to zero*/
+	if (argv[5])
 		params->must_eat = ft_atoi_philo(argv[5]);
 	else
 		params->must_eat = -1;

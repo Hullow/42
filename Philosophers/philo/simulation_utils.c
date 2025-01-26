@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_utils.c                                    :+:      :+:    :+:   */
+/*   simulation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 19:46:34 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 20:51:59 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
-
-/* Staggers the start of the simulation, so even and uneven philos eat 
-at different times:
-	- In all simulations, even-numbered philos wait 0.2ms before trying to eat
-	- In simulations with an uneven number of philosophers, the first philo
-	waits 0.5ms before trying to eat, so that there it can alternate with 
-	the last philo, which is its neighbor, and also uneven-numbered
-// 1st philo waiting 0.5 ms rather than 0.2 ms before trying to eat => likely no change; and yet, it seems to have changed things
-	*/
-void	stagger_start(int nb_philo, int id)
-{
-	if (id == 1 && nb_philo % 2 != 0)
-		usleep(500);
-	else if (id % 2 == 0)
-		usleep(200);
-}
 
 /*	Used to signal the death of a philosopher or count the number of philos
 	that have eaten.
@@ -53,6 +37,15 @@ unsigned char *variable)
 	return (0);
 }
 
+void	eat(t_philo *philo, long activity_start)
+{
+	pthread_mutex_lock(&philo->last_eaten_mutex);
+	philo->last_eaten = activity_start;
+	pthread_mutex_unlock(&philo->last_eaten_mutex);
+	print_status(philo, activity_start, MSG_EATING);
+	philo->times_eaten++;
+}
+
 /**
  * @brief	Sleeps the precise number of ms
  * @details Checks the current time since desired start, 
@@ -60,32 +53,21 @@ unsigned char *variable)
  * 			and the activity (eating or sleeping)
  * @returns	-1 in case of error, 0 otherwise
  */
-int	perform_activity(t_philo *philo, long activity_start, int activity)
+int	perform_activity(t_philo *philo, long activity_start, long desired_sleep, \
+int activity)
 {
-	long	desired_sleep;
-
 	if (activity_start == -1)
 		return (-1);
-	desired_sleep = 0;
 	if (activity == SLEEPING)
-	{
 		print_status(philo, activity_start, MSG_SLEEPING);
-		desired_sleep = philo->time_to_sleep;
-	}
 	else if (activity == EATING)
-	{
-		pthread_mutex_lock(&philo->last_eaten_mutex);
-		philo->last_eaten = activity_start;
-		pthread_mutex_unlock(&philo->last_eaten_mutex);
-		print_status(philo, activity_start, MSG_EATING);
-		desired_sleep = philo->time_to_eat;
-		philo->times_eaten++;
-	}
+		eat(philo, activity_start);
 	while (desired_sleep > get_time_stamp() - activity_start)
 		usleep(250);
 	if (philo->times_eaten == philo->must_eat)
 	{
-		printf("%ld %d has eaten %d times (must_eat == %d)\n", get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);	
+		printf("%ld %d has eaten %d times (must_eat == %d)\n", \
+		get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);
 		return (1);
 	}
 	if (activity == SLEEPING)
@@ -93,41 +75,16 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
 	return (0);
 }
 
-/* 	- Attempts to mark a specific fork (left or right) as taken
-	by the calling philo/thread
-	- If fork is available (*(fork) == 0), marks it as taken 
-	using memset to change the fork's value to the philo's id
-	- Protects fork with mutex before reading and writing
-*/
-int	attempt_take_fork(t_philo *philo, int fork_to_pick)
-{
-	pthread_mutex_t	*fork_mutex;
-	unsigned char	*fork;
-
-	fork_mutex = NULL;
-	if (fork_to_pick == LEFT)
-	{
-		fork_mutex = philo->left_fork_mutex;
-		fork = philo->left_fork;
-	}
-	else if (fork_to_pick == RIGHT)
-	{
-		fork_mutex = philo->right_fork_mutex;
-		fork = philo->right_fork;
-	}
-	if (lock_single_fork_mutex(fork_mutex))
-		return (-1);
-	if (*(fork) == 0)
-	{
-		memset(fork, philo->philo_id, sizeof(unsigned char));
-		if (unlock_single_fork_mutex(fork_mutex))
-			return (-1);
-		print_status(philo, get_time_stamp(), MSG_FORK);
-	}
-	else if (unlock_single_fork_mutex(fork_mutex))
-		return (-1);
-	return (0);
-}
+// bool	check_id(t_philo *philo, int id)
+// {
+// 	bool	return_value;
+// 	if (*(philo->left_fork) == id && *(philo->right_fork) == id \
+// 	&& philo->left_fork_id != philo->right_fork_id)
+// 		return_value = TRUE;
+// 	else
+// 		return_value = FALSE;
+// 	return (return_value);
+// }
 
 /* Attempts to eat :
 	- locks both forks mutexes
@@ -144,32 +101,33 @@ int	attempt_to_eat(t_philo *philo, int id)
 {
 	if (lock_fork_mutexes(philo))
 		return (-1);
-	if (*(philo->left_fork) == id && *(philo->right_fork) == id && philo->left_fork_id != philo->right_fork_id)
+	if (*(philo->left_fork) == id && *(philo->right_fork) == id \
+	&& philo->left_fork_id != philo->right_fork_id) // or if (check_id(philo))
 	{
-		if (unlock_fork_mutexes(philo)) /* unlock both mutexes */
+		if (unlock_fork_mutexes(philo))
 			return (-1);
-		if (perform_activity(philo, get_time_stamp(), EATING) == 1) /* start eating */
+		if (perform_activity(philo, get_time_stamp(), philo->time_to_sleep, EATING) == 1)
 		{
 			if (pthread_detach(philo->thread))
 				return (print_error(THREAD_DETACH_ERROR));
 			if (lock_fork_mutexes(philo))
-				return (-1); // add error handling
+				return (-1);
 			set_forks_status(philo, 0);
 			if (unlock_fork_mutexes(philo))
-				return (-1); // add error handling
-			return (1); /* return 1 if the philo eat number_of_times_must_eat */
+				return (-1);
+			return (1);
 		}
 		if (lock_fork_mutexes(philo))
-			return (-1); // add error handling
+			return (-1);
 		set_forks_status(philo, 0);
 		if (unlock_fork_mutexes(philo))
-			return (-1); // add error handling
-		perform_activity(philo, get_time_stamp(), SLEEPING);
+			return (-1);
+		perform_activity(philo, get_time_stamp(), philo->time_to_eat, SLEEPING);
 	}
 	else
 	{
-		if (unlock_fork_mutexes(philo)) /* otherwise, unlock both mutexes */
-			return (-1); // add error handling
+		if (unlock_fork_mutexes(philo))
+			return (-1);
 		usleep(50);
 	}
 	return (0);

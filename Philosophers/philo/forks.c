@@ -5,19 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 19:08:57 by francis          ###   ########.fr       */
+/*   Created: 2025/01/26 20:45:43 by francis           #+#    #+#             */
+/*   Updated: 2025/01/26 20:48:41 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-/* sets the fork state using memset:
-	0 for free, 1 for locked as locked */
-void	set_forks_status(t_philo *philo, char c)
+/* locks a fork mutex
+	returns 1 in case of error and 0 otherwise */
+int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
 {
-	memset(philo->left_fork, c, sizeof(unsigned char));
-	memset(philo->right_fork, c, sizeof(unsigned char));
+	if (pthread_mutex_lock(fork_mutex))
+		return (print_error(MUTEX_LOCK_ERROR));
+	return (0);
+}
+
+/* unlocks a fork mutex 
+	returns 1 in case of error and 0 otherwise */
+int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+{
+	if (pthread_mutex_unlock(fork_mutex))
+		return (print_error(MUTEX_UNLOCK_ERROR));
+	return (0);
 }
 
 /* locks a philosopher's left and right fork 
@@ -76,24 +86,33 @@ int	unlock_fork_mutexes(t_philo *philo)
 	}
 	if (pthread_mutex_unlock(first_fork) || \
 	pthread_mutex_unlock(second_fork))
-		return(print_error(MUTEX_UNLOCK_ERROR));
-	return (0);
-}
-
-/* locks a fork mutex
-	returns 1 in case of error and 0 otherwise */
-int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
-{
-	if (pthread_mutex_lock(fork_mutex))
-		return (print_error(MUTEX_LOCK_ERROR));
-	return (0);
-}
-
-/* unlocks a fork mutex 
-	returns 1 in case of error and 0 otherwise */
-int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
-{
-	if (pthread_mutex_unlock(fork_mutex))
 		return (print_error(MUTEX_UNLOCK_ERROR));
+	return (0);
+}
+
+/* 	- Attempts to mark a specific fork (left or right) as taken
+	by the calling philo/thread
+	- If fork is available (*(fork) == 0), marks it as taken 
+	using memset to change the fork's value to the philo's id
+	- Protects fork with mutex before reading and writing
+*/
+int	attempt_take_fork(t_philo *philo, int fork_to_pick)
+{
+	pthread_mutex_t	*fork_mutex;
+	unsigned char	*fork;
+
+	fork_mutex = select_fork_mutex(philo, fork_to_pick);
+	fork = select_fork(philo, fork_to_pick);
+	if (lock_single_fork_mutex(fork_mutex))
+		return (-1);
+	if (*(fork) == 0)
+	{
+		memset(fork, philo->philo_id, sizeof(unsigned char));
+		if (unlock_single_fork_mutex(fork_mutex))
+			return (-1);
+		print_status(philo, get_time_stamp(), MSG_FORK);
+	}
+	else if (unlock_single_fork_mutex(fork_mutex))
+		return (-1);
 	return (0);
 }

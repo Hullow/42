@@ -61,6 +61,13 @@ void	*thread(void *vargp) /* Thread routine */
 
 ```
 
+> Upon successful completion pthread_create() will store the
+ID of the created thread in the location specified by thread.
+	 
+In my words: 
+pthread_t *thread is a pointer that specifies a location. In that location, the ID of the created
+thread will be stored to get the ID you'll have to dereference [pthread_t *thread] using [*thread]
+
 42 Common Core Reading list:
 - Minishell: Signals (I/O chapters)
 - Philosophers: 12.3 Concurrent Programming with Threads (1008-1017; bonus: 1017-...)

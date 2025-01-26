@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/26 16:13:39 by francis          ###   ########.fr        #
+#    Updated: 2025/01/26 20:49:09 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,11 @@ SRCS =	main.c \
 		input_handling.c \
 		initialization.c \
 		forks.c \
+		forks_utils.c \
 		simulation.c \
-		routine.c \
-		routine_utils.c \
+		simulation_utils.c \
 		general_utils.c
-
+              
 OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)
