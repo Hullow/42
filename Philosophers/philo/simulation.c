@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 18:46:20 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:38:22 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int	end_simulation(t_table *table)
 	i = 0;
 	while (i < table->nb_philo)
 	{
-		if (table->nb_philo)
-			pthread_mutex_unlock(&table->fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
+		// if (table->nb_philo)
+			// pthread_mutex_unlock(&table->fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
 		if (pthread_mutex_destroy(&table->fork_mutex[i])) // add error handling
 			return (print_error(MUTEX_DESTROY_ERROR));
 		i++;

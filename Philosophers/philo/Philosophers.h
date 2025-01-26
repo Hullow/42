@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 18:19:38 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:45:04 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_philo
 	long			time_to_eat;
 	long			time_to_sleep;
 	pthread_t		thread;
+	pthread_mutex_t	last_eaten_mutex;
 	pthread_mutex_t	*death_status_mutex;
 	pthread_mutex_t	*finished_eating_mutex;
 	pthread_mutex_t	*left_fork_mutex;

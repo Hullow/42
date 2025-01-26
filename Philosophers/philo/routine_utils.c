@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 17:01:06 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:46:34 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
 	}
 	else if (activity == EATING)
 	{
+		pthread_mutex_lock(&philo->last_eaten_mutex);
 		philo->last_eaten = activity_start;
+		pthread_mutex_unlock(&philo->last_eaten_mutex);
 		print_status(philo, activity_start, MSG_EATING);
 		desired_sleep = philo->time_to_eat;
 		philo->times_eaten++;
@@ -142,7 +144,7 @@ int	attempt_to_eat(t_philo *philo, int id)
 {
 	if (lock_fork_mutexes(philo))
 		return (-1);
-	if (*(philo->left_fork) == id && *(philo->right_fork) == id)
+	if (*(philo->left_fork) == id && *(philo->right_fork) == id && philo->left_fork_id != philo->right_fork_id)
 	{
 		if (unlock_fork_mutexes(philo)) /* unlock both mutexes */
 			return (-1);

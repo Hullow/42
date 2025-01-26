@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 18:52:21 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:44:59 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ void	*checker_routine(void *vargp)
 	{
 		while (i < nb_philo)
 		{
+			pthread_mutex_lock(&philos[i].last_eaten_mutex);
 			if (get_time_stamp() - philos[i].last_eaten >= time_to_die)
 			{
 				edit_status_var(&philos[i], philos[i].death_status_mutex, philos[i].death_status);
 				return (NULL);
 			}
+			pthread_mutex_unlock(&philos[i].last_eaten_mutex);
 			i++;
 			usleep(300);
 		}

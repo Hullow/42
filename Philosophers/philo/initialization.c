@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 22:37:04 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:41:19 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ int	init_philo(t_table *table, t_params *params, int id)
 	philo->start_time = table->start_time;
 	philo->last_eaten = table->start_time;
 
-	/* forks and mutexes */
+	/* forks and their mutexes */
 	philo->left_fork = &table->forks[id % nb_philo];
 	philo->right_fork = &table->forks[(id + 1) % nb_philo];
 	philo->left_fork_mutex = &table->fork_mutex[id % nb_philo];
 	philo->right_fork_mutex = &table->fork_mutex[(id + 1) % nb_philo];
+	
+	/* other mutexes */
+	if (pthread_mutex_init(&philo->last_eaten_mutex, NULL))
+		return (print_error(MUTEX_INIT_ERROR));
 	philo->death_status = &table->death_status;
 	philo->death_status_mutex = &table->death_status_mutex;
 	philo->finished_eating_mutex = &table->finished_eating_mutex;
@@ -74,7 +78,7 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 
 	table->nb_philo = nb_philo;
 	table->start_time = get_time_stamp();
-	
+
 	memset(&table->death_status, 0, sizeof(unsigned char));     /* Set death status to 0 (no philosopher is dead) */
 	memset(&table->finished_eating, 0, sizeof(unsigned char));  /* Set death status to 0 (no philosopher is dead) */
 	if (pthread_mutex_init(&table->death_status_mutex, NULL))
