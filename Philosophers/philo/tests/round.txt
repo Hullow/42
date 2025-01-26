@@ -1,0 +1,130 @@
+1737708001349 ms: Philosopher 1  is thinking
+1737708001349 ms: Philosopher 2  is thinking
+1737708001349 ms: Philosopher 3  is thinking
+1737708001349 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708001349 ms: Philosopher 4  is thinking
+1737708001349 ms: Philosopher 5  is thinking
+1737708001349 ms: Philosopher 5  is eating   (left fork 4, right fork 0)
+1737708001350 ms: Philosopher 1  is waiting
+1737708001399 ms: Philosopher 5  is sleeping
+1737708001399 ms: Philosopher 3  is sleeping
+1737708001400 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708001400 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708001400 ms: Philosopher 2  is waiting
+1737708001419 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708001419 ms: Philosopher 5  is thinking   (waiting for left fork 4, right fork 0)
+1737708001450 ms: Philosopher 4  is sleeping
+1737708001450 ms: Philosopher 1  is sleeping
+1737708001450 ms: Philosopher 2  died after spending 101 ms without eating !
+1737708001450 ms: Philosopher 2  marked dead
+1737708001450 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708001450 ms: Philosopher 5  is waiting
+1737708001470 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708001470 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708001500 ms: Philosopher 3  is sleeping
+1737708001500 ms: Philosopher 5  died after spending 101 ms without eating !
+1737708001500 ms: Philosopher 5  marked dead
+1737708001500 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708001500 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708001520 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708001520 ms: Philosopher 3  is waiting
+1737708001550 ms: Philosopher 1  is sleeping
+1737708001550 ms: Philosopher 4  is sleeping
+1737708001570 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708001570 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708001570 ms: Philosopher 1  is waiting
+1737708001570 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708001620 ms: Philosopher 3  is sleeping
+1737708001620 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708001620 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708001640 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708001640 ms: Philosopher 3  is waiting
+1737708001670 ms: Philosopher 4  is sleeping
+1737708001670 ms: Philosopher 1  is sleeping
+1737708001690 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708001690 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708001690 ms: Philosopher 1  is waiting
+1737708001690 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708001740 ms: Philosopher 3  is sleeping
+1737708001740 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708001740 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708001760 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708001760 ms: Philosopher 3  is waiting
+1737708001790 ms: Philosopher 1  is sleeping
+1737708001790 ms: Philosopher 4  is sleeping
+1737708001810 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708001810 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708001810 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708001810 ms: Philosopher 1  is waiting
+1737708001860 ms: Philosopher 3  is sleeping
+1737708001860 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708001860 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708001880 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708001880 ms: Philosopher 3  is waiting
+1737708001910 ms: Philosopher 1  is sleeping
+1737708001910 ms: Philosopher 4  is sleeping
+1737708001930 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708001930 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708001930 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708001930 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708001930 ms: Philosopher 4  is waiting
+1737708001980 ms: Philosopher 3  is sleeping
+1737708001980 ms: Philosopher 1  is sleeping
+1737708001980 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708002000 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708002000 ms: Philosopher 1  is waiting
+1737708002000 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708002030 ms: Philosopher 4  is sleeping
+1737708002050 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708002050 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708002050 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708002050 ms: Philosopher 4  is waiting
+1737708002100 ms: Philosopher 1  is sleeping
+1737708002100 ms: Philosopher 3  is sleeping
+1737708002100 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708002120 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708002120 ms: Philosopher 1  is waiting
+1737708002120 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708002150 ms: Philosopher 4  is sleeping
+1737708002170 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708002170 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708002170 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708002170 ms: Philosopher 4  is waiting
+1737708002220 ms: Philosopher 3  is sleeping
+1737708002220 ms: Philosopher 1  is sleeping
+1737708002220 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708002240 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708002240 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708002240 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708002240 ms: Philosopher 3  is waiting
+1737708002270 ms: Philosopher 4  is sleeping
+1737708002290 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708002290 ms: Philosopher 1  is sleeping
+1737708002290 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708002290 ms: Philosopher 4  is waiting
+1737708002310 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708002340 ms: Philosopher 3  is sleeping
+1737708002340 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708002340 ms: Philosopher 1  is waiting
+1737708002360 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708002390 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708002390 ms: Philosopher 4  is sleeping
+1737708002390 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708002410 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708002410 ms: Philosopher 4  is waiting
+1737708002440 ms: Philosopher 1  is sleeping
+1737708002440 ms: Philosopher 3  is sleeping
+1737708002460 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708002460 ms: Philosopher 4  is eating   (left fork 3, right fork 4)
+1737708002460 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708002460 ms: Philosopher 1  is waiting
+1737708002510 ms: Philosopher 4  is sleeping
+1737708002510 ms: Philosopher 1  is eating   (left fork 0, right fork 1)
+1737708002510 ms: Philosopher 3  is eating   (left fork 2, right fork 3)
+1737708002530 ms: Philosopher 4  is thinking   (waiting for left fork 3, right fork 4)
+1737708002530 ms: Philosopher 4  is waiting
+1737708002560 ms: Philosopher 1  is sleeping
+1737708002560 ms: Philosopher 3  is sleeping
+1737708002580 ms: Philosopher 3  is thinking   (waiting for left fork 2, right fork 3)
+1737708002580 ms: Philosopher 1  is thinking   (waiting for left fork 0, right fork 1)
+1737708002580 ms: Philosopher 4  i

@@ -1,0 +1,430 @@
+./philo 50 50 20 20
+
+0 2 is thinking
+1 13 is thinking
+0 3 is thinking
+1 3 has taken a fork
+0 4 is thinking
+1 3 has taken a fork
+0 1 is thinking
+1 1 has taken a fork
+1 1 has taken a fork
+1 20 is thinking
+1 10 is thinking
+1 21 is thinking
+1 21 has taken a fork
+1 22 is thinking
+1 21 has taken a fork
+1 14 is thinking
+1 21 is eating
+0 7 is thinking
+1 3 is eating
+1 25 is thinking
+1 26 is thinking
+1 4 has taken a fork
+1 28 is thinking
+1 29 is thinking
+1 16 is thinking
+1 29 has taken a fork
+1 29 has taken a fork
+1 19 is thinking
+1 30 is thinking
+1 19 has taken a fork
+1 19 has taken a fork
+1 32 is thinking
+1 19 is eating
+1 9 is thinking
+1 33 is thinking
+1 13 has taken a fork
+1 34 is thinking
+1 10 has taken a fork
+1 13 has taken a fork
+1 10 has taken a fork
+1 13 is eating
+1 35 is thinking
+0 8 is thinking
+1 36 is thinking
+1 22 has taken a fork
+1 15 is thinking
+1 14 has taken a fork
+1 15 has taken a fork
+1 38 is thinking
+0 6 is thinking
+1 39 is thinking
+1 40 is thinking
+1 17 is thinking
+1 41 is thinking
+1 39 has taken a fork
+1 26 has taken a fork
+1 39 has taken a fork
+1 26 has taken a fork
+1 39 is eating
+1 26 is eating
+1 42 is thinking
+run simulation: when does this run?
+1               ***reaping***
+1 43 is thinking
+1 12 is thinking
+1 33 has taken a fork
+1 45 is thinking
+1 43 has taken a fork
+1 33 has taken a fork
+1 33 is eating
+1 30 has taken a fork
+1 23 is thinking
+1 43 has taken a fork
+1 28 has taken a fork
+1 43 is eating
+1 9 has taken a fork
+1 32 has taken a fork
+1 48 is thinking
+1 35 has taken a fork
+1 49 is thinking
+2 49 has taken a fork
+1 27 is thinking
+2 8 has taken a fork
+1 41 has taken a fork
+1 45 has taken a fork
+2 45 has taken a fork
+1 47 is thinking
+2 47 has taken a fork
+1 18 is thinking
+2 47 has taken a fork
+2 47 is eating
+1 37 is thinking
+2 12 has taken a fork
+1 17 has taken a fork
+2 17 has taken a fork
+1 31 is thinking
+2 17 is eating
+1 44 is thinking
+1 23 has taken a fork
+2 41 has taken a fork
+2 41 is eating
+2               ***reaping***
+2 38 has taken a fork
+2 45 is eating
+1 25 has taken a fork
+1 10 is eating
+1 24 is thinking
+1 29 is eating
+2 50 is thinking
+2 49 has taken a fork
+1 35 has taken a fork
+3 35 is eating
+0 5 is thinking
+2 36 has taken a fork
+1 11 is thinking
+1 7 has taken a fork
+1 1 is eating
+3               ***reaping***
+2 6 has taken a fork
+1 46 is thinking
+2 49 is eating
+4               ***reaping***
+4               ***reaping***
+5               ***reaping***
+6               ***reaping***
+6               ***reaping***
+7               ***reaping***
+8               ***reaping***
+8               ***reaping***
+9               ***reaping***
+10              ***reaping***
+10              ***reaping***
+11              ***reaping***
+12              ***reaping***
+12              ***reaping***
+13              ***reaping***
+13              ***reaping***
+14              ***reaping***
+15              ***reaping***
+15              ***reaping***
+16              ***reaping***
+16              ***reaping***
+17              ***reaping***
+18              ***reaping***
+18              ***reaping***
+19              ***reaping***
+20              ***reaping***
+20              ***reaping***
+21 21 is sleeping
+21 22 has taken a fork
+21 22 is eating
+21 20 has taken a fork
+21 1 is sleeping
+21 13 is sleeping
+21 2 has taken a fork
+21 50 has taken a fork
+21 12 has taken a fork
+21 12 is eating
+21 10 is sleeping
+21 14 has taken a fork
+21 20 has taken a fork
+21 20 is eating
+21 11 has taken a fork
+21 29 is sleeping
+21 43 is sleeping
+21 14 is eating
+21 39 is sleeping
+21 3 is sleeping
+21 26 is sleeping
+21 9 has taken a fork
+21 19 is sleeping
+21 33 is sleeping
+21 28 has taken a fork
+21 34 has taken a fork
+21 32 has taken a fork
+21 32 is eating
+21              ***reaping***
+21 28 is eating
+21 30 has taken a fork
+21 30 is eating
+21 44 has taken a fork
+21 9 is eating
+21 4 has taken a fork
+21 4 is eating
+21 42 has taken a fork
+21 40 has taken a fork
+21 25 has taken a fork
+21 25 is eating
+21 38 has taken a fork
+21 38 is eating
+21 27 has taken a fork
+21 18 has taken a fork
+21 2 has taken a fork
+21 2 is eating
+21              ***reaping***
+22 49 is sleeping
+22 17 is sleeping
+22 48 has taken a fork
+22 45 is sleeping
+22 18 has taken a fork
+22 18 is eating
+22 46 has taken a fork
+22 16 has taken a fork
+22 44 has taken a fork
+22 44 is eating
+22 41 is sleeping
+22 40 has taken a fork
+22 40 is eating
+22 47 is sleeping
+22 50 has taken a fork
+22 50 is eating
+22 48 has taken a fork
+22 48 is eating
+22 42 has taken a fork
+22 42 is eating
+22 46 has taken a fork
+22 46 is eating
+22              ***reaping***
+23              ***reaping***
+23 35 is sleeping
+23 36 has taken a fork
+23 36 is eating
+23 34 has taken a fork
+23 34 is eating
+23              ***reaping***
+24              ***reaping***
+24              ***reaping***
+25              ***reaping***
+26              ***reaping***
+26              ***reaping***
+27              ***reaping***
+27              ***reaping***
+28              ***reaping***
+28              ***reaping***
+29              ***reaping***
+30              ***reaping***
+30              ***reaping***
+31              ***reaping***
+31              ***reaping***
+32              ***reaping***
+33              ***reaping***
+33              ***reaping***
+34              ***reaping***
+34              ***reaping***
+35              ***reaping***
+36              ***reaping***
+36              ***reaping***
+37              ***reaping***
+37              ***reaping***
+38              ***reaping***
+39              ***reaping***
+39              ***reaping***
+40              ***reaping***
+40              ***reaping***
+41 9 is sleeping
+41 29 is thinking
+41 22 is sleeping
+41 32 is sleeping
+41 25 is sleeping
+41 3 is thinking
+41 26 is thinking
+41 2 is sleeping
+41 43 is thinking
+41 1 is thinking
+41 1 has taken a fork
+41 26 has taken a fork
+41 33 is thinking
+41 33 has taken a fork
+41 23 has taken a fork
+41 23 is eating
+41 8 has taken a fork
+41 8 is eating
+41 13 is thinking
+41 13 has taken a fork
+41 30 is sleeping
+41 14 is sleeping
+41 31 has taken a fork
+41 39 is thinking
+41 29 has taken a fork
+41 12 is sleeping
+41 21 is thinking
+41 15 has taken a fork
+41 15 is eating
+41 11 has taken a fork
+41 11 is eating
+41 21 has taken a fork
+41 21 has taken a fork
+41 19 is thinking
+41 19 has taken a fork
+41 27 has taken a fork
+41 27 is eating
+41 28 is sleeping
+41 3 has taken a fork
+41 24 has taken a fork
+41 20 is sleeping
+41 21 is eating
+41 13 has taken a fork
+41 10 is thinking
+41 10 has taken a fork
+41 13 is eating
+41 31 has taken a fork
+41 31 is eating
+41 4 is sleeping
+41 38 is sleeping
+41 29 has taken a fork
+41 29 is eating
+41 5 has taken a fork
+41 3 has taken a fork
+41 3 is eating
+41              ***reaping***
+41 39 has taken a fork
+41 37 has taken a fork
+42              ***reaping***
+42 48 is sleeping
+42 46 is sleeping
+42 50 is sleeping
+42 45 is thinking
+42 40 is sleeping
+42 47 is thinking
+42 42 is sleeping
+42 49 is thinking
+42 49 has taken a fork
+42 49 has taken a fork
+42 49 is eating
+42 18 is sleeping
+42 17 is thinking
+42 17 has taken a fork
+42 1 has taken a fork
+42 47 has taken a fork
+42 47 has taken a fork
+42 47 is eating
+42 43 has taken a fork
+42 44 is sleeping
+42 45 has taken a fork
+42 1 is eating
+42 43 has taken a fork
+42 43 is eating
+42 19 has taken a fork
+42 19 is eating
+42 39 has taken a fork
+42 39 is eating
+42 41 is thinking
+42 41 has taken a fork
+42 41 has taken a fork
+42 41 is eating
+42 45 has taken a fork
+42 45 is eating
+42              ***reaping***
+43 35 is thinking
+43 35 has taken a fork
+43 36 is sleeping
+43 34 is sleeping
+43 37 has taken a fork
+43 37 is eating
+43 35 has taken a fork
+43 35 is eating
+43 33 has taken a fork
+43              ***reaping***
+43 33 is eating
+43              ***reaping***
+44              ***reaping***
+45              ***reaping***
+45              ***reaping***
+46              ***reaping***
+46              ***reaping***
+47              ***reaping***
+48              ***reaping***
+48              ***reaping***
+49              ***reaping***
+49              ***reaping***
+50              ***reaping***
+50              ***reaping***
+51              ***reaping***
+52              ***reaping***
+52              ***reaping***
+53              ***reaping***
+53              ***reaping***
+54              ***reaping***
+55              ***reaping***
+55              ***reaping***
+56              ***reaping***
+56              ***reaping***
+57              ***reaping***
+58              ***reaping***
+58              ***reaping***
+59              ***reaping***
+59              ***reaping***
+60              ***reaping***
+60              ***reaping***
+61 14 is thinking
+61 14 has taken a fork
+61 13 is sleeping
+61 31 is sleeping
+61 22 is thinking
+61 11 is sleeping
+61 29 is sleeping
+61 3 is sleeping
+61 20 is thinking
+61 23 is sleeping
+61 21 is sleeping
+61 9 is thinking
+61 9 has taken a fork
+61 32 is thinking
+61 32 has taken a fork
+61 2 is thinking
+61 8 is sleeping
+61 15 is sleeping
+61 38 is thinking
+61 24 has taken a fork
+61 16 has taken a fork
+61 30 is thinking
+61 10 has taken a fork
+61 10 is eating
+61 12 is thinking
+61 24 is eating
+61 12 has taken a fork
+61 12 has taken a fork
+61 30 has taken a fork
+61 27 is sleeping
+61 12 is eating
+61 25 is thinking
+61 16 is eating
+61 7 has taken a fork
+61 2 has taken a fork
+61 7 is eating
+61 10 died
+61 A philosopher died – end of simulation
+francis@philo: 

@@ -4,8 +4,9 @@
 - `CMD+up/down` : next/previous command
 - `ctrl` + `a` / `e` : move cursor to start/end of command prompt
 - `ctrl+R` : search past commands (tap `ctrl+R` again to search for the next occurrence, then `tab` to select)
-- `vim ~/.zsh_history` : see commands of current terminal session
+- `history` / `vim ~/.zsh_history` : see commands of current terminal session
 - `reset`: fixes messed up characters for instance.
+- `ctrl+c`, followed by `tab` : types in a literal tab in the terminal
 
 **Wildcards**
 - `*` for any number of characters
@@ -30,6 +31,11 @@
 ### Open a program
 - `open -a TextEdit` : opens the TextEdit program
 - `code main.c` : opens a main.c file in VSCode
+
+### Redirections
+- `&>file`: redirects both standard output and standard error to file
+- `>&file`: equivalent to above (less preferred)
+- `> file 2>&1`: equivalent to above
 
 ### File manipulation
 - `curl -o [filename] [URL]` (nb: `-o` for output): download a file

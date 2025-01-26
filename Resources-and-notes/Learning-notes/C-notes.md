@@ -34,6 +34,7 @@ printf("Here is a char printed using %%c format specifier: %c\n", c);
 - A typecast explicitly causes an expression to be of a specific data type
 - "A value of type `char` is automatically promoted into a value of type `int` when used as a parameter" (*GNU Libc Manual*, p. 98)
 
+
 ### Pointers
 #### [Null Pointers](https://www.geeksforgeeks.org/null-pointer-in-c/)
 - A null pointer, initialized e.g. as `type pointer_name = 0` or `type pointer_name = NULL`, points only towards `NULL`, or `O` in the memory. It is different from a pointer pointing to an empty memory address, e.g. an empty string `type pointer_name = ""`
@@ -197,6 +198,12 @@ struct t
 
 
 ### Specificities of types
+#### Integer literals
+(Source: Claude 3.5 Sonnet)
+- By default, integer literals are treated as signed int (i.e. the regular `int` type) by the compiler. For instance, `long	long_number = 100100100100100100` will cause a compiler error. Needs
+a suffix: `L` (long), `UL` (unsigned long) or `LL` (long long)
+=> numbers larger than INT_MAX (< INT_MIN) need explicit type specification
+
 #### [size_t](https://www.geeksforgeeks.org/size_t-data-type-c-language/)
 - An unsigned integer type used to represent the size of objects in bytes. 
 - Never negative. Depends on the compiler, guaranteed to be the maximum permissible size which the system can handle. If compiler is 32 bit, is a `typedef` (alias) for **unsigned long** (32 bit); if 64 bit, for **unsigned long long**

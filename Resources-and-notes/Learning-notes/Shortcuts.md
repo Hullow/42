@@ -27,6 +27,7 @@
 - `CMD + +`  to zoom in
 - `CTRL + D` to select occurrences of an expression, combined with e.g. `end` to go to the end of the line
 - `CTRL + Shift + P` to open command palette (Linux, maybe Mac)
+- `Opt + Cmd + ↑/↓` (Mac), `Shift + Alt + ↑/↓`(Linux) to multiline edit
 
 ### Github Copilot in VS Code
 - `tab` : accept a code suggestion
