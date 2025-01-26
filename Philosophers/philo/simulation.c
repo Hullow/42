@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 22:08:59 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 22:19:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,21 +107,21 @@ int	grim_reaper(t_table *table)
 }
 
 /* Runs the simulation by starting the philo threads and the checker thread */
-int	run_simulation(t_table table)
+int	run_simulation(t_table *table)
 {
 	int	nb_philo;
 	int	i;
 
-	nb_philo = table.nb_philo;
+	nb_philo = table->nb_philo;
 	i = 0;
 	while (i < nb_philo)
 	{
-		if (pthread_create(&(table.philos[i].thread), NULL, \
-		philo_routine, &table.philos[i]))
+		if (pthread_create(&(table->philos[i].thread), NULL, \
+		philo_routine, &table->philos[i]))
 			return (print_error(THREAD_CREATION_ERROR)); // add error handling (pthread_join)
 		i++;
 	}
-	pthread_create(&table.checker, NULL, checker_routine, table.philos);
+	pthread_create(&table->checker, NULL, checker_routine, table->philos);
 	// grim_reaper(&table);
 	return (0);
 }
@@ -158,6 +158,5 @@ int	end_simulation(t_table *table)
 	// pthread_mutex_unlock(&table->finished_eating_mutex);
 	if (pthread_mutex_destroy(&table->finished_eating_mutex))
 		return (print_error(MUTEX_DESTROY_ERROR));
-	free(table);
 	return (0);
 }

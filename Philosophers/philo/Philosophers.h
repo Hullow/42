@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 21:09:23 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 22:19:54 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	fill_params(t_philo *philo, t_params *params, int id);
 
 // Simulation control
 
-int		run_simulation(t_table table);
+int		run_simulation(t_table *table);
 int		grim_reaper(t_table *table);
 int		end_simulation(t_table *table);
 

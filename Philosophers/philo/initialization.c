@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/26 22:12:06 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 22:19:39 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 {
 	int	i;
 
-	table = malloc (sizeof(t_table));
 	table->nb_philo = nb_philo;
 	table->start_time = get_time_stamp();
 	memset(&table->death_status, 0, sizeof(unsigned char));
