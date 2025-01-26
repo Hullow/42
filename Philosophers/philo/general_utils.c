@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/25 22:28:41 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 16:21:53 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	print_status(t_philo *philo, long timestamp, enum e_message msg)
 
 /**
  * @brief	writes the appropriate error code (given as input) to stderr
- * @return	1
+ * @return	-1
  */
 int	print_error(int error)
 {

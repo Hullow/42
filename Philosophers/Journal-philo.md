@@ -196,6 +196,26 @@ the must_eat value. Wrote `edit_status_var` function to increments its' and deat
 # Tests:
 ## Clear failures
 - `./philo 200 1000 200 200` => mutex unlock error, mutex lock error
+- `valgrind --tool=helgrind ./philo 1 1000 200 200`
+	=> 
+	=> 
+	=> thread #1 (root thread):
+		- call to pthread_join failed with error 3 (no such process) (end_simulation)
+		- unlocked an invalid lock (end_simulation 92, 95)
+	=> #thread #2 (philo thread):
+		- attempt to re-lock a non-recursive lock I already hold (lock_fork_mutexes called twice at forks.c lines 42 and 48)
+		- exiting thread still holds 1 lock
+		lock_fork_mutexes; fork:48
+	=> #thread #3 (checker thread):
+
+possible data race during read of size 4
 
 ## Of note
 - `./philo 200 1000 200 200` => a philo dies, but not with `./philo 200 1500 200 200`
+- `valgrind --tool=helgrind ./philo X 1000 200 200` => possible data race during read of size 4
+- `valgrind --tool=helgrind ./philo 1 1000 200 200`
+	
+ 
+# 26/1/25
+- Testing with valgrind --tool=helgrind
+- Added lock ordering to avoid possible deadlocks

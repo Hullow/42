@@ -6,7 +6,7 @@
 #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/25 17:42:16 by francis          ###   ########.fr        #
+#    Updated: 2025/01/26 16:13:39 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -ferror-limit=2
+CFLAGS = -Wall -Wextra -Werror
+# -ferror-limit=2
 
 SRCS =	main.c \
 		input_handling.c \

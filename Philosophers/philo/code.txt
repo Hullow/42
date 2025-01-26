@@ -1,0 +1,935 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    code.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/01/24 18:06:32 by francis           #+#    #+#              #
+#    Updated: 2025/01/26 15:26:26 by francis          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+#include "Philosophers.h"
+
+/* locks a philosopher's left and right fork 
+	returns 1 in case of error and 0 otherwise */
+int	lock_fork_mutexes(t_philo *philo)
+{
+	// if (philo->nb_philo == 1 || philo->nb_philo - *(philo->finished_eating) == 1)
+	// {
+	// 	if (pthread_mutex_lock(philo->left_fork_mutex))
+	// 	{
+	// 		print_error(MUTEX_LOCK_ERROR);
+	// 		write(2, "lock_fork_mutexes: error locking left fork\n", 44);
+	// 		return (1);
+	// 	}
+	// 	return (0);
+	// }
+	if (pthread_mutex_lock(philo->left_fork_mutex))
+	{
+		print_error(MUTEX_LOCK_ERROR);
+		write(2, "lock_fork_mutexes: error locking left fork\n", 44);
+		return (1);
+	}
+	else if (pthread_mutex_lock(philo->right_fork_mutex))
+	{
+		print_error(MUTEX_LOCK_ERROR);
+		pthread_mutex_unlock(philo->left_fork_mutex); // add error handling
+		write(2, "lock_fork_mutexes: error locking right fork\n", 45);
+		return (1);
+	}
+	return (0);
+}
+
+/* locks a fork mutex
+	returns 1 in case of error and 0 otherwise */
+int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+{
+	if (pthread_mutex_lock(fork_mutex))
+	{
+		print_error(MUTEX_LOCK_ERROR);
+		write(2, "lock_single_fork_mutex: error locking mutex\n", 45);
+		return (1);
+	}
+	return (0);
+}
+
+/* unlocks a fork mutex 
+	returns 1 in case of error and 0 otherwise */
+int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+{
+	if (pthread_mutex_unlock(fork_mutex))
+	{
+		print_error(MUTEX_UNLOCK_ERROR);
+		write(2, "unlock_single_fork_mutex: error unlocking mutex\n", 49);
+		return (1);
+	}
+	return (0);
+}
+
+/* unlocks a philosopher's left and right fork 
+	in case of error, prints an error and returns 1
+	returns 0 otherwise */
+int	unlock_fork_mutexes(t_philo *philo)
+{
+	// if (philo->nb_philo == 1  || philo->nb_philo - *(philo->finished_eating) == 1)
+	// {
+	// 	if (pthread_mutex_unlock(philo->left_fork_mutex))
+	// 	{
+	// 		print_error(MUTEX_LOCK_ERROR);
+	// 		write(2, "lock_fork_mutexes: error locking left fork\n", 44);
+	// 		return (1);
+	// 	}
+	// 	return (0);
+	// }
+	if (pthread_mutex_unlock(philo->left_fork_mutex) || \
+	pthread_mutex_unlock(philo->right_fork_mutex))
+	{
+		print_error(MUTEX_UNLOCK_ERROR);
+		return (1);
+	}
+	return (0);
+}
+
+/* sets the fork state using memset:
+	0 for free, 1 for locked as locked */
+void	set_forks_status(t_philo *philo, char c)
+{
+	memset(philo->left_fork, c, sizeof(unsigned char));
+	memset(philo->right_fork, c, sizeof(unsigned char));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   general_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
+/*   Updated: 2025/01/25 22:28:41 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Philosophers.h"
+
+/* 	Prints current status of philosopher, after checking 
+	the global death status variable.
+	
+	Prints when:
+		- death_status == 0 => no philosopher died yet
+		- death_status == philo->philo_id => this philosopher died, print
+		- otherwise, doesn't print
+*/
+int	print_status(t_philo *philo, long timestamp, enum e_message msg)
+{
+	static const char *const	messages[] = {
+	[MSG_THINKING] = "is thinking",
+	[MSG_SLEEPING] = "is sleeping",
+	[MSG_EATING] = "is eating",
+	[MSG_FORK] = "has taken a fork",
+	[MSG_DIED] = "has died"
+	};
+
+	if (pthread_mutex_lock(philo->death_status_mutex))
+		return (print_error(MUTEX_LOCK_ERROR));
+	if (*(philo->death_status) == 0 || msg == MSG_DIED)
+	{
+		printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
+		if (pthread_mutex_unlock(philo->death_status_mutex))
+			return (print_error(MUTEX_UNLOCK_ERROR));
+		return (0);
+	}
+	else
+	{
+		if (pthread_mutex_unlock(philo->death_status_mutex))
+			return (print_error(MUTEX_UNLOCK_ERROR));
+		return (0);
+	}
+}
+
+/**
+ * @brief	writes the appropriate error code (given as input) to stderr
+ * @return	1
+ */
+int	print_error(int error)
+{
+	if (error == MALLOC_FAIL)
+		write(2, "\nPhilosophers: Malloc fail\n", 28);
+	else if (error == INVALID_INPUT)
+		write(2, "Philosophers: Invalid input\n", 29);
+	else if (error == ZERO_AS_INPUT)
+		write(2, "Philosophers: simulation doesn't take 0 as parameter\n", 54);
+	else if (error == GET_TIME_OF_DAY_ERROR)
+		write(2, "\nPhilosophers: get_time_of_day() failed\n", 41);
+	else if (error == THREAD_CREATION_ERROR)
+		write(2, "\nPhilosophers: Thread creation error\n", 37);
+	else if (error == THREAD_DETACH_ERROR)
+		write(2, "\nPhilosophers: Thread detach error\n", 35);
+	else if (error == MUTEX_INIT_ERROR)
+		write(2, "\nPhilosophers: Mutex init error\n", 33);
+	else if (error == MUTEX_LOCK_ERROR)
+		write(2, "\nPhilosophers: Mutex lock error\n", 33);
+	else if (error == MUTEX_UNLOCK_ERROR)
+		write(2, "\nPhilosophers: Mutex unlock error\n", 35);
+	else if (error == MUTEX_DESTROY_ERROR)
+		write(2, "\nPhilosophers: Mutex destroy error\n", 36);
+	return (-1);
+}
+
+/**
+ * @brief	calculates the timestamp in ms
+ * @return	timestamp in milliseconds (long), or -1 on error
+ * @details	uses gettimeofday() to get current time and converts it
+ * 			by multiplying second by 1000 and adding microseconds divided by 1000
+ */
+long	get_time_stamp(void)
+{
+	struct timeval	current_time;
+
+	if (gettimeofday(&current_time, NULL) == -1)
+		return (-1);
+	return (((long) current_time.tv_sec * 1000) + ((long) current_time.tv_usec / 1000));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialization.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
+/*   Updated: 2025/01/25 22:37:04 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Philosophers.h"
+
+// 
+/** @brief		fills the philosopher struct with our parameters from input
+ * 	@details 	- mutexes: pointers to the mutexes initialized in the table
+ * 				- philo_id : table->id + 1, because philosophers start at 1
+ * 
+ */
+int	init_philo(t_table *table, t_params *params, int id)
+{
+	t_philo	*philo;
+	int		nb_philo;
+
+	nb_philo = params->nb_philo;
+	
+	/* the philosopher */
+	philo = &table->philos[id];
+	
+	/* meta and global parameters */
+	philo->philo_id = id + 1;
+	philo->nb_philo = nb_philo;
+	philo->start_time = table->start_time;
+	philo->last_eaten = table->start_time;
+
+	/* forks and mutexes */
+	philo->left_fork = &table->forks[id % nb_philo];
+	philo->right_fork = &table->forks[(id + 1) % nb_philo];
+	philo->left_fork_mutex = &table->fork_mutex[id % nb_philo];
+	philo->right_fork_mutex = &table->fork_mutex[(id + 1) % nb_philo];
+	philo->death_status = &table->death_status;
+	philo->death_status_mutex = &table->death_status_mutex;
+	philo->finished_eating_mutex = &table->finished_eating_mutex;
+	philo->finished_eating = &table->finished_eating;
+
+	/* For debugging */
+	philo->left_fork_id = id % nb_philo;
+	philo->right_fork_id = (id + 1) % nb_philo;
+
+	/* params */
+	philo->time_to_die = (long) params->time_to_die;
+	philo->time_to_eat = (long) params->time_to_eat;
+	philo->time_to_sleep = (long) params->time_to_sleep;
+	philo->must_eat = params->must_eat;
+	philo->times_eaten = 0;
+	return (0);
+}
+
+/* 
+> Upon successful completion pthread_create() will store the
+ID of the created thread in the location specified by thread.
+	 
+In my words: 
+pthread_t *thread is a pointer that specifies a location. In that location, the ID of the created
+thread will be stored to get the ID you'll have to dereference [pthread_t *thread] using [*thread] */
+
+// initializes table:
+// calls init_forks first
+// then creates the philosophers thread with all the parameters
+int	init_table(t_table *table, t_params *params, int nb_philo)
+{
+	int	i;
+
+	table->nb_philo = nb_philo;
+	table->start_time = get_time_stamp();
+	
+	memset(&table->death_status, 0, sizeof(unsigned char));     /* Set death status to 0 (no philosopher is dead) */
+	memset(&table->finished_eating, 0, sizeof(unsigned char));  /* Set death status to 0 (no philosopher is dead) */
+	if (pthread_mutex_init(&table->death_status_mutex, NULL))
+		return (print_error(MUTEX_INIT_ERROR));
+	if (pthread_mutex_init(&table->finished_eating_mutex, NULL))
+		return (print_error(MUTEX_INIT_ERROR));
+	i = 0;
+	while (i < nb_philo)     /* Initialize forks, mutexes and philosophers */
+	{
+		memset(&table->forks[i], 0, sizeof(unsigned char));
+		if (pthread_mutex_init(&table->fork_mutex[i], NULL))
+			return (print_error(MUTEX_INIT_ERROR));
+		if (init_philo(table, params, i))
+			return (print_error(GET_TIME_OF_DAY_ERROR));
+		i++;
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_handling.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
+/*   Updated: 2025/01/25 22:27:20 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Philosophers.h"
+
+/**
+ *	@brief	custom atoi to convert our input to int type
+ * @returns (positive) int if valid-1 if negative number or any invalid characters
+*/
+int	ft_atoi_philo(char *str)
+{
+	int	out;
+	int	i;
+
+	if (str[0] == '-')
+		return (-1);
+	out = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
+		if (out)
+			out *= 10;
+		out += (int) str[i] - 48;
+		i++;
+	}
+	return (out);
+}
+
+/**
+ * @brief	Checks the validity of the input parameters
+ * @details	Cases:
+ * 				- a parameter is < 0
+ * 				- nb_philo > 200
+ * 			To determine: 
+ * 				- a parameter is == 0
+ * 				- a parameter is > INT_MAX
+ * @returns	returns a call (with error number) to print_error, which returns -1
+ * */
+int	input_checker(t_params *params)
+{
+	if (params->nb_philo < 0 || params->time_to_die < 0 || \
+	params->time_to_eat < 0 || params->time_to_sleep < 0)
+		return (print_error(INVALID_INPUT));
+	if (params->nb_philo == 0 || params->time_to_die == 0 || \
+	params->time_to_eat == 0 || params->time_to_sleep == 0 || \
+	params->must_eat == 0)
+		return (print_error(ZERO_AS_INPUT));
+	/* other potential invalid input cases */
+	return (0);
+}
+
+// Stores the input parameters in a the s_params struct
+// returns -1 if parameter count is not 4 or 5
+// returns 0 otherwise
+int	handle_input(t_params *params, int argc, char **argv)
+{
+	if (argc < 5 || argc > 6)
+	{
+		printf("Philosophers – wrong number of parameters: must be 4 or 5\n");
+		printf("1) number of philosophers\n2) time to die\n");
+		printf("3) time to eat\n4) time to sleep\n");
+		printf("5) number of times each philosopher must eat (optional)\n");
+		return (print_error(INVALID_INPUT));
+	}
+	if (argv[5]) /* bigger or EQUAL to zero*/
+		params->must_eat = ft_atoi_philo(argv[5]);
+	else
+		params->must_eat = -1;
+	params->nb_philo = ft_atoi_philo(argv[1]);
+	params->time_to_die = ft_atoi_philo(argv[2]);
+	params->time_to_eat = ft_atoi_philo(argv[3]);
+	params->time_to_sleep = ft_atoi_philo(argv[4]);
+	return (input_checker(params));
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
+/*   Updated: 2025/01/25 17:20:09 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Philosophers.h"
+
+int	main(int argc, char **argv)
+{
+	t_params	params;
+	t_table		table;
+
+	// printf("main thread: %ld\n", (long) pthread_self());
+	if (handle_input(&params, argc, argv) == -1)
+		return (-1);
+	/* Initialization of table: philosophers, forks, mutexes */
+	if (init_table(&table, &params, params.nb_philo) == -1)
+		return (-1);
+	/* Running the simulation */
+	if (run_simulation(table) == -1)
+	{
+		end_simulation(table);
+		return (-1);
+	}
+	grim_reaper(&table);
+	end_simulation(table); /* need more error handling */
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
+/*   Updated: 2025/01/25 19:32:01 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Philosophers.h"
+
+/* checks if any philosopher is dead */
+void	*checker_routine(void *vargp)
+{
+	t_philo	*philos;
+	int		nb_philo;
+	int		time_to_die;
+	int		i;
+
+	philos = (t_philo *)vargp;
+	nb_philo = philos[0].nb_philo;
+	time_to_die = philos[0].time_to_die;
+	i = 0;
+	while (1)
+	{
+		while (i < nb_philo)
+		{
+			if (get_time_stamp() - philos[i].last_eaten >= time_to_die)
+			{
+				edit_status_var(&philos[i], philos[i].death_status_mutex, philos[i].death_status);
+				return (NULL);
+			}
+			i++;
+			usleep(300);
+		}
+		i = 0;
+	}
+}
+
+/* philosopher thread routine */
+void	*philo_routine(void *vargp)
+{
+	t_philo		*philo;
+	int			id;
+	int			eat_return;
+	long		timestamp;
+
+	/* Initialization */
+	philo = (t_philo *)vargp;
+	id = philo->philo_id; /* Set ids */
+	eat_return = 0;
+
+	/* Loop : eating, then sleeping */
+	timestamp = get_time_stamp();
+	print_status(philo, timestamp, MSG_THINKING);
+	stagger_start(philo->nb_philo, id);
+	while (1)
+	{
+		if (attempt_take_fork(philo, LEFT) == -1)
+			break ;
+		if (attempt_take_fork(philo, RIGHT) == -1)
+			break ;
+		eat_return = attempt_to_eat(philo, id);
+		if (eat_return == -1 || eat_return == 1) /* if -1, means mutex error, if 1, means eat enough times */
+		{
+			edit_status_var(philo, philo->finished_eating_mutex, philo->finished_eating);
+			break ;
+		}
+	}
+	return (NULL);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
+/*   Updated: 2025/01/25 19:34:26 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Philosophers.h"
+
+/* Staggers the start of the simulation, so even and uneven philos eat 
+at different times:
+	- In all simulations, even-numbered philos wait 0.2ms before trying to eat
+	- In simulations with an uneven number of philosophers, the first philo
+	waits 0.5ms before trying to eat, so that there it can alternate with 
+	the last philo, which is its neighbor, and also uneven-numbered
+// 1st philo waiting 0.5 ms rather than 0.2 ms before trying to eat => likely no change; and yet, it seems to have changed things
+	*/
+void	stagger_start(int nb_philo, int id)
+{
+	if (id == 1 && nb_philo % 2 != 0)
+		usleep(500);
+	else if (id % 2 == 0)
+		usleep(200);
+}
+
+/*	Used to signal the death of a philosopher or count the number of philos
+	that have eaten.
+	
+	How it works:
+	- Increments the value of a shared status variable 
+	(death_status or finished_eating) by 1.
+	- If the variable is death_status, prints the death announcement
+	for the corresponding philosopher (given in parameters)
+*/
+int	edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, \
+unsigned char *variable)
+{
+	unsigned char	value;
+
+	value = *variable + 1;
+	if (pthread_mutex_lock(status_mutex))
+		return (print_error(MUTEX_LOCK_ERROR));
+	memset(variable, value, sizeof(unsigned char));
+	if (pthread_mutex_unlock(status_mutex))
+		return (print_error(MUTEX_UNLOCK_ERROR));
+	if (status_mutex == philo->death_status_mutex)
+		print_status(philo, get_time_stamp(), MSG_DIED);
+	return (0);
+}
+
+/**
+ * @brief	Sleeps the precise number of ms
+ * @details Checks the current time since desired start, 
+ * 			taking as input the desired_sleep_time (in ms),
+ * 			and the activity (eating or sleeping)
+ * @returns	-1 in case of error, 0 otherwise
+ */
+int	perform_activity(t_philo *philo, long activity_start, int activity)
+{
+	long	desired_sleep;
+
+	if (activity_start == -1)
+		return (-1);
+	desired_sleep = 0;
+	if (activity == SLEEPING)
+	{
+		print_status(philo, activity_start, MSG_SLEEPING);
+		desired_sleep = philo->time_to_sleep;
+	}
+	else if (activity == EATING)
+	{
+		philo->last_eaten = activity_start;
+		print_status(philo, philo->last_eaten, MSG_EATING);
+		desired_sleep = philo->time_to_eat;
+		philo->times_eaten++;
+	}
+	while (desired_sleep > get_time_stamp() - activity_start)
+		usleep(300);
+	if (philo->times_eaten == philo->must_eat)
+	{
+		printf("%ld %d has eaten %d times (must_eat == %d)\n", get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);	
+		return (1);
+	}
+	if (activity == SLEEPING)
+		print_status(philo, get_time_stamp(), MSG_THINKING);
+	return (0);
+}
+
+/* 	- Attempts to mark a specific fork (left or right) as taken
+	by the calling philo/thread
+	- If fork is available (*(fork) == 0), marks it as taken 
+	using memset to change the fork's value to the philo's id
+	- Protects fork with mutex before reading and writing
+*/
+int	attempt_take_fork(t_philo *philo, int fork_to_pick)
+{
+	pthread_mutex_t	*fork_mutex;
+	unsigned char	*fork;
+
+	fork_mutex = NULL;
+	if (fork_to_pick == LEFT)
+	{
+		fork_mutex = philo->left_fork_mutex;
+		fork = philo->left_fork;
+	}
+	else if (fork_to_pick == RIGHT)
+	{
+		fork_mutex = philo->right_fork_mutex;
+		fork = philo->right_fork;
+	}
+	if (lock_single_fork_mutex(fork_mutex))
+		return (-1);
+	if (*(fork) == 0)
+	{
+		memset(fork, philo->philo_id, sizeof(unsigned char));
+		if (unlock_single_fork_mutex(fork_mutex))
+			return (-1);
+		print_status(philo, get_time_stamp(), MSG_FORK);
+	}
+	else if (unlock_single_fork_mutex(fork_mutex))
+		return (-1);
+	return (0);
+}
+
+/* Attempts to eat :
+	- locks both forks mutexes
+	- checks status of each fork: if both are set to the philo's id, go ahead
+		-> if not, unlocks both forks mutexes and sleeps 0.05ms
+	- unlocks both forks mutexes
+	- calls function to eat
+	- relocks both forks mutexes
+	- sets forks statuses back to 0 to free them
+	- unlocks both forks mutexes
+	- calls function to sleep
+*/
+int	attempt_to_eat(t_philo *philo, int id)
+{
+	if (lock_fork_mutexes(philo))
+		return (-1);
+	if (*(philo->left_fork) == id && *(philo->right_fork) == id)
+	{
+		if (unlock_fork_mutexes(philo)) /* unlock both mutexes */
+			return (-1);
+		if (perform_activity(philo, get_time_stamp(), EATING) == 1) /* start eating */
+		{
+			if (pthread_detach(philo->thread))
+				return (print_error(THREAD_DETACH_ERROR));
+			if (lock_fork_mutexes(philo))
+				return (-1); // add error handling
+			set_forks_status(philo, 0);
+			if (unlock_fork_mutexes(philo))
+				return (-1); // add error handling
+			return (1); /* return 1 if the philo eat number_of_times_must_eat */
+		}
+		if (lock_fork_mutexes(philo))
+			return (-1); // add error handling
+		set_forks_status(philo, 0);
+		if (unlock_fork_mutexes(philo))
+			return (-1); // add error handling
+		perform_activity(philo, get_time_stamp(), SLEEPING);
+	}
+	else
+	{
+		if (unlock_fork_mutexes(philo)) /* otherwise, unlock both mutexes */
+			return (-1); // add error handling
+		usleep(50);
+	}
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
+/*   Updated: 2025/01/25 19:27:01 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Philosophers.h"
+
+/* Checks the death status variable to see if a philosopher died
+	then sleep 0.5ms */
+int	grim_reaper(t_table *table)
+{
+	while (1)
+	{
+		/* checking for deaths */
+		if (pthread_mutex_lock(&table->death_status_mutex))
+			return (print_error(MUTEX_LOCK_ERROR));
+		if (table->death_status != 0)
+		{
+			printf("%ld A philosopher died – end of simulation\n", get_time_stamp()); /* write to stderr ? */
+			if (pthread_mutex_unlock(&table->death_status_mutex))
+				return (print_error(MUTEX_UNLOCK_ERROR));
+			break ;
+		}
+		// else
+		// 	printf("%ld\t\t***reaping***\n", get_time_stamp());
+		if (pthread_mutex_unlock(&table->death_status_mutex))
+			return (print_error(MUTEX_UNLOCK_ERROR));
+	
+		/* checking if finished eating */
+		if (pthread_mutex_lock(&table->finished_eating_mutex))
+			return (print_error(MUTEX_UNLOCK_ERROR));
+		if (table->finished_eating == table->nb_philo)
+		{
+			printf("%ld All philosophers eat %d times - simulation stopping\n", get_time_stamp(), table->philos[0].must_eat); /* write to stderr ? */
+			if (pthread_mutex_unlock(&table->finished_eating_mutex))
+				return (print_error(MUTEX_UNLOCK_ERROR));
+			break ;
+		}
+		else
+		{
+			// printf("%ld Philosophers have eaten %d times so far\n", get_time_stamp(), table->finished_eating);
+			if (pthread_mutex_unlock(&table->finished_eating_mutex))
+					return (print_error(MUTEX_UNLOCK_ERROR));
+		}
+		usleep(500); // check every 0.5 ms
+	}
+	return (0);
+}
+
+/* Runs the simulation by starting the philo threads and the checker thread */
+int	run_simulation(t_table table)
+{
+	int	nb_philo;
+	int	i;
+
+	nb_philo = table.nb_philo;
+	i = 0;
+	while (i < nb_philo)
+	{
+		if (pthread_create(&(table.philos[i].thread), NULL, \
+		philo_routine, &table.philos[i]))
+			return (print_error(THREAD_CREATION_ERROR)); // add error handling (pthread_join)
+		i++;
+	}
+	pthread_create(&table.checker, NULL, checker_routine, table.philos);
+	// printf("%ld exited routine\n", (long) pthread_self()); // remove
+	// grim_reaper(&table);
+	// printf("thread %ld: run simulation: when does this run?\n", (long) pthread_self());
+	return (0);
+}
+
+/* End simulation :
+	- join threads (philos, checker) to reap them 
+	- destroy mutexes
+	- ?
+*/
+int	end_simulation(t_table table)
+{
+	int	i;
+
+	i = 0;
+	while (i < table.nb_philo)
+	{
+		// pthread_detach(table.philos[i].threasd);
+		pthread_join(table.philos[i].thread, NULL); // add error handling
+		i++;
+	}
+	pthread_join(table.checker, NULL);
+	i = 0;
+	while (i < table.nb_philo)
+	{
+		if (table.nb_philo)
+			pthread_mutex_unlock(&table.fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
+		if (pthread_mutex_destroy(&table.fork_mutex[i])) // add error handling
+			return (print_error(MUTEX_DESTROY_ERROR));
+		i++;
+	}
+	if (pthread_mutex_destroy(&table.death_status_mutex))
+		return (print_error(MUTEX_DESTROY_ERROR));
+	if (pthread_mutex_destroy(&table.finished_eating_mutex))
+		return (print_error(MUTEX_DESTROY_ERROR));
+	return (0);
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
+/*   Updated: 2025/01/25 17:42:33 by francis          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/time.h>
+
+# define MAX_THREADS 200
+
+enum e_error {
+	MALLOC_FAIL,
+	INVALID_INPUT,
+	ZERO_AS_INPUT,
+	GET_TIME_OF_DAY_ERROR,
+	THREAD_CREATION_ERROR,
+	THREAD_DETACH_ERROR,
+	MUTEX_INIT_ERROR,
+	MUTEX_LOCK_ERROR,
+	MUTEX_UNLOCK_ERROR,
+	MUTEX_DESTROY_ERROR,
+};
+
+enum e_activity {
+	THINKING,
+	SLEEPING,
+	EATING
+};
+
+enum e_message {
+	MSG_COUNT,
+	MSG_THINKING,
+	MSG_SLEEPING,
+	MSG_EATING,
+	MSG_FORK,
+	MSG_DIED,
+};
+
+enum e_status {
+	death_status,
+	finished_eating
+};
+
+enum e_fork {
+	LEFT,
+	RIGHT
+};
+
+// Structure to store the input parameters
+typedef struct s_params
+{
+	int	nb_philo;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	must_eat;
+}	t_params;
+
+/* structure for each philosopher:
+	- thread ID pointer pthread_t *thread (X bytes)
+	- the philosopher's ID (4 byte)
+	- last time eaten (8 byte)
+	- how many times philosopher must eat (set to -1 if variable is not used) (4 byte)
+	- time to die (4 byte)
+	- time to eat (4 byte)
+	- time to sleep (4 byte)
+
+	*/
+typedef struct s_philo
+{
+	int				philo_id;
+	int				nb_philo;
+	long			start_time;
+	long			last_eaten;
+	int				times_eaten;
+	int				must_eat;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	pthread_t		thread;
+	pthread_mutex_t	*death_status_mutex;
+	pthread_mutex_t	*finished_eating_mutex;
+	pthread_mutex_t	*left_fork_mutex;
+	pthread_mutex_t	*right_fork_mutex;
+	unsigned char	*left_fork;
+	unsigned char	*right_fork;
+	int				left_fork_id;
+	int				right_fork_id;
+	unsigned char	*death_status;
+	unsigned char	*finished_eating;
+}	t_philo;
+
+// Structure for the whole table
+// Holds:
+// - the number of philosophers
+// - the forks
+// - the mutexes for the forks
+// - the philosophers
+// - a death status marker that is pointed to from each philosopher
+typedef struct s_table
+{
+	int					nb_philo;
+	long				start_time;
+	t_philo				philos[MAX_THREADS];
+	unsigned char		forks[MAX_THREADS];
+	pthread_mutex_t		fork_mutex[MAX_THREADS];
+	pthread_mutex_t		death_status_mutex;
+	pthread_mutex_t		finished_eating_mutex;
+	unsigned char		death_status;
+	unsigned char		finished_eating;
+	pthread_t			checker;
+}	t_table;
+
+// Input
+
+int		handle_input(t_params *params, int argc, char **argv);
+int		ft_atoi_philo(char *str);
+int		input_checker(t_params *params);
+
+// Initialization
+
+int		init_table(t_table *table, t_params *params, int nb_philo);
+int		init_philo(t_table *table, t_params *params, int id);
+void	fill_params(t_philo *philo, t_params *params, int id);
+
+// Simulation control
+
+int		run_simulation(t_table table);
+int		grim_reaper(t_table *table);
+int		end_simulation(t_table table);
+
+// Routines
+
+void	*philo_routine(void *table);
+void	*checker_routine(void *vargp);
+
+// Routine utils
+
+void	stagger_start(int nb_philo, int id);
+int		perform_activity(t_philo *philo, long activity_start, int activity);
+int		edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex,\
+unsigned char *variable);
+int		attempt_take_fork(t_philo *philo, int fork_to_pick);
+int		attempt_to_eat(t_philo *philo, int id);
+
+	// Forks
+
+int		lock_fork_mutexes(t_philo *philo);
+int		unlock_fork_mutexes(t_philo *philo);
+int		lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
+int		unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
+void	set_forks_status(t_philo *philo, char c);
+
+// General utils
+
+int		print_status(t_philo *philo, long timestamp, enum e_message msg);
+int		print_error(int error);
+long	get_time_stamp(void);
