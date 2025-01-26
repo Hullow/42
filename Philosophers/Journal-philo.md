@@ -198,6 +198,7 @@ the must_eat value. Wrote `edit_status_var` function to increments its' and deat
 
 # Tests:
 ## Clear failures
+- SEGFAULT on Linux, commit c2b5365a3338 (26/1 19h50), with `./philo 2 400 250 100`
 - `./philo 2 400 200 100` => don't die anymore. Why ????
 - `./philo 200 1000 200 200` => mutex unlock error, mutex lock error
 - `valgrind --tool=helgrind ./philo 1 1000 200 200`
