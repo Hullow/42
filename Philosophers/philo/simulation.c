@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 19:27:01 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 18:20:58 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,30 +81,30 @@ int	run_simulation(t_table table)
 	- destroy mutexes
 	- ?
 */
-int	end_simulation(t_table table)
+int	end_simulation(t_table *table)
 {
 	int	i;
 
 	i = 0;
-	while (i < table.nb_philo)
+	while (i < table->nb_philo)
 	{
-		// pthread_detach(table.philos[i].threasd);
-		pthread_join(table.philos[i].thread, NULL); // add error handling
+		// pthread_detach(table->philos[i].threasd);
+		pthread_join(table->philos[i].thread, NULL); // add error handling
 		i++;
 	}
-	pthread_join(table.checker, NULL);
+	pthread_join(table->checker, NULL);
 	i = 0;
-	while (i < table.nb_philo)
+	while (i < table->nb_philo)
 	{
-		if (table.nb_philo)
-			pthread_mutex_unlock(&table.fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
-		if (pthread_mutex_destroy(&table.fork_mutex[i])) // add error handling
+		if (table->nb_philo)
+			pthread_mutex_unlock(&table->fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
+		if (pthread_mutex_destroy(&table->fork_mutex[i])) // add error handling
 			return (print_error(MUTEX_DESTROY_ERROR));
 		i++;
 	}
-	if (pthread_mutex_destroy(&table.death_status_mutex))
+	if (pthread_mutex_destroy(&table->death_status_mutex))
 		return (print_error(MUTEX_DESTROY_ERROR));
-	if (pthread_mutex_destroy(&table.finished_eating_mutex))
+	if (pthread_mutex_destroy(&table->finished_eating_mutex))
 		return (print_error(MUTEX_DESTROY_ERROR));
 	return (0);
 }

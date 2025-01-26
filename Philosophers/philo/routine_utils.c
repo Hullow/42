@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/25 19:34:26 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 17:01:06 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
 	else if (activity == EATING)
 	{
 		philo->last_eaten = activity_start;
-		print_status(philo, philo->last_eaten, MSG_EATING);
+		print_status(philo, activity_start, MSG_EATING);
 		desired_sleep = philo->time_to_eat;
 		philo->times_eaten++;
 	}
 	while (desired_sleep > get_time_stamp() - activity_start)
-		usleep(300);
+		usleep(250);
 	if (philo->times_eaten == philo->must_eat)
 	{
 		printf("%ld %d has eaten %d times (must_eat == %d)\n", get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);	
