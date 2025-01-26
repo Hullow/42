@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 20:44:05 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 20:57:51 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,21 @@
 /* checks if any philosopher is dead */
 void	*checker_routine(void *vargp)
 {
-	t_philo	*philos;
-	int		nb_philo;
-	int		time_to_die;
-	int		i;
+	t_philo			*philos;
+	int				i;
 
 	philos = (t_philo *)vargp;
-	nb_philo = philos[0].nb_philo;
-	time_to_die = philos[0].time_to_die;
 	i = 0;
 	while (1)
 	{
-		while (i < nb_philo)
+		while (i < philos[0].nb_philo)
 		{
 			pthread_mutex_lock(&philos[i].last_eaten_mutex);
-			if (get_time_stamp() - philos[i].last_eaten >= time_to_die)
+			if (get_time_stamp() - philos[i].last_eaten >= \
+			philos[0].time_to_die)
 			{
-				edit_status_var(&philos[i], philos[i].death_status_mutex, philos[i].death_status);
+				edit_status_var(&philos[i], philos[i].death_status_mutex, \
+				philos[i].death_status);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&philos[i].last_eaten_mutex);
