@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 22:19:54 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 17:52:58 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ enum e_status
 	finished_eating
 };
 
-enum e_fork
+typedef enum e_fork
 {
 	LEFT,
 	RIGHT
-};
+}	t_fork_to_pick;
 
 // Structure to store the input parameters
 typedef struct s_params
@@ -97,8 +97,8 @@ typedef struct s_philo
 	long			time_to_sleep;
 	pthread_t		thread;
 	pthread_mutex_t	last_eaten_mutex;
-	pthread_mutex_t	*death_status_mutex;
 	pthread_mutex_t	*finished_eating_mutex;
+	pthread_mutex_t	*death_status_mutex;
 	pthread_mutex_t	*left_fork_mutex;
 	pthread_mutex_t	*right_fork_mutex;
 	unsigned char	*left_fork;
@@ -132,54 +132,56 @@ typedef struct s_table
 
 // Input
 
-int		handle_input(t_params *params, int argc, char **argv);
-int		ft_atoi_philo(char *str);
-int		input_checker(t_params *params);
+int				handle_input(t_params *params, int argc, char **argv);
+int				ft_atoi_philo(char *str);
+int				input_checker(t_params *params);
 
 // Initialization
 
-int		init_table(t_table *table, t_params *params, int nb_philo);
-int		init_philo(t_table *table, t_params *params, int id);
-void	init_philo_params(t_philo *philo, t_params **params, int id);
-void	fill_params(t_philo *philo, t_params *params, int id);
+int				init_table(t_table *table, t_params *params, int nb_philo);
+int				init_philo(t_table *table, t_params *params, int id);
+void			init_philo_params(t_philo *philo, t_params **params, int id);
+void			fill_params(t_philo *philo, t_params *params, int id);
 
 // Simulation control
 
-int		run_simulation(t_table *table);
-int		grim_reaper(t_table *table);
-int		end_simulation(t_table *table);
+int				run_simulation(t_table *table);
+int				grim_reaper(t_table *table);
+int				end_simulation(t_table *table);
 
 // Routines
 
-void	*philo_routine(void *table);
-void	*checker_routine(void *vargp);
+void			*philo_routine(void *table);
+void			*checker_routine(void *vargp);
 
 // Routine utils
 
-int	perform_activity(t_philo *philo, long activity_start, long desired_sleep, \
-int activity);
-void	eat(t_philo *philo, long activity_start);
-int		edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, \
+int				perform_activity(t_philo *philo, long activity_start, \
+long desired_sleep, int activity);
+void			eat(t_philo *philo, long activity_start);
+int				edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, \
 unsigned char *variable);
-int		attempt_to_eat(t_philo *philo, int id);
+int				attempt_to_eat(t_philo *philo, int id, int time_to_eat);
 
 	// Forks
 
-int		attempt_take_fork(t_philo *philo, int fork_to_pick);
-int		lock_fork_mutexes(t_philo *philo);
-int		unlock_fork_mutexes(t_philo *philo);
-int		lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
-int		unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
+int				attempt_take_fork(t_philo *philo, int fork_to_pick);
+int				lock_fork_mutexes(t_philo *philo);
+int				unlock_fork_mutexes(t_philo *philo);
+int				lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
+int				unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 
 	// Forks utils
 
 void			set_forks_status(t_philo *philo, char c);
-unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick);
-pthread_mutex_t	*select_fork_mutex(t_philo *philo, enum e_fork fork_to_pick);
+unsigned char	*select_fork(t_philo *philo, t_fork_to_pick fork_to_pick);
+pthread_mutex_t	*select_fork_mutex(t_philo *philo, \
+t_fork_to_pick fork_to_pick);
 
 // General utils
 
-void	stagger_start(int nb_philo, int id);
-int		print_status(t_philo *philo, long timestamp, enum e_message msg);
-int		print_error(int error);
-long	get_time_stamp(void);
+void			stagger_start(int nb_philo, int id);
+int				print_status(t_philo *philo, long timestamp, \
+enum e_message msg);
+int				print_error(int error);
+long			get_time_stamp(void);

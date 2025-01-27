@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 22:48:11 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 17:40:56 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,15 @@ void	*philo_routine(void *vargp)
 			break ;
 		if (attempt_take_fork(philo, RIGHT) == -1)
 			break ;
-		eat_return = attempt_to_eat(philo, id);
-		if (eat_return == -1 || eat_return == 1)
+		eat_return = attempt_to_eat(philo, id, philo->time_to_eat);
+		if (eat_return == 1)
 		{
 			edit_status_var(philo, philo->finished_eating_mutex, philo->finished_eating);
-			break ;
+			return (NULL);
+		}
+		else if (eat_return == -1) /* lock/unlock errors */
+		{
+			// error-mgmt
 		}
 	}
 	// unlock_fork_mutexes(philo); /* necessary or not ??? */
@@ -88,28 +92,22 @@ int	grim_reaper(t_table *table)
 {
 	while (1)
 	{
-		if (pthread_mutex_lock(&table->death_status_mutex))
-			return (print_error(MUTEX_LOCK_ERROR));
+		pthread_mutex_lock(&table->death_status_mutex);
 		if (table->death_status != 0)
 		{
 			printf("%ld A philosopher died – end of simulation\n", get_time_stamp()); /* write to stderr ? */
-			if (pthread_mutex_unlock(&table->death_status_mutex))
-				return (print_error(MUTEX_UNLOCK_ERROR));
+			pthread_mutex_unlock(&table->death_status_mutex);
 			break ;
 		}
-		if (pthread_mutex_unlock(&table->death_status_mutex))
-			return (print_error(MUTEX_UNLOCK_ERROR));
-		if (pthread_mutex_lock(&table->finished_eating_mutex))
-			return (print_error(MUTEX_UNLOCK_ERROR));
+		pthread_mutex_unlock(&table->death_status_mutex);
+		pthread_mutex_lock(&table->finished_eating_mutex);
 		if (table->finished_eating == table->nb_philo)
 		{
 			printf("%ld All philosophers eat %d times - simulation stopping\n", get_time_stamp(), table->philos[0].must_eat); /* write to stderr ? */
-			if (pthread_mutex_unlock(&table->finished_eating_mutex))
-				return (print_error(MUTEX_UNLOCK_ERROR));
+			pthread_mutex_unlock(&table->finished_eating_mutex);
 			break ;
 		}
-		else if (pthread_mutex_unlock(&table->finished_eating_mutex))
-			return (print_error(MUTEX_UNLOCK_ERROR));
+		else pthread_mutex_unlock(&table->finished_eating_mutex);
 		usleep(500);
 	}
 	return (0);
@@ -145,27 +143,30 @@ int	end_simulation(t_table *table)
 	int	i;
 
 	i = 0;
-	while (i < table->nb_philo)
+	pthread_mutex_lock(&table->finished_eating_mutex);
+	if (!table->finished_eating)
 	{
-		// pthread_detach(table->philos[i].threasd);
-		pthread_join(table->philos[i].thread, NULL); // add error handling
-		i++;
+		pthread_mutex_unlock(&table->finished_eating_mutex);
+		while (i < table->nb_philo)
+		{
+			// pthread_detach(table->philos[i].threasd);
+			pthread_join(table->philos[i].thread, NULL); // add error handling
+			i++;
+		}
 	}
+	pthread_mutex_unlock(&table->finished_eating_mutex);
 	pthread_join(table->checker, NULL);
 	i = 0;
 	while (i < table->nb_philo)
 	{
 		// if (table->nb_philo)
 			// pthread_mutex_unlock(&table->fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
-		if (pthread_mutex_destroy(&table->fork_mutex[i])) // add error handling
-			return (print_error(MUTEX_DESTROY_ERROR));
+		pthread_mutex_destroy(&table->fork_mutex[i]);
 		i++;
 	}
 	// pthread_mutex_unlock(&table->death_status_mutex);
-	if (pthread_mutex_destroy(&table->death_status_mutex))
-		return (print_error(MUTEX_DESTROY_ERROR));
+	pthread_mutex_destroy(&table->death_status_mutex);
 	// pthread_mutex_unlock(&table->finished_eating_mutex);
-	if (pthread_mutex_destroy(&table->finished_eating_mutex))
-		return (print_error(MUTEX_DESTROY_ERROR));
+	pthread_mutex_destroy(&table->finished_eating_mutex);
 	return (0);
 }

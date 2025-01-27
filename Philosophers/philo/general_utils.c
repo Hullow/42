@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/26 20:31:39 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 17:30:29 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,11 @@ int	print_status(t_philo *philo, long timestamp, enum e_message msg)
 	[MSG_DIED] = "has died"
 	};
 
-	if (pthread_mutex_lock(philo->death_status_mutex))
-		return (print_error(MUTEX_LOCK_ERROR));
+	pthread_mutex_lock(philo->death_status_mutex);
 	if (*(philo->death_status) == 0 || msg == MSG_DIED)
-	{
 		printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
-		if (pthread_mutex_unlock(philo->death_status_mutex))
-			return (print_error(MUTEX_UNLOCK_ERROR));
-		return (0);
-	}
-	else
-	{
-		if (pthread_mutex_unlock(philo->death_status_mutex))
-			return (print_error(MUTEX_UNLOCK_ERROR));
-		return (0);
-	}
+	pthread_mutex_unlock(philo->death_status_mutex);
+	return (0);
 }
 
 /**

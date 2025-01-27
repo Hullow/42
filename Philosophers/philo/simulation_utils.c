@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 11:03:24 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 17:34:43 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,6 @@ int activity)
 	return (0);
 }
 
-// bool	check_id(t_philo *philo, int id)
-// {
-// 	bool	return_value;
-// 	if (*(philo->left_fork) == id && *(philo->right_fork) == id
-// 	&& philo->left_fork_id != philo->right_fork_id)
-// 		return_value = TRUE;
-// 	else
-// 		return_value = FALSE;
-// 	return (return_value);
-// }
-
 /* Attempts to eat :
 	- locks both forks mutexes
 	- checks status of each fork: if both are set to the philo's id, go ahead
@@ -97,38 +86,31 @@ int activity)
 	- unlocks both forks mutexes
 	- calls function to sleep
 */
-int	attempt_to_eat(t_philo *philo, int id)
+int	attempt_to_eat(t_philo *philo, int id, int time_to_eat)
 {
-	if (lock_fork_mutexes(philo))
-		return (-1);
+	lock_fork_mutexes(philo);
 	if (*(philo->left_fork) == id && *(philo->right_fork) == id \
-	&& philo->left_fork_id != philo->right_fork_id) // or if (check_id(philo))
+	&& philo->left_fork_id != philo->right_fork_id)
 	{
-		if (unlock_fork_mutexes(philo))
-			return (-1);
-		if (perform_activity(philo, get_time_stamp(), philo->time_to_eat, EATING) == 1)
+		unlock_fork_mutexes(philo);
+		if (perform_activity(philo, get_time_stamp(), time_to_eat, EATING) == 1)
 		{
-			if (pthread_detach(philo->thread))
-				return (print_error(THREAD_DETACH_ERROR));
-			if (lock_fork_mutexes(philo))
-				return (-1);
+			pthread_detach(philo->thread);
+			lock_fork_mutexes(philo);
 			set_forks_status(philo, 0);
-			if (unlock_fork_mutexes(philo))
-				return (-1);
+			unlock_fork_mutexes(philo);
 			return (1);
 		}
-		if (lock_fork_mutexes(philo))
-			return (-1);
+		lock_fork_mutexes(philo);
 		set_forks_status(philo, 0);
-		if (unlock_fork_mutexes(philo))
-			return (-1);
-		perform_activity(philo, get_time_stamp(), philo->time_to_sleep, SLEEPING);
+		unlock_fork_mutexes(philo);
+		perform_activity(philo, get_time_stamp(), \
+		philo->time_to_sleep, SLEEPING);
 	}
 	else
 	{
-		if (unlock_fork_mutexes(philo))
-			return (-1);
-		usleep(50);
+		unlock_fork_mutexes(philo);
+		usleep(200);
 	}
 	return (0);
 }

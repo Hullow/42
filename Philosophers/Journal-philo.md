@@ -198,6 +198,7 @@ the must_eat value. Wrote `edit_status_var` function to increments its' and deat
 
 # Tests:
 ## Clear failures
+- SEGFAULT on VM, commit 7983088c6 (27/1 11h45), with `./philo 5 800 200 200 7`
 - SEGFAULT on Linux, commit c2b5365a3338 (26/1 19h50), with `./philo 2 400 250 100`
 - `./philo 2 400 200 100` => don't die anymore. Why ????
 - `./philo 200 1000 200 200` => mutex unlock error, mutex lock error
@@ -216,8 +217,15 @@ the must_eat value. Wrote `edit_status_var` function to increments its' and deat
 possible data race during read of size 4
 
 ## Of note
+- Tests that kill a philo: `valgrind ./philo 200 800 200 200` (or classic `valgrind ./philo 10 800 400 200`)
 - `./philo 200 1000 200 200` => a philo dies, but not with `./philo 200 1500 200 200`
 - `valgrind --tool=helgrind ./philo X 1000 200 200` => possible data race during read of size 4
 - `valgrind --tool=helgrind ./philo 1 1000 200 200`
+- philos dying too early sometimes (5-10ms) => made short usleeps (100-200ms) a bit longer. Seems to remove the issue.
+- philos dying too slowly: `./philo 200 600 200 200` => 650ms from last eating to died (in VM)
 	
  
+# 27/1/25
+- Tests
+- Wrote bash tester specifically for negative death timestamps using Claude, to see difference with parameters.
+o1 answered with "no because responsible AI", then rate limit
