@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 17:34:43 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 19:43:39 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ unsigned char *variable)
 	unsigned char	value;
 
 	value = *variable + 1;
-	if (pthread_mutex_lock(status_mutex))
-		return (print_error(MUTEX_LOCK_ERROR));
+	pthread_mutex_lock(status_mutex);
 	memset(variable, value, sizeof(unsigned char));
-	if (pthread_mutex_unlock(status_mutex))
-		return (print_error(MUTEX_UNLOCK_ERROR));
+	pthread_mutex_unlock(status_mutex);
 	if (status_mutex == philo->death_status_mutex)
 		print_status(philo, get_time_stamp(), MSG_DIED);
 	return (0);

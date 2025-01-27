@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 17:52:58 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:05:43 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ enum e_message
 	MSG_EATING,
 	MSG_FORK,
 	MSG_DIED,
+	MSG_FINISHED
 };
 
 enum e_status

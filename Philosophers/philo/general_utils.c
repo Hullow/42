@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/27 17:30:29 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:03:41 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,20 @@ int	print_status(t_philo *philo, long timestamp, enum e_message msg)
 	[MSG_SLEEPING] = "is sleeping",
 	[MSG_EATING] = "is eating",
 	[MSG_FORK] = "has taken a fork",
-	[MSG_DIED] = "has died"
+	[MSG_DIED] = "has died",
+	[MSG_FINISHED] = "times - simulation stopping"
 	};
 
-	pthread_mutex_lock(philo->death_status_mutex);
-	if (*(philo->death_status) == 0 || msg == MSG_DIED)
-		printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
-	pthread_mutex_unlock(philo->death_status_mutex);
+	if (msg == MSG_FINISHED)
+		printf("%ld All philosopher eat %d %s\n", \
+		timestamp, philo->must_eat, messages[msg]);
+	else
+	{
+		pthread_mutex_lock(philo->death_status_mutex);
+		if (*(philo->death_status) == 0 || msg == MSG_DIED)
+			printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
+		pthread_mutex_unlock(philo->death_status_mutex);
+	}
 	return (0);
 }
 
