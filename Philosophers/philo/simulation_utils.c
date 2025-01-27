@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 22:43:31 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 11:03:24 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int activity)
 // bool	check_id(t_philo *philo, int id)
 // {
 // 	bool	return_value;
-// 	if (*(philo->left_fork) == id && *(philo->right_fork) == id \
+// 	if (*(philo->left_fork) == id && *(philo->right_fork) == id
 // 	&& philo->left_fork_id != philo->right_fork_id)
 // 		return_value = TRUE;
 // 	else
