@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 22:47:04 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 11:44:53 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	main(int argc, char **argv)
 
 	table = malloc (sizeof(t_table));
 	if (handle_input(&params, argc, argv) == -1)
+	{
+		free(table);
 		return (-1);
+	}
 	if (init_table(table, &params, params.nb_philo) == -1)
 		return (-1);
 	if (run_simulation(table) == -1)
