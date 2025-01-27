@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 22:19:29 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 22:48:11 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ void	*checker_routine(void *vargp)
 {
 	t_philo			*philos;
 	int				i;
-
+	int				nb_philo;
+	
 	philos = (t_philo *)vargp;
 	i = 0;
+	nb_philo = philos[0].nb_philo;
 	while (1)
 	{
-		while (i < philos[0].nb_philo)
+		while (i < nb_philo)
 		{
 			pthread_mutex_lock(&philos[i].last_eaten_mutex);
-			if (get_time_stamp() - philos[i].last_eaten >= \
-			philos[0].time_to_die)
+			if (get_time_stamp() - philos[i].last_eaten >= philos[i].time_to_die)
 			{
-				edit_status_var(&philos[i], philos[i].death_status_mutex, \
-				philos[i].death_status);
+				edit_status_var(&philos[i], philos[i].death_status_mutex, philos[i].death_status);
+				pthread_mutex_unlock(&philos[i].last_eaten_mutex);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&philos[i].last_eaten_mutex);
@@ -58,6 +59,14 @@ void	*philo_routine(void *vargp)
 	stagger_start(philo->nb_philo, id);
 	while (1)
 	{
+        if (pthread_mutex_lock(philo->death_status_mutex))
+            return NULL;
+        if (*(philo->death_status) != 0)
+        {
+            pthread_mutex_unlock(philo->death_status_mutex);
+            return NULL;
+        }
+        pthread_mutex_unlock(philo->death_status_mutex);
 		if (attempt_take_fork(philo, LEFT) == -1)
 			break ;
 		if (attempt_take_fork(philo, RIGHT) == -1)

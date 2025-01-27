@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 20:51:59 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/26 22:43:31 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	attempt_to_eat(t_philo *philo, int id)
 	{
 		if (unlock_fork_mutexes(philo))
 			return (-1);
-		if (perform_activity(philo, get_time_stamp(), philo->time_to_sleep, EATING) == 1)
+		if (perform_activity(philo, get_time_stamp(), philo->time_to_eat, EATING) == 1)
 		{
 			if (pthread_detach(philo->thread))
 				return (print_error(THREAD_DETACH_ERROR));
@@ -122,7 +122,7 @@ int	attempt_to_eat(t_philo *philo, int id)
 		set_forks_status(philo, 0);
 		if (unlock_fork_mutexes(philo))
 			return (-1);
-		perform_activity(philo, get_time_stamp(), philo->time_to_eat, SLEEPING);
+		perform_activity(philo, get_time_stamp(), philo->time_to_sleep, SLEEPING);
 	}
 	else
 	{
