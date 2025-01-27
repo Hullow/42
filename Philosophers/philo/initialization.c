@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/27 17:58:12 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:46:59 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	init_philo(t_table *table, t_params *params, int id)
 	pthread_mutex_init(&philo->last_eaten_mutex, NULL);
 	philo->death_status = &table->death_status;
 	philo->death_status_mutex = &table->death_status_mutex;
-	philo->finished_eating_mutex = &table->finished_eating_mutex;
-	philo->finished_eating = &table->finished_eating;
+	philo->done_eating_mutex = &table->done_eating_mutex;
+	philo->done_eating = &table->done_eating;
 	return (0);
 }
 
@@ -67,10 +67,10 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 	table->nb_philo = nb_philo;
 	table->start_time = get_time_stamp();
 	memset(&table->death_status, 0, sizeof(unsigned char));
-	memset(&table->finished_eating, 0, sizeof(unsigned char));
+	memset(&table->done_eating, 0, sizeof(unsigned char));
 	if (pthread_mutex_init(&table->death_status_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
-	if (pthread_mutex_init(&table->finished_eating_mutex, NULL))
+	if (pthread_mutex_init(&table->done_eating_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
 	i = 0;
 	while (i < nb_philo)

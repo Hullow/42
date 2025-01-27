@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/27 20:03:41 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 21:03:12 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	print_status(t_philo *philo, long timestamp, enum e_message msg)
 	};
 
 	if (msg == MSG_FINISHED)
-		printf("%ld All philosopher eat %d %s\n", \
-		timestamp, philo->must_eat, messages[msg]);
+		printf("%ld All %d philosophers eat %d %s\n", \
+		timestamp, philo->nb_philo, philo->must_eat, messages[msg]);
 	else
 	{
 		pthread_mutex_lock(philo->death_status_mutex);

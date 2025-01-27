@@ -8,7 +8,6 @@ memset adds `int c` to the pointer given as parameter as an unsigned char (n.b.:
 	- design general loop (incl. starting order)
 	- reorder code in files
 
-
 P.S.:
 - For more understanding:
 	- Factorio video
@@ -183,9 +182,9 @@ Correction checks:
 	
 # 25/1/25
 - Changed get_time_stamp() back to basic version, solves the wrongly dying philosophers (e.g. with `./philo 100 800 200 200`)
-- Must_eat: added shared finished_eating variable, which is incremented by 1 each time a philosopher reaches
-the must_eat value. Wrote `edit_status_var` function to increments its' and death_status' (renamed) value by 1 (this replaces handle_philo_death).
-	=> All this is to be used by grim_reaper function or other to stop the simulation when `finished_eating == nb_philo`. => not done yet.
+- Must_eat: added shared done_eating variable, which is incremented by 1 each time a philosopher reaches
+the must_eat value. Wrote `change_status` function to increments its' and death_status' (renamed) value by 1 (this replaces handle_philo_death).
+	=> All this is to be used by grim_reaper function or other to stop the simulation when `done_eating == nb_philo`. => not done yet.
 	Update: seems to work. Will use debugger to see the exact behavior
 - Mutex lock errors: sometimes happen at the end, e.g. with `./philo 200 1000 200 200` or `./philo 100 600 200 200`
 - Single philo: implemented to eat with one fork, but that's mistake. There should be only one fork, and the philo should die. Works with `./philo 1 800 200 200`, but mutex_destroy_error => not clear why, because `end_simulation` which
@@ -196,8 +195,17 @@ the must_eat value. Wrote `edit_status_var` function to increments its' and deat
 - Testing with valgrind --tool=helgrind
 - Added lock ordering to avoid possible deadlocks
 
+# 27/1/25
+- Tests
+- Wrote bash tester specifically for negative death timestamps using Claude, to see difference with parameters.
+o1 answered with "no because responsible AI", then rate limit
+- Did norm
+- Removed mutex error checks and prints
+
 # Tests:
 ## Clear failures
+- must_eat doesn't work, e.g. `./philo 2 15000 4000 4000 2` => both continue to eat, or `./philo 3 15000 4000 4000 2` => one dies
+	=> seems fixed by adding `done_eating` checker in `checker_routine` to return
 - SEGFAULT on VM, commit 7983088c6 (27/1 11h45), with `./philo 5 800 200 200 7`
 - SEGFAULT on Linux, commit c2b5365a3338 (26/1 19h50), with `./philo 2 400 250 100`
 - `./philo 2 400 200 100` => don't die anymore. Why ????
@@ -223,9 +231,4 @@ possible data race during read of size 4
 - `valgrind --tool=helgrind ./philo 1 1000 200 200`
 - philos dying too early sometimes (5-10ms) => made short usleeps (100-200ms) a bit longer. Seems to remove the issue.
 - philos dying too slowly: `./philo 200 600 200 200` => 650ms from last eating to died (in VM)
-	
- 
-# 27/1/25
-- Tests
-- Wrote bash tester specifically for negative death timestamps using Claude, to see difference with parameters.
-o1 answered with "no because responsible AI", then rate limit
+	=> okay in mac now

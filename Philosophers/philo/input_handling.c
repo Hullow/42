@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
-/*   Updated: 2025/01/26 20:24:00 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:34:02 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ int	ft_atoi_philo(char *str)
 /**
  * @brief	Checks the validity of the input parameters
  * @details	Cases:
- * 				- a parameter is < 0
- * 				- nb_philo > 200
- * 			To determine: 
- * 				- a parameter is == 0
- * 				- a parameter is > INT_MAX
+ * 				- a parameter is < 0 or == 0
+ * 			To determine:
+ * 				- a parameter is > INT_MAX => will be negative
+ * 				- INT_MAX likely works, just a very long time
  * @returns	returns a call (with error number) to print_error, which returns -1
  * */
 int	input_checker(t_params *params)
@@ -57,7 +56,6 @@ int	input_checker(t_params *params)
 	params->time_to_eat == 0 || params->time_to_sleep == 0 || \
 	params->must_eat == 0)
 		return (print_error(ZERO_AS_INPUT));
-	/* other potential invalid input cases */
 	return (0);
 }
 

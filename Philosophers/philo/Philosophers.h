@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 20:05:43 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:53:32 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ enum e_message
 enum e_status
 {
 	death_status,
-	finished_eating
+	done_eating
 };
 
 typedef enum e_fork
@@ -98,7 +98,7 @@ typedef struct s_philo
 	long			time_to_sleep;
 	pthread_t		thread;
 	pthread_mutex_t	last_eaten_mutex;
-	pthread_mutex_t	*finished_eating_mutex;
+	pthread_mutex_t	*done_eating_mutex;
 	pthread_mutex_t	*death_status_mutex;
 	pthread_mutex_t	*left_fork_mutex;
 	pthread_mutex_t	*right_fork_mutex;
@@ -107,7 +107,7 @@ typedef struct s_philo
 	int				left_fork_id;
 	int				right_fork_id;
 	unsigned char	*death_status;
-	unsigned char	*finished_eating;
+	unsigned char	*done_eating;
 }	t_philo;
 
 // Structure for the whole table
@@ -125,9 +125,9 @@ typedef struct s_table
 	unsigned char		forks[MAX_THREADS];
 	pthread_mutex_t		fork_mutex[MAX_THREADS];
 	pthread_mutex_t		death_status_mutex;
-	pthread_mutex_t		finished_eating_mutex;
+	pthread_mutex_t		done_eating_mutex;
 	unsigned char		death_status;
-	unsigned char		finished_eating;
+	unsigned char		done_eating;
 	pthread_t			checker;
 }	t_table;
 
@@ -154,15 +154,16 @@ int				end_simulation(t_table *table);
 
 void			*philo_routine(void *table);
 void			*checker_routine(void *vargp);
+int				check_done_eating(t_philo *philo);
 
 // Routine utils
 
 int				perform_activity(t_philo *philo, long activity_start, \
 long desired_sleep, int activity);
-void			eat(t_philo *philo, long activity_start);
-int				edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, \
-unsigned char *variable);
 int				attempt_to_eat(t_philo *philo, int id, int time_to_eat);
+void			eat(t_philo *philo, long activity_start);
+int				change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
+unsigned char *variable);
 
 	// Forks
 

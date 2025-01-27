@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation_utils.c                                 :+:      :+:    :+:   */
+/*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 20:31:29 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/27 20:54:48 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 	
 	How it works:
 	- Increments the value of a shared status variable 
-	(death_status or finished_eating) by 1.
+	(death_status or done_eating) by 1.
 	- If the variable is death_status, prints the death announcement
 	for the corresponding philosopher (given in parameters)
 */
-int	edit_status_var(t_philo *philo, pthread_mutex_t *status_mutex, \
+int	change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
 unsigned char *variable)
 {
 	unsigned char	value;
@@ -63,11 +63,7 @@ int activity)
 	while (desired_sleep > get_time_stamp() - activity_start)
 		usleep(250);
 	if (philo->times_eaten == philo->must_eat)
-	{ /* FOR DEBUGGING PURPOSES */
-		printf("%ld %d has eaten %d times (must_eat == %d)\n", get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);
-		/* FOR DEBUGGING PURPOSES */
 		return (1);
-	}
 	if (activity == SLEEPING)
 		print_status(philo, get_time_stamp(), MSG_THINKING);
 	return (0);
@@ -93,7 +89,6 @@ int	attempt_to_eat(t_philo *philo, int id, int time_to_eat)
 		unlock_fork_mutexes(philo);
 		if (perform_activity(philo, get_time_stamp(), time_to_eat, EATING) == 1)
 		{
-			printf("%ld philo %d is detaching\n", get_time_stamp(), philo->philo_id);
 			pthread_detach(philo->thread);
 			lock_fork_mutexes(philo);
 			set_forks_status(philo, 0);
