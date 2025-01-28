@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 13:33:10 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 14:06:01 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	attempt_to_eat(t_philo *philo, int id, int time_to_eat)
 		unlock_fork_mutexes(philo);
 		if (perform_activity(philo, get_time_stamp(), time_to_eat, EATING) == 1)
 		{
-			pthread_detach(philo->thread);
 			lock_fork_mutexes(philo);
 			set_forks_status(philo, 0);
 			unlock_fork_mutexes(philo);
