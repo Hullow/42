@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   Philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 12:29:16 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 20:02:22 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <stdbool.h>
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
-#define MAX_THREADS 200
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <stdbool.h>
+
+# define MAX_THREADS 200
 
 enum e_error
 {
@@ -187,3 +190,5 @@ int				print_status(t_philo *philo, long timestamp, \
 enum e_message msg);
 int				print_error(int error);
 long			get_time_stamp(void);
+
+#endif
