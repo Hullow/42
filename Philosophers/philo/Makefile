@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
+#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/27 20:52:29 by francis          ###   ########.fr        #
+#    Updated: 2025/01/28 20:25:37 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ NAME = philo
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
-# -ferror-limit=2
 
 SRCS =	main.c \
 		input_handling.c \

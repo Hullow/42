@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 20:02:22 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 20:27:56 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <stdbool.h>
 
 # define MAX_THREADS 200
+
+# define FREE 0
+# define NO_DEATHS 0
+# define EAT_ENOUGH 1
 
 enum e_error
 {

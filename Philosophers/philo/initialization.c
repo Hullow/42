@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/27 20:46:59 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 20:28:59 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 
 	table->nb_philo = nb_philo;
 	table->start_time = get_time_stamp();
-	memset(&table->death_status, 0, sizeof(unsigned char));
-	memset(&table->done_eating, 0, sizeof(unsigned char));
+	memset(&table->death_status, NO_DEATHS, sizeof(unsigned char));
+	memset(&table->done_eating, NO_DEATHS, sizeof(unsigned char));
 	if (pthread_mutex_init(&table->death_status_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
 	if (pthread_mutex_init(&table->done_eating_mutex, NULL))
@@ -75,7 +75,7 @@ int	init_table(t_table *table, t_params *params, int nb_philo)
 	i = 0;
 	while (i < nb_philo)
 	{
-		memset(&table->forks[i], 0, sizeof(unsigned char));
+		memset(&table->forks[i], FREE, sizeof(unsigned char));
 		if (pthread_mutex_init(&table->fork_mutex[i], NULL))
 			return (print_error(MUTEX_INIT_ERROR));
 		if (init_philo(table, params, i))

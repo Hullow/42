@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/27 21:03:12 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 20:28:25 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	print_status(t_philo *philo, long timestamp, enum e_message msg)
 	else
 	{
 		pthread_mutex_lock(philo->death_status_mutex);
-		if (*(philo->death_status) == 0 || msg == MSG_DIED)
+		if (*(philo->death_status) == NO_DEATHS || msg == MSG_DIED)
 			printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
 		pthread_mutex_unlock(philo->death_status_mutex);
 	}

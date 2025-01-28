@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 13:55:15 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 20:29:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	*philo_routine(void *vargp)
 	while (1)
 	{
 		pthread_mutex_lock(philo->death_status_mutex);
-		if (*(philo->death_status) != 0)
+		if (*(philo->death_status) != NO_DEATHS)
 		{
 			pthread_mutex_unlock(philo->death_status_mutex);
 			return (NULL);
@@ -101,7 +101,7 @@ int	grim_reaper(t_table *table)
 	while (1)
 	{
 		pthread_mutex_lock(&table->death_status_mutex);
-		if (table->death_status != 0)
+		if (table->death_status != NO_DEATHS)
 		{
 			pthread_mutex_unlock(&table->death_status_mutex);
 			break ;

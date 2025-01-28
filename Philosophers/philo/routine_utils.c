@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 14:06:01 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 20:27:05 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ int	attempt_to_eat(t_philo *philo, int id, int time_to_eat)
 		if (perform_activity(philo, get_time_stamp(), time_to_eat, EATING) == 1)
 		{
 			lock_fork_mutexes(philo);
-			set_forks_status(philo, 0);
+			set_forks_status(philo, FREE);
 			unlock_fork_mutexes(philo);
 			return (1);
 		}
 		lock_fork_mutexes(philo);
-		set_forks_status(philo, 0);
+		set_forks_status(philo, FREE);
 		unlock_fork_mutexes(philo);
 		perform_activity(philo, get_time_stamp(), \
 		philo->time_to_sleep, SLEEPING);
