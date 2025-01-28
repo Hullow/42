@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 12:57:49 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:55:15 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,33 +24,40 @@ int	check_done_eating(t_philo *philo)
 	return (0);
 }
 
-/* checks if any philosopher is dead */
+int	check_died(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->last_eaten_mutex);
+	if (get_time_stamp() - philo->last_eaten >= philo->time_to_die)
+	{
+		pthread_mutex_unlock(&philo->last_eaten_mutex);
+		change_status(philo, philo->death_status_mutex, philo->death_status);
+		return (1);
+	}
+	else
+		pthread_mutex_unlock(&philo->last_eaten_mutex);
+	return (0);
+}
+
+/* checks if philosophers are done eating and if any philosopher is dead */
 void	*checker_routine(void *vargp)
 {
 	t_philo	*philos;
 	int		i;
 
 	philos = (t_philo *)vargp;
-	i = -1;
+	i = 0;
 	while (1)
 	{
-		while (++i < philos[0].nb_philo)
+		if (check_done_eating(&philos[i]))
+			return (NULL);
+		while (i < philos[0].nb_philo)
 		{
-			if (check_done_eating(&philos[i]))
+			if (check_died(&philos[i]))
 				return (NULL);
-			pthread_mutex_lock(&philos[i].last_eaten_mutex);
-			if (get_time_stamp() - philos[i].last_eaten >= \
-			philos[i].time_to_die)
-			{
-				change_status(&philos[i], philos[i].death_status_mutex, \
-				philos[i].death_status);
-				pthread_mutex_unlock(&philos[i].last_eaten_mutex);
-				return (NULL);
-			}
-			pthread_mutex_unlock(&philos[i].last_eaten_mutex);
-			usleep(300);
+			i++;
 		}
 		i = 0;
+		usleep(300);
 	}
 }
 
@@ -73,10 +80,8 @@ void	*philo_routine(void *vargp)
 			return (NULL);
 		}
 		pthread_mutex_unlock(philo->death_status_mutex);
-		if (attempt_take_fork(philo, LEFT) == -1)
-			break ;
-		if (attempt_take_fork(philo, RIGHT) == -1)
-			break ;
+		attempt_take_fork(philo, LEFT);
+		attempt_take_fork(philo, RIGHT);
 		if (attempt_to_eat(philo, philo->philo_id, philo->time_to_eat))
 		{
 			change_status(philo, philo->done_eating_mutex, philo->done_eating);
@@ -86,8 +91,11 @@ void	*philo_routine(void *vargp)
 	return (NULL);
 }
 
-/* Checks the death status variable to see if a philosopher died
-	then sleep 0.5ms */
+/* While() loop:
+	- checks:
+		- the death status variable to see if a philosopher died
+		- the done eating variable to see if all philos have eaten enough
+	- sleeps 0.5ms */
 int	grim_reaper(t_table *table)
 {
 	while (1)

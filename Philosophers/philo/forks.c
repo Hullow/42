@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:45:43 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 17:35:40 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:39:10 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
 }
 
 /* unlocks a fork mutex 
-	returns 1 in case of error and 0 otherwise */
+	returns -1 in case of error and 0 otherwise */
 int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
 {
 	if (pthread_mutex_unlock(fork_mutex))
@@ -69,11 +69,7 @@ int	unlock_fork_mutexes(t_philo *philo)
 	pthread_mutex_t	*second_fork;
 
 	if (philo->left_fork_id == philo->right_fork_id)
-	{
-		if (unlock_single_fork_mutex(philo->left_fork_mutex))
-			return (-1);
-		return (0);
-	}
+		return (unlock_single_fork_mutex(philo->left_fork_mutex));
 	if (philo->left_fork_id < philo->right_fork_id)
 	{
 		first_fork = philo->left_fork_mutex;
@@ -103,16 +99,14 @@ int	attempt_take_fork(t_philo *philo, int fork_to_pick)
 
 	fork_mutex = select_fork_mutex(philo, fork_to_pick);
 	fork = select_fork(philo, fork_to_pick);
-	if (pthread_mutex_lock(fork_mutex))
-		return (-1);
+	pthread_mutex_lock(fork_mutex);
 	if (*(fork) == 0)
 	{
 		memset(fork, philo->philo_id, sizeof(unsigned char));
-		if (pthread_mutex_unlock(fork_mutex))
-			return (-1);
+		pthread_mutex_unlock(fork_mutex);
 		print_status(philo, get_time_stamp(), MSG_FORK);
 	}
-	else if (pthread_mutex_unlock(fork_mutex))
-		return (-1);
+	else
+		pthread_mutex_unlock(fork_mutex);
 	return (0);
 }
