@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:51:46 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 13:07:58 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 21:33:27 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	run_simulation(t_table *table)
 /* End simulation :
 	- join threads (philos, checker) to reap them 
 	- destroy mutexes
-	- ?
 */
 int	end_simulation(t_table *table)
 {

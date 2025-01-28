@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 20:48:02 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 21:43:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_done_eating(t_philo *philo)
 	return (0);
 }
 
-int	check_if_any_philo_died(t_philo *philo)
+int	check_philo_died(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->last_eaten_mutex);
 	if (get_time_stamp() - philo->last_eaten >= philo->time_to_die)
@@ -53,7 +53,7 @@ void	*checker_routine(void *vargp)
 			return (NULL);
 		while (i < philos[0].nb_philo)
 		{
-			if (check_if_any_philo_died(&philos[i]))
+			if (check_philo_died(&philos[i]))
 				return (NULL);
 			i++;
 		}

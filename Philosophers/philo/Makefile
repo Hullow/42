@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/28 21:04:16 by fallan           ###   ########.fr        #
+#    Updated: 2025/01/28 21:15:06 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	main.c \
+		input.c \
 		initialization.c \
 		forks.c \
 		forks_utils.c \
@@ -24,7 +25,7 @@ SRCS =	main.c \
 		routine.c \
 		routine_utils.c \
 		general_utils.c
-              
+
 OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)

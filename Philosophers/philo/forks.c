@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:45:43 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 13:39:10 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 21:27:22 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	unlock_fork_mutexes(t_philo *philo)
 	using memset to change the fork's value to the philo's id
 	- Protects fork with mutex before reading and writing
 */
-int	attempt_take_fork(t_philo *philo, int fork_to_pick)
+int	attempt_take_fork(t_philo *philo, t_fork fork_to_pick)
 {
 	pthread_mutex_t	*fork_mutex;
 	unsigned char	*fork;

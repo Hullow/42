@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 20:59:50 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 21:35:36 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ int	main(int argc, char **argv)
 	t_table		*table;
 
 	table = malloc (sizeof(t_table));
-	if (init_table(table, argc, argv) == -1)
+	if (handle_input(table, argc, argv) == -1)
+	{
+		free(table);
+		return (-1);
+	}
+	if (init_table(table) < 0)
 	{
 		free(table);
 		return (-1);

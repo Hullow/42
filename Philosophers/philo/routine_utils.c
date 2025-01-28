@@ -6,11 +6,43 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 20:41:15 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 21:30:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
+
+/* 	Prints current status of philosopher, after checking 
+	the global death status variable.
+	
+	Prints when:
+		- death_status == 0 => no philosopher died yet
+		- death_status == philo->philo_id => this philosopher died, print
+		- otherwise, doesn't print
+*/
+int	print_status(t_philo *philo, long timestamp, t_message msg)
+{
+	static const char *const	messages[] = {
+	[MSG_THINKING] = "is thinking",
+	[MSG_SLEEPING] = "is sleeping",
+	[MSG_EATING] = "is eating",
+	[MSG_FORK] = "has taken a fork",
+	[MSG_DIED] = "has died",
+	[MSG_FINISHED] = "times - simulation stopping"
+	};
+
+	if (msg == MSG_FINISHED)
+		printf("%ld All %d philosophers eat %d %s\n", \
+		timestamp, philo->nb_philo, philo->must_eat, messages[msg]);
+	else
+	{
+		pthread_mutex_lock(philo->death_status_mutex);
+		if (*(philo->death_status) == NO_DEATHS || msg == MSG_DIED)
+			printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
+		pthread_mutex_unlock(philo->death_status_mutex);
+	}
+	return (0);
+}
 
 /*	Used to signal the death of a philosopher or count the number of philos
 	that have eaten.
@@ -47,12 +79,12 @@ void	eat(t_philo *philo, long activity_start)
 /**
  * @brief	Sleeps the precise number of ms
  * @details Checks the current time since desired start, 
- * 			taking as input the desired_sleep_time (in ms),
+ * 			taking as input the desired_time_time (in ms),
  * 			and the activity (eating or sleeping)
  * @returns	-1 in case of error, 0 otherwise
  */
-int	perform_activity(t_philo *philo, long activity_start, long desired_sleep, \
-int activity)
+int	perform_activity(t_philo *philo, long activity_start, long desired_time, \
+t_activity activity)
 {
 	if (activity_start == -1)
 		return (-1);
@@ -60,7 +92,7 @@ int activity)
 		print_status(philo, activity_start, MSG_SLEEPING);
 	else if (activity == EATING)
 		eat(philo, activity_start);
-	while (desired_sleep > get_time_stamp() - activity_start)
+	while (desired_time > get_time_stamp() - activity_start)
 		usleep(250);
 	if (philo->times_eaten == philo->must_eat)
 		return (DONE_EATING);

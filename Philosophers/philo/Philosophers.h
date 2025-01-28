@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 21:04:47 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 21:43:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define MAX_THREADS 200
-
 # define FREE 0
 # define NO_DEATHS 0
 # define DONE_EATING 1
 
-enum e_error
+typedef enum e_error
 {
 	MALLOC_FAIL,
 	INVALID_INPUT,
@@ -38,16 +36,16 @@ enum e_error
 	MUTEX_LOCK_ERROR,
 	MUTEX_UNLOCK_ERROR,
 	MUTEX_DESTROY_ERROR,
-};
+}	t_error;
 
-enum e_activity
+typedef enum e_activity
 {
 	THINKING,
 	SLEEPING,
 	EATING
-};
+}	t_activity;
 
-enum e_message
+typedef enum e_message
 {
 	MSG_COUNT,
 	MSG_THINKING,
@@ -56,19 +54,13 @@ enum e_message
 	MSG_FORK,
 	MSG_DIED,
 	MSG_FINISHED
-};
-
-enum e_status
-{
-	death_status,
-	done_eating
-};
+}	t_message;
 
 typedef enum e_fork
 {
 	LEFT,
 	RIGHT
-}	t_fork_to_pick;
+}	t_fork;
 
 /* structure for each philosopher:
 	- thread ID pointer pthread_t *thread (X bytes)
@@ -121,9 +113,9 @@ typedef struct s_table
 	int					time_to_sleep;
 	int					must_eat;
 	long				start_time;
-	t_philo				philos[MAX_THREADS];
-	unsigned char		forks[MAX_THREADS];
-	pthread_mutex_t		fork_mutex[MAX_THREADS];
+	t_philo				*philos;
+	unsigned char		*forks;
+	pthread_mutex_t		*fork_mutex;
 	pthread_mutex_t		death_status_mutex;
 	pthread_mutex_t		done_eating_mutex;
 	unsigned char		death_status;
@@ -135,11 +127,12 @@ typedef struct s_table
 
 int				handle_input(t_table *table, int argc, char **argv);
 int				ft_atoi_philo(char *str);
-int				input_checker(t_params *params);
 
 // Initialization
 
-int				init_table(t_table *table, int argc, char **argv);
+int				init_table(t_table *table);
+int				handle_init_error(t_table *table, t_error error);
+int				handle_table_mallocs(t_table *table);
 int				init_philo(t_table *table, int id);
 void			fill_philo_params(t_philo *philo, t_table **table, int id);
 
@@ -153,12 +146,12 @@ int				end_simulation(t_table *table);
 void			*philo_routine(void *table);
 void			*checker_routine(void *vargp);
 int				check_done_eating(t_philo *philo);
-int				check_if_any_philo_died(t_philo *philo);
+int				check_philo_died(t_philo *philo);
 
 // Routine utils
 
 int				perform_activity(t_philo *philo, long activity_start, \
-long desired_sleep, int activity);
+long desired_time, t_activity activity);
 int				attempt_to_eat(t_philo *philo, int id, int time_to_eat);
 void			eat(t_philo *philo, long activity_start);
 int				change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
@@ -166,7 +159,7 @@ unsigned char *status_variable);
 
 	// Forks
 
-int				attempt_take_fork(t_philo *philo, int fork_to_pick);
+int				attempt_take_fork(t_philo *philo, t_fork fork_to_pick);
 int				lock_fork_mutexes(t_philo *philo);
 int				unlock_fork_mutexes(t_philo *philo);
 int				lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
@@ -175,17 +168,15 @@ int				unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 	// Forks utils
 
 void			set_forks_status(t_philo *philo, char c);
-unsigned char	*select_fork(t_philo *philo, t_fork_to_pick fork_to_pick);
-pthread_mutex_t	*select_fork_mutex(t_philo *philo, \
-t_fork_to_pick fork_to_pick);
+unsigned char	*select_fork(t_philo *philo, t_fork fork_to_pick);
+pthread_mutex_t	*select_fork_mutex(t_philo *philo, t_fork fork_to_pick);
 int				forks_available(t_philo *philo, int id);
+int				print_status(t_philo *philo, long timestamp, t_message msg);
 
 // General utils
 
 void			stagger_start(int nb_philo, int id);
-int				print_status(t_philo *philo, long timestamp, \
-enum e_message msg);
-int				print_error(int error);
+int				print_error(t_error error);
 long			get_time_stamp(void);
 
 #endif
