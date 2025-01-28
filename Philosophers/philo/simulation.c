@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:51:46 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 13:04:43 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:07:58 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	run_simulation(t_table *table)
 		i++;
 	}
 	pthread_create(&table->checker, NULL, checker_routine, table->philos);
-	// grim_reaper(&table);
 	return (0);
 }
 
@@ -56,6 +55,5 @@ int	end_simulation(t_table *table)
 	}
 	pthread_mutex_destroy(&table->death_status_mutex);
 	pthread_mutex_destroy(&table->done_eating_mutex);
-
 	return (0);
 }
