@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 21:43:11 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 22:52:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 # define FREE 0
 # define NO_DEATHS 0
@@ -62,6 +63,8 @@ typedef enum e_fork
 	RIGHT
 }	t_fork;
 
+typedef struct s_table	t_table;
+
 /* structure for each philosopher:
 	- thread ID pointer pthread_t *thread (X bytes)
 	- the philosopher's ID (4 byte)
@@ -76,26 +79,23 @@ typedef enum e_fork
 typedef struct s_philo
 {
 	int				philo_id;
-	int				nb_philo;
-	long			start_time;
-	long			last_eaten;
-	int				times_eaten;
-	int				must_eat;
-	long			time_to_die;
-	long			time_to_eat;
-	long			time_to_sleep;
 	pthread_t		thread;
+	long			last_eaten;
 	pthread_mutex_t	last_eaten_mutex;
-	pthread_mutex_t	*done_eating_mutex;
-	pthread_mutex_t	*death_status_mutex;
-	pthread_mutex_t	*left_fork_mutex;
-	pthread_mutex_t	*right_fork_mutex;
-	unsigned char	*left_fork;
-	unsigned char	*right_fork;
+	int				times_eaten;
 	int				left_fork_id;
 	int				right_fork_id;
+	unsigned char	*left_fork;
+	pthread_mutex_t	*left_fork_mutex;
+	unsigned char	*right_fork;
+	pthread_mutex_t	*right_fork_mutex;
+	t_table			*table;
 	unsigned char	*death_status;
+	pthread_mutex_t	*death_status_mutex;
 	unsigned char	*done_eating;
+	pthread_mutex_t	*done_eating_mutex;
+	unsigned char	*simulation_stop;
+	pthread_mutex_t	*simulation_stop_mutex;
 }	t_philo;
 
 // Structure for the whole table
@@ -105,7 +105,7 @@ typedef struct s_philo
 // - the mutexes for the forks
 // - the philosophers
 // - a death status marker that is pointed to from each philosopher
-typedef struct s_table
+struct s_table
 {
 	int					nb_philo;
 	int					time_to_die;
@@ -116,12 +116,14 @@ typedef struct s_table
 	t_philo				*philos;
 	unsigned char		*forks;
 	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t		death_status_mutex;
-	pthread_mutex_t		done_eating_mutex;
 	unsigned char		death_status;
+	pthread_mutex_t		death_status_mutex;
 	unsigned char		done_eating;
+	pthread_mutex_t		done_eating_mutex;
+	unsigned char		simulation_stop;
+	pthread_mutex_t		simulation_stop_mutex;
 	pthread_t			checker;
-}	t_table;
+};
 
 // Input
 
@@ -134,13 +136,11 @@ int				init_table(t_table *table);
 int				handle_init_error(t_table *table, t_error error);
 int				handle_table_mallocs(t_table *table);
 int				init_philo(t_table *table, int id);
-void			fill_philo_params(t_philo *philo, t_table **table, int id);
 
 // Simulation control
 
 int				run_simulation(t_table *table);
 int				end_simulation(t_table *table);
-
 // Routines
 
 void			*philo_routine(void *table);
@@ -150,11 +150,11 @@ int				check_philo_died(t_philo *philo);
 
 // Routine utils
 
-int				perform_activity(t_philo *philo, long activity_start, \
+int				perform_activity(t_philo *philo, long activity_start,
 long desired_time, t_activity activity);
 int				attempt_to_eat(t_philo *philo, int id, int time_to_eat);
 void			eat(t_philo *philo, long activity_start);
-int				change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
+int				change_status(pthread_mutex_t *status_mutex,
 unsigned char *status_variable);
 
 	// Forks

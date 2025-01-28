@@ -268,3 +268,11 @@ francis@philo: cat tests/80-600-200-200.txt | grep " 76 "
 1738070277782 76 has died
 ```
 => 597 ms rather than 600ms
+
+**Update**
+Changed the malloc in init, program works better now. Same issue still with
+`./philo 150 500 200 200 > 150-500-200-200.txt` (6ms too early)
+
+`./philo 100 1000 200 200 2` causes a philo to DIE after what seems like all the other having eaten...
+=> no apparent issue with smaller # philos, like `./philo 10 1000 200 200 2` or with 50
+but appears with 80 philos at least

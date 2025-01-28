@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 21:30:15 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 23:23:14 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 */
 int	print_status(t_philo *philo, long timestamp, t_message msg)
 {
-	static const char *const	messages[] = {
+	const char *const	messages[] = {
 	[MSG_THINKING] = "is thinking",
 	[MSG_SLEEPING] = "is sleeping",
 	[MSG_EATING] = "is eating",
@@ -32,13 +32,15 @@ int	print_status(t_philo *philo, long timestamp, t_message msg)
 	};
 
 	if (msg == MSG_FINISHED)
-		printf("%ld All %d philosophers eat %d %s\n", \
-		timestamp, philo->nb_philo, philo->must_eat, messages[msg]);
+		printf("%ld All %d philosophers eat %d %s\n", timestamp,
+			philo->table->nb_philo, philo->table->must_eat, messages[msg]);
 	else
 	{
 		pthread_mutex_lock(philo->death_status_mutex);
-		if (*(philo->death_status) == NO_DEATHS || msg == MSG_DIED)
+		pthread_mutex_lock(philo->simulation_stop_mutex);
+		if (*(philo->death_status) == NO_DEATHS || (msg == MSG_DIED && *(philo->simulation_stop) == 0))
 			printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
+		pthread_mutex_unlock(philo->simulation_stop_mutex);
 		pthread_mutex_unlock(philo->death_status_mutex);
 	}
 	return (0);
@@ -53,8 +55,7 @@ int	print_status(t_philo *philo, long timestamp, t_message msg)
 	- If the variable is death_status, prints the death announcement
 	for the corresponding philosopher (given in parameters)
 */
-int	change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
-unsigned char *status_variable)
+int	change_status(pthread_mutex_t *status_mutex, unsigned char *status_variable)
 {
 	unsigned char	value;
 
@@ -62,8 +63,6 @@ unsigned char *status_variable)
 	value = *status_variable + 1;
 	memset(status_variable, value, sizeof(unsigned char));
 	pthread_mutex_unlock(status_mutex);
-	if (status_mutex == philo->death_status_mutex)
-		print_status(philo, get_time_stamp(), MSG_DIED);
 	return (0);
 }
 
@@ -83,7 +82,7 @@ void	eat(t_philo *philo, long activity_start)
  * 			and the activity (eating or sleeping)
  * @returns	-1 in case of error, 0 otherwise
  */
-int	perform_activity(t_philo *philo, long activity_start, long desired_time, \
+int	perform_activity(t_philo *philo, long activity_start, long desired_time,
 t_activity activity)
 {
 	if (activity_start == -1)
@@ -94,7 +93,7 @@ t_activity activity)
 		eat(philo, activity_start);
 	while (desired_time > get_time_stamp() - activity_start)
 		usleep(250);
-	if (philo->times_eaten == philo->must_eat)
+	if (philo->times_eaten == philo->table->must_eat)
 		return (DONE_EATING);
 	if (activity == SLEEPING)
 		print_status(philo, get_time_stamp(), MSG_THINKING);
@@ -118,7 +117,7 @@ int	attempt_to_eat(t_philo *philo, int id, int time_to_eat)
 	if (forks_available(philo, id))
 	{
 		unlock_fork_mutexes(philo);
-		if (perform_activity(philo, get_time_stamp(), \
+		if (perform_activity(philo, get_time_stamp(), 
 		time_to_eat, EATING) == DONE_EATING)
 		{
 			lock_fork_mutexes(philo);
@@ -129,8 +128,8 @@ int	attempt_to_eat(t_philo *philo, int id, int time_to_eat)
 		lock_fork_mutexes(philo);
 		set_forks_status(philo, FREE);
 		unlock_fork_mutexes(philo);
-		perform_activity(philo, get_time_stamp(), \
-		philo->time_to_sleep, SLEEPING);
+		perform_activity(philo, get_time_stamp(), 
+		philo->table->time_to_sleep, SLEEPING);
 	}
 	else
 	{
