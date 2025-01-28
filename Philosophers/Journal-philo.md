@@ -236,3 +236,35 @@ possible data race during read of size 4
 
 To do:
 - helgrind `./philo 5 800 200 200 7` => possible data races, look at and try to fix
+
+
+## 28/1/25
+- Seems like I fixed all my problems, including in Helgrind and even drd !
+- Removed pthread detach when all philosophers have eaten, which was causing a pthread_join error
+- Changed the checker_routine
+- Still one thing:
+```bash
+./philo 200 420 200 200 > tests/200-420-200-200.txt
+
+cat tests/200-420-200-200.txt | grep "died"
+1738069935088 120 has died
+
+cat tests/200-420-200-200.txt | grep " 120 "
+1738069934670 120 is thinking
+1738069934870 120 has taken a fork
+1738069935088 120 has died
+```
+=> 418ms rather than 420ms...still that issue. anyway
+
+
+Same with:
+```bash
+francis@philo: ./philo 80 600 200 200 > tests/80-600-200-200.txt
+francis@philo: cat tests/80-600-200-200.txt | grep died
+1738070277782 76 has died
+francis@philo: cat tests/80-600-200-200.txt | grep " 76 "
+1738070277185 76 is thinking
+1738070277385 76 has taken a fork
+1738070277782 76 has died
+```
+=> 597 ms rather than 600ms
