@@ -12,6 +12,7 @@
 - `*` for any number of characters
 - `?` for a single character (e.g. `???.c`)
 - `[]` for a range or a set of characters, e.g. `[a-p0-5].c` for items containing any of the characters between a and p and 0 and 5. Or `[agkj]*.*`
+- `!!` for the previous command line. `!:0` for the name of the command, `!:1`for the first parameter, `!$` for the name of the last command, `!:-3` for all parameters in range 0-3 (inclusive)
 
 ## Findng information
 - `man man`

@@ -232,3 +232,7 @@ possible data race during read of size 4
 - philos dying too early sometimes (5-10ms) => made short usleeps (100-200ms) a bit longer. Seems to remove the issue.
 - philos dying too slowly: `./philo 200 600 200 200` => 650ms from last eating to died (in VM)
 	=> okay in mac now
+
+
+To do:
+- helgrind `./philo 5 800 200 200 7` => possible data races, look at and try to fix

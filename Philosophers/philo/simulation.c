@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:51:46 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 20:51:57 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 13:04:43 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,21 @@ int	end_simulation(t_table *table)
 	int	i;
 
 	i = 0;
-	pthread_mutex_lock(&table->done_eating_mutex);
-	if (!table->done_eating)
+	while (i < table->nb_philo)
 	{
-		pthread_mutex_unlock(&table->done_eating_mutex);
-		while (i < table->nb_philo)
-		{
-			// pthread_detach(table->philos[i].threasd);
-			pthread_join(table->philos[i].thread, NULL); // add error handling
-			i++;
-		}
+		pthread_join(table->philos[i].thread, NULL);
+		i++;
 	}
-	pthread_mutex_unlock(&table->done_eating_mutex);
 	pthread_join(table->checker, NULL);
 	i = 0;
 	while (i < table->nb_philo)
 	{
-		// if (table->nb_philo)
-			// pthread_mutex_unlock(&table->fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
 		pthread_mutex_destroy(&table->fork_mutex[i]);
+		pthread_mutex_destroy(&table->philos[i].last_eaten_mutex);
 		i++;
 	}
-	// pthread_mutex_unlock(&table->death_status_mutex);
 	pthread_mutex_destroy(&table->death_status_mutex);
-	// pthread_mutex_unlock(&table->done_eating_mutex);
 	pthread_mutex_destroy(&table->done_eating_mutex);
+
 	return (0);
 }

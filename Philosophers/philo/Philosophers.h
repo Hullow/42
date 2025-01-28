@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 20:53:32 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 12:29:16 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ long desired_sleep, int activity);
 int				attempt_to_eat(t_philo *philo, int id, int time_to_eat);
 void			eat(t_philo *philo, long activity_start);
 int				change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
-unsigned char *variable);
+unsigned char *status_variable);
 
 	// Forks
 

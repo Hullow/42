@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 20:54:48 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 12:42:06 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 	for the corresponding philosopher (given in parameters)
 */
 int	change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
-unsigned char *variable)
+unsigned char *status_variable)
 {
 	unsigned char	value;
 
-	value = *variable + 1;
 	pthread_mutex_lock(status_mutex);
-	memset(variable, value, sizeof(unsigned char));
+	value = *status_variable + 1;
+	memset(status_variable, value, sizeof(unsigned char));
 	pthread_mutex_unlock(status_mutex);
 	if (status_mutex == philo->death_status_mutex)
 		print_status(philo, get_time_stamp(), MSG_DIED);
