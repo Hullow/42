@@ -6,7 +6,7 @@
 #    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/28 20:25:37 by fallan           ###   ########.fr        #
+#    Updated: 2025/01/28 21:04:16 by fallan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS =	main.c \
-		input_handling.c \
 		initialization.c \
 		forks.c \
 		forks_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/27 17:35:46 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/28 20:40:25 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick)
 		return (philo->right_fork);
 	else
 		return (NULL);
+}
+
+/* check if the two forks for a given philosopher (id) are available */
+int	forks_available(t_philo *philo, int id)
+{
+	if (*(philo->left_fork) == id && *(philo->right_fork) == id && \
+	philo->left_fork_id != philo->right_fork_id)
+		return (1);
+	else
+		return (0);
 }

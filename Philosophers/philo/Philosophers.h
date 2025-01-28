@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 20:27:56 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 21:04:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/time.h>
-# include <stdbool.h>
 
 # define MAX_THREADS 200
 
 # define FREE 0
 # define NO_DEATHS 0
-# define EAT_ENOUGH 1
+# define DONE_EATING 1
 
 enum e_error
 {
@@ -70,16 +69,6 @@ typedef enum e_fork
 	LEFT,
 	RIGHT
 }	t_fork_to_pick;
-
-// Structure to store the input parameters
-typedef struct s_params
-{
-	int	nb_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	must_eat;
-}	t_params;
 
 /* structure for each philosopher:
 	- thread ID pointer pthread_t *thread (X bytes)
@@ -127,6 +116,10 @@ typedef struct s_philo
 typedef struct s_table
 {
 	int					nb_philo;
+	int					time_to_die;
+	int					time_to_eat;
+	int					time_to_sleep;
+	int					must_eat;
 	long				start_time;
 	t_philo				philos[MAX_THREADS];
 	unsigned char		forks[MAX_THREADS];
@@ -140,21 +133,19 @@ typedef struct s_table
 
 // Input
 
-int				handle_input(t_params *params, int argc, char **argv);
+int				handle_input(t_table *table, int argc, char **argv);
 int				ft_atoi_philo(char *str);
 int				input_checker(t_params *params);
 
 // Initialization
 
-int				init_table(t_table *table, t_params *params, int nb_philo);
-int				init_philo(t_table *table, t_params *params, int id);
-void			init_philo_params(t_philo *philo, t_params **params, int id);
-void			fill_params(t_philo *philo, t_params *params, int id);
+int				init_table(t_table *table, int argc, char **argv);
+int				init_philo(t_table *table, int id);
+void			fill_philo_params(t_philo *philo, t_table **table, int id);
 
 // Simulation control
 
 int				run_simulation(t_table *table);
-int				grim_reaper(t_table *table);
 int				end_simulation(t_table *table);
 
 // Routines
@@ -162,6 +153,7 @@ int				end_simulation(t_table *table);
 void			*philo_routine(void *table);
 void			*checker_routine(void *vargp);
 int				check_done_eating(t_philo *philo);
+int				check_if_any_philo_died(t_philo *philo);
 
 // Routine utils
 
@@ -186,6 +178,7 @@ void			set_forks_status(t_philo *philo, char c);
 unsigned char	*select_fork(t_philo *philo, t_fork_to_pick fork_to_pick);
 pthread_mutex_t	*select_fork_mutex(t_philo *philo, \
 t_fork_to_pick fork_to_pick);
+int				forks_available(t_philo *philo, int id);
 
 // General utils
 

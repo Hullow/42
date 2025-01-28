@@ -11,7 +11,8 @@
 - Remove max_threads, replace with malloc based on parameters
 - make constants point to t_table instead of filling them in each philo
 - Add usleep in philo_routine ?
-- remove memset, and unsigned char
+
+### done
 - Add define or enum for fork status,
 e.g. # define FREE 0 and # define EAT_ENOUGH 1 for use in attempt_to_eat
 
@@ -20,13 +21,14 @@ e.g. # define FREE 0 and # define EAT_ENOUGH 1 for use in attempt_to_eat
 - check_died in checker_routine: mark_dead
 - Is this allowed ?
 	- define const char *messages
-	
-## Next eval:
-3 is a good example
-5 too
-
 
 # Maybe change/fix
 - dying too early with large numbers, like ./philo 200 800 200 200
 - Mutex protection to prevent philo dying and eating at same time ?
 - timestamps
+- remove memset, and unsigned char
+
+	
+## Next eval:
+3 is a good example
+5 too

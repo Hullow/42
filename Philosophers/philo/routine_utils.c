@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 20:27:05 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 20:41:15 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int activity)
 	while (desired_sleep > get_time_stamp() - activity_start)
 		usleep(250);
 	if (philo->times_eaten == philo->must_eat)
-		return (1);
+		return (DONE_EATING);
 	if (activity == SLEEPING)
 		print_status(philo, get_time_stamp(), MSG_THINKING);
 	return (0);
@@ -83,16 +83,16 @@ int activity)
 int	attempt_to_eat(t_philo *philo, int id, int time_to_eat)
 {
 	lock_fork_mutexes(philo);
-	if (*(philo->left_fork) == id && *(philo->right_fork) == id \
-	&& philo->left_fork_id != philo->right_fork_id)
+	if (forks_available(philo, id))
 	{
 		unlock_fork_mutexes(philo);
-		if (perform_activity(philo, get_time_stamp(), time_to_eat, EATING) == 1)
+		if (perform_activity(philo, get_time_stamp(), \
+		time_to_eat, EATING) == DONE_EATING)
 		{
 			lock_fork_mutexes(philo);
 			set_forks_status(philo, FREE);
 			unlock_fork_mutexes(philo);
-			return (1);
+			return (DONE_EATING);
 		}
 		lock_fork_mutexes(philo);
 		set_forks_status(philo, FREE);

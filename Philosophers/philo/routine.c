@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 20:29:30 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/28 20:48:02 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ int	check_done_eating(t_philo *philo)
 	if (*(philo->done_eating) == philo->nb_philo)
 	{
 		pthread_mutex_unlock(philo->done_eating_mutex);
+		print_status(philo, get_time_stamp(), MSG_FINISHED);
 		return (1);
 	}
 	pthread_mutex_unlock(philo->done_eating_mutex);
 	return (0);
 }
 
-int	check_died(t_philo *philo)
+int	check_if_any_philo_died(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->last_eaten_mutex);
 	if (get_time_stamp() - philo->last_eaten >= philo->time_to_die)
@@ -52,7 +53,7 @@ void	*checker_routine(void *vargp)
 			return (NULL);
 		while (i < philos[0].nb_philo)
 		{
-			if (check_died(&philos[i]))
+			if (check_if_any_philo_died(&philos[i]))
 				return (NULL);
 			i++;
 		}
@@ -67,10 +68,12 @@ eat_return: if -1, means mutex error, if 1, means eat enough times */
 void	*philo_routine(void *vargp)
 {
 	t_philo	*philo;
+	int		id;
 
 	philo = (t_philo *)vargp;
+	id = philo->philo_id;
 	print_status(philo, get_time_stamp(), MSG_THINKING);
-	stagger_start(philo->nb_philo, philo->philo_id);
+	stagger_start(philo->nb_philo, id);
 	while (1)
 	{
 		pthread_mutex_lock(philo->death_status_mutex);
@@ -82,7 +85,7 @@ void	*philo_routine(void *vargp)
 		pthread_mutex_unlock(philo->death_status_mutex);
 		attempt_take_fork(philo, LEFT);
 		attempt_take_fork(philo, RIGHT);
-		if (attempt_to_eat(philo, philo->philo_id, philo->time_to_eat))
+		if (attempt_to_eat(philo, id, philo->time_to_eat) == DONE_EATING)
 		{
 			change_status(philo, philo->done_eating_mutex, philo->done_eating);
 			break ;
