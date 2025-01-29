@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/28 23:23:51 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:21:49 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ int	init_philo(t_table *table, int id)
 	philo = &table->philos[id];
 	philo->philo_id = id + 1;
 	philo->table = table;
+	nb_philo = table->nb_philo;
 	philo->left_fork_id = id % table->nb_philo;
 	philo->right_fork_id = (id + 1) % table->nb_philo;
 	philo->times_eaten = 0;
-	nb_philo = table->nb_philo;
 	philo->last_eaten = table->start_time;
+	pthread_mutex_init(&philo->last_eaten_mutex, NULL);
 	philo->left_fork = &table->forks[id % nb_philo];
 	philo->right_fork = &table->forks[(id + 1) % nb_philo];
-	philo->left_fork_mutex = &table->fork_mutex[id % nb_philo];
-	philo->right_fork_mutex = &table->fork_mutex[(id + 1) % nb_philo];
-	pthread_mutex_init(&philo->last_eaten_mutex, NULL);
-	philo->death_status = &table->death_status;
-	philo->death_status_mutex = &table->death_status_mutex;
+	philo->left_fork_mutex = &table->fork_mutexes[id % nb_philo];
+	philo->right_fork_mutex = &table->fork_mutexes[(id + 1) % nb_philo];
 	philo->done_eating_mutex = &table->done_eating_mutex;
 	philo->done_eating = &table->done_eating;
 	philo->simulation_stop = &table->simulation_stop;
@@ -49,7 +47,7 @@ int	handle_init_error(t_table *table, t_error error)
 {
 	free(table->philos);
 	free(table->forks);
-	free(table->fork_mutex);
+	free(table->fork_mutexes);
 	return (print_error(error));
 }
 
@@ -65,8 +63,8 @@ int	handle_table_mallocs(t_table *table)
 		free(table->philos);
 		return (print_error(MALLOC_FAIL));
 	}
-	table->fork_mutex = malloc (table->nb_philo * sizeof(pthread_mutex_t));
-	if (!table->fork_mutex)
+	table->fork_mutexes = malloc (table->nb_philo * sizeof(pthread_mutex_t));
+	if (!table->fork_mutexes)
 	{
 		free(table->philos);
 		free(table->forks);
@@ -85,14 +83,13 @@ int	init_table(t_table *table)
 	int	i;
 
 	table->start_time = get_time_stamp();
-	memset(&table->death_status, NO_DEATHS, sizeof(unsigned char));
 	memset(&table->done_eating, 0, sizeof(unsigned char));
 	memset(&table->simulation_stop, 0, sizeof(unsigned char));
-	if (pthread_mutex_init(&table->death_status_mutex, NULL))
-		return (print_error(MUTEX_INIT_ERROR));
 	if (pthread_mutex_init(&table->done_eating_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
 	if (pthread_mutex_init(&table->simulation_stop_mutex, NULL))
+		return (print_error(MUTEX_INIT_ERROR));
+	if (pthread_mutex_init(&table->print_mutex, NULL))
 		return (print_error(MUTEX_INIT_ERROR));
 	if (handle_table_mallocs(table) == -1)
 		return (-1);
@@ -100,7 +97,7 @@ int	init_table(t_table *table)
 	while (i < table->nb_philo)
 	{
 		memset(&table->forks[i], FREE, sizeof(unsigned char));
-		if (pthread_mutex_init(&table->fork_mutex[i], NULL))
+		if (pthread_mutex_init(&table->fork_mutexes[i], NULL))
 			return (handle_init_error(table, MUTEX_INIT_ERROR));
 		if (init_philo(table, i))
 			return (handle_init_error(table, GET_TIME_OF_DAY_ERROR));

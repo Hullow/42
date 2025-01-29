@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:51:46 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 21:33:27 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:23:42 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int	end_simulation(t_table *table)
 	i = 0;
 	while (i < table->nb_philo)
 	{
-		pthread_mutex_destroy(&table->fork_mutex[i]);
+		pthread_mutex_destroy(&table->fork_mutexes[i]);
 		pthread_mutex_destroy(&table->philos[i].last_eaten_mutex);
 		i++;
 	}
-	pthread_mutex_destroy(&table->death_status_mutex);
 	pthread_mutex_destroy(&table->done_eating_mutex);
+	pthread_mutex_destroy(&table->print_mutex);
 	return (0);
 }

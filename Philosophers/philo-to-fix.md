@@ -34,3 +34,10 @@ e.g. # define FREE 0 and # define EAT_ENOUGH 1 for use in attempt_to_eat
 ## Next eval:
 3 is a good example
 5 too
+
+## Discussion Mguyot
+### To check
+- Mutex sur les print (print_mutex)
+
+### To do
+- print_status: put simulkation stop in each printf + mutex

@@ -204,6 +204,7 @@ o1 answered with "no because responsible AI", then rate limit
 
 # Tests:
 ## Clear failures
+- `./philo 2 2000 500 20000` => dies and then thinks again
 - must_eat doesn't work, e.g. `./philo 2 15000 4000 4000 2` => both continue to eat, or `./philo 3 15000 4000 4000 2` => one dies
 	=> seems fixed by adding `done_eating` checker in `checker_routine` to return
 - SEGFAULT on VM, commit 7983088c6 (27/1 11h45), with `./philo 5 800 200 200 7`
@@ -276,3 +277,43 @@ Changed the malloc in init, program works better now. Same issue still with
 `./philo 100 1000 200 200 2` causes a philo to DIE after what seems like all the other having eaten...
 => no apparent issue with smaller # philos, like `./philo 10 1000 200 200 2` or with 50
 but appears with 80 philos at least
+
+-
+francis@philo: ./philo 200 1200 200 200 7
+1738169177321 182 has died
+1738169177321 173 is sleeping
+
+
+- ./philo 200 800 200 200 > out.txt && cat out.txt | grep STOP
+at out.txt | tail -n 20
+1738170952305 89 has taken a fork
+1738170952305 89 has taken a fork
+1738170952305 89 is eating
+1738170952305 9 is thinking
+1738170952305 9 has taken a fork
+1738170952305 9 has taken a fork
+1738170952305 9 is eating
+1738170952305 36 is sleeping
+1738170952305 175 is thinking
+1738170952305 43 is eating
+1738170952305 99 is thinking
+1738170952306 149 is thinking
+1738170952306 136 is sleeping
+1738170952306 28 is sleeping
+1738170952306 137 has died
+1738170952305 61 is thinking
+1738170952305 69 has taken a fork
+1738170952305 175 has taken a fork
+print_status: STOP
+1738170952305 126 is sleeping
+
+# 29/1/25
+- Mguyot helped with debugging ("c'est empirique" -> true !)
+- Removed death_status and mutex
+- Added print_mutex
+- Revamped print_status
+- Added check_simulation_stop everywhere, with define STOP
+- Now need to check on 42 macs, then norm, then recheck
+
+=> refactored, divided perform_activity into eating and sleeping, and lots of other stuff
+	=> cleaner now!

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fallan <fallan@student.42.fr>              +#+  +:+       +#+         #
+#    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
-#    Updated: 2025/01/28 21:15:06 by fallan           ###   ########.fr        #
+#    Updated: 2025/01/29 19:23:36 by francis          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,9 @@ SRCS =	main.c \
 		forks.c \
 		forks_utils.c \
 		simulation.c \
-		routine.c \
-		routine_utils.c \
+		simulation_utils.c \
+		philosopher.c \
+		checker.c \
 		general_utils.c
 
 OBJ = $(SRCS:.c=.o)

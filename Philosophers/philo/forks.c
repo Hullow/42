@@ -3,87 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/26 20:45:43 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 21:27:22 by fallan           ###   ########.fr       */
+/*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
+/*   Updated: 2025/01/29 19:28:25 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-/* locks a fork mutex
-	returns 1 in case of error and 0 otherwise */
-int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+/* check if the two forks for a given philosopher (id) are available */
+int	forks_available(t_philo *philo, int id)
 {
-	if (pthread_mutex_lock(fork_mutex))
-		return (print_error(MUTEX_LOCK_ERROR));
-	return (0);
-}
-
-/* unlocks a fork mutex 
-	returns -1 in case of error and 0 otherwise */
-int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
-{
-	if (pthread_mutex_unlock(fork_mutex))
-		return (print_error(MUTEX_UNLOCK_ERROR));
-	return (0);
-}
-
-/* locks a philosopher's left and right fork 
-	to avoid deadlocks, starts with the lowest-numbered fork
-	returns -1 in case of error and 0 otherwise */
-int	lock_fork_mutexes(t_philo *philo)
-{
-	pthread_mutex_t	*first_fork;
-	pthread_mutex_t	*second_fork;
-
-	if (philo->left_fork_id == philo->right_fork_id)
-		return (pthread_mutex_lock(philo->left_fork_mutex));
-	else if (philo->left_fork_id < philo->right_fork_id)
-	{
-		first_fork = philo->left_fork_mutex;
-		second_fork = philo->right_fork_mutex;
-	}
+	if (*(philo->left_fork) == id && *(philo->right_fork) == id && \
+	philo->left_fork_id != philo->right_fork_id)
+		return (1);
 	else
-	{
-		first_fork = philo->right_fork_mutex;
-		second_fork = philo->left_fork_mutex;
-	}
-	if (pthread_mutex_lock(first_fork))
-		return (-1);
-	else if (pthread_mutex_lock(second_fork))
-	{
-		pthread_mutex_unlock(first_fork);
-		return (-1);
-	}
-	return (0);
+		return (0);
 }
 
-/* unlocks a philosopher's left and right fork 
-	to avoid delays that can cause deadlocks, starts with the lowest numbered
-	 returns -1 in case of error and returns 0 otherwise */
-int	unlock_fork_mutexes(t_philo *philo)
+/* sets the fork state using memset:
+	FREE (0), or philo->ID for lokced for locked */
+void	set_forks_status(t_philo *philo, char c)
 {
-	pthread_mutex_t	*first_fork;
-	pthread_mutex_t	*second_fork;
-
-	if (philo->left_fork_id == philo->right_fork_id)
-		return (unlock_single_fork_mutex(philo->left_fork_mutex));
-	if (philo->left_fork_id < philo->right_fork_id)
-	{
-		first_fork = philo->left_fork_mutex;
-		second_fork = philo->right_fork_mutex;
-	}
-	else
-	{
-		first_fork = philo->right_fork_mutex;
-		second_fork = philo->left_fork_mutex;
-	}
-	if (pthread_mutex_unlock(first_fork) || \
-	pthread_mutex_unlock(second_fork))
-		return (print_error(MUTEX_UNLOCK_ERROR));
-	return (0);
+	lock_fork_mutexes(philo);
+	memset(philo->left_fork, c, sizeof(unsigned char));
+	memset(philo->right_fork, c, sizeof(unsigned char));
+	unlock_fork_mutexes(philo);
 }
 
 /* 	- Attempts to mark a specific fork (left or right) as taken
@@ -104,9 +50,29 @@ int	attempt_take_fork(t_philo *philo, t_fork fork_to_pick)
 	{
 		memset(fork, philo->philo_id, sizeof(unsigned char));
 		pthread_mutex_unlock(fork_mutex);
+		if (check_simulation_stop(philo->table))
+			return (STOP);
 		print_status(philo, get_time_stamp(), MSG_FORK);
 	}
 	else
+	{
 		pthread_mutex_unlock(fork_mutex);
+		if (check_simulation_stop(philo->table))
+			return (STOP);
+	}
+	return (0);
+}
+
+/* first attempts to take left, then right fork */
+int	attempt_to_take_forks(t_philo *philo)
+{
+	if (attempt_take_fork(philo, LEFT) == STOP)
+		return (STOP);
+	if (check_simulation_stop(philo->table))
+		return (STOP);
+	if (attempt_take_fork(philo, RIGHT) == STOP)
+		return (STOP);
+	if (check_simulation_stop(philo->table))
+		return (STOP);
 	return (0);
 }

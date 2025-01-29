@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 22:52:35 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:31:34 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <stdbool.h>
 
 # define FREE 0
-# define NO_DEATHS 0
 # define DONE_EATING 1
+# define STOP 2
 
 typedef enum e_error
 {
@@ -90,8 +90,6 @@ typedef struct s_philo
 	unsigned char	*right_fork;
 	pthread_mutex_t	*right_fork_mutex;
 	t_table			*table;
-	unsigned char	*death_status;
-	pthread_mutex_t	*death_status_mutex;
 	unsigned char	*done_eating;
 	pthread_mutex_t	*done_eating_mutex;
 	unsigned char	*simulation_stop;
@@ -115,9 +113,8 @@ struct s_table
 	long				start_time;
 	t_philo				*philos;
 	unsigned char		*forks;
-	pthread_mutex_t		*fork_mutex;
-	unsigned char		death_status;
-	pthread_mutex_t		death_status_mutex;
+	pthread_mutex_t		print_mutex;
+	pthread_mutex_t		*fork_mutexes;
 	unsigned char		done_eating;
 	pthread_mutex_t		done_eating_mutex;
 	unsigned char		simulation_stop;
@@ -141,37 +138,43 @@ int				init_philo(t_table *table, int id);
 
 int				run_simulation(t_table *table);
 int				end_simulation(t_table *table);
-// Routines
+
+// Philosopher threads
 
 void			*philo_routine(void *table);
+int				attempt_to_eat(t_philo *philo, int id);
+int				eat(t_philo *philo);
+int				sleeping(t_philo *philo);
+void			improved_usleep(long desired_time, long start_time);
+
+// Checker thread
+
 void			*checker_routine(void *vargp);
 int				check_done_eating(t_philo *philo);
 int				check_philo_died(t_philo *philo);
+int				check_simulation_stop(t_table *table);
 
-// Routine utils
+// Simulation utils
 
-int				perform_activity(t_philo *philo, long activity_start,
-long desired_time, t_activity activity);
-int				attempt_to_eat(t_philo *philo, int id, int time_to_eat);
-void			eat(t_philo *philo, long activity_start);
 int				change_status(pthread_mutex_t *status_mutex,
-unsigned char *status_variable);
+					unsigned char *status_variable);
+void			print_status(t_philo *philo, long timestamp, t_message msg);
+void			print_died(t_philo *philo, long timestamp);
+void			print_finished(t_philo *philo, long timestamp);
 
 	// Forks
-
+int				attempt_to_take_forks(t_philo *philo);
 int				attempt_take_fork(t_philo *philo, t_fork fork_to_pick);
+void			set_forks_status(t_philo *philo, char c);
+int				forks_available(t_philo *philo, int id);
+
+	// Forks mutexes
+
 int				lock_fork_mutexes(t_philo *philo);
 int				unlock_fork_mutexes(t_philo *philo);
-int				lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
 int				unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
-
-	// Forks utils
-
-void			set_forks_status(t_philo *philo, char c);
 unsigned char	*select_fork(t_philo *philo, t_fork fork_to_pick);
 pthread_mutex_t	*select_fork_mutex(t_philo *philo, t_fork fork_to_pick);
-int				forks_available(t_philo *philo, int id);
-int				print_status(t_philo *philo, long timestamp, t_message msg);
 
 // General utils
 
