@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/30 16:58:44 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 18:06:07 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /** @brief		fills the philosopher struct with our parameters from input
  * 	@details 	- mutexes: pointers to the mutexes initialized in the table
- * 				- philo_id : table->id + 1, because philosophers start at 1
+ * 				- id : table->id + 1, because philosophers start at 1
  * 
  */
 int	init_philo(t_table *table, int id)
@@ -23,7 +23,7 @@ int	init_philo(t_table *table, int id)
 	int		nb_philo;
 
 	philo = &table->philos[id];
-	philo->philo_id = id + 1;
+	philo->id = id + 1;
 	philo->table = table;
 	nb_philo = table->nb_philo;
 	philo->left_fork_id = id % table->nb_philo;
@@ -57,7 +57,7 @@ int	handle_table_mallocs(t_table *table)
 	table->philos = malloc (table->nb_philo * sizeof(t_philo));
 	if (!table->philos)
 		return (print_error(MALLOC_FAIL));
-	table->forks = malloc (table->nb_philo * sizeof(unsigned char));
+	table->forks = malloc (table->nb_philo * sizeof(int));
 	if (!table->forks)
 	{
 		free(table->philos);
@@ -96,7 +96,7 @@ int	init_table(t_table *table)
 	table->start_time = get_time_stamp();
 	while (i < table->nb_philo)
 	{
-		memset(&table->forks[i], FREE, sizeof(unsigned char));
+		memset(&table->forks[i], FREE, sizeof(int));
 		if (pthread_mutex_init(&table->fork_mutexes[i], NULL))
 			return (handle_init_error(table, MUTEX_INIT_ERROR));
 		if (init_philo(table, i))

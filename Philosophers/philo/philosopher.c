@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 16:58:35 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 17:54:47 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	attempt_to_eat(t_philo *philo, int id)
 			set_forks_status(philo, FREE);
 			return (DONE_EATING);
 		}
-		set_forks_status(philo, FREE);
+		set_forks_status(philo, -id);
 		sleeping(philo);
 	}
 	else
@@ -123,14 +123,14 @@ void	*philo_routine(void *vargp)
 	philo = (t_philo *)vargp;
 	eat_return = 0;
 	print_status(philo, philo->table->start_time, MSG_THINKING);
-	stagger_start(philo->table->nb_philo, philo->philo_id);
+	stagger_start(philo->table->nb_philo, philo->id);
 	while (1)
 	{
 		if (check_simulation_stop(philo->table))
 			return (NULL);
 		if (attempt_to_take_forks(philo) == STOP)
 			return (NULL);
-		eat_return = attempt_to_eat(philo, philo->philo_id);
+		eat_return = attempt_to_eat(philo, philo->id);
 		if (eat_return == STOP)
 			return (NULL);
 		if (check_simulation_stop(philo->table))

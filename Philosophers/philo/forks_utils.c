@@ -6,13 +6,13 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:45:43 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 16:19:01 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 17:31:10 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick)
+int	*select_fork(t_philo *philo, enum e_fork fork_to_pick)
 {
 	if (fork_to_pick == LEFT)
 		return (philo->left_fork);

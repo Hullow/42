@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 16:20:30 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 17:40:19 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ typedef struct s_table	t_table;
 	*/
 typedef struct s_philo
 {
-	int				philo_id;
+	int				id;
 	pthread_t		thread;
 	long			last_eaten;
 	pthread_mutex_t	last_eaten_mutex;
 	int				times_eaten;
 	int				left_fork_id;
 	int				right_fork_id;
-	unsigned char	*left_fork;
+	int				*left_fork;
 	pthread_mutex_t	*left_fork_mutex;
-	unsigned char	*right_fork;
+	int				*right_fork;
 	pthread_mutex_t	*right_fork_mutex;
 	t_table			*table;
 	unsigned char	*done_eating;
@@ -113,7 +113,7 @@ struct s_table
 	long				start_time;
 	t_philo				*philos;
 	pthread_t			checker;
-	unsigned char		*forks;
+	int					*forks;
 	pthread_mutex_t		*fork_mutexes;
 	unsigned char		done_eating;
 	pthread_mutex_t		done_eating_mutex;
@@ -165,7 +165,7 @@ void			print_finished(t_philo *philo, long timestamp);
 	// Forks
 int				attempt_to_take_forks(t_philo *philo);
 int				attempt_take_fork(t_philo *philo, t_fork fork_to_pick);
-void			set_forks_status(t_philo *philo, char c);
+void			set_forks_status(t_philo *philo, int number);
 int				forks_available(t_philo *philo, int id);
 
 	// Forks mutexes
@@ -173,7 +173,7 @@ int				forks_available(t_philo *philo, int id);
 int				lock_fork_mutexes(t_philo *philo);
 int				unlock_fork_mutexes(t_philo *philo);
 int				unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
-unsigned char	*select_fork(t_philo *philo, t_fork fork_to_pick);
+int				*select_fork(t_philo *philo, t_fork fork_to_pick);
 pthread_mutex_t	*select_fork_mutex(t_philo *philo, t_fork fork_to_pick);
 
 // General utils

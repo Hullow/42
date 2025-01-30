@@ -8,8 +8,18 @@
  4 310 200 200 ==> one death
 
 
+nb: 1 800 200 200 died
 
 ### KO
+./philo 166 800 200 200 (bwach)
+
+last lines:
+1738253579642 156 is eating
+1738253579822 107 has died (line 1032)
+
+previous:
+1738253579433 107 has taken a fork (line 543)
+
 ### OK
 
 - No must_eat: just keep going

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:28:25 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:56:24 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ int	forks_available(t_philo *philo, int id)
 }
 
 /* sets the fork state using memset:
-	FREE (0), or philo->ID for lokced for locked */
-void	set_forks_status(t_philo *philo, char c)
+	FREE (0), or philo->ID for locked */
+void	set_forks_status(t_philo *philo, int number)
 {
 	lock_fork_mutexes(philo);
-	memset(philo->left_fork, c, sizeof(unsigned char));
-	memset(philo->right_fork, c, sizeof(unsigned char));
+	// if (number < 0)
+	// 	printf("%d: setting left fork and right fork to %d\n", philo->id, number);
+	*(philo->left_fork) = number;
+	*(philo->right_fork) = number;
 	unlock_fork_mutexes(philo);
 }
 
@@ -41,14 +43,16 @@ void	set_forks_status(t_philo *philo, char c)
 int	attempt_take_fork(t_philo *philo, t_fork fork_to_pick)
 {
 	pthread_mutex_t	*fork_mutex;
-	unsigned char	*fork;
+	int				*fork;
 
 	fork_mutex = select_fork_mutex(philo, fork_to_pick);
 	fork = select_fork(philo, fork_to_pick);
 	pthread_mutex_lock(fork_mutex);
-	if (*(fork) == 0)
+	if (*(fork) == -(philo->id))
+		printf("%ld %d eat previously\n", get_time_stamp(), philo->id);
+	if (*(fork) <= 0 && *(fork) != -(philo->id))
 	{
-		memset(fork, philo->philo_id, sizeof(unsigned char));
+		*(fork) = philo->id;
 		pthread_mutex_unlock(fork_mutex);
 		if (check_simulation_stop(philo->table))
 			return (STOP);
