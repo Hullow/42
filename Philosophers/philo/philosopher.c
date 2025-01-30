@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 15:50:02 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:58:35 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	*philo_routine(void *vargp)
 
 	philo = (t_philo *)vargp;
 	eat_return = 0;
-	print_status(philo, get_time_stamp(), MSG_THINKING);
+	print_status(philo, philo->table->start_time, MSG_THINKING);
 	stagger_start(philo->table->nb_philo, philo->philo_id);
 	while (1)
 	{

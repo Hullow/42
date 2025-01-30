@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/29 19:21:49 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 16:58:44 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	init_table(t_table *table)
 {
 	int	i;
 
-	table->start_time = get_time_stamp();
 	memset(&table->done_eating, 0, sizeof(unsigned char));
 	memset(&table->simulation_stop, 0, sizeof(unsigned char));
 	if (pthread_mutex_init(&table->done_eating_mutex, NULL))
@@ -94,6 +93,7 @@ int	init_table(t_table *table)
 	if (handle_table_mallocs(table) == -1)
 		return (-1);
 	i = 0;
+	table->start_time = get_time_stamp();
 	while (i < table->nb_philo)
 	{
 		memset(&table->forks[i], FREE, sizeof(unsigned char));

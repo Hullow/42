@@ -319,4 +319,10 @@ print_status: STOP
 	=> cleaner now!
 
 # 30/1/25
-- LazyPhiloChecker: negative must_eat input fix
+- Fixed negative must_eat input bug following LazyPhiloChecker use
+- Fixed dying too early bug: typecast time_to_die to (long) for comparison
+with past timestamps
+- Nb: check_philo_died needs to compare `>=`, e.g. for 2 800 400 200
+==> start eating at 0ms, eat for 400ms until 400ms. Immediately, the other philo
+starts eating, i.e. at 400ms. Eats until 800ms. 800ms have thus passed since
+philo #1 last eat, so must die. if only `>`, doesn't die.

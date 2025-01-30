@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 15:49:49 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 17:00:41 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ and the current time */
 int	check_philo_died(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->last_eaten_mutex);
-	if (get_time_stamp() - philo->last_eaten > philo->table->time_to_die)
+	if (get_time_stamp() - philo->last_eaten
+		>= (long) philo->table->time_to_die)
 	{
 		pthread_mutex_unlock(&philo->last_eaten_mutex);
 		change_status(philo->simulation_stop_mutex, philo->simulation_stop);

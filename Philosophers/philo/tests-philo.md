@@ -1,4 +1,14 @@
 # Philosophers - things to test
+## Regular tests
+ Do not test with more than 200
+ 1 800 200 200 => no eating, dies
+ 5 800 200 200 ==> no deaths
+ 5 800 200 200 7 => no death, each eat 7 times
+ 4 410 200 200 ==> no death
+ 4 310 200 200 ==> one death
+
+
+
 ### KO
 ### OK
 
@@ -50,8 +60,11 @@ Philosophers: Thread detach error1737664058691 ms: A philosopher died – end of
 
 
 ### Dying too early
-- `./philo 150 500 200 200 > 150-500-200-200.txt` (6ms too early)
-- ./philo 200 420 200 200 > tests/200-420-200-200.txt
+### OK
+- ./philo 200 420 200 200
+- ./philo 151 410 200 200
+### KO
+### To test
 - ./philo 80 600 200 200 > tests/80-600-200-200.txt
 
 => no apparent issue with smaller # philos, like `./philo 10 1000 200 200 2` or with 50

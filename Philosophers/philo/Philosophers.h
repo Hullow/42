@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 16:07:34 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:20:30 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,14 @@ struct s_table
 	int					must_eat;
 	long				start_time;
 	t_philo				*philos;
+	pthread_t			checker;
 	unsigned char		*forks;
-	pthread_mutex_t		print_mutex;
 	pthread_mutex_t		*fork_mutexes;
 	unsigned char		done_eating;
 	pthread_mutex_t		done_eating_mutex;
 	unsigned char		simulation_stop;
 	pthread_mutex_t		simulation_stop_mutex;
-	pthread_t			checker;
+	pthread_mutex_t		print_mutex;
 };
 
 // Input
