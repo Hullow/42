@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:31:34 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 15:15:23 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,5 +181,6 @@ pthread_mutex_t	*select_fork_mutex(t_philo *philo, t_fork fork_to_pick);
 void			stagger_start(int nb_philo, int id);
 int				print_error(t_error error);
 long			get_time_stamp(void);
+void			free_all_mallocs(t_table *table);
 
 #endif

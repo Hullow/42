@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/28 21:33:09 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:15:06 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,12 @@ int	print_error(t_error error)
 	else if (error == MUTEX_DESTROY_ERROR)
 		write(2, "\nPhilosophers: Mutex destroy error\n", 36);
 	return (-1);
+}
+
+void	free_all_mallocs(t_table *table)
+{
+	free(table->philos);
+	free(table->forks);
+	free(table->fork_mutexes);
+	free(table);
 }

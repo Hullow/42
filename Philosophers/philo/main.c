@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
-/*   Updated: 2025/01/28 22:35:29 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:14:56 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	main(int argc, char **argv)
 	}
 	run_simulation(table);
 	end_simulation(table);
-	free(table);
+	free_all_mallocs(table);
 	return (0);
 }

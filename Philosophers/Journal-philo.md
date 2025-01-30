@@ -260,7 +260,7 @@ cat tests/200-420-200-200.txt | grep " 120 "
 
 Same with:
 ```bash
-francis@philo: ./philo 80 600 200 200 > tests/80-600-200-200.txt
+francis@philo: 
 francis@philo: cat tests/80-600-200-200.txt | grep died
 1738070277782 76 has died
 francis@philo: cat tests/80-600-200-200.txt | grep " 76 "
