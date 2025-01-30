@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:31:11 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 15:50:02 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ void	*philo_routine(void *vargp)
 		eat_return = attempt_to_eat(philo, philo->philo_id);
 		if (eat_return == STOP)
 			return (NULL);
-		if (check_simulation_stop(philo->table)) // virer ? 
-			return (NULL); // (vu le check juste avant...à tester!)
+		if (check_simulation_stop(philo->table))
+			return (NULL);
 		else if (eat_return == DONE_EATING)
 		{
 			change_status(philo->done_eating_mutex, philo->done_eating);

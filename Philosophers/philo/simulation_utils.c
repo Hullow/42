@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:45:04 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:30:46 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 15:49:17 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ int	change_status(pthread_mutex_t *status_mutex, unsigned char *status_variable)
 void	print_finished(t_philo *philo, long timestamp)
 {
 	pthread_mutex_lock(&philo->table->print_mutex);
-	pthread_mutex_lock(&philo->table->simulation_stop_mutex);
-	printf("%ld All %d philosophers eat %d times - simulation stopping (%d)\n",
-		timestamp, philo->table->nb_philo, philo->table->must_eat,
-		philo->table->simulation_stop);
-	pthread_mutex_unlock(&philo->table->simulation_stop_mutex);
+	printf("%ld All %d philosophers eat %d times - simulation stopping\n",
+		timestamp, philo->table->nb_philo, philo->table->must_eat);
 	pthread_mutex_unlock(&philo->table->print_mutex);
 }
 
 void	print_died(t_philo *philo, long timestamp)
 {
 	pthread_mutex_lock(&philo->table->print_mutex);
-	pthread_mutex_lock(&philo->table->simulation_stop_mutex);
-	printf("%ld %d has died (%d)\n", timestamp, philo->philo_id,
-		philo->table->simulation_stop);
-	pthread_mutex_unlock(&philo->table->simulation_stop_mutex);
+	printf("%ld %d has died\n", timestamp, philo->philo_id);
 	pthread_mutex_unlock(&philo->table->print_mutex);
 }
 
@@ -79,8 +73,7 @@ void	print_status(t_philo *philo, long timestamp, t_message msg)
 			return ;
 		pthread_mutex_lock(&philo->table->simulation_stop_mutex);
 		pthread_mutex_lock(&philo->table->print_mutex);
-		printf("%ld %d %s (%d)\n", timestamp, philo->philo_id,
-			messages[msg], philo->table->simulation_stop);
+		printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
 		pthread_mutex_unlock(&philo->table->print_mutex);
 		pthread_mutex_unlock(&philo->table->simulation_stop_mutex);
 	}
