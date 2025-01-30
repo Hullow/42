@@ -317,3 +317,6 @@ print_status: STOP
 
 => refactored, divided perform_activity into eating and sleeping, and lots of other stuff
 	=> cleaner now!
+
+# 30/1/25
+- LazyPhiloChecker: negative must_eat input fix

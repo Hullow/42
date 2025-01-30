@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 15:15:23 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:07:34 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ struct s_table
 // Input
 
 int				handle_input(t_table *table, int argc, char **argv);
+int				handle_must_eat_input(t_table *table, char **argv);
 int				ft_atoi_philo(char *str);
-
 // Initialization
 
 int				init_table(t_table *table);

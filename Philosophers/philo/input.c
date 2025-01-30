@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/28 21:14:42 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:07:53 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ int	ft_atoi_philo(char *str)
 	return (out);
 }
 
+int	handle_must_eat_input(t_table *table, char **argv)
+{
+	if (argv[5])
+	{
+		table->must_eat = ft_atoi_philo(argv[5]);
+		if (table->must_eat < 0)
+			return (print_error(INVALID_INPUT));
+	}
+	else
+		table->must_eat = -1;
+	return (0);
+}
+
 // Stores the input parameters in a the s_table struct
 // returns -1 if parameter count is not 4 or 5
 // returns 0 otherwise
@@ -51,10 +64,8 @@ int	handle_input(t_table *table, int argc, char **argv)
 		printf("5) number of times each philosopher must eat (optional)\n");
 		return (print_error(INVALID_INPUT));
 	}
-	if (argv[5])
-		table->must_eat = ft_atoi_philo(argv[5]);
-	else
-		table->must_eat = -1;
+	if (handle_must_eat_input(table, argv))
+		return (-1);
 	table->nb_philo = ft_atoi_philo(argv[1]);
 	table->time_to_die = ft_atoi_philo(argv[2]);
 	table->time_to_eat = ft_atoi_philo(argv[3]);

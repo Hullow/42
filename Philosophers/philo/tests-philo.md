@@ -60,3 +60,13 @@ but appears with 80 philos at least
 => went back to 1st push commit, and bug is there :s
 
 other to investigate: `./philo 200 1500 200 200 2 > out.txt && cat out.txt | wc -l`
+
+X is thinking
+
+X has taken a fork
+X has taken a fork
+X is eating
+X is sleeping
+
+
+X is thinking
