@@ -6,14 +6,14 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/31 17:05:11 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/31 17:38:54 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
 /* check if the two forks for a given philosopher (id) are available */
-int	forks_available(t_philo *philo, int id)
+int	check_forks_reserved(t_philo *philo, int id)
 {
 	if (*(philo->left_fork) == id && *(philo->right_fork) == id && \
 	philo->left_fork_id != philo->right_fork_id)
@@ -48,7 +48,7 @@ int	attempt_take_fork(t_philo *philo, t_fork fork_to_pick)
 	pthread_mutex_lock(fork_mutex);
 	if (*(fork) == 0)
 	{
-		memset(fork, philo->philo_id, sizeof(unsigned char));
+		memset(fork, philo->id, sizeof(unsigned char));
 		pthread_mutex_unlock(fork_mutex);
 		if (check_simulation_stop(philo->table))
 			return (STOP);
@@ -59,9 +59,6 @@ int	attempt_take_fork(t_philo *philo, t_fork fork_to_pick)
 		pthread_mutex_unlock(fork_mutex);
 		if (check_simulation_stop(philo->table))
 			return (STOP);
-		// pthread_mutex_lock(&philo->last_eaten_mutex);
-		// improved_usleep(philo->table->time_to_eat - 10, philo->last_eaten);
-		// pthread_mutex_unlock(&philo->last_eaten_mutex);
 	}
 	return (0);
 }

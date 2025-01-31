@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:45:04 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 15:49:17 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/31 17:44:52 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_finished(t_philo *philo, long timestamp)
 void	print_died(t_philo *philo, long timestamp)
 {
 	pthread_mutex_lock(&philo->table->print_mutex);
-	printf("%ld %d has died\n", timestamp, philo->philo_id);
+	printf("%ld %d has died\n", timestamp, philo->id);
 	pthread_mutex_unlock(&philo->table->print_mutex);
 }
 
@@ -73,7 +73,7 @@ void	print_status(t_philo *philo, long timestamp, t_message msg)
 			return ;
 		pthread_mutex_lock(&philo->table->simulation_stop_mutex);
 		pthread_mutex_lock(&philo->table->print_mutex);
-		printf("%ld %d %s\n", timestamp, philo->philo_id, messages[msg]);
+		printf("%ld %d %s\n", timestamp, philo->id, messages[msg]);
 		pthread_mutex_unlock(&philo->table->print_mutex);
 		pthread_mutex_unlock(&philo->table->simulation_stop_mutex);
 	}

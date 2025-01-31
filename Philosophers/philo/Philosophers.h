@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 16:20:30 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/31 17:19:43 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_table	t_table;
 	*/
 typedef struct s_philo
 {
-	int				philo_id;
+	int				id;
 	pthread_t		thread;
 	long			last_eaten;
 	pthread_mutex_t	last_eaten_mutex;
@@ -166,7 +166,7 @@ void			print_finished(t_philo *philo, long timestamp);
 int				attempt_to_take_forks(t_philo *philo);
 int				attempt_take_fork(t_philo *philo, t_fork fork_to_pick);
 void			set_forks_status(t_philo *philo, char c);
-int				forks_available(t_philo *philo, int id);
+int				check_forks_reserved(t_philo *philo, int id);
 
 	// Forks mutexes
 

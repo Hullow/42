@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/30 16:58:44 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/31 17:20:29 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /** @brief		fills the philosopher struct with our parameters from input
  * 	@details 	- mutexes: pointers to the mutexes initialized in the table
- * 				- philo_id : table->id + 1, because philosophers start at 1
+ * 				- id : table->id + 1, because philosophers start at 1
  * 
  */
 int	init_philo(t_table *table, int id)
@@ -23,7 +23,7 @@ int	init_philo(t_table *table, int id)
 	int		nb_philo;
 
 	philo = &table->philos[id];
-	philo->philo_id = id + 1;
+	philo->id = id + 1;
 	philo->table = table;
 	nb_philo = table->nb_philo;
 	philo->left_fork_id = id % table->nb_philo;
