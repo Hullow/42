@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:28:25 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/31 17:05:11 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int	attempt_take_fork(t_philo *philo, t_fork fork_to_pick)
 		pthread_mutex_unlock(fork_mutex);
 		if (check_simulation_stop(philo->table))
 			return (STOP);
+		// pthread_mutex_lock(&philo->last_eaten_mutex);
+		// improved_usleep(philo->table->time_to_eat - 10, philo->last_eaten);
+		// pthread_mutex_unlock(&philo->last_eaten_mutex);
 	}
 	return (0);
 }
