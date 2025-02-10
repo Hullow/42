@@ -260,7 +260,7 @@ cat tests/200-420-200-200.txt | grep " 120 "
 
 Same with:
 ```bash
-francis@philo: ./philo 80 600 200 200 > tests/80-600-200-200.txt
+francis@philo: 
 francis@philo: cat tests/80-600-200-200.txt | grep died
 1738070277782 76 has died
 francis@philo: cat tests/80-600-200-200.txt | grep " 76 "
@@ -318,6 +318,15 @@ print_status: STOP
 
 => refactored, divided perform_activity into eating and sleeping, and lots of other stuff
 	=> cleaner now!
+
+# 30/1/25
+- Fixed negative must_eat input bug following LazyPhiloChecker use
+- Fixed dying too early bug: typecast time_to_die to (long) for comparison
+with past timestamps
+- Nb: check_philo_died needs to compare `>=`, e.g. for 2 800 400 200
+==> start eating at 0ms, eat for 400ms until 400ms. Immediately, the other philo
+starts eating, i.e. at 400ms. Eats until 800ms. 800ms have thus passed since
+philo #1 last eat, so must die. if only `>`, doesn't die.
 
 - N.b. MGuyot: m'a bien aidé à comprendre les mutex lock, et leur aspect bloquant pour le programe
 

@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:55:45 by francis          ###   ########.fr       */
+/*   Updated: 2025/02/10 18:52:16 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	attempt_to_eat(t_philo *philo, int id)
 			set_forks_status(philo, FREE);
 			return (DONE_EATING);
 		}
-		set_forks_status(philo, FREE);
+		set_forks_status(philo, -id);
 		sleeping(philo);
 	}
 	else
@@ -122,19 +122,19 @@ void	*philo_routine(void *vargp)
 
 	philo = (t_philo *)vargp;
 	eat_return = 0;
-	print_status(philo, get_time_stamp(), MSG_THINKING);
-	stagger_start(philo->table->nb_philo, philo->philo_id);
+	print_status(philo, philo->table->start_time, MSG_THINKING);
+	stagger_start(philo->table->nb_philo, philo->id);
 	while (1)
 	{
 		if (check_simulation_stop(philo->table))
 			return (NULL);
 		if (attempt_to_take_forks(philo) == STOP)
 			return (NULL);
-		eat_return = attempt_to_eat(philo, philo->philo_id);
+		eat_return = attempt_to_eat(philo, philo->id);
 		if (eat_return == STOP)
 			return (NULL);
-		if (check_simulation_stop(philo->table)) // virer ? 
-			return (NULL); // (vu le check juste avant...à tester!)
+		if (check_simulation_stop(philo->table))
+			return (NULL);
 		else if (eat_return == DONE_EATING)
 		{
 			change_status(philo->done_eating_mutex, philo->done_eating);

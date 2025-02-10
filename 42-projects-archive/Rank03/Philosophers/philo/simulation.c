@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:51:46 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:23:42 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 15:45:52 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	end_simulation(t_table *table)
 		i++;
 	}
 	pthread_mutex_destroy(&table->done_eating_mutex);
+	pthread_mutex_destroy(&table->simulation_stop_mutex);
 	pthread_mutex_destroy(&table->print_mutex);
 	return (0);
 }

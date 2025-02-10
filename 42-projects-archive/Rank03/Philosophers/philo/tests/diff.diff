@@ -173,10 +173,10 @@ index 5d62c72..d5e3003 100644
 -
 -	// Forks utils
 -
--void			set_forks_status(t_philo *philo, char c);
+-void			set_forks_status(t_philo *philo, int number);
 -unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick);
 -pthread_mutex_t	*select_fork_mutex(t_philo *philo, enum e_fork fork_to_pick);
-+void	set_forks_status(t_philo *philo, char c);
++void	set_forks_status(t_philo *philo, int number);
  
  // General utils
  
@@ -216,7 +216,7 @@ index 0d7250a..1b5442e 100644
 -int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
 +/* sets the fork state using memset:
 +	0 for free, 1 for locked as locked */
-+void	set_forks_status(t_philo *philo, char c)
++void	set_forks_status(t_philo *philo, int number)
  {
 -	if (pthread_mutex_unlock(fork_mutex))
 -		return (print_error(MUTEX_UNLOCK_ERROR));
@@ -298,7 +298,7 @@ index 16b82db..0000000
 -
 -/* sets the fork state using memset:
 -	0 for free, 1 for locked as locked */
--void	set_forks_status(t_philo *philo, char c)
+-void	set_forks_status(t_philo *philo, int number)
 -{
 -	memset(philo->left_fork, c, sizeof(unsigned char));
 -	memset(philo->right_fork, c, sizeof(unsigned char));

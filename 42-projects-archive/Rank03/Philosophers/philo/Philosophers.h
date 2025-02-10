@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:42:59 by francis          ###   ########.fr       */
+/*   Updated: 2025/02/10 18:53:47 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ typedef struct s_table	t_table;
 	*/
 typedef struct s_philo
 {
-	int				philo_id;
+	int				id;
 	pthread_t		thread;
 	long			last_eaten;
 	pthread_mutex_t	last_eaten_mutex;
 	int				times_eaten;
 	int				left_fork_id;
 	int				right_fork_id;
-	unsigned char	*left_fork;
+	int				*left_fork;
 	pthread_mutex_t	*left_fork_mutex;
-	unsigned char	*right_fork;
+	int				*right_fork;
 	pthread_mutex_t	*right_fork_mutex;
 	t_table			*table;
 	unsigned char	*done_eating;
@@ -112,21 +112,21 @@ struct s_table
 	int					must_eat;
 	long				start_time;
 	t_philo				*philos;
-	unsigned char		*forks;
-	pthread_mutex_t		print_mutex;
+	pthread_t			checker;
+	int					*forks;
 	pthread_mutex_t		*fork_mutexes;
 	unsigned char		done_eating;
 	pthread_mutex_t		done_eating_mutex;
 	unsigned char		simulation_stop;
 	pthread_mutex_t		simulation_stop_mutex;
-	pthread_t			checker;
+	pthread_mutex_t		print_mutex;
 };
 
 // Input
 
 int				handle_input(t_table *table, int argc, char **argv);
+int				handle_must_eat_input(t_table *table, char **argv);
 int				ft_atoi_philo(char *str);
-
 // Initialization
 
 int				init_table(t_table *table);
@@ -165,7 +165,7 @@ void			print_finished(t_philo *philo, long timestamp);
 	// Forks
 int				attempt_to_take_forks(t_philo *philo);
 int				attempt_take_fork(t_philo *philo, t_fork fork_to_pick);
-void			set_forks_status(t_philo *philo, char c);
+void			set_forks_status(t_philo *philo, int number);
 int				forks_available(t_philo *philo, int id);
 
 	// Forks utils
@@ -173,7 +173,7 @@ int				forks_available(t_philo *philo, int id);
 int				lock_fork_mutexes(t_philo *philo);
 int				unlock_fork_mutexes(t_philo *philo);
 int				unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
-unsigned char	*select_fork(t_philo *philo, t_fork fork_to_pick);
+int				*select_fork(t_philo *philo, t_fork fork_to_pick);
 pthread_mutex_t	*select_fork_mutex(t_philo *philo, t_fork fork_to_pick);
 
 // General utils
@@ -181,5 +181,6 @@ pthread_mutex_t	*select_fork_mutex(t_philo *philo, t_fork fork_to_pick);
 void			stagger_start(int nb_philo, int id);
 int				print_error(t_error error);
 long			get_time_stamp(void);
+void			free_all_mallocs(t_table *table);
 
 #endif

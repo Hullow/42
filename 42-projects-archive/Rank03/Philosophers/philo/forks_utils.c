@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   forks.c                                            :+:      :+:    :+:   */
+/*   forks_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:45:43 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:22:56 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:31:10 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
-pthread_mutex_t	*select_fork_mutex(t_philo *philo, enum e_fork fork_to_pick)
-{
-	if (fork_to_pick == LEFT)
-		return (philo->left_fork_mutex);
-	else if (fork_to_pick == RIGHT)
-		return (philo->right_fork_mutex);
-	else
-		return (NULL);
-}
-
-unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick)
+int	*select_fork(t_philo *philo, enum e_fork fork_to_pick)
 {
 	if (fork_to_pick == LEFT)
 		return (philo->left_fork);
@@ -32,13 +22,14 @@ unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick)
 		return (NULL);
 }
 
-/* unlocks a fork mutex 
-	returns -1 in case of error and 0 otherwise */
-int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+pthread_mutex_t	*select_fork_mutex(t_philo *philo, enum e_fork fork_to_pick)
 {
-	if (pthread_mutex_unlock(fork_mutex))
-		return (print_error(MUTEX_UNLOCK_ERROR));
-	return (0);
+	if (fork_to_pick == LEFT)
+		return (philo->left_fork_mutex);
+	else if (fork_to_pick == RIGHT)
+		return (philo->right_fork_mutex);
+	else
+		return (NULL);
 }
 
 /* locks a philosopher's left and right fork 
@@ -68,6 +59,15 @@ int	lock_fork_mutexes(t_philo *philo)
 		pthread_mutex_unlock(first_fork);
 		return (-1);
 	}
+	return (0);
+}
+
+/* unlocks a fork mutex 
+	returns -1 in case of error and 0 otherwise */
+int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+{
+	if (pthread_mutex_unlock(fork_mutex))
+		return (print_error(MUTEX_UNLOCK_ERROR));
 	return (0);
 }
 

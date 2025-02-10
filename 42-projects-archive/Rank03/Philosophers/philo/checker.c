@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
-/*   Updated: 2025/01/29 19:33:01 by francis          ###   ########.fr       */
+/*   Updated: 2025/01/30 17:00:41 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	check_done_eating(t_philo *philo)
 	if (*(philo->done_eating) == philo->table->nb_philo)
 	{
 		pthread_mutex_unlock(philo->done_eating_mutex);
-		/* ends simulation */
 		change_status(philo->simulation_stop_mutex, philo->simulation_stop);
 		print_status(philo, get_time_stamp(), MSG_FINISHED);
 		return (1);
@@ -39,7 +38,8 @@ and the current time */
 int	check_philo_died(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->last_eaten_mutex);
-	if (get_time_stamp() - philo->last_eaten > philo->table->time_to_die)
+	if (get_time_stamp() - philo->last_eaten
+		>= (long) philo->table->time_to_die)
 	{
 		pthread_mutex_unlock(&philo->last_eaten_mutex);
 		change_status(philo->simulation_stop_mutex, philo->simulation_stop);
@@ -76,8 +76,6 @@ void	*checker_routine(void *vargp)
 	i = 0;
 	while (1)
 	{
-		// if (check_simulation_stop(philos[0].table))
-		// 	return (NULL);
 		while (i < nb_philo)
 		{
 			if (check_done_eating(&philos[i]))
@@ -87,6 +85,5 @@ void	*checker_routine(void *vargp)
 			i++;
 		}
 		i = 0;
-		// usleep(100);
 	}
 }
