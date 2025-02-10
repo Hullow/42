@@ -1,0 +1,4 @@
+1737993811689 1 is thinking
+1737993811689 1 has taken a fork
+1737993812688 1 has died
+1737993812688 A philosopher died – end of simulation

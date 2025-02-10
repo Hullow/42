@@ -1,0 +1,3 @@
+1737986912285 1 is thinking
+1737986912286 1 has taken a fork
+1737986914285 1 has died

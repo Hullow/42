@@ -1,0 +1,1 @@
+- `service` command not found by BASH: it is in `/usr/sbin` but not in the PATH. Thus `PATH=$PATH:/usr/bin` solves the issue

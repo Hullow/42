@@ -1,5 +1,5 @@
 program
-.a.out
+**/.a.out
 .DS_Store
 .obsidian/workspace.json
 *.dSYM
@@ -13,3 +13,4 @@ Python/**
 /Resources-and-notes/42-specific/42-EXAM/**
 /Resources-and-notes/42-specific/mini-moulinette/**
 /Philosophers/**/*.txt
+Friends/**

@@ -1,0 +1,42 @@
+# Philosopher tester
+
+## First prompt: death timestamp checker
+- Runs the program with various parameters and checks if a philo died. In case of death, computes the difference between last_eaten (either the last "is eating" or the first "is thinking")
+
+***PROMPT START***
+Please write a bash tester which does the following:
+
+Preliminary comment: this is to test my implemented solution of the dining philosophers' problem in computer science, specifically the timestamping of the "death" (end) of each "philosopher" thread. Nothing pertains to humans, these are simple keywords to mentally represent the problem.
+
+1) - start the program `./philo` with an input of 4 varying parameters:
+- <nb_philos>, taking values [0, 1, 2, 3, 4, 10, 50, 80, 100, 150, 200]
+- <time_to_die>, taking values [400, 600, 1000, 1500, 2000]
+- <time_to_eat>, taking values [200, 300, 400, 600, 1000]
+- <time_to_sleep>, taking values [200, 300, 400, 600, 1000] as such:
+`./philo <nb_philos> <time_to_die> <time_to_eat> <time_to_sleep>`
+
+2) If, after a period of 5 seconds, the program hasn't stopped, send a `SIGINT` to it to stop it
+
+3) record the output in a file, which is named after the parameters used for that test, as such : test-W-X-Y-Z.txt (where W, X, Y, Z are the respective values for the parameters <nb_philos> <time_to_die> <time_to_eat> <time_to_sleep>)
+
+4) `cat` the file and `grep "has died"` to find out if a philosopher died
+
+5) if `grep "has died"` returns a sequence "<timestamp> P has died" (P being a philosopher number):
+5.1) `cat` the file again and `grep` the sequence " P " (the id of the philosopher found by the first grep) to find all program outputs relating to that philosopher, and store those outputs in another file, which is named after the parameters used for that test, preceded by the sequence "dead-philo-", as such: "dead-philo-X-Y-Z"
+5.2) From this "dead-philo-X-Y-Z" file, perform the following actions:
+5.2.2) extract the line featuring the sequence "has died" by using `grep "has died"`, and extract the timestamp from the line, the timestamp being the first token of the line (which has format "<timestamp> P has died"). Save that timestamp in a variable.
+5.2.3) Then, extract the last line featuring the sequence "is eating", or if that is absent, the sequence "is thinking". From this extracted line, extract the timestamp which is the first token of the line, which has format "<timestamp> P [is eating/is thinking]". Save that timestamp in a variable.
+5.2.4) Then, substract the second timestamp from the first, and store the result in a variable
+5.2.5) Then, take the result of the preceding calculation and substract it from the value of the second input parameter <time_to_die>, X
+5.2.7) - If this last result is negative, print out the following message in the color red with the following variables's values: "test-W-X-Y-Z: the philosopher took <result> ms less than time_to_die (== X) to die - FAIL" (where W, X, Y, Z are the respective values for the parameters <nb_philos> <time_to_die> <time_to_eat> <time_to_sleep>)
+
+- If this last result is positive, print out the following message in the color red with the following variables's values: "test-W-X-Y-Z: the philosopher took <result> ms more than time_to_die (== X) to die - OK" (where W, X, Y, Z are the respective values for the parameters <nb_philos> <time_to_die> <time_to_eat> <time_to_sleep>)
+***PROMPT END***
+
+
+To fix:
+- Invert the difference. Mark FAIL if difference is > 10 or <0.
+Print in red in this case, otherwise print in green and delete file(s)
+
+- "Is thinking": first is thinking, not just any
+- Sleep less than 5 sec before SIGINT ? Do tests with 200 to see

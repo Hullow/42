@@ -1,0 +1,6 @@
+1737986982691 1 is thinking
+1737986982691 1 has taken a fork
+1737986982691 1 has taken a fork
+1737986982691 1 is eating
+1737986983091 1 is sleeping
+1737986983091 1 has died
