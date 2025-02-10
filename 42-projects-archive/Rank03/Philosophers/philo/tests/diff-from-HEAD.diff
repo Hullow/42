@@ -1,0 +1,1015 @@
+diff --git a/Philosophers/Journal-philo.md b/Philosophers/Journal-philo.md
+index 47a0607..d91d613 100644
+--- a/Philosophers/Journal-philo.md
++++ b/Philosophers/Journal-philo.md
+@@ -192,9 +192,14 @@ the must_eat value. Wrote `change_status` function to increments its' and deat
+ 
+ - Doing preparation eval: it seems everything is okay. However, it remains to be checked if there's a mutex to prevent a philosopher from dying and starting eating at the same time. That 
+ 
++# 26/1/25
++- Testing with valgrind --tool=helgrind
++- Added lock ordering to avoid possible deadlocks
+ 
+ # Tests:
+ ## Clear failures
++- SEGFAULT on Linux, commit c2b5365a3338 (26/1 19h50), with `./philo 2 400 250 100`
++- `./philo 2 400 200 100` => don't die anymore. Why ????
+ - `./philo 200 1000 200 200` => mutex unlock error, mutex lock error
+ - `valgrind --tool=helgrind ./philo 1 1000 200 200`
+ 	=> 
+@@ -216,6 +221,3 @@ possible data race during read of size 4
+ - `valgrind --tool=helgrind ./philo 1 1000 200 200`
+ 	
+  
+-# 26/1/25
+-- Testing with valgrind --tool=helgrind
+-- Added lock ordering to avoid possible deadlocks
+\ No newline at end of file
+diff --git a/Philosophers/philo/Makefile b/Philosophers/philo/Makefile
+index eab845c..f794305 100644
+--- a/Philosophers/philo/Makefile
++++ b/Philosophers/philo/Makefile
+@@ -6,7 +6,7 @@
+ #    By: francis <francis@student.42.fr>            +#+  +:+       +#+         #
+ #                                                 +#+#+#+#+#+   +#+            #
+ #    Created: 2025/01/07 13:51:59 by fallan            #+#    #+#              #
+-#    Updated: 2025/01/26 16:13:39 by francis          ###   ########.fr        #
++#    Updated: 2025/01/26 20:49:09 by francis          ###   ########.fr        #
+ #                                                                              #
+ # **************************************************************************** #
+ 
+@@ -21,11 +21,11 @@ SRCS =	main.c \
+ 		input_handling.c \
+ 		initialization.c \
+ 		forks.c \
++		forks_utils.c \
+ 		simulation.c \
+-		routine.c \
+-		routine_utils.c \
++		simulation_utils.c \
+ 		general_utils.c
+-
++              
+ OBJ = $(SRCS:.c=.o)
+ 
+ all: $(NAME)
+diff --git a/Philosophers/philo/Philosophers.h b/Philosophers/philo/Philosophers.h
+index d5e3003..5d62c72 100644
+--- a/Philosophers/philo/Philosophers.h
++++ b/Philosophers/philo/Philosophers.h
+@@ -6,7 +6,7 @@
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
+-/*   Updated: 2025/01/26 18:19:38 by francis          ###   ########.fr       */
++/*   Updated: 2025/01/26 22:19:54 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -16,10 +16,12 @@
+ #include <string.h>
+ #include <unistd.h>
+ #include <sys/time.h>
++#include <stdbool.h>
+ 
+-# define MAX_THREADS 200
++#define MAX_THREADS 200
+ 
+-enum e_error {
++enum e_error
++{
+ 	MALLOC_FAIL,
+ 	INVALID_INPUT,
+ 	ZERO_AS_INPUT,
+@@ -32,13 +34,15 @@ enum e_error {
+ 	MUTEX_DESTROY_ERROR,
+ };
+ 
+-enum e_activity {
++enum e_activity
++{
+ 	THINKING,
+ 	SLEEPING,
+ 	EATING
+ };
+ 
+-enum e_message {
++enum e_message
++{
+ 	MSG_COUNT,
+ 	MSG_THINKING,
+ 	MSG_SLEEPING,
+@@ -47,12 +51,14 @@ enum e_message {
+ 	MSG_DIED,
+ };
+ 
+-enum e_status {
++enum e_status
++{
+ 	death_status,
+ 	done_eating
+ };
+ 
+-enum e_fork {
++enum e_fork
++{
+ 	LEFT,
+ 	RIGHT
+ };
+@@ -71,7 +77,8 @@ typedef struct s_params
+ 	- thread ID pointer pthread_t *thread (X bytes)
+ 	- the philosopher's ID (4 byte)
+ 	- last time eaten (8 byte)
+-	- how many times philosopher must eat (set to -1 if variable is not used) (4 byte)
++	- how many times philosopher must eat 
++	(set to -1 if variable is not used) (4 byte)
+ 	- time to die (4 byte)
+ 	- time to eat (4 byte)
+ 	- time to sleep (4 byte)
+@@ -89,6 +96,7 @@ typedef struct s_philo
+ 	long			time_to_eat;
+ 	long			time_to_sleep;
+ 	pthread_t		thread;
++	pthread_mutex_t	last_eaten_mutex;
+ 	pthread_mutex_t	*death_status_mutex;
+ 	pthread_mutex_t	*done_eating_mutex;
+ 	pthread_mutex_t	*left_fork_mutex;
+@@ -132,11 +140,12 @@ int		input_checker(t_params *params);
+ 
+ int		init_table(t_table *table, t_params *params, int nb_philo);
+ int		init_philo(t_table *table, t_params *params, int id);
++void	init_philo_params(t_philo *philo, t_params **params, int id);
+ void	fill_params(t_philo *philo, t_params *params, int id);
+ 
+ // Simulation control
+ 
+-int		run_simulation(t_table table);
++int		run_simulation(t_table *table);
+ int		grim_reaper(t_table *table);
+ int		end_simulation(t_table *table);
+ 
+@@ -147,23 +156,30 @@ void	*checker_routine(void *vargp);
+ 
+ // Routine utils
+ 
+-void	stagger_start(int nb_philo, int id);
+-int		perform_activity(t_philo *philo, long activity_start, int activity);
+-int		change_status(t_philo *philo, pthread_mutex_t *status_mutex,\
++int	perform_activity(t_philo *philo, long activity_start, long desired_sleep, \
++int activity);
++void	eat(t_philo *philo, long activity_start);
++int		change_status(t_philo *philo, pthread_mutex_t *status_mutex, \
+ unsigned char *variable);
+-int		attempt_take_fork(t_philo *philo, int fork_to_pick);
+ int		attempt_to_eat(t_philo *philo, int id);
+ 
+ 	// Forks
+ 
++int		attempt_take_fork(t_philo *philo, int fork_to_pick);
+ int		lock_fork_mutexes(t_philo *philo);
+ int		unlock_fork_mutexes(t_philo *philo);
+ int		lock_single_fork_mutex(pthread_mutex_t *fork_mutex);
+ int		unlock_single_fork_mutex(pthread_mutex_t *fork_mutex);
+-void	set_forks_status(t_philo *philo, int number);
++
++	// Forks utils
++
++void			set_forks_status(t_philo *philo, int number);
++unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick);
++pthread_mutex_t	*select_fork_mutex(t_philo *philo, enum e_fork fork_to_pick);
+ 
+ // General utils
+ 
++void	stagger_start(int nb_philo, int id);
+ int		print_status(t_philo *philo, long timestamp, enum e_message msg);
+ int		print_error(int error);
+ long	get_time_stamp(void);
+\ No newline at end of file
+diff --git a/Philosophers/philo/forks.c b/Philosophers/philo/forks.c
+index 1b5442e..0d7250a 100644
+--- a/Philosophers/philo/forks.c
++++ b/Philosophers/philo/forks.c
+@@ -5,19 +5,29 @@
+ /*                                                    +:+ +:+         +:+     */
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
+-/*   Updated: 2025/01/26 19:08:57 by francis          ###   ########.fr       */
++/*   Created: 2025/01/26 20:45:43 by francis           #+#    #+#             */
++/*   Updated: 2025/01/26 20:48:41 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "Philosophers.h"
+ 
+-/* sets the fork state using memset:
+-	0 for free, 1 for locked as locked */
+-void	set_forks_status(t_philo *philo, int number)
++/* locks a fork mutex
++	returns 1 in case of error and 0 otherwise */
++int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
++{
++	if (pthread_mutex_lock(fork_mutex))
++		return (print_error(MUTEX_LOCK_ERROR));
++	return (0);
++}
++
++/* unlocks a fork mutex 
++	returns 1 in case of error and 0 otherwise */
++int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+ {
+-	memset(philo->left_fork, c, sizeof(unsigned char));
+-	memset(philo->right_fork, c, sizeof(unsigned char));
++	if (pthread_mutex_unlock(fork_mutex))
++		return (print_error(MUTEX_UNLOCK_ERROR));
++	return (0);
+ }
+ 
+ /* locks a philosopher's left and right fork 
+@@ -76,24 +86,33 @@ int	unlock_fork_mutexes(t_philo *philo)
+ 	}
+ 	if (pthread_mutex_unlock(first_fork) || \
+ 	pthread_mutex_unlock(second_fork))
+-		return(print_error(MUTEX_UNLOCK_ERROR));
++		return (print_error(MUTEX_UNLOCK_ERROR));
+ 	return (0);
+ }
+ 
+-/* locks a fork mutex
+-	returns 1 in case of error and 0 otherwise */
+-int	lock_single_fork_mutex(pthread_mutex_t *fork_mutex)
++/* 	- Attempts to mark a specific fork (left or right) as taken
++	by the calling philo/thread
++	- If fork is available (*(fork) == 0), marks it as taken 
++	using memset to change the fork's value to the philo's id
++	- Protects fork with mutex before reading and writing
++*/
++int	attempt_take_fork(t_philo *philo, int fork_to_pick)
+ {
+-	if (pthread_mutex_lock(fork_mutex))
+-		return (print_error(MUTEX_LOCK_ERROR));
+-	return (0);
+-}
++	pthread_mutex_t	*fork_mutex;
++	unsigned char	*fork;
+ 
+-/* unlocks a fork mutex 
+-	returns 1 in case of error and 0 otherwise */
+-int	unlock_single_fork_mutex(pthread_mutex_t *fork_mutex)
+-{
+-	if (pthread_mutex_unlock(fork_mutex))
+-		return (print_error(MUTEX_UNLOCK_ERROR));
++	fork_mutex = select_fork_mutex(philo, fork_to_pick);
++	fork = select_fork(philo, fork_to_pick);
++	if (lock_single_fork_mutex(fork_mutex))
++		return (-1);
++	if (*(fork) == 0)
++	{
++		memset(fork, philo->philo_id, sizeof(unsigned char));
++		if (unlock_single_fork_mutex(fork_mutex))
++			return (-1);
++		print_status(philo, get_time_stamp(), MSG_FORK);
++	}
++	else if (unlock_single_fork_mutex(fork_mutex))
++		return (-1);
+ 	return (0);
+-}
++}
+\ No newline at end of file
+diff --git a/Philosophers/philo/forks_utils.c b/Philosophers/philo/forks_utils.c
+new file mode 100644
+index 0000000..16b82db
+--- /dev/null
++++ b/Philosophers/philo/forks_utils.c
+@@ -0,0 +1,41 @@
++/* ************************************************************************** */
++/*                                                                            */
++/*                                                        :::      ::::::::   */
++/*   forks_utils.c                                      :+:      :+:    :+:   */
++/*                                                    +:+ +:+         +:+     */
++/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
++/*                                                +#+#+#+#+#+   +#+           */
++/*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
++/*   Updated: 2025/01/26 20:48:23 by francis          ###   ########.fr       */
++/*                                                                            */
++/* ************************************************************************** */
++
++#include "Philosophers.h"
++
++/* sets the fork state using memset:
++	0 for free, 1 for locked as locked */
++void	set_forks_status(t_philo *philo, int number)
++{
++	memset(philo->left_fork, c, sizeof(unsigned char));
++	memset(philo->right_fork, c, sizeof(unsigned char));
++}
++
++pthread_mutex_t	*select_fork_mutex(t_philo *philo, enum e_fork fork_to_pick)
++{
++	if (fork_to_pick == LEFT)
++		return (philo->left_fork_mutex);
++	else if (fork_to_pick == RIGHT)
++		return (philo->right_fork_mutex);
++	else
++		return (NULL);
++}
++
++unsigned char	*select_fork(t_philo *philo, enum e_fork fork_to_pick)
++{
++	if (fork_to_pick == LEFT)
++		return (philo->left_fork);
++	else if (fork_to_pick == RIGHT)
++		return (philo->right_fork);
++	else
++		return (NULL);
++}
+\ No newline at end of file
+diff --git a/Philosophers/philo/general_utils.c b/Philosophers/philo/general_utils.c
+index 69e027a..a9929fd 100644
+--- a/Philosophers/philo/general_utils.c
++++ b/Philosophers/philo/general_utils.c
+@@ -6,7 +6,7 @@
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
+-/*   Updated: 2025/01/26 16:21:53 by francis          ###   ########.fr       */
++/*   Updated: 2025/01/26 20:31:39 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -76,6 +76,24 @@ int	print_error(int error)
+ 	return (-1);
+ }
+ 
++/*
++Staggers the start of the simulation, so even and uneven philos eat 
++at different times:
++	- In all simulations, even-numbered philos wait 0.2ms before trying to eat
++	- In simulations with an uneven number of philosophers, the first philo
++	waits 0.5ms before trying to eat, so that there it can alternate with 
++	the last philo, which is its neighbor, and also uneven-numbered
++// 1st philo waiting 0.5 ms rather than 0.2 ms before trying to eat 
++	=> likely no change; and yet, it seems to have changed things
++*/
++void	stagger_start(int nb_philo, int id)
++{
++	if (id == 1 && nb_philo % 2 != 0)
++		usleep(500);
++	else if (id % 2 == 0)
++		usleep(200);
++}
++
+ /**
+  * @brief	calculates the timestamp in ms
+  * @return	timestamp in milliseconds (long), or -1 on error
+@@ -88,5 +106,6 @@ long	get_time_stamp(void)
+ 
+ 	if (gettimeofday(&current_time, NULL) == -1)
+ 		return (-1);
+-	return (((long) current_time.tv_sec * 1000) + ((long) current_time.tv_usec / 1000));
++	return (((long) current_time.tv_sec * 1000) + \
++	((long) current_time.tv_usec / 1000));
+ }
+diff --git a/Philosophers/philo/initialization.c b/Philosophers/philo/initialization.c
+index 7c5b23a..68793d3 100644
+--- a/Philosophers/philo/initialization.c
++++ b/Philosophers/philo/initialization.c
+@@ -6,13 +6,28 @@
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/01/07 17:53:58 by fallan            #+#    #+#             */
+-/*   Updated: 2025/01/25 22:37:04 by francis          ###   ########.fr       */
++/*   Updated: 2025/01/26 22:19:39 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "Philosophers.h"
+ 
+-// 
++void	init_philo_params(t_philo *philo, t_params **params, int id)
++{
++	int	nb_philo;
++
++	nb_philo = (*params)->nb_philo;
++	philo->philo_id = id + 1;
++	philo->nb_philo = nb_philo;
++	philo->left_fork_id = id % nb_philo;
++	philo->right_fork_id = (id + 1) % nb_philo;
++	philo->time_to_die = (long) (*params)->time_to_die;
++	philo->time_to_eat = (long) (*params)->time_to_eat;
++	philo->time_to_sleep = (long) (*params)->time_to_sleep;
++	philo->must_eat = (*params)->must_eat;
++	philo->times_eaten = 0;
++}
++
+ /** @brief		fills the philosopher struct with our parameters from input
+  * 	@details 	- mutexes: pointers to the mutexes initialized in the table
+  * 				- philo_id : table->id + 1, because philosophers start at 1
+@@ -23,66 +38,55 @@ int	init_philo(t_table *table, t_params *params, int id)
+ 	t_philo	*philo;
+ 	int		nb_philo;
+ 
+-	nb_philo = params->nb_philo;
+-	
+-	/* the philosopher */
+ 	philo = &table->philos[id];
+ 	
+-	/* meta and global parameters */
++	// init_philo_params(philo, &params, id);
++	nb_philo = params->nb_philo;
+ 	philo->philo_id = id + 1;
+ 	philo->nb_philo = nb_philo;
++	philo->left_fork_id = id % nb_philo;
++	philo->right_fork_id = (id + 1) % nb_philo;
++	philo->time_to_die = (long) params->time_to_die;
++	philo->time_to_eat = (long) params->time_to_eat;
++	philo->time_to_sleep = (long) params->time_to_sleep;
++	philo->must_eat = params->must_eat;
++	philo->times_eaten = 0;
++
++	nb_philo = params->nb_philo;
+ 	philo->start_time = table->start_time;
+ 	philo->last_eaten = table->start_time;
+-
+-	/* forks and mutexes */
+ 	philo->left_fork = &table->forks[id % nb_philo];
+ 	philo->right_fork = &table->forks[(id + 1) % nb_philo];
+ 	philo->left_fork_mutex = &table->fork_mutex[id % nb_philo];
+ 	philo->right_fork_mutex = &table->fork_mutex[(id + 1) % nb_philo];
++	if (pthread_mutex_init(&philo->last_eaten_mutex, NULL))
++		return (print_error(MUTEX_INIT_ERROR));
+ 	philo->death_status = &table->death_status;
+ 	philo->death_status_mutex = &table->death_status_mutex;
+ 	philo->done_eating_mutex = &table->done_eating_mutex;
+ 	philo->done_eating = &table->done_eating;
+-
+-	/* For debugging */
+-	philo->left_fork_id = id % nb_philo;
+-	philo->right_fork_id = (id + 1) % nb_philo;
+-
+-	/* params */
+-	philo->time_to_die = (long) params->time_to_die;
+-	philo->time_to_eat = (long) params->time_to_eat;
+-	philo->time_to_sleep = (long) params->time_to_sleep;
+-	philo->must_eat = params->must_eat;
+-	philo->times_eaten = 0;
+ 	return (0);
+ }
+ 
+-/* 
+-> Upon successful completion pthread_create() will store the
+-ID of the created thread in the location specified by thread.
+-	 
+-In my words: 
+-pthread_t *thread is a pointer that specifies a location. In that location, the ID of the created
+-thread will be stored to get the ID you'll have to dereference [pthread_t *thread] using [*thread] */
+-
+-// initializes table:
+-// calls init_forks first
+-// then creates the philosophers thread with all the parameters
++/* initializes table:
++calls init_forks first
++then creates the philosophers thread with all the parameters
++Set death status to 0 (no philosopher is dead)
++Set finished eating status to 0 (no philosopher finished eating) */
+ int	init_table(t_table *table, t_params *params, int nb_philo)
+ {
+ 	int	i;
+ 
+ 	table->nb_philo = nb_philo;
+ 	table->start_time = get_time_stamp();
+-	
+-	memset(&table->death_status, 0, sizeof(unsigned char));     /* Set death status to 0 (no philosopher is dead) */
+-	memset(&table->done_eating, 0, sizeof(unsigned char));  /* Set death status to 0 (no philosopher is dead) */
++	memset(&table->death_status, 0, sizeof(unsigned char));
++	memset(&table->done_eating, 0, sizeof(unsigned char));
+ 	if (pthread_mutex_init(&table->death_status_mutex, NULL))
+ 		return (print_error(MUTEX_INIT_ERROR));
+ 	if (pthread_mutex_init(&table->done_eating_mutex, NULL))
+ 		return (print_error(MUTEX_INIT_ERROR));
+ 	i = 0;
+-	while (i < nb_philo)     /* Initialize forks, mutexes and philosophers */
++	while (i < nb_philo)
+ 	{
+ 		memset(&table->forks[i], 0, sizeof(unsigned char));
+ 		if (pthread_mutex_init(&table->fork_mutex[i], NULL))
+diff --git a/Philosophers/philo/input_handling.c b/Philosophers/philo/input_handling.c
+index f414952..ebb7a81 100644
+--- a/Philosophers/philo/input_handling.c
++++ b/Philosophers/philo/input_handling.c
+@@ -6,7 +6,7 @@
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/12/27 12:08:05 by francis           #+#    #+#             */
+-/*   Updated: 2025/01/25 22:27:20 by francis          ###   ########.fr       */
++/*   Updated: 2025/01/26 20:24:00 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -14,7 +14,8 @@
+ 
+ /**
+  *	@brief	custom atoi to convert our input to int type
+- * @returns (positive) int if valid-1 if negative number or any invalid characters
++ *  @returns 	(positive) int if valid
++ * 				-1 if negative number or any invalid characters
+ */
+ int	ft_atoi_philo(char *str)
+ {
+@@ -73,7 +74,7 @@ int	handle_input(t_params *params, int argc, char **argv)
+ 		printf("5) number of times each philosopher must eat (optional)\n");
+ 		return (print_error(INVALID_INPUT));
+ 	}
+-	if (argv[5]) /* bigger or EQUAL to zero*/
++	if (argv[5])
+ 		params->must_eat = ft_atoi_philo(argv[5]);
+ 	else
+ 		params->must_eat = -1;
+diff --git a/Philosophers/philo/main.c b/Philosophers/philo/main.c
+index c0320d7..f64f058 100644
+--- a/Philosophers/philo/main.c
++++ b/Philosophers/philo/main.c
+@@ -6,7 +6,7 @@
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2024/12/27 12:09:08 by francis           #+#    #+#             */
+-/*   Updated: 2025/01/26 18:21:12 by francis          ###   ########.fr       */
++/*   Updated: 2025/01/26 22:19:33 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -15,21 +15,20 @@
+ int	main(int argc, char **argv)
+ {
+ 	t_params	params;
+-	t_table		table;
++	t_table		*table;
+ 
+-	// printf("main thread: %ld\n", (long) pthread_self());
++	table = malloc (sizeof(t_table));
+ 	if (handle_input(&params, argc, argv) == -1)
+ 		return (-1);
+-	/* Initialization of table: philosophers, forks, mutexes */
+-	if (init_table(&table, &params, params.nb_philo) == -1)
++	if (init_table(table, &params, params.nb_philo) == -1)
+ 		return (-1);
+-	/* Running the simulation */
+ 	if (run_simulation(table) == -1)
+ 	{
+-		end_simulation(&table);
++		end_simulation(table);
+ 		return (-1);
+ 	}
+-	grim_reaper(&table);
+-	end_simulation(&table); /* need more error handling */
++	grim_reaper(table);
++	end_simulation(table); /* need more error handling */
++	free(table);
+ 	return (0);
+ }
+diff --git a/Philosophers/philo/routine.c b/Philosophers/philo/routine.c
+deleted file mode 100644
+index 00a769a..0000000
+--- a/Philosophers/philo/routine.c
++++ /dev/null
+@@ -1,75 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   routine.c                                          :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2025/01/16 19:38:23 by francis           #+#    #+#             */
+-/*   Updated: 2025/01/26 18:52:21 by francis          ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "Philosophers.h"
+-
+-/* checks if any philosopher is dead */
+-void	*checker_routine(void *vargp)
+-{
+-	t_philo	*philos;
+-	int		nb_philo;
+-	int		time_to_die;
+-	int		i;
+-
+-	philos = (t_philo *)vargp;
+-	nb_philo = philos[0].nb_philo;
+-	time_to_die = philos[0].time_to_die;
+-	i = 0;
+-	while (1)
+-	{
+-		while (i < nb_philo)
+-		{
+-			if (get_time_stamp() - philos[i].last_eaten >= time_to_die)
+-			{
+-				change_status(&philos[i], philos[i].death_status_mutex, philos[i].death_status);
+-				return (NULL);
+-			}
+-			i++;
+-			usleep(300);
+-		}
+-		i = 0;
+-	}
+-}
+-
+-/* philosopher thread routine */
+-void	*philo_routine(void *vargp)
+-{
+-	t_philo		*philo;
+-	int			id;
+-	int			eat_return;
+-	long		timestamp;
+-
+-	/* Initialization */
+-	philo = (t_philo *)vargp;
+-	id = philo->philo_id; /* Set ids */
+-	eat_return = 0;
+-
+-	/* Loop : eating, then sleeping */
+-	timestamp = get_time_stamp();
+-	print_status(philo, timestamp, MSG_THINKING);
+-	stagger_start(philo->nb_philo, id);
+-	while (1)
+-	{
+-		if (attempt_take_fork(philo, LEFT) == -1)
+-			break ;
+-		if (attempt_take_fork(philo, RIGHT) == -1)
+-			break ;
+-		eat_return = attempt_to_eat(philo, id);
+-		if (eat_return == -1 || eat_return == 1) /* if -1, means mutex error, if 1, means eat enough times */
+-		{
+-			change_status(philo, philo->done_eating_mutex, philo->done_eating);
+-			break ;
+-		}
+-	}
+-	// unlock_fork_mutexes(philo); /* necessary or not ??? */
+-	return (NULL);
+-}
+diff --git a/Philosophers/philo/simulation.c b/Philosophers/philo/simulation.c
+index bade487..d343101 100644
+--- a/Philosophers/philo/simulation.c
++++ b/Philosophers/philo/simulation.c
+@@ -6,19 +6,79 @@
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/01/24 18:17:24 by francis           #+#    #+#             */
+-/*   Updated: 2025/01/26 18:46:20 by francis          ###   ########.fr       */
++/*   Updated: 2025/01/26 22:19:29 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "Philosophers.h"
+ 
++/* checks if any philosopher is dead */
++void	*checker_routine(void *vargp)
++{
++	t_philo			*philos;
++	int				i;
++
++	philos = (t_philo *)vargp;
++	i = 0;
++	while (1)
++	{
++		while (i < philos[0].nb_philo)
++		{
++			pthread_mutex_lock(&philos[i].last_eaten_mutex);
++			if (get_time_stamp() - philos[i].last_eaten >= \
++			philos[0].time_to_die)
++			{
++				change_status(&philos[i], philos[i].death_status_mutex, \
++				philos[i].death_status);
++				return (NULL);
++			}
++			pthread_mutex_unlock(&philos[i].last_eaten_mutex);
++			i++;
++			usleep(300);
++		}
++		i = 0;
++	}
++}
++
++/* philosopher thread routine
++Loop : eating, then sleeping
++eat_return: if -1, means mutex error, if 1, means eat enough times */
++void	*philo_routine(void *vargp)
++{
++	t_philo	*philo;
++	int		id;
++	int		eat_return;
++	long	timestamp;
++
++	philo = (t_philo *)vargp;
++	id = philo->philo_id;
++	eat_return = 0;
++	timestamp = get_time_stamp();
++	print_status(philo, timestamp, MSG_THINKING);
++	stagger_start(philo->nb_philo, id);
++	while (1)
++	{
++		if (attempt_take_fork(philo, LEFT) == -1)
++			break ;
++		if (attempt_take_fork(philo, RIGHT) == -1)
++			break ;
++		eat_return = attempt_to_eat(philo, id);
++		if (eat_return == -1 || eat_return == 1)
++		{
++			change_status(philo, philo->done_eating_mutex, philo->done_eating);
++			break ;
++		}
++	}
++	// unlock_fork_mutexes(philo); /* necessary or not ??? */
++	return (NULL);
++}
++
+ /* Checks the death status variable to see if a philosopher died
+ 	then sleep 0.5ms */
+ int	grim_reaper(t_table *table)
+ {
+ 	while (1)
+ 	{
+-		/* checking for deaths */
+ 		if (pthread_mutex_lock(&table->death_status_mutex))
+ 			return (print_error(MUTEX_LOCK_ERROR));
+ 		if (table->death_status != 0)
+@@ -28,12 +88,8 @@ int	grim_reaper(t_table *table)
+ 				return (print_error(MUTEX_UNLOCK_ERROR));
+ 			break ;
+ 		}
+-		// else
+-		// 	printf("%ld\t\t***reaping***\n", get_time_stamp());
+ 		if (pthread_mutex_unlock(&table->death_status_mutex))
+ 			return (print_error(MUTEX_UNLOCK_ERROR));
+-	
+-		/* checking if finished eating */
+ 		if (pthread_mutex_lock(&table->done_eating_mutex))
+ 			return (print_error(MUTEX_UNLOCK_ERROR));
+ 		if (table->done_eating == table->nb_philo)
+@@ -43,36 +99,30 @@ int	grim_reaper(t_table *table)
+ 				return (print_error(MUTEX_UNLOCK_ERROR));
+ 			break ;
+ 		}
+-		else
+-		{
+-			// printf("%ld Philosophers have eaten %d times so far\n", get_time_stamp(), table->done_eating);
+-			if (pthread_mutex_unlock(&table->done_eating_mutex))
+-					return (print_error(MUTEX_UNLOCK_ERROR));
+-		}
+-		usleep(500); // check every 0.5 ms
++		else if (pthread_mutex_unlock(&table->done_eating_mutex))
++			return (print_error(MUTEX_UNLOCK_ERROR));
++		usleep(500);
+ 	}
+ 	return (0);
+ }
+ 
+ /* Runs the simulation by starting the philo threads and the checker thread */
+-int	run_simulation(t_table table)
++int	run_simulation(t_table *table)
+ {
+ 	int	nb_philo;
+ 	int	i;
+ 
+-	nb_philo = table.nb_philo;
++	nb_philo = table->nb_philo;
+ 	i = 0;
+ 	while (i < nb_philo)
+ 	{
+-		if (pthread_create(&(table.philos[i].thread), NULL, \
+-		philo_routine, &table.philos[i]))
++		if (pthread_create(&(table->philos[i].thread), NULL, \
++		philo_routine, &table->philos[i]))
+ 			return (print_error(THREAD_CREATION_ERROR)); // add error handling (pthread_join)
+ 		i++;
+ 	}
+-	pthread_create(&table.checker, NULL, checker_routine, table.philos);
+-	// printf("%ld exited routine\n", (long) pthread_self()); // remove
++	pthread_create(&table->checker, NULL, checker_routine, table->philos);
+ 	// grim_reaper(&table);
+-	// printf("thread %ld: run simulation: when does this run?\n", (long) pthread_self());
+ 	return (0);
+ }
+ 
+@@ -96,8 +146,8 @@ int	end_simulation(t_table *table)
+ 	i = 0;
+ 	while (i < table->nb_philo)
+ 	{
+-		if (table->nb_philo)
+-			pthread_mutex_unlock(&table->fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
++		// if (table->nb_philo)
++			// pthread_mutex_unlock(&table->fork_mutex[0]); // unlock mutex before destroying to prevent error if only one philo 
+ 		if (pthread_mutex_destroy(&table->fork_mutex[i])) // add error handling
+ 			return (print_error(MUTEX_DESTROY_ERROR));
+ 		i++;
+diff --git a/Philosophers/philo/routine_utils.c b/Philosophers/philo/simulation_utils.c
+similarity index 52%
+rename from Philosophers/philo/routine_utils.c
+rename to Philosophers/philo/simulation_utils.c
+index e98d076..a35fce3 100644
+--- a/Philosophers/philo/routine_utils.c
++++ b/Philosophers/philo/simulation_utils.c
+@@ -1,33 +1,17 @@
+ /* ************************************************************************** */
+ /*                                                                            */
+ /*                                                        :::      ::::::::   */
+-/*   routine_utils.c                                    :+:      :+:    :+:   */
++/*   simulation_utils.c                                 :+:      :+:    :+:   */
+ /*                                                    +:+ +:+         +:+     */
+ /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
+-/*   Updated: 2025/01/26 17:01:06 by francis          ###   ########.fr       */
++/*   Updated: 2025/01/26 20:51:59 by francis          ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+ #include "Philosophers.h"
+ 
+-/* Staggers the start of the simulation, so even and uneven philos eat 
+-at different times:
+-	- In all simulations, even-numbered philos wait 0.2ms before trying to eat
+-	- In simulations with an uneven number of philosophers, the first philo
+-	waits 0.5ms before trying to eat, so that there it can alternate with 
+-	the last philo, which is its neighbor, and also uneven-numbered
+-// 1st philo waiting 0.5 ms rather than 0.2 ms before trying to eat => likely no change; and yet, it seems to have changed things
+-	*/
+-void	stagger_start(int nb_philo, int id)
+-{
+-	if (id == 1 && nb_philo % 2 != 0)
+-		usleep(500);
+-	else if (id % 2 == 0)
+-		usleep(200);
+-}
+-
+ /*	Used to signal the death of a philosopher or count the number of philos
+ 	that have eaten.
+ 	
+@@ -53,6 +37,15 @@ unsigned char *variable)
+ 	return (0);
+ }
+ 
++void	eat(t_philo *philo, long activity_start)
++{
++	pthread_mutex_lock(&philo->last_eaten_mutex);
++	philo->last_eaten = activity_start;
++	pthread_mutex_unlock(&philo->last_eaten_mutex);
++	print_status(philo, activity_start, MSG_EATING);
++	philo->times_eaten++;
++}
++
+ /**
+  * @brief	Sleeps the precise number of ms
+  * @details Checks the current time since desired start, 
+@@ -60,30 +53,21 @@ unsigned char *variable)
+  * 			and the activity (eating or sleeping)
+  * @returns	-1 in case of error, 0 otherwise
+  */
+-int	perform_activity(t_philo *philo, long activity_start, int activity)
++int	perform_activity(t_philo *philo, long activity_start, long desired_sleep, \
++int activity)
+ {
+-	long	desired_sleep;
+-
+ 	if (activity_start == -1)
+ 		return (-1);
+-	desired_sleep = 0;
+ 	if (activity == SLEEPING)
+-	{
+ 		print_status(philo, activity_start, MSG_SLEEPING);
+-		desired_sleep = philo->time_to_sleep;
+-	}
+ 	else if (activity == EATING)
+-	{
+-		philo->last_eaten = activity_start;
+-		print_status(philo, activity_start, MSG_EATING);
+-		desired_sleep = philo->time_to_eat;
+-		philo->times_eaten++;
+-	}
++		eat(philo, activity_start);
+ 	while (desired_sleep > get_time_stamp() - activity_start)
+ 		usleep(250);
+ 	if (philo->times_eaten == philo->must_eat)
+ 	{
+-		printf("%ld %d has eaten %d times (must_eat == %d)\n", get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);	
++		printf("%ld %d has eaten %d times (must_eat == %d)\n", \
++		get_time_stamp(), philo->philo_id, philo->times_eaten, philo->must_eat);
+ 		return (1);
+ 	}
+ 	if (activity == SLEEPING)
+@@ -91,41 +75,16 @@ int	perform_activity(t_philo *philo, long activity_start, int activity)
+ 	return (0);
+ }
+ 
+-/* 	- Attempts to mark a specific fork (left or right) as taken
+-	by the calling philo/thread
+-	- If fork is available (*(fork) == 0), marks it as taken 
+-	using memset to change the fork's value to the philo's id
+-	- Protects fork with mutex before reading and writing
+-*/
+-int	attempt_take_fork(t_philo *philo, int fork_to_pick)
+-{
+-	pthread_mutex_t	*fork_mutex;
+-	unsigned char	*fork;
+-
+-	fork_mutex = NULL;
+-	if (fork_to_pick == LEFT)
+-	{
+-		fork_mutex = philo->left_fork_mutex;
+-		fork = philo->left_fork;
+-	}
+-	else if (fork_to_pick == RIGHT)
+-	{
+-		fork_mutex = philo->right_fork_mutex;
+-		fork = philo->right_fork;
+-	}
+-	if (lock_single_fork_mutex(fork_mutex))
+-		return (-1);
+-	if (*(fork) == 0)
+-	{
+-		memset(fork, philo->philo_id, sizeof(unsigned char));
+-		if (unlock_single_fork_mutex(fork_mutex))
+-			return (-1);
+-		print_status(philo, get_time_stamp(), MSG_FORK);
+-	}
+-	else if (unlock_single_fork_mutex(fork_mutex))
+-		return (-1);
+-	return (0);
+-}
++// bool	check_id(t_philo *philo, int id)
++// {
++// 	bool	return_value;
++// 	if (*(philo->left_fork) == id && *(philo->right_fork) == id \
++// 	&& philo->left_fork_id != philo->right_fork_id)
++// 		return_value = TRUE;
++// 	else
++// 		return_value = FALSE;
++// 	return (return_value);
++// }
+ 
+ /* Attempts to eat :
+ 	- locks both forks mutexes
+@@ -142,32 +101,33 @@ int	attempt_to_eat(t_philo *philo, int id)
+ {
+ 	if (lock_fork_mutexes(philo))
+ 		return (-1);
+-	if (*(philo->left_fork) == id && *(philo->right_fork) == id)
++	if (*(philo->left_fork) == id && *(philo->right_fork) == id \
++	&& philo->left_fork_id != philo->right_fork_id) // or if (check_id(philo))
+ 	{
+-		if (unlock_fork_mutexes(philo)) /* unlock both mutexes */
++		if (unlock_fork_mutexes(philo))
+ 			return (-1);
+-		if (perform_activity(philo, get_time_stamp(), EATING) == 1) /* start eating */
++		if (perform_activity(philo, get_time_stamp(), philo->time_to_sleep, EATING) == 1)
+ 		{
+ 			if (pthread_detach(philo->thread))
+ 				return (print_error(THREAD_DETACH_ERROR));
+ 			if (lock_fork_mutexes(philo))
+-				return (-1); // add error handling
++				return (-1);
+ 			set_forks_status(philo, 0);
+ 			if (unlock_fork_mutexes(philo))
+-				return (-1); // add error handling
+-			return (1); /* return 1 if the philo eat number_of_times_must_eat */
++				return (-1);
++			return (1);
+ 		}
+ 		if (lock_fork_mutexes(philo))
+-			return (-1); // add error handling
++			return (-1);
+ 		set_forks_status(philo, 0);
+ 		if (unlock_fork_mutexes(philo))
+-			return (-1); // add error handling
+-		perform_activity(philo, get_time_stamp(), SLEEPING);
++			return (-1);
++		perform_activity(philo, get_time_stamp(), philo->time_to_eat, SLEEPING);
+ 	}
+ 	else
+ 	{
+-		if (unlock_fork_mutexes(philo)) /* otherwise, unlock both mutexes */
+-			return (-1); // add error handling
++		if (unlock_fork_mutexes(philo))
++			return (-1);
+ 		usleep(50);
+ 	}
+ 	return (0);
+diff --git a/Philosophers/theory-and-examples/Threads.md b/Philosophers/theory-and-examples/Threads.md
+index 63e3f76..1576a22 100644
+--- a/Philosophers/theory-and-examples/Threads.md
++++ b/Philosophers/theory-and-examples/Threads.md
+@@ -61,6 +61,13 @@ void	*thread(void *vargp) /* Thread routine */
+ 
+ ```
+ 
++> Upon successful completion pthread_create() will store the
++ID of the created thread in the location specified by thread.
++	 
++In my words: 
++pthread_t *thread is a pointer that specifies a location. In that location, the ID of the created
++thread will be stored to get the ID you'll have to dereference [pthread_t *thread] using [*thread]
++
+ 42 Common Core Reading list:
+ - Minishell: Signals (I/O chapters)
+ - Philosophers: 12.3 Concurrent Programming with Threads (1008-1017; bonus: 1017-...)

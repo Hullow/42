@@ -1,0 +1,3 @@
+1737986670895 1 is thinking
+1737986670896 1 has taken a fork
+1737986671895 1 has died

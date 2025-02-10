@@ -1,0 +1,177 @@
+1737994970068 1 is thinking
+1737994970068 2 is thinking
+1737994970068 4 is thinking
+1737994970068 5 is thinking
+1737994970068 5 has taken a fork
+1737994970068 5 has taken a fork
+1737994970068 5 is eating
+1737994970068 3 is thinking
+1737994970068 3 has taken a fork
+1737994970068 3 has taken a fork
+1737994970068 3 is eating
+1737994970069 2 has taken a fork
+1737994970268 3 is sleeping
+1737994970268 5 is sleeping
+1737994970268 1 has taken a fork
+1737994970268 2 has taken a fork
+1737994970268 2 is eating
+1737994970268 4 has taken a fork
+1737994970268 4 has taken a fork
+1737994970268 4 is eating
+1737994970468 2 is sleeping
+1737994970468 3 is thinking
+1737994970468 4 is sleeping
+1737994970468 3 has taken a fork
+1737994970468 3 has taken a fork
+1737994970468 3 is eating
+1737994970468 5 is thinking
+1737994970468 5 has taken a fork
+1737994970468 1 has taken a fork
+1737994970468 1 is eating
+1737994970668 2 is thinking
+1737994970668 3 is sleeping
+1737994970668 4 is thinking
+1737994970668 4 has taken a fork
+1737994970668 2 has taken a fork
+1737994970668 1 is sleeping
+1737994970668 5 has taken a fork
+1737994970668 5 is eating
+1737994970668 2 has taken a fork
+1737994970668 2 is eating
+1737994970868 1 is thinking
+1737994970868 2 is sleeping
+1737994970868 3 is thinking
+1737994970868 3 has taken a fork
+1737994970868 5 is sleeping
+1737994970868 4 has taken a fork
+1737994970868 4 is eating
+1737994970868 1 has taken a fork
+1737994970868 1 has taken a fork
+1737994970868 1 is eating
+1737994971068 5 is thinking
+1737994971068 4 is sleeping
+1737994971068 1 is sleeping
+1737994971068 2 is thinking
+1737994971068 2 has taken a fork
+1737994971068 3 has taken a fork
+1737994971068 3 is eating
+1737994971068 5 has taken a fork
+1737994971068 5 has taken a fork
+1737994971068 5 is eating
+1737994971268 4 is thinking
+1737994971268 2 has taken a fork
+1737994971268 2 is eating
+1737994971268 4 has taken a fork
+1737994971268 4 has taken a fork
+1737994971268 1 is thinking
+1737994971268 3 is sleeping
+1737994971268 1 has taken a fork
+1737994971268 4 is eating
+1737994971268 5 is sleeping
+1737994971468 5 is thinking
+1737994971468 3 is thinking
+1737994971468 2 is sleeping
+1737994971468 1 has taken a fork
+1737994971468 1 is eating
+1737994971468 4 is sleeping
+1737994971468 5 has taken a fork
+1737994971468 3 has taken a fork
+1737994971468 3 has taken a fork
+1737994971468 3 is eating
+1737994971668 4 is thinking
+1737994971668 3 is sleeping
+1737994971668 1 is sleeping
+1737994971668 2 is thinking
+1737994971668 2 has taken a fork
+1737994971668 2 has taken a fork
+1737994971668 2 is eating
+1737994971668 5 has taken a fork
+1737994971668 5 is eating
+1737994971668 4 has taken a fork
+1737994971868 5 is sleeping
+1737994971868 4 has taken a fork
+1737994971868 4 is eating
+1737994971868 1 is thinking
+1737994971868 1 has taken a fork
+1737994971868 3 is thinking
+1737994971868 2 is sleeping
+1737994971868 1 has taken a fork
+1737994971868 1 is eating
+1737994971868 3 has taken a fork
+1737994972068 1 is sleeping
+1737994972068 4 is sleeping
+1737994972068 2 is thinking
+1737994972068 2 has taken a fork
+1737994972068 3 has taken a fork
+1737994972068 3 is eating
+1737994972068 5 is thinking
+1737994972068 5 has taken a fork
+1737994972068 5 has taken a fork
+1737994972068 5 is eating
+1737994972268 4 is thinking
+1737994972268 4 has taken a fork
+1737994972268 3 is sleeping
+1737994972268 2 has taken a fork
+1737994972268 2 is eating
+1737994972268 1 is thinking
+1737994972268 5 is sleeping
+1737994972268 4 has taken a fork
+1737994972268 4 is eating
+1737994972268 1 has taken a fork
+1737994972468 3 is thinking
+1737994972468 5 is thinking
+1737994972468 2 is sleeping
+1737994972468 4 is sleeping
+1737994972468 1 has taken a fork
+1737994972468 1 is eating
+1737994972468 3 has taken a fork
+1737994972468 3 has taken a fork
+1737994972468 3 is eating
+1737994972468 5 has taken a fork
+1737994972668 2 is thinking
+1737994972668 4 is thinking
+1737994972668 1 is sleeping
+1737994972668 3 is sleeping
+1737994972668 5 has taken a fork
+1737994972668 5 is eating
+1737994972668 2 has taken a fork
+1737994972668 2 has taken a fork
+1737994972668 2 is eating
+1737994972668 4 has taken a fork
+1737994972868 2 is sleeping
+1737994972868 3 is thinking
+1737994972868 3 has taken a fork
+1737994972868 1 is thinking
+1737994972868 1 has taken a fork
+1737994972868 5 is sleeping
+1737994972868 4 has taken a fork
+1737994972868 4 is eating
+1737994972868 1 has taken a fork
+1737994972868 1 is eating
+1737994973068 2 is thinking
+1737994973068 5 is thinking
+1737994973068 2 has taken a fork
+1737994973068 5 has taken a fork
+1737994973068 5 has taken a fork
+1737994973068 4 is sleeping
+1737994973068 1 is sleeping
+1737994973068 5 is eating
+1737994973068 3 has taken a fork
+1737994973068 3 is eating
+1737994973268 1 is thinking
+1737994973268 3 has eaten 7 times (must_eat == 7)
+1737994973268 2 has taken a fork
+1737994973268 2 is eating
+1737994973268 5 has eaten 7 times (must_eat == 7)
+1737994973268 4 is thinking
+1737994973268 4 has taken a fork
+1737994973268 4 has taken a fork
+1737994973268 4 is eating
+1737994973268 1 has taken a fork
+1737994973468 2 has eaten 7 times (must_eat == 7)
+1737994973468 1 has taken a fork
+1737994973468 1 is eating
+1737994973468 4 has eaten 7 times (must_eat == 7)
+1737994973668 1 has eaten 7 times (must_eat == 7)
+1737994973668 All philosophers eat 7 times - simulation stopping
+1737994973868 3 has died

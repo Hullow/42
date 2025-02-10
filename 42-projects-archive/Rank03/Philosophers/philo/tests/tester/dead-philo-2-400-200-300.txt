@@ -1,0 +1,6 @@
+1737986932407 1 is thinking
+1737986932407 1 has taken a fork
+1737986932407 1 has taken a fork
+1737986932407 1 is eating
+1737986932607 1 is sleeping
+1737986932807 1 has died

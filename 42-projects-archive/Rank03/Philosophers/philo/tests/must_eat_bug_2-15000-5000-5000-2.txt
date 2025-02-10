@@ -1,0 +1,62 @@
+./philo 2 15000 5000 5000 2
+
+
+1738006018005 1 is thinking
+1738006018005 1 has taken a fork
+1738006018005 1 has taken a fork
+1738006018005 1 is eating
+1738006018005 2 is thinking
+
+1738006023005 1 is sleeping
+1738006023005 2 has taken a fork
+1738006023005 2 has taken a fork
+1738006023005 2 is eating
+
+1738006028005 2 is sleeping
+1738006028005 1 is thinking
+1738006028005 1 has taken a fork
+1738006028005 1 has taken a fork
+1738006028005 1 is eating
+
+1738006033005 2 is thinking
+1738006033005 1 has eaten 2 times (must_eat == 2)
+1738006033005 1 has taken a fork
+1738006033005 1 has taken a fork
+1738006033005 1 is eating
+
+1738006038005 1 is sleeping
+1738006038005 2 has taken a fork
+1738006038005 2 has taken a fork
+1738006038005 2 is eating
+
+1738006043005 2 has eaten 2 times (must_eat == 2)
+1738006043005 1 is thinking
+1738006043005 1 has taken a fork
+1738006043005 1 has taken a fork
+1738006043005 1 is eating
+1738006043005 All philosopher eat 2 times - simulation stopping
+
+1738006048005 1 is sleeping
+1738006048005 2 has taken a fork
+1738006048005 2 has taken a fork
+1738006048005 2 is eating
+
+1738006053005 1 is thinking
+1738006053005 2 is sleeping
+1738006053005 1 has taken a fork
+1738006053005 1 has taken a fork
+1738006053005 1 is eating
+
+1738006058005 1 is sleeping
+1738006058005 2 is thinking
+1738006058005 2 has taken a fork
+1738006058005 2 has taken a fork
+1738006058005 2 is eating
+1738006063005 1 is thinking
+1738006063005 1 has taken a fork
+1738006063005 1 has taken a fork
+1738006063005 1 is eating
+1738006063005 2 is sleeping
+
+^C
+francis@philo: 

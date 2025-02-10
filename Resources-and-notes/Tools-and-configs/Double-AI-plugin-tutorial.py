@@ -1,1 +1,0 @@
-/Users/francis/.vscode/extensions/doublebot.doublebot-0.0.118/onboarding/dist/macos-tutorial.py
