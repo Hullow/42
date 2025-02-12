@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
+
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <sys/wait.h>
 
 enum error {
 	EXECVE_ERROR,
@@ -26,6 +27,51 @@ int	handle_error(int error_type)
 	return (0);
 }
 
+bool	is_white_space(char c)
+{
+	if (c == ' ' || c == '\t')
+		return (true);
+	else
+		return (false);
+}
+
+char	**ft_split(char *str)
+{
+	char	**split;
+	int		i;
+	int		j;
+	int		char_index; // counts the length of each token
+	int		word_index; // counts the number of tokens
+
+	i = 0;
+	j = 0;
+	char_index = 0;
+	word_index = 0;
+	while (str[i])
+	{
+		if (!is_white_space(str[i]))
+			char_index++;
+		else
+		{
+			if (char_index)
+				split[word_index] = malloc ((char_index + 1) * sizeof(char));
+			i -= char_index;
+			j = 0;
+			while (j < char_index)
+			{
+				split[word_index][j] = str[i];
+				i++;
+				j++;
+			}
+			char_index = 0;
+			word_index++;
+		}
+		i++;
+	}
+	return (split);
+}
+
+
 int	ft_execute(char	*prompt, char **envp)
 {
 	int		exit_status;
@@ -37,16 +83,18 @@ int	ft_execute(char	*prompt, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
-		sleep(10);
 		char *args[2];
 		args[0] = prompt;
 		args[1] = NULL;
-		const char *path = strcat("bin/", args[0]);
-		printf("path: %s\n", path);
-		if (execve("/bin/ls/", args, envp) == -1)
+		char *path = malloc(strlen("/bin") + strlen(prompt) + 1);
+		if (!path)
+			return (1);
+		strcpy(path, "/bin/");
+		strcat(path, prompt);
+		printf("path is %s\n", path);
+		if (execve(path, args, envp) == -1)
 			handle_error(EXECVE_ERROR);
-		printf("execve'd {%s}\n", path);
-		exit(0);
+		exit(1);
 	}
 	else if (pid == -1)
 		return (handle_error(FORK_ERROR));
