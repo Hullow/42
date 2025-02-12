@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 12:08:31 by francis           #+#    #+#             */
-/*   Updated: 2025/02/10 18:53:47 by francis          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:58:42 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void			print_finished(t_philo *philo, long timestamp);
 int				attempt_to_take_forks(t_philo *philo);
 int				attempt_take_fork(t_philo *philo, t_fork fork_to_pick);
 void			set_forks_status(t_philo *philo, int number);
-int				forks_available(t_philo *philo, int id);
+int				check_forks_reserved(t_philo *philo, int id);
 
 	// Forks utils
 
