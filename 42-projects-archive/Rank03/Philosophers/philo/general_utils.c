@@ -6,7 +6,7 @@
 /*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:55:48 by fallan            #+#    #+#             */
-/*   Updated: 2025/01/30 15:15:06 by fallan           ###   ########.fr       */
+/*   Updated: 2025/01/31 18:18:52 by fallan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ at different times:
 void	stagger_start(int nb_philo, int id)
 {
 	if (id == 1 && nb_philo % 2 != 0)
-		usleep(500);
+		improved_usleep(12, get_time_stamp());
 	else if (id % 2 == 0)
-		usleep(200);
+		improved_usleep(9, get_time_stamp());
 }
 
 /**
