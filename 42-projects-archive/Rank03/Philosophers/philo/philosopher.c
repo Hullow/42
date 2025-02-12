@@ -6,7 +6,7 @@
 /*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 16:45:25 by francis           #+#    #+#             */
-/*   Updated: 2025/02/10 18:52:16 by francis          ###   ########.fr       */
+/*   Updated: 2025/02/12 13:57:05 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	attempt_to_eat(t_philo *philo, int id)
 
 	activity_return = 0;
 	lock_fork_mutexes(philo);
-	if (forks_available(philo, id))
+	if (check_forks_reserved(philo, id))
 	{
 		unlock_fork_mutexes(philo);
 		activity_return = eat(philo);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fallan <fallan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: francis <francis@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 18:06:32 by francis           #+#    #+#             */
-/*   Updated: 2025/01/30 17:56:24 by fallan           ###   ########.fr       */
+/*   Updated: 2025/02/12 13:56:55 by francis          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Philosophers.h"
 
 /* check if the two forks for a given philosopher (id) are available */
-int	forks_available(t_philo *philo, int id)
+int	check_forks_reserved(t_philo *philo, int id)
 {
 	if (*(philo->left_fork) == id && *(philo->right_fork) == id && \
 	philo->left_fork_id != philo->right_fork_id)
@@ -52,7 +52,7 @@ int	attempt_take_fork(t_philo *philo, t_fork fork_to_pick)
 		printf("%ld %d eat previously\n", get_time_stamp(), philo->id);
 	if (*(fork) <= 0 && *(fork) != -(philo->id))
 	{
-		*(fork) = philo->id;
+		memset(fork, philo->id, sizeof(unsigned char));
 		pthread_mutex_unlock(fork_mutex);
 		if (check_simulation_stop(philo->table))
 			return (STOP);
