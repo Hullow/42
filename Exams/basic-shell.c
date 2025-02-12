@@ -6,7 +6,27 @@
 #include <readline/history.h>
 #include <sys/wait.h>
 
-int	ft_execute(char	*prompt, char ***envp)
+enum error {
+	EXECVE_ERROR,
+	FORK_ERROR
+};
+
+int	handle_error(int error_type)
+{
+	if (error_type == EXECVE_ERROR)
+	{
+		perror("Shell:");
+		exit(-1);
+	}
+	else if (error_type == FORK_ERROR)
+	{
+		printf("fork error\n");
+		return (-1);
+	}
+	return (0);
+}
+
+int	ft_execute(char	*prompt, char **envp)
 {
 	int		exit_status;
 	pid_t	pid;
@@ -17,30 +37,25 @@ int	ft_execute(char	*prompt, char ***envp)
 	pid = fork();
 	if (pid == 0)
 	{
+		sleep(10);
 		char *args[2];
 		args[0] = prompt;
 		args[1] = NULL;
-		const char *path = strcat("/bin/", args[0]);
+		const char *path = strcat("bin/", args[0]);
 		printf("path: %s\n", path);
-		if (execve("/bin/ls/", args, *envp) == -1)
-		{
-			printf("execve error\n");
-			exit(-1);
-		}
+		if (execve("/bin/ls/", args, envp) == -1)
+			handle_error(EXECVE_ERROR);
 		printf("execve'd {%s}\n", path);
 		exit(0);
 	}
 	else if (pid == -1)
-	{
-		printf("execution error\n");
-		return (-1);
-	}
+		return (handle_error(FORK_ERROR));
 	else
 	{
 		waitpid(pid, NULL, 0);
-		printf("parent\n");
+		printf("back in parent\n");
 	}
-	return (0);
+	return (exit_status);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -51,11 +66,12 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	exit_status = 0;
+	prompt = readline("Shell>");
 	while (prompt != NULL)
 	{
-		prompt = readline("Shell>");
 		add_history(prompt);
-		exit_status = ft_execute(prompt, &envp);
-		// printf("exit status == %d\n", exit_status);
+		exit_status = ft_execute(prompt, envp);
+		printf("exit status == %d\n", exit_status);
+		prompt = readline("Shell>");
 	}
 }
