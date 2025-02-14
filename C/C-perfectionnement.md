@@ -9,3 +9,7 @@
 - Preprocessors
 - Bit fiddling
 - Advanced data representation
+
+
+### Stuffed I looked at
+- assert (not Prata)

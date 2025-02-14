@@ -11,6 +11,7 @@
 enum error {
 	SPLIT_ERROR,
 	EXECVE_ERROR,
+	PIPE_ERROR,
 	FORK_ERROR
 };
 
@@ -26,11 +27,30 @@ int	handle_error(int error_type)
 		perror("Shell:");
 		exit(-1);
 	}
+	else if (error_type == PIPE_ERROR)
+	{
+		printf("error creating a pipe\n");
+		return (-1);
+	}
 	else if (error_type == FORK_ERROR)
 	{
 		printf("fork error\n");
 		return (-1);
 	}
+	return (0);
+}
+
+int	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 	return (0);
 }
 
@@ -104,7 +124,7 @@ char	**ft_split(char *str, char sep)
 				continue ;
 			}
 		}
-		while (str[i] && !is_white_space(str[i]))
+		while (str[i] && !is_white_space(str[i]) && str[i] != sep)
 		{
 			char_index++;
 			i++;
@@ -161,21 +181,6 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
-int	ft_strlcat(char *dst, char *src, int size)
-{
-	int	i;
-
-	i = 0;
-	if (size <= 0)
-		return (0);
-	while(src[i] && i < size - ft_strlen(dst) - 1)
-	{
-
-		i++;
-	}
-}
-
-
 int	ft_strlcpy(char *dst, char *src, int size)
 {
 	int	i;
@@ -187,17 +192,38 @@ int	ft_strlcpy(char *dst, char *src, int size)
 		i++;
 	}
 	dst[i] = '\0';
-	return (dst);
+	return (i);
+}
+
+int	ft_strlcat(char *dst, char *src, int size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (size <= 0)
+		return (0);
+	while (dst[j])
+		j++;
+	while (src[i] && i < size - ft_strlen(dst) - 1)
+	{
+		dst[j + i] = src[i];
+		i++;
+	}
+	dst[j + i] = '\0';
+	return (i);
 }
 
 char	*find_executable(char *executable, char **envp)
 {
 	char	*path_var;
-	char	*possible_path;
+	char	*possible_path = NULL;
 	char	**paths = NULL;
 	int		i;
+	int		size;
 
-	path_var =	get_path_var(envp);
+	path_var = get_path_var(envp);
 	if (!path_var)
 		return (NULL);
 	paths = ft_split(path_var, ':');
@@ -206,31 +232,53 @@ char	*find_executable(char *executable, char **envp)
 	i = 0;
 	while (paths[i])
 	{
-		possible_path = malloc ((ft_strlen(executable) + ft_strlen(paths[i])) * sizeof(char));
-		
-		access
+		size = ft_strlen(executable) + ft_strlen(paths[i]) + 4;
+		possible_path = malloc (size * sizeof(char));
+		ft_strlcpy(possible_path, paths[i], ft_strlen(paths[i]) + 1);
+		ft_strlcat(possible_path, "/", size);
+		ft_strlcat(possible_path, executable, size + 3);
+		if (access(possible_path, F_OK) == 0)
+			return (possible_path);
+		free(possible_path);
+		i++;
 	}
-	return
+	free_array(paths);
+	return (NULL);
 }
+
+
+/* How piping will work: 
+
+	1. Parsing:
+		- break commands into before and after pipe
+		- 
+
+
+	Write output of first command to write end of the pipe
+	Read input of second command from read end of the pipe
+*/
 
 int	ft_execute(char	*prompt, char **envp)
 {
 	int		exit_status;
+	int		descriptors[2];
 	pid_t	pid;
 
 	exit_status = 0;
 	if (!prompt || strlen(prompt) == 0)
 		return (1);
+	if (pipe(descriptors) == -1)
+		return (handle_error(PIPE_ERROR));
 	pid = fork();
 	if (pid == 0)
 	{
+		close(descriptors[1]); /* close unused write end */
 		char **args = ft_split(prompt, 0);
-		char *path = malloc(strlen("/bin") + strlen(args[0]) + 1);
+		char *path = find_executable(args[0], envp);
 		if (!path)
-			return (1);
-		strcpy(path, "/bin/");
-		strcat(path, args[0]);
-		printf("path is %s\n", path);
+			return (127);
+		if (access(path, X_OK))
+			return (126);
 		if (execve(path, args, envp) == -1)
 			handle_error(EXECVE_ERROR);
 		exit(1);
@@ -239,8 +287,8 @@ int	ft_execute(char	*prompt, char **envp)
 		return (handle_error(FORK_ERROR));
 	else
 	{
+		close(descriptors[0]);
 		waitpid(pid, NULL, 0);
-		printf("back in parent\n");
 	}
 	return (exit_status);
 }
@@ -258,12 +306,10 @@ int main(int argc, char **argv, char **envp)
 	{
 		add_history(prompt);
 		exit_status = ft_execute(prompt, envp);
-		printf("exit status == %d\n", exit_status);
+		printf("exit status %d\n", exit_status);
 		prompt = readline("Shell>");
 	}
 }
-
-
 
 // to test ft_split
 // int main(int argc, char **argv)

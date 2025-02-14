@@ -329,6 +329,11 @@ Function arguments can vary in number and in type. To handle this, C doesn't hav
 ##### [Calling variadic functions](https://www.gnu.org/software/libc/manual/html_node/Calling-Variadics.html)
 > Since the prototype doesn’t specify types for optional arguments, in a call to a variadic function the default argument promotions are performed on the optional argument values. This means the objects of type char or short int (whether signed or not) are promoted to either int or unsigned int, as appropriate; and that objects of type float are promoted to type double. So, if the caller passes a char as an optional argument, it is promoted to an int, and the function can access it with va_arg (ap, int).
 
+##### Assert macro
+- Aborts the program if the assertion is false (macro).
+- General form: `#include <assert.h>.` `void assert(scalar expression);`
+- Usage: `assert(atoi(argv[1]) > 0);` => if expression true, continues. Else, aborts.
+
 ## Command line arguments
 From @dthalman in 42 discord, #C channel — 09/07/2022 10:46
 >Hello, je trouvais sympa de vous partager ceci :
